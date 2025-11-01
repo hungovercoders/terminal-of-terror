@@ -1,0 +1,114 @@
+[
+  {
+    "name": "Dracula",
+    "description": "The legendary vampire count from Transylvania",
+    "origin": "Romanian folklore",
+    "firstApp": "Bram Stoker's Dracula (1897)",
+    "facts": [
+      "Dracula can transform into a bat, wolf, or mist",
+      "He is repelled by garlic, crosses, and holy water",
+      "Dracula must rest in his coffin with Transylvanian soil",
+      "He casts no reflection and has no shadow",
+      "The character was inspired by Vlad the Impaler",
+      "Dracula has superhuman strength and can control weather"
+    ]
+  },
+  {
+    "name": "Frankenstein's Monster",
+    "description": "The tragic creature created by Dr. Victor Frankenstein",
+    "origin": "Literary fiction",
+    "firstApp": "Frankenstein by Mary Shelley (1818)",
+    "facts": [
+      "The monster is never given a name in the original novel",
+      "He was created from assembled body parts",
+      "The monster is highly intelligent and teaches himself to read",
+      "He seeks love and acceptance but is rejected by society",
+      "Mary Shelley wrote Frankenstein when she was only 18 years old",
+      "The monster's first request was for a female companion"
+    ]
+  },
+  {
+    "name": "The Wolf Man",
+    "description": "A man cursed to transform into a werewolf",
+    "origin": "European folklore",
+    "firstApp": "The Wolf Man (1941 film)",
+    "facts": [
+      "Werewolves transform during a full moon",
+      "Silver bullets are the most effective weapon against werewolves",
+      "The curse can be passed through a bite or scratch",
+      "Wolfsbane is a plant that can repel werewolves",
+      "Larry Talbot was the original Wolf Man character",
+      "The transformation is often depicted as painful"
+    ]
+  },
+  {
+    "name": "The Mummy",
+    "description": "An ancient Egyptian priest brought back to life",
+    "origin": "Ancient Egyptian mythology",
+    "firstApp": "The Mummy (1932 film)",
+    "facts": [
+      "Imhotep was the name of the original Universal Mummy",
+      "The Mummy seeks to resurrect his lost love",
+      "Ancient curses were believed to protect tombs",
+      "The discovery of King Tut's tomb inspired the Mummy films",
+      "Mummies were preserved through a 70-day process",
+      "The Mummy can command supernatural powers"
+    ]
+  },
+  {
+    "name": "The Creature from the Black Lagoon",
+    "description": "An amphibious humanoid from the Amazon",
+    "origin": "Film original",
+    "firstApp": "Creature from the Black Lagoon (1954)",
+    "facts": [
+      "The Creature is also known as Gill-man",
+      "He is a prehistoric evolutionary link",
+      "The Creature can breathe both underwater and on land",
+      "He becomes fascinated by humans, particularly women",
+      "The film was originally shot in 3D",
+      "The Creature represents nature's mystery and danger"
+    ]
+  },
+  {
+    "name": "The Invisible Man",
+    "description": "A scientist who discovers the secret of invisibility",
+    "origin": "Literary fiction",
+    "firstApp": "The Invisible Man by H.G. Wells (1897)",
+    "facts": [
+      "Dr. Griffin is driven mad by his condition",
+      "Invisibility cannot be reversed in the original story",
+      "The Invisible Man must be completely nude to be fully invisible",
+      "Fog, smoke, or snow can reveal his presence",
+      "The character explores themes of power and corruption",
+      "He wears bandages and dark glasses to appear visible"
+    ]
+  },
+  {
+    "name": "The Phantom of the Opera",
+    "description": "A disfigured musical genius haunting the Paris Opera House",
+    "origin": "Literary fiction",
+    "firstApp": "The Phantom of the Opera by Gaston Leroux (1909)",
+    "facts": [
+      "The Phantom's real name is Erik",
+      "He lives in the catacombs beneath the opera house",
+      "Erik is a master of music, magic, and architecture",
+      "His face is severely disfigured",
+      "He falls in love with Christine Daaé, a young soprano",
+      "The story is partly based on real events at the Paris Opera"
+    ]
+  },
+  {
+    "name": "The Hunchback of Notre Dame",
+    "description": "The deformed bell-ringer of Notre Dame Cathedral",
+    "origin": "Literary fiction",
+    "firstApp": "Notre-Dame de Paris by Victor Hugo (1831)",
+    "facts": [
+      "His name is Quasimodo, meaning 'half-formed'",
+      "He is deaf from years of ringing the cathedral bells",
+      "Quasimodo has a kind heart despite his appearance",
+      "He is deeply loyal to Esmeralda",
+      "The novel helped save Notre Dame from demolition",
+      "Quasimodo has superhuman strength and agility"
+    ]
+  }
+]
