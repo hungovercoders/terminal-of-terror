@@ -2,6 +2,8 @@
 
 Learn how to build a terminal-based CLI application with an interactive UI from scratch using Go, Cobra, Bubbletea, and Lipgloss.
 
+> **Note:** This tutorial walks you through building the Terminal of Terror application from scratch. You can find the complete, working code in the [hungovercoders/terminal-of-terror](https://github.com/hungovercoders/terminal-of-terror) repository. Feel free to reference the actual code as you work through this tutorial!
+
 ## Table of Contents
 
 1. [Prerequisites](#prerequisites)
@@ -62,6 +64,8 @@ mkdir terminal-of-terror
 cd terminal-of-terror
 go mod init github.com/yourusername/terminal-of-terror
 ```
+
+**Note:** Replace `yourusername` with your actual GitHub username throughout this tutorial. For example, if you're studying the original repository, it would be `github.com/hungovercoders/terminal-of-terror`.
 
 This creates a `go.mod` file that manages your project's dependencies.
 
