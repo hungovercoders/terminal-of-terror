@@ -2,7 +2,6 @@ package monsters
 
 import (
 	"math/rand"
-	"time"
 )
 
 // Monster represents a universal monster with facts
@@ -136,7 +135,6 @@ func GetAllMonsters() []Monster {
 
 // GetRandomMonster returns a random monster
 func GetRandomMonster() Monster {
-	rand.Seed(time.Now().UnixNano())
 	return monsters[rand.Intn(len(monsters))]
 }
 
@@ -153,7 +151,6 @@ func GetMonsterByName(name string) *Monster {
 // GetRandomFact returns a random fact from a random monster
 func GetRandomFact() (string, string) {
 	monster := GetRandomMonster()
-	rand.Seed(time.Now().UnixNano())
 	fact := monster.Facts[rand.Intn(len(monster.Facts))]
 	return monster.Name, fact
 }
