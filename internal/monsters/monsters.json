@@ -4,8 +4,8 @@
     "description": "The legendary vampire count from Transylvania",
     "origin": "Romanian folklore",
     "firstApp": "Bram Stoker's Dracula (1897)",
-    "ascii": "      /\\   /\\\n     (  . .)\n      )   (\n     (  v  )\n    ^^  |  ^^\n   /  \\ | /  \\\n  |    \\|/    |\n   \\    |    /\n    |   |   |\n    |  /_\\  |\n     \\     /\n      |   |\n      |   |\n     /     \\\n    /       \\",
-    "facts": [
+"ascii": "          xxxxxxxxxxxxxxxxxxxxx             \n         xxxxxxxxxxxxxxxxxxxxxxx            \n        xxxxxxxxxxxxxxxxxxxxxxxx            \n       xxxx    xxxxxxx        xxxx          \n      xx          xxx             xxxx      \nxxx  xx      xxx   x     xx          xx  xxx\nx xxxx         xxx     xx             xxxx x\n x  xx        x  xx  xxx  x                x\n x   x  x                        xx        x\n x      xxx         x           xx         x\n x        xxx       x          xx          x\n x xx      xxxx            xxxxx       xxx x\n xxxx       xxxxx        xxxx          x xxx\n  xxxxx      x  xxxxxxxxxx  x         xx   x\n      xx     xx xx       x  x       xxx     \n       xxx    x x        xxxx     xxx       \n         xx   xxx         xx     xx         \n          xxx  xx          x  xxx           \n             xxx            xxx             \n                xxx        xx               \n                  xxxxx xxx                 \n                      xxx                   ",
+"facts": [
       "Dracula can transform into a bat, wolf, or mist",
       "He is repelled by garlic, crosses, and holy water",
       "Dracula must rest in his coffin with Transylvanian soil",
