@@ -4,7 +4,7 @@ import (
 	"fmt"
 	"strings"
 
-	"github.com/charmbracelet/bubbletea"
+	tea "github.com/charmbracelet/bubbletea"
 	"github.com/charmbracelet/lipgloss"
 	"github.com/hungovercoders/terminal-of-terror/internal/monsters"
 )
@@ -42,19 +42,19 @@ var (
 )
 
 type model struct {
-	monsters      []monsters.Monster
-	currentIndex  int
-	quitting      bool
-	width         int
-	height        int
+	monsters        []monsters.Monster
+	currentIndex    int
+	quitting        bool
+	width           int
+	height          int
 	showAllMonsters bool
 }
 
 func InitialModel(showAll bool) model {
 	allMonsters := monsters.GetAllMonsters()
 	return model{
-		monsters:      allMonsters,
-		currentIndex:  0,
+		monsters:        allMonsters,
+		currentIndex:    0,
 		showAllMonsters: showAll,
 	}
 }
@@ -115,10 +115,21 @@ func (m model) View() string {
 		// Description
 		b.WriteString(descriptionStyle.Render(monster.Description) + "\n\n")
 
+		// ASCII Art
+		if monster.ASCII != "" {
+			asciiStyle := lipgloss.NewStyle().
+				Foreground(lipgloss.Color("#FF69B4")).
+				MarginBottom(1).
+				Border(lipgloss.RoundedBorder(), true).
+				BorderForeground(lipgloss.Color("#666666")).
+				Padding(1, 2)
+			b.WriteString(asciiStyle.Render(monster.ASCII) + "\n\n")
+		}
+
 		// Facts
 		b.WriteString(lipgloss.NewStyle().Bold(true).Foreground(lipgloss.Color("#FFA500")).Render("Terrifying Facts:") + "\n")
 		for _, fact := range monster.Facts {
-			b.WriteString(factStyle.Render("• " + fact) + "\n")
+			b.WriteString(factStyle.Render("• "+fact) + "\n")
 		}
 
 		// Meta information

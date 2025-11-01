@@ -4,6 +4,7 @@
     "description": "The legendary vampire count from Transylvania",
     "origin": "Romanian folklore",
     "firstApp": "Bram Stoker's Dracula (1897)",
+    "ascii": "      /\\   /\\\n     (  . .)\n      )   (\n     (  v  )\n    ^^  |  ^^\n   /  \\ | /  \\\n  |    \\|/    |\n   \\    |    /\n    |   |   |\n    |  /_\\  |\n     \\     /\n      |   |\n      |   |\n     /     \\\n    /       \\",
     "facts": [
       "Dracula can transform into a bat, wolf, or mist",
       "He is repelled by garlic, crosses, and holy water",
@@ -18,6 +19,7 @@
     "description": "The tragic creature created by Dr. Victor Frankenstein",
     "origin": "Literary fiction",
     "firstApp": "Frankenstein by Mary Shelley (1818)",
+    "ascii": "    ___________\n   |  _     _  |\n   | |_|   |_| |\n   |     ^     |\n   |  \\-----/  |\n   |___________|  \n   |           |\n   |   [___]   |\n   |           |\n  /|           |\\\n / |___________|_\\\n|               |\n|  |||     |||  |\n|  |||     |||  |\n|___||_____||___|\n    ||     ||    \n   _||_   _||_   \n  |___|  |___|   ",
     "facts": [
       "The monster is never given a name in the original novel",
       "He was created from assembled body parts",
@@ -32,6 +34,7 @@
     "description": "A man cursed to transform into a werewolf",
     "origin": "European folklore",
     "firstApp": "The Wolf Man (1941 film)",
+    "ascii": "      /|   /|  \n     ( :v:  )  \n      |(_)|    \n     /     \\   \n    /  ___  \\  \n   /  /   \\  \\ \n  |  |     |  |\n  |  |     |  |\n   \\ |     | / \n    \\|_____|/  \n     |     |   \n     |  |  |   \n    /|  |  |\\  \n   / |  |  | \\ \n  |  |__|__|  |\n   \\         / \n    \\_______/  ",
     "facts": [
       "Werewolves transform during a full moon",
       "Silver bullets are the most effective weapon against werewolves",
@@ -46,6 +49,7 @@
     "description": "An ancient Egyptian priest brought back to life",
     "origin": "Ancient Egyptian mythology",
     "firstApp": "The Mummy (1932 film)",
+    "ascii": "   ____________\n  |  ________  |\n  | |  o  o  | |\n  | |    _   | |\n  | | \\___/  | |\n  |_|________| |\n  |____________|\n  |            |\n  |    ____    |\n  |   |    |   |\n  |   |    |   |\n  |___|____|___|\n      |    |\n   ___|____|\n  |_________|\n      |||||\n     |||||||\n    |||||||||\n   |||||||||||",
     "facts": [
       "Imhotep was the name of the original Universal Mummy",
       "The Mummy seeks to resurrect his lost love",
@@ -60,6 +64,7 @@
     "description": "An amphibious humanoid from the Amazon",
     "origin": "Film original",
     "firstApp": "Creature from the Black Lagoon (1954)",
+    "ascii": "    ___===___\n   /  °   °  \\\n  |     ^     |\n  |  \\-----/  |\n   \\  ~~~~~  /\n    \\-------/\n     ||||||||\n    /|||||||||\\\n   /|||||||||||\\  \n  |~~~~~~~~~~~~~|\n  |  ~~~   ~~~  |\n  |    ~~~~~    |\n   \\  ~~~~~~~  /\n    |~~~~~~~~~|\n    |~~~|||~~~|\n    |   |||   |\n     \\ ||||| /\n      \\|||||/\n       |||||",
     "facts": [
       "The Creature is also known as Gill-man",
       "He is a prehistoric evolutionary link",
@@ -74,6 +79,7 @@
     "description": "A scientist who discovers the secret of invisibility",
     "origin": "Literary fiction",
     "firstApp": "The Invisible Man by H.G. Wells (1897)",
+    "ascii": "   ____________\n  |____________|\n  |  [======]  |\n  | |        | |\n  | |   ..   | |\n  | |        | |\n  |_|________|_|\n    |        |\n   /|________|\\\n  | |        | |\n  | |   ==   | |\n  | |________| |\n  |____________|\n       |||||\n      |||||||\n     |||||||||\n    ||||||||||| \n   ||||     ||||\n  ||||       ||||",
     "facts": [
       "Dr. Griffin is driven mad by his condition",
       "Invisibility cannot be reversed in the original story",
@@ -88,6 +94,7 @@
     "description": "A disfigured musical genius haunting the Paris Opera House",
     "origin": "Literary fiction",
     "firstApp": "The Phantom of the Opera by Gaston Leroux (1909)",
+    "ascii": "      _______\n     /       \\\n    |  .   .  |\n    |     <   |\n    | \\     / |\n     \\  ___  /\n      \\_____/\n       ||||||\n      /||||||\\\n     ||||||||\n    ||||||||||\n   ||||||||||||   \n  ||||||||||||||  \n |||||♪♪♪♪♪|||||| \n|||||||♪♪♪||||||||\n |||||||||||||||||\n  |||||||||||||||",
     "facts": [
       "The Phantom's real name is Erik",
       "He lives in the catacombs beneath the opera house",
@@ -102,6 +109,7 @@
     "description": "The deformed bell-ringer of Notre Dame Cathedral",
     "origin": "Literary fiction",
     "firstApp": "Notre-Dame de Paris by Victor Hugo (1831)",
+    "ascii": "       ___\n      /   \\\n     | o o |\n      \\   /\n    ___\\_/___\n   /         \\\n  |     ^     |\n  |  \\-----/  |\n   \\         /\n    |  ___  |\n   /|___|___|\\\n  / |       | \\\n |  |       |  |\n  \\ |_______| /\n   \\|       |/\n    |   |   |\n    |  /|\\  |\n   /|_/ | \\_|\\\n  |___|_|___|_|\n     | | | |",
     "facts": [
       "His name is Quasimodo, meaning 'half-formed'",
       "He is deaf from years of ringing the cathedral bells",
