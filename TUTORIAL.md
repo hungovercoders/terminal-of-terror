@@ -226,6 +226,8 @@ func init() {
 
 ### Step 1: Define the Monster Data Structure
 
+> **Note:** The code examples in this tutorial are simplified for teaching purposes. In production code, you should add additional error handling and validation (e.g., checking for empty slices before using `rand.Intn()`).
+
 Create `internal/monsters/monsters.go`:
 
 ```go
@@ -866,6 +868,8 @@ go test ./...
    - Always check and handle errors
    - Provide meaningful error messages
    - Use `RunE` instead of `Run` for commands that can fail
+   - Add validation for edge cases (empty slices, nil pointers, etc.)
+   - In production code, check for empty data before operations like `rand.Intn(len(slice))`
 
 3. **Documentation**
    - Comment exported functions and types
