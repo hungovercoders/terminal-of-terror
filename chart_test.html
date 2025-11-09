@@ -1,0 +1,35 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Chart.js Test</title>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/3.9.1/chart.min.js"></script>
+</head>
+<body>
+    <h2>Chart.js Test</h2>
+    <div style="width: 400px; height: 400px;">
+        <canvas id="testChart"></canvas>
+    </div>
+    
+    <script>
+        console.log('Testing Chart.js...');
+        console.log('Chart available:', typeof Chart !== 'undefined');
+        
+        if (typeof Chart !== 'undefined') {
+            const ctx = document.getElementById('testChart').getContext('2d');
+            new Chart(ctx, {
+                type: 'doughnut',
+                data: {
+                    labels: ['Low', 'Medium', 'High'],
+                    datasets: [{
+                        data: [16, 1, 0],
+                        backgroundColor: ['#28a745', '#ffc107', '#dc3545']
+                    }]
+                }
+            });
+            console.log('Chart created successfully');
+        } else {
+            console.error('Chart.js not loaded');
+        }
+    </script>
+</body>
+</html>

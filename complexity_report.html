@@ -1,0 +1,503 @@
+<!DOCTYPE HTML PUBLIC
+"-//W3C//DTD HTML 4.01 Transitional//EN"
+"http://www.w3.org/TR/html4/loose.dtd">
+<html>
+ <head>
+  <meta http-equiv="Content-Type" content="text/html; charset=utf-8">
+  <title>Code complexity report</title>
+  <!-- DataTables CSS -->
+  <link rel="stylesheet" type="text/css" href="https://cdn.datatables.net/1.13.4/css/jquery.dataTables.min.css">
+  <!-- jQuery -->
+  <script src="https://code.jquery.com/jquery-3.7.0.min.js"></script>
+  <!-- DataTables JS -->
+  <script src="https://cdn.datatables.net/1.13.4/js/jquery.dataTables.min.js"></script>
+  <style>
+    h2
+    {
+          text-align: center;
+    }
+        td.footer
+        {
+          text-align: center;
+          padding-top: 3px;
+          font-family: sans-serif;
+        }
+    td.greater-value
+        {
+          padding-top: 2px;
+          text-align: center;
+          padding-left: 10px;
+          padding-right: 10px;
+          font-family: sans-serif;
+          white-space: nowrap;
+      background-color: LightPink;
+        }
+    td.lesser-value
+        {
+          padding-top: 2px;
+          text-align: center;
+          padding-left: 10px;
+          padding-right: 10px;
+          font-family: sans-serif;
+          white-space: nowrap;
+      background-color: LightGreen;
+        }
+    td.value
+        {
+          padding-top: 2px;
+          text-align: center;
+          padding-left: 10px;
+          padding-right: 10px;
+          font-family: sans-serif;
+          white-space: nowrap;
+        }
+    td.file-header
+        {
+          background-color: LightBlue;
+          font-weight: bold;
+        }
+    td.function-name
+        {
+          background-color: LightSteelBlue;
+        }
+    /* DataTables wrapper styling */
+    .dataTables_wrapper {
+          margin: 0 auto;
+          width: 95%;
+        }
+    /* Fallback styling if DataTables CSS doesn't load */
+    table#complexityTable {
+          border-collapse: collapse;
+          width: 95%;
+          margin: 0 auto;
+        }
+    table#complexityTable th {
+          background-color: #4CAF50;
+          color: white;
+          padding: 10px;
+          text-align: left;
+          border: 1px solid #ddd;
+        }
+    table#complexityTable td {
+          border: 1px solid #ddd;
+        }
+    table#complexityTable tr:nth-child(even) {
+          background-color: #f2f2f2;
+        }
+    table#complexityTable tr:hover {
+          background-color: #ddd;
+        }
+  </style>
+ </head>
+ <body>
+<h2>Code Complexity Report</h2>
+
+<center>
+
+<table id="complexityTable" class="display" style="width:100%">
+  <thead>
+    <tr>
+      <th>File</th>
+      <th>Function name</th>
+      <th>Cyclomatic complexity (15)</th>
+      <th>LOC (1000000)</th>
+      <th>
+        
+           Token count
+        
+      </th>
+      <th>Parameter count (100)</th>
+    </tr>
+  </thead>
+  <tbody>
+
+  
+  <tr>
+    <td>/workspaces/terminal-of-terror/cmd/random.go</td>
+    <td class="function-name"></td>
+    
+       <td class="lesser-value">1</td>
+    
+
+    
+       <td class="lesser-value">6</td>
+    
+
+    
+       <td class="value">46</td>
+    
+
+    
+       <td class="lesser-value">0</td>
+    
+  </tr>
+  
+  <tr>
+    <td>/workspaces/terminal-of-terror/cmd/random.go</td>
+    <td class="function-name">init</td>
+    
+       <td class="lesser-value">1</td>
+    
+
+    
+       <td class="lesser-value">3</td>
+    
+
+    
+       <td class="value">12</td>
+    
+
+    
+       <td class="lesser-value">0</td>
+    
+  </tr>
+  
+
+  
+  <tr>
+    <td>/workspaces/terminal-of-terror/cmd/root.go</td>
+    <td class="function-name">Execute</td>
+    
+       <td class="lesser-value">2</td>
+    
+
+    
+       <td class="lesser-value">6</td>
+    
+
+    
+       <td class="value">25</td>
+    
+
+    
+       <td class="lesser-value">0</td>
+    
+  </tr>
+  
+  <tr>
+    <td>/workspaces/terminal-of-terror/cmd/root.go</td>
+    <td class="function-name">init</td>
+    
+       <td class="lesser-value">1</td>
+    
+
+    
+       <td class="lesser-value">3</td>
+    
+
+    
+       <td class="value">13</td>
+    
+
+    
+       <td class="lesser-value">0</td>
+    
+  </tr>
+  
+
+  
+  <tr>
+    <td>/workspaces/terminal-of-terror/cmd/list.go</td>
+    <td class="function-name"></td>
+    
+       <td class="lesser-value">2</td>
+    
+
+    
+       <td class="lesser-value">9</td>
+    
+
+    
+       <td class="value">72</td>
+    
+
+    
+       <td class="lesser-value">0</td>
+    
+  </tr>
+  
+  <tr>
+    <td>/workspaces/terminal-of-terror/cmd/list.go</td>
+    <td class="function-name">init</td>
+    
+       <td class="lesser-value">1</td>
+    
+
+    
+       <td class="lesser-value">3</td>
+    
+
+    
+       <td class="value">12</td>
+    
+
+    
+       <td class="lesser-value">0</td>
+    
+  </tr>
+  
+
+  
+  <tr>
+    <td>/workspaces/terminal-of-terror/cmd/monster.go</td>
+    <td class="function-name">init</td>
+    
+       <td class="lesser-value">1</td>
+    
+
+    
+       <td class="lesser-value">4</td>
+    
+
+    
+       <td class="value">31</td>
+    
+
+    
+       <td class="lesser-value">0</td>
+    
+  </tr>
+  
+
+  
+  <tr>
+    <td>/workspaces/terminal-of-terror/internal/monsters/monsters.go</td>
+    <td class="function-name">init</td>
+    
+       <td class="lesser-value">2</td>
+    
+
+    
+       <td class="lesser-value">5</td>
+    
+
+    
+       <td class="value">32</td>
+    
+
+    
+       <td class="lesser-value">0</td>
+    
+  </tr>
+  
+  <tr>
+    <td>/workspaces/terminal-of-terror/internal/monsters/monsters.go</td>
+    <td class="function-name">GetAllMonsters</td>
+    
+       <td class="lesser-value">1</td>
+    
+
+    
+       <td class="lesser-value">3</td>
+    
+
+    
+       <td class="value">11</td>
+    
+
+    
+       <td class="lesser-value">0</td>
+    
+  </tr>
+  
+  <tr>
+    <td>/workspaces/terminal-of-terror/internal/monsters/monsters.go</td>
+    <td class="function-name">GetRandomMonster</td>
+    
+       <td class="lesser-value">1</td>
+    
+
+    
+       <td class="lesser-value">3</td>
+    
+
+    
+       <td class="value">20</td>
+    
+
+    
+       <td class="lesser-value">0</td>
+    
+  </tr>
+  
+  <tr>
+    <td>/workspaces/terminal-of-terror/internal/monsters/monsters.go</td>
+    <td class="function-name">GetMonsterByName</td>
+    
+       <td class="lesser-value">3</td>
+    
+
+    
+       <td class="lesser-value">8</td>
+    
+
+    
+       <td class="value">37</td>
+    
+
+    
+       <td class="lesser-value">1</td>
+    
+  </tr>
+  
+  <tr>
+    <td>/workspaces/terminal-of-terror/internal/monsters/monsters.go</td>
+    <td class="function-name">GetRandomFact</td>
+    
+       <td class="lesser-value">1</td>
+    
+
+    
+       <td class="lesser-value">5</td>
+    
+
+    
+       <td class="value">40</td>
+    
+
+    
+       <td class="lesser-value">0</td>
+    
+  </tr>
+  
+
+  
+  <tr>
+    <td>/workspaces/terminal-of-terror/internal/ui/ui.go</td>
+    <td class="function-name">InitialModel</td>
+    
+       <td class="lesser-value">1</td>
+    
+
+    
+       <td class="lesser-value">8</td>
+    
+
+    
+       <td class="value">32</td>
+    
+
+    
+       <td class="lesser-value">1</td>
+    
+  </tr>
+  
+  <tr>
+    <td>/workspaces/terminal-of-terror/internal/ui/ui.go</td>
+    <td class="function-name">Init</td>
+    
+       <td class="lesser-value">1</td>
+    
+
+    
+       <td class="lesser-value">3</td>
+    
+
+    
+       <td class="value">15</td>
+    
+
+    
+       <td class="lesser-value">0</td>
+    
+  </tr>
+  
+  <tr>
+    <td>/workspaces/terminal-of-terror/internal/ui/ui.go</td>
+    <td class="function-name">Update</td>
+    
+       <td class="lesser-value">6</td>
+    
+
+    
+       <td class="lesser-value">16</td>
+    
+
+    
+       <td class="value">137</td>
+    
+
+    
+       <td class="lesser-value">1</td>
+    
+  </tr>
+  
+  <tr>
+    <td>/workspaces/terminal-of-terror/internal/ui/ui.go</td>
+    <td class="function-name">RunUI</td>
+    
+       <td class="lesser-value">1</td>
+    
+
+    
+       <td class="lesser-value">5</td>
+    
+
+    
+       <td class="value">31</td>
+    
+
+    
+       <td class="lesser-value">1</td>
+    
+  </tr>
+  
+
+  
+  <tr>
+    <td>/workspaces/terminal-of-terror/main.go</td>
+    <td class="function-name">main</td>
+    
+       <td class="lesser-value">1</td>
+    
+
+    
+       <td class="lesser-value">3</td>
+    
+
+    
+       <td class="value">11</td>
+    
+
+    
+       <td class="lesser-value">0</td>
+    
+  </tr>
+  
+
+  </tbody>
+</table>
+<center>
+
+<br>
+<table width="100%" border=0 cellspacing=0 cellpadding=0>
+    <tr><td class="footer">Generated by
+    <a href="http://www.lizard.ws/">Lizard</a> on 2025-11-09 11:56
+    </td></tr>
+</table>
+
+<script>
+// Gracefully degrade if CDN is unavailable
+if (typeof jQuery !== 'undefined' && typeof jQuery.fn.dataTable !== 'undefined') {
+    $(document).ready(function() {
+        try {
+            $('#complexityTable').DataTable({
+                "pageLength": 25,
+                "order": [[2, "desc"]],  // Sort by cyclomatic complexity descending by default
+                "columnDefs": [
+                    { "type": "num", "targets": [2, 3, 4, 5] }  // Ensure numeric sorting for metric columns
+                ]
+            });
+        } catch (e) {
+            console.warn('DataTables initialization failed. Displaying static table.', e);
+        }
+    });
+} else {
+    // Fallback: Table will display as static HTML
+    console.info('DataTables not available. Displaying static HTML table.');
+}
+</script>
+
+ </body>
+</html>
+

@@ -1,0 +1,21 @@
+6,1,46,0,6,"@14-19@./cmd/random.go","./cmd/random.go","","(cmd*cobra.Command,args[]string)",14,19
+3,1,12,0,3,"init@22-24@./cmd/random.go","./cmd/random.go","init","init",22,24
+6,2,25,0,6,"Execute@21-26@./cmd/root.go","./cmd/root.go","Execute","Execute",21,26
+3,1,13,0,3,"init@28-30@./cmd/root.go","./cmd/root.go","init","init",28,30
+9,2,72,0,9,"@14-22@./cmd/list.go","./cmd/list.go","","(cmd*cobra.Command,args[]string)",14,22
+3,1,12,0,3,"init@25-27@./cmd/list.go","./cmd/list.go","init","init",25,27
+4,1,31,0,4,"init@20-23@./cmd/monster.go","./cmd/monster.go","init","init",20,23
+5,2,32,0,5,"init@26-30@./internal/monsters/monsters.go","./internal/monsters/monsters.go","init","init",26,30
+3,1,11,0,3,"GetAllMonsters@33-35@./internal/monsters/monsters.go","./internal/monsters/monsters.go","GetAllMonsters","GetAllMonsters",33,35
+3,1,20,0,3,"GetRandomMonster@38-40@./internal/monsters/monsters.go","./internal/monsters/monsters.go","GetRandomMonster","GetRandomMonster",38,40
+8,3,37,1,8,"GetMonsterByName@43-50@./internal/monsters/monsters.go","./internal/monsters/monsters.go","GetMonsterByName","GetMonsterByName name string",43,50
+5,1,40,0,5,"GetRandomFact@53-57@./internal/monsters/monsters.go","./internal/monsters/monsters.go","GetRandomFact","GetRandomFact",53,57
+8,1,32,1,8,"InitialModel@53-60@./internal/ui/ui.go","./internal/ui/ui.go","InitialModel","InitialModel showAll bool",53,60
+3,1,15,0,3,"Init@62-64@./internal/ui/ui.go","./internal/ui/ui.go","Init","(m model)Init",62,64
+16,6,137,1,16,"Update@66-81@./internal/ui/ui.go","./internal/ui/ui.go","Update","(m model)Update msg tea . Msg",66,81
+5,1,31,1,5,"RunUI@151-155@./internal/ui/ui.go","./internal/ui/ui.go","RunUI","RunUI showAll bool",151,155
+21,4,171,0,29,"run_lizard_analysis@10-38@./generate_dynamic_report.py","./generate_dynamic_report.py","run_lizard_analysis","run_lizard_analysis( )",10,38
+24,14,204,1,235,"generate_html_report@40-274@./generate_dynamic_report.py","./generate_dynamic_report.py","generate_html_report","generate_html_report( data )",40,274
+11,5,87,1,26,"generate_table_rows@276-301@./generate_dynamic_report.py","./generate_dynamic_report.py","generate_table_rows","generate_table_rows( data )",276,301
+14,2,73,0,25,"main@303-327@./generate_dynamic_report.py","./generate_dynamic_report.py","main","main( )",303,327
+3,1,11,0,3,"main@5-7@./main.go","./main.go","main","main",5,7
