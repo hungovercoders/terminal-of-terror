@@ -12,6 +12,8 @@ Terminal of Terror is a CLI application that brings classic universal monsters t
 - 📺 A late-night Creature Feature hosted by Count Cathode, with a TV-static opening
 - 🎨 Colours for each monster, and a black-and-white silent-film mode
 - 🔎 Search across every monster's facts, films and legends
+- 🧠 The Midnight Quiz, Guess the Monster and the Monster Mash
+- ⚰️ Capture monsters for your crypt and earn badges
 - 🎲 Get random monster facts
 - 📖 Interactive navigation between monsters
 - ⚡ Fast and lightweight CLI tool
@@ -110,13 +112,61 @@ terminal-of-terror random
 
 #### JSON Output
 
-`list`, `random` and `monster` accept `--json` for scripting:
+`list`, `random`, `monster`, `quiz` and `crypt` accept `--json` for scripting:
 
 ```bash
 terminal-of-terror list --json
 terminal-of-terror random --json
 terminal-of-terror monster dracula --json
 ```
+
+### Games
+
+#### The Midnight Quiz
+
+Multiple-choice questions built from the monster data: facts, film credits, quotes from the original novels, true-or-false myth checks, and more. Every answer comes with an explanation, so you learn as you play.
+
+```bash
+terminal-of-terror quiz                 # 10 questions
+terminal-of-terror quiz --questions 5   # or -n 5
+terminal-of-terror quiz dracula         # only questions about Dracula
+```
+
+Finish with a rank from **Ghoul-in-Training** up to **Master of Horror**.
+
+#### Guess the Monster
+
+A monster's portrait is hidden in fog. Guess who it is, or press `space` to clear more fog and get clues. The earlier you guess, the more points you score.
+
+```bash
+terminal-of-terror guess
+terminal-of-terror guess --rounds 8
+```
+
+#### The Crypt
+
+Answer 3 questions about a monster correctly, in quizzes or Guess the Monster, to **capture** it. Your crypt shows your captured monsters, your progress towards the rest, your badges and your records:
+
+```bash
+terminal-of-terror crypt
+terminal-of-terror crypt reset   # start again
+```
+
+Badges include **Flawless Fiend** (a perfect quiz), **Eagle Eye** (a guess before the fog lifts), **Silent Era Scholar**, **Monster Kid** and **Master of the Crypt**.
+
+Progress is saved as JSON in your config directory (e.g. `~/.config/terminal-of-terror/progress.json` on Linux). Set `TERMINAL_OF_TERROR_HOME` to keep it somewhere else.
+
+#### Monster Mash
+
+Pit two monsters against each other in a three-round bout decided by their stat cards and a roll of the dice:
+
+```bash
+terminal-of-terror mash                     # two random contenders
+terminal-of-terror mash dracula "wolf man"
+terminal-of-terror mash --fast              # skip the dramatic pauses
+```
+
+### More
 
 #### Help
 

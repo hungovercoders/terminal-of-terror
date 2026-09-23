@@ -4,6 +4,7 @@ import (
 	"fmt"
 	"strings"
 
+	"github.com/hungovercoders/terminal-of-terror/internal/crypt"
 	"github.com/hungovercoders/terminal-of-terror/internal/monsters"
 	"github.com/hungovercoders/terminal-of-terror/internal/ui"
 	"github.com/spf13/cobra"
@@ -41,7 +42,12 @@ work too, e.g. "dracula", "wolfman", "gill-man" or "quasimodo".`,
 		} else if monsterJSON {
 			return printJSON(monsters.GetAllMonsters())
 		}
-		return ui.RunUI(ui.Options{ShowAll: showAll, StartID: startID, NoIntro: noIntro})
+		seen, err := ui.RunUI(ui.Options{ShowAll: showAll, StartID: startID, NoIntro: noIntro})
+		if err != nil {
+			return err
+		}
+		record(crypt.Outcome{Kind: "explore", Seen: seen})
+		return nil
 	},
 }
 

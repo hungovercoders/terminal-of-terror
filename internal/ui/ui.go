@@ -54,6 +54,8 @@ type model struct {
 
 	width, height int
 
+	seen map[string]bool // monster pages visited
+
 	frame    int
 	ticking  bool
 	noise    string
@@ -74,6 +76,7 @@ func newModel(opts Options) model {
 		rng:      r,
 		greeting: host.Greeting(r),
 		next:     screenDetail,
+		seen:     map[string]bool{},
 	}
 	if opts.ShowAll {
 		m.next = screenGallery
@@ -86,7 +89,7 @@ func newModel(opts Options) model {
 	}
 	// Jumping straight to a monster means you know what you want: no intro.
 	if opts.NoIntro || opts.StartID != "" {
-		m.screen = m.next
+		m.enter(m.next)
 	} else {
 		m.screen = screenIntro
 		m.noise = noise(r, 60, 9)
@@ -147,7 +150,7 @@ func (m model) Update(msg tea.Msg) (tea.Model, tea.Cmd) {
 				m.frame = introDoneFrame(m.greeting)
 				return m, nil
 			}
-			m.screen = m.next
+			m.enter(m.next)
 			return m, m.ensureTick()
 		}
 		if m.searching {
@@ -289,12 +292,20 @@ func (m *model) open(i int) {
 		}
 	}
 	m.index, m.cursor = i, i
-	m.screen = screenDetail
+	m.enter(screenDetail)
 	m.tab, m.scroll, m.revealed = 0, 0, false
 	for j, t := range tabsFor(m.current()) {
 		if t == prev {
 			m.tab = j
 		}
+	}
+}
+
+// enter switches screen, noting monster pages as visited.
+func (m *model) enter(s screen) {
+	m.screen = s
+	if s == screenDetail {
+		m.seen[m.current().ID] = true
 	}
 }
 
@@ -321,15 +332,24 @@ func (m model) contentWidth() int {
 	return m.width
 }
 
-// RunUI starts the interactive explorer.
-func RunUI(opts Options) error {
+// RunUI starts the interactive explorer and returns the ids of the
+// monster pages visited.
+func RunUI(opts Options) ([]string, error) {
 	p := tea.NewProgram(newModel(opts), tea.WithAltScreen())
 	final, err := p.Run()
 	if err != nil {
-		return err
+		return nil, err
 	}
-	if fm, ok := final.(model); ok && fm.signOff != "" {
+	fm, ok := final.(model)
+	if !ok {
+		return nil, nil
+	}
+	if fm.signOff != "" {
 		fmt.Println(hostStyle.Render("📺 " + fm.signOff))
 	}
-	return nil
+	var seen []string
+	for id := range fm.seen {
+		seen = append(seen, id)
+	}
+	return seen, nil
 }

@@ -96,3 +96,6 @@ func artWidth(art string) int {
 	}
 	return w
 }
+
+// Dim renders text in the muted help colour.
+func Dim(s string) string { return helpStyle.Render(s) }
