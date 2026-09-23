@@ -1,0 +1,52 @@
+{
+  "id": "invisible-man",
+  "name": "The Invisible Man",
+  "aliases": ["Invisible Man", "Griffin", "Jack Griffin"],
+  "emoji": "👻",
+  "description": "A scientist who discovers the secret of invisibility",
+  "origin": "Science fiction",
+  "debut": {"medium": "novel", "title": "The Invisible Man", "creator": "H. G. Wells", "year": 1897},
+  "film": {
+    "title": "The Invisible Man",
+    "year": 1933,
+    "releaseDate": "1933-11-13",
+    "studio": "Universal",
+    "director": "James Whale",
+    "star": "Claude Rains",
+    "makeup": "Jack Pierce",
+    "note": "Visual effects by John P. Fulton, who used black velvet and optical mattes to make Rains disappear."
+  },
+  "legend": "Invisibility is an ancient fantasy. In Plato's Republic, the shepherd Gyges finds a ring that makes him unseen and uses it to seduce a queen and seize a throne, and Plato asks whether anyone would stay honest if no one could watch. Wells gave that question a scientific costume: his student Griffin changes his body's refractive index until light passes straight through him, then discovers that being unseen is lonely, cold and maddening.",
+  "myths": [
+    {"claim": "Griffin can become visible again whenever he likes.", "true": false, "explanation": "He never finds a cure. His body only becomes visible again as he dies."},
+    {"claim": "Food he eats stays visible until it's digested.", "true": true, "explanation": "In the novel Griffin explains he must hide after meals, because undigested food shows inside him."},
+    {"claim": "Claude Rains's face is seen through most of the 1933 film.", "true": false, "explanation": "His face appears only in the last moments. For the rest he is bandages, goggles and that famous voice."},
+    {"claim": "In the film, a drug called monocane drives Griffin mad.", "true": true, "explanation": "The screenplay added monocane as the cause of his madness. Wells's Griffin was already bitter and cruel."}
+  ],
+  "quotes": [
+    {"text": "The stranger came early in February, one wintry day, through a biting wind and a driving snow.", "speaker": "Narrator", "source": "The Invisible Man (1897), opening line"},
+    {"text": "An invisible man is a man of power.", "speaker": "Griffin", "source": "The Invisible Man (1897)"}
+  ],
+  "powers": ["Total invisibility", "Silent movement", "Brilliant scientific mind", "Free run of any locked room"],
+  "weaknesses": ["Footprints in snow", "Rain, fog and smoke", "The winter cold", "His own arrogance"],
+  "stats": {"strength": 5, "speed": 6, "cunning": 9, "dread": 7},
+  "legacy": [
+    "The Invisible Man Returns (1940), with Vincent Price",
+    "The Invisible Woman (1940)",
+    "Invisible Agent (1942)",
+    "The Invisible Man's Revenge (1944)",
+    "Abbott and Costello Meet the Invisible Man (1951)",
+    "The Invisible Man (2020)"
+  ],
+  "facts": [
+    "Griffin must go naked to be fully invisible, even in an English winter",
+    "Snow, rain, fog and smoke reveal his outline",
+    "Food he eats stays visible until it is digested",
+    "Claude Rains's face appears only in the final moments of the 1933 film",
+    "John P. Fulton used black velvet and mattes to make Rains vanish on screen",
+    "Wells's Griffin has no first name; the film called him Jack",
+    "Plato told of an invisibility ring, the Ring of Gyges, over 2,000 years earlier"
+  ],
+  "hostIntro": "Tonight's guest insisted on coming to the studio, and I think he's here. Somewhere. If you feel a draught, that's probably him.",
+  "theme": {"primary": "#8ECAE6", "accent": "#E0FBFC"}
+}

@@ -50,11 +50,17 @@ type model struct {
 	showAllMonsters bool
 }
 
-func InitialModel(showAll bool) model {
+func InitialModel(showAll bool, startID string) model {
 	allMonsters := monsters.GetAllMonsters()
+	start := 0
+	for i, m := range allMonsters {
+		if m.ID == startID {
+			start = i
+		}
+	}
 	return model{
 		monsters:        allMonsters,
-		currentIndex:    0,
+		currentIndex:    start,
 		showAllMonsters: showAll,
 	}
 }
@@ -103,7 +109,7 @@ func (m model) View() string {
 			}
 			b.WriteString(monsterNameStyle.Render(monster.Name) + "\n")
 			b.WriteString("  " + descriptionStyle.Render(monster.Description) + "\n")
-			b.WriteString("  " + metaStyle.Render(fmt.Sprintf("Origin: %s | First Appearance: %s", monster.Origin, monster.FirstApp)) + "\n\n")
+			b.WriteString("  " + metaStyle.Render(fmt.Sprintf("Origin: %s | First Appearance: %s", monster.Origin, monster.FirstAppearance())) + "\n\n")
 		}
 	} else {
 		// Show current monster with details
@@ -135,7 +141,7 @@ func (m model) View() string {
 		// Meta information
 		b.WriteString("\n")
 		b.WriteString(metaStyle.Render(fmt.Sprintf("Origin: %s", monster.Origin)) + "\n")
-		b.WriteString(metaStyle.Render(fmt.Sprintf("First Appearance: %s", monster.FirstApp)) + "\n")
+		b.WriteString(metaStyle.Render(fmt.Sprintf("First Appearance: %s", monster.FirstAppearance())) + "\n")
 
 		// Navigation info
 		b.WriteString("\n")
@@ -148,8 +154,9 @@ func (m model) View() string {
 	return b.String()
 }
 
-func RunUI(showAll bool) error {
-	p := tea.NewProgram(InitialModel(showAll))
+// RunUI starts the explorer, optionally opening on the monster with startID.
+func RunUI(showAll bool, startID string) error {
+	p := tea.NewProgram(InitialModel(showAll, startID))
 	_, err := p.Run()
 	return err
 }

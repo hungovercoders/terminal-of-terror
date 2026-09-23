@@ -1,0 +1,47 @@
+{
+  "id": "wolf-man",
+  "name": "The Wolf Man",
+  "aliases": ["Wolfman", "Larry Talbot", "Werewolf"],
+  "emoji": "🐺",
+  "description": "A man cursed to transform into a werewolf",
+  "origin": "European werewolf folklore",
+  "debut": {"medium": "film", "title": "The Wolf Man", "creator": "Universal Pictures", "year": 1941},
+  "film": {
+    "title": "The Wolf Man",
+    "year": 1941,
+    "releaseDate": "1941-12-12",
+    "studio": "Universal",
+    "director": "George Waggner",
+    "star": "Lon Chaney Jr.",
+    "makeup": "Jack Pierce",
+    "note": "Written by Curt Siodmak, with Claude Rains as Larry's father and Bela Lugosi as the werewolf who bites him."
+  },
+  "legend": "Men who become wolves are among the oldest monsters in Europe. Ovid tells of King Lycaon turned into a wolf by Jupiter, the Roman writer Petronius includes a werewolf tale, and the medieval poet Marie de France wrote of Bisclavret, a knight trapped in wolf form. In the 16th and 17th centuries accused werewolves were put on trial in France and Germany. Folklore werewolves changed by wearing a wolfskin or belt, using a magic salve, or through a curse, not by a bite.",
+  "myths": [
+    {"claim": "In the 1941 film, the Wolf Man is killed with a silver bullet.", "true": false, "explanation": "His father beats him to death with a silver-headed walking cane. Silver bullets came later."},
+    {"claim": "Folklore werewolves always transformed under the full moon.", "true": false, "explanation": "Old tales relied on wolfskins, magic belts, salves and curses. Universal's 1940s sequels cemented the full-moon rule."},
+    {"claim": "The Wolf Man was Universal's first werewolf picture.", "true": false, "explanation": "Werewolf of London (1935), starring Henry Hull, came six years earlier."},
+    {"claim": "In the 1941 film, Larry Talbot is cursed by a werewolf's bite.", "true": true, "explanation": "Larry is bitten while killing a wolf that is really the werewolf Bela, played by Bela Lugosi."},
+    {"claim": "Silver as a werewolf-killer comes straight from ancient legend.", "true": false, "explanation": "Silver was an old charm against witches and spirits, but the silver-bullet werewolf story is largely a 19th and 20th-century embellishment."}
+  ],
+  "quotes": [],
+  "powers": ["Savage strength", "Speed through the forest", "Keen senses of smell and hearing", "Resistance to ordinary weapons"],
+  "weaknesses": ["Silver", "Wolfsbane", "The mark of the pentagram", "His own guilty conscience"],
+  "stats": {"strength": 9, "speed": 9, "cunning": 5, "dread": 8},
+  "legacy": [
+    "Frankenstein Meets the Wolf Man (1943)",
+    "House of Frankenstein (1944)",
+    "House of Dracula (1945)",
+    "Abbott and Costello Meet Frankenstein (1948)"
+  ],
+  "facts": [
+    "Lon Chaney Jr. played Larry Talbot in all five of his Universal films",
+    "Chaney Jr. also played the Monster, the Mummy and a son of Dracula for Universal",
+    "Larry is cursed after a bite from a werewolf played by Bela Lugosi",
+    "The transformation was filmed in stages as Jack Pierce added yak hair between shots",
+    "The film opened just five days after the attack on Pearl Harbor",
+    "Accused werewolves were put on trial in early modern France and Germany"
+  ],
+  "hostIntro": "Check the sky, folks. Tonight's feature is a nice young man with a very bad reaction to moonlight. Keep your silverware handy.",
+  "theme": {"primary": "#B08968", "accent": "#EDE0D4"}
+}

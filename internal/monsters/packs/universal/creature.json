@@ -1,0 +1,45 @@
+{
+  "id": "creature",
+  "name": "The Creature from the Black Lagoon",
+  "aliases": ["The Creature", "Gill-man", "Gillman", "Black Lagoon"],
+  "emoji": "🐟",
+  "description": "An amphibious humanoid from the Amazon",
+  "origin": "Hollywood original, inspired by an Amazonian tale",
+  "debut": {"medium": "film", "title": "Creature from the Black Lagoon", "creator": "Universal-International", "year": 1954},
+  "film": {
+    "title": "Creature from the Black Lagoon",
+    "year": 1954,
+    "releaseDate": "1954-02-12",
+    "studio": "Universal-International",
+    "director": "Jack Arnold",
+    "star": "Ben Chapman (land) and Ricou Browning (water)",
+    "makeup": "Designed by Milicent Patrick",
+    "note": "Shot in 3D. The underwater scenes were filmed at Wakulla Springs, Florida."
+  },
+  "legend": "According to producer William Alland, the idea began at a dinner party where the cinematographer Gabriel Figueroa told a legend about a half-man, half-fish creature living in the Amazon. The finished film sends scientists upriver after a fossilised webbed hand from the Devonian period, when life first crawled onto land. It was the last of the great Universal monsters, arriving just as the 1950s 3D craze peaked.",
+  "myths": [
+    {"claim": "Makeup chief Bud Westmore designed the Creature.", "true": false, "explanation": "Artist Milicent Patrick designed it. Westmore took the credit and her role was downplayed for decades."},
+    {"claim": "The film was released in 3D.", "true": true, "explanation": "It was shot with a dual-camera 3D rig, though many cinemas also showed it flat."},
+    {"claim": "One actor played the Creature.", "true": false, "explanation": "Ben Chapman wore the suit on land, while champion swimmer Ricou Browning performed the underwater scenes."},
+    {"claim": "The lagoon scenes were filmed in the Amazon.", "true": false, "explanation": "The crew never went to South America. Underwater footage came from Wakulla Springs in Florida and the rest from the Universal lot."}
+  ],
+  "quotes": [],
+  "powers": ["Breathes water and air", "Powerful swimming", "Crushing grip", "Survives wounds that would kill a man"],
+  "weaknesses": ["Poisoned water", "Being hauled from the lagoon", "Fascination with humans", "Harpoon guns"],
+  "stats": {"strength": 8, "speed": 8, "cunning": 5, "dread": 7},
+  "legacy": [
+    "Revenge of the Creature (1955), featuring an early screen role for Clint Eastwood",
+    "The Creature Walks Among Us (1956)",
+    "The Shape of Water (2017), Guillermo del Toro's love letter to the Gill-man"
+  ],
+  "facts": [
+    "The Creature is also known as the Gill-man",
+    "Milicent Patrick designed the Creature, but her credit was denied for decades",
+    "Two performers shared the role: Ben Chapman on land and Ricou Browning underwater",
+    "The underwater scenes were filmed at Wakulla Springs in Florida",
+    "The film was released in 3D at the height of the 1950s 3D craze",
+    "The expedition begins with a fossilised hand from the Devonian period"
+  ],
+  "hostIntro": "Fancy a swim? Tonight we paddle up the Amazon to meet a gentleman with gills, scales and absolutely no respect for personal space.",
+  "theme": {"primary": "#2A9D8F", "accent": "#B7E4C7"}
+}

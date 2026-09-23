@@ -1,6 +1,10 @@
 package cmd
 
 import (
+	"fmt"
+	"strings"
+
+	"github.com/hungovercoders/terminal-of-terror/internal/monsters"
 	"github.com/hungovercoders/terminal-of-terror/internal/ui"
 	"github.com/spf13/cobra"
 )
@@ -8,13 +12,45 @@ import (
 var showAll bool
 
 var monsterCmd = &cobra.Command{
-	Use:   "monster",
+	Use:   "monster [name]",
 	Short: "Explore universal monsters interactively",
 	Long: `Display universal monsters with their descriptions, facts, and origins.
-Use arrow keys or h/l to navigate between monsters.`,
+Use arrow keys or h/l to navigate between monsters.
+
+Pass a name to jump straight to a monster. Partial names and nicknames
+work too, e.g. "dracula", "wolfman", "gill-man" or "quasimodo".`,
+	Example: `  terminal-of-terror monster
+  terminal-of-terror monster dracula
+  terminal-of-terror monster "the mummy"`,
+	Args: cobra.MaximumNArgs(1),
 	RunE: func(cmd *cobra.Command, args []string) error {
-		return ui.RunUI(showAll)
+		startID := ""
+		if len(args) == 1 {
+			m, err := resolveMonster(args[0])
+			if err != nil {
+				return err
+			}
+			startID = m.ID
+		}
+		return ui.RunUI(showAll, startID)
 	},
+}
+
+// resolveMonster turns a user-supplied name into a monster, with a helpful
+// error listing candidates when the name is ambiguous or unknown.
+func resolveMonster(query string) (*monsters.Monster, error) {
+	m, candidates := monsters.Find(query)
+	if m != nil {
+		return m, nil
+	}
+	if len(candidates) > 1 {
+		names := make([]string, len(candidates))
+		for i, c := range candidates {
+			names[i] = c.Name
+		}
+		return nil, fmt.Errorf("%q could be any of: %s", query, strings.Join(names, ", "))
+	}
+	return nil, fmt.Errorf("no monster called %q lurks here; try 'terminal-of-terror list'", query)
 }
 
 func init() {

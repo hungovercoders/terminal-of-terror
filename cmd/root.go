@@ -27,4 +27,7 @@ func Execute() {
 
 func init() {
 	rootCmd.CompletionOptions.DisableDefaultCmd = true
+	// Runtime errors (like an unknown monster) are explained in the error
+	// itself, so don't bury them under the usage text.
+	rootCmd.SilenceUsage = true
 }

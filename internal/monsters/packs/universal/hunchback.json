@@ -1,0 +1,50 @@
+{
+  "id": "hunchback",
+  "name": "The Hunchback of Notre Dame",
+  "aliases": ["Hunchback", "Quasimodo"],
+  "emoji": "🔔",
+  "description": "The deformed bell-ringer of Notre Dame Cathedral",
+  "origin": "French Romantic literature",
+  "debut": {"medium": "novel", "title": "Notre-Dame de Paris", "creator": "Victor Hugo", "year": 1831},
+  "film": {
+    "title": "The Hunchback of Notre Dame",
+    "year": 1923,
+    "releaseDate": "1923-09-02",
+    "studio": "Universal",
+    "director": "Wallace Worsley",
+    "star": "Lon Chaney",
+    "makeup": "Lon Chaney",
+    "silent": true,
+    "note": "Universal built a huge replica of the cathedral's facade on its backlot."
+  },
+  "legend": "Hugo wrote the novel partly as a protest. In the 1820s Paris was neglecting or tearing down its medieval buildings, and Notre-Dame itself was crumbling. Making the cathedral the true hero of his book, Hugo helped turn public opinion, and in the 1840s the architects Lassus and Viollet-le-Duc began a major restoration. Hugo said the story grew from a Greek word he found carved into a wall of one of the towers: ANANKE, fate.",
+  "myths": [
+    {"claim": "The cathedral's famous gargoyle-like chimeras were there when Hugo wrote the novel.", "true": false, "explanation": "The chimeras on the upper gallery were added during Viollet-le-Duc's 19th-century restoration, after the novel came out."},
+    {"claim": "Hugo's original title named Quasimodo.", "true": false, "explanation": "It is Notre-Dame de Paris. The English translation moved the hunchback to the front."},
+    {"claim": "Quasimodo is deaf.", "true": true, "explanation": "The great bells he loves so much have taken his hearing."},
+    {"claim": "The novel ends happily for Quasimodo and Esmeralda.", "true": false, "explanation": "Esmeralda is executed. Years later, Quasimodo's skeleton is found holding hers in a burial vault."},
+    {"claim": "Hugo's novel helped save Notre-Dame.", "true": true, "explanation": "Its popularity fuelled the campaign that led to the cathedral's 19th-century restoration."}
+  ],
+  "quotes": [
+    {"text": "ANANKE (Fate)", "speaker": "An inscription Hugo found carved in the cathedral", "source": "Notre-Dame de Paris (1831), preface"}
+  ],
+  "powers": ["Immense strength", "Climbs the cathedral like a spider", "Bells that shake the city", "Unshakable loyalty"],
+  "weaknesses": ["Deafness", "The cruelty of the crowd", "Love for Esmeralda", "Obedience to Frollo"],
+  "stats": {"strength": 9, "speed": 7, "cunning": 4, "dread": 5},
+  "legacy": [
+    "The Hunchback of Notre Dame (1939), with Charles Laughton",
+    "The Hunchback of Notre Dame (1956), with Anthony Quinn",
+    "Disney's The Hunchback of Notre Dame (1996)"
+  ],
+  "facts": [
+    "Quasimodo is deaf from years of ringing the cathedral bells",
+    "He was a foundling, named after Quasimodo Sunday, the day he was found",
+    "Hugo's title is Notre-Dame de Paris; the English title put Quasimodo first",
+    "The novel helped spur the restoration of Notre-Dame in the 1840s",
+    "Many of the cathedral's famous chimeras were added during that restoration",
+    "He is fiercely loyal to Esmeralda, who once brought him water at the pillory",
+    "Universal built a huge replica of the cathedral's facade for the 1923 film"
+  ],
+  "hostIntro": "Ring the bells! Tonight's guest lives high above Paris and has the best view in town. He can't hear you clapping, so clap twice as hard.",
+  "theme": {"primary": "#BC6C25", "accent": "#FEFAE0"}
+}

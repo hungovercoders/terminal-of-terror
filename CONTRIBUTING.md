@@ -37,7 +37,13 @@ go build -o terminal-of-terror
 
 ### Testing Your Changes
 
-Test the various commands:
+Run the automated tests:
+
+```bash
+go test ./...
+```
+
+Then try the various commands:
 
 ```bash
 ./terminal-of-terror --help
@@ -58,30 +64,45 @@ Test the various commands:
 
 ### Adding New Monsters
 
-To add a new monster, edit `internal/monsters/monsters.go`:
+Monsters live in **packs** under `internal/monsters/packs/<pack-id>/`. Each pack has:
 
-1. Add a new `Monster` struct to the `monsters` slice
-2. Include the following fields:
-   - `Name`: The monster's name
-   - `Description`: A brief description
-   - `Origin`: Where the monster originates from
-   - `FirstApp`: First appearance in literature/film
-   - `Facts`: A slice of interesting facts (aim for 5-6 facts)
+- `pack.json` — the pack's `id`, `name`, `description` and the display `order` of monster ids
+- `<monster-id>.json` — one file per monster
+- `<monster-id>.txt` — the monster's ASCII art (optional but encouraged)
 
-Example:
-```go
+A monster file looks like this (see `packs/universal/dracula.json` for a full example):
+
+```json
 {
-    Name:        "Your Monster",
-    Description: "A brief description",
-    Origin:      "Origin source",
-    FirstApp:    "First appearance (Year)",
-    Facts: []string{
-        "Fact 1",
-        "Fact 2",
-        "Fact 3",
-    },
-},
+  "id": "your-monster",
+  "name": "Your Monster",
+  "aliases": ["Nickname"],
+  "emoji": "👹",
+  "description": "A one-line description",
+  "origin": "Where the legend comes from",
+  "debut": {"medium": "novel", "title": "Book Title", "creator": "Author", "year": 1900},
+  "film": {"title": "Film Title", "year": 1931, "releaseDate": "1931-01-01", "studio": "Universal",
+           "director": "Director", "star": "Actor", "makeup": "Artist", "silent": false},
+  "legend": "A paragraph on the real history or folklore behind the monster.",
+  "myths": [{"claim": "A popular belief.", "true": false, "explanation": "What's really going on."}],
+  "quotes": [{"text": "A line from a public-domain source.", "speaker": "Who", "source": "Where"}],
+  "powers": ["Power one", "Power two"],
+  "weaknesses": ["Weakness one", "Weakness two"],
+  "stats": {"strength": 5, "speed": 5, "cunning": 5, "dread": 5},
+  "legacy": ["Sequels, remakes and crossovers"],
+  "facts": ["Fact 1", "Fact 2", "Fact 3", "Fact 4", "Fact 5"],
+  "hostIntro": "What the horror host says when introducing this monster.",
+  "theme": {"primary": "#RRGGBB", "accent": "#RRGGBB"}
+}
 ```
+
+Guidelines:
+
+- **Accuracy matters.** This is a teaching tool, so double-check facts, dates and credits. Prefer "reportedly" over a confident guess.
+- **Quotes must come from public-domain sources** such as 19th-century novels. Don't quote dialogue from copyrighted films; describe famous scenes in your own words instead.
+- `film` is optional (folklore monsters may not have one). `debut` needs either a `year` or an `era`.
+- Stats are 1–10 and just for fun (they power the Monster Mash).
+- Run `go test ./...`: the data tests check every monster has the required fields.
 
 ### Adding New Features
 

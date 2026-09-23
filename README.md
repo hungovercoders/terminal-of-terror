@@ -7,7 +7,8 @@ Terminal of Terror is a CLI application that brings classic universal monsters t
 ## Features
 
 - 🧛 Explore 8 classic universal monsters
-- 📚 Learn terrifying facts about each creature
+- 📚 Learn terrifying facts about each creature, plus the real folklore and film history behind them
+- 🔍 Myth vs. movie checks that separate what the legends said from what Hollywood invented
 - 🎨 Beautiful terminal UI powered by Bubbletea
 - 🎲 Get random monster facts
 - 📖 Interactive navigation between monsters
@@ -43,6 +44,14 @@ Explore monsters interactively with a beautiful TUI:
 
 ```bash
 terminal-of-terror monster
+```
+
+Jump straight to a monster by name. Partial names and nicknames work too:
+
+```bash
+terminal-of-terror monster dracula
+terminal-of-terror monster wolfman
+terminal-of-terror monster quasimodo
 ```
 
 Show all monsters at once:

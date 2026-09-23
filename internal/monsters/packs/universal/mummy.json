@@ -1,0 +1,48 @@
+{
+  "id": "mummy",
+  "name": "The Mummy",
+  "aliases": ["Mummy", "Imhotep", "Ardath Bey"],
+  "emoji": "🏺",
+  "description": "An ancient Egyptian priest brought back to life",
+  "origin": "Ancient Egyptian burial practice and 1920s 'curse' mania",
+  "debut": {"medium": "film", "title": "The Mummy", "creator": "Universal Pictures", "year": 1932},
+  "film": {
+    "title": "The Mummy",
+    "year": 1932,
+    "releaseDate": "1932-12-22",
+    "studio": "Universal",
+    "director": "Karl Freund",
+    "star": "Boris Karloff",
+    "makeup": "Jack Pierce",
+    "note": "Freund's directing debut. He had been the cinematographer on Metropolis and Dracula."
+  },
+  "legend": "Ancient Egyptians preserved the dead so the soul could recognise its body in the afterlife. The idea of a vengeful mummy is much younger: Victorian writers such as Jane Loudon and Arthur Conan Doyle imagined revived mummies, and 'unrolling' parties turned real mummies into entertainment. When Lord Carnarvon died in 1923, months after Howard Carter opened Tutankhamun's tomb, newspapers spread the story of a pharaoh's curse, and Hollywood followed.",
+  "myths": [
+    {"claim": "The historical Imhotep was a cursed priest.", "true": false, "explanation": "The real Imhotep was an architect and adviser to Pharaoh Djoser, credited with the Step Pyramid at Saqqara, and later honoured as a god of medicine."},
+    {"claim": "Everyone who entered Tutankhamun's tomb died mysteriously.", "true": false, "explanation": "Howard Carter lived until 1939, and a 2002 study found the tomb's visitors lived about as long as anyone else."},
+    {"claim": "Some Egyptian tombs carry written threats against intruders.", "true": true, "explanation": "A number of tombs bear warnings that anyone who harms them will face divine judgement, though Tutankhamun's has no such curse."},
+    {"claim": "Karloff spends most of the 1932 film wrapped in bandages.", "true": false, "explanation": "The bandaged mummy appears only in the opening scene. For the rest he plays the wrinkled, living Ardath Bey."},
+    {"claim": "Egyptian embalming took about seventy days.", "true": true, "explanation": "Egyptian texts and the Greek historian Herodotus both describe a process lasting around seventy days."}
+  ],
+  "quotes": [],
+  "powers": ["Hypnotic control at a distance", "Visions in a pool of water", "Ancient magic from the Scroll of Thoth", "Patience measured in millennia"],
+  "weaknesses": ["The goddess Isis", "Loss of the Scroll of Thoth", "Obsession with a lost love", "Crumbling to dust"],
+  "stats": {"strength": 6, "speed": 3, "cunning": 9, "dread": 8},
+  "legacy": [
+    "The Mummy's Hand (1940), introducing a new mummy named Kharis",
+    "The Mummy's Tomb (1942), The Mummy's Ghost (1944) and The Mummy's Curse (1944), with Lon Chaney Jr. as Kharis",
+    "Abbott and Costello Meet the Mummy (1955)",
+    "Hammer's The Mummy (1959), starring Christopher Lee",
+    "The Mummy (1999)"
+  ],
+  "facts": [
+    "Imhotep was buried alive for trying to resurrect his forbidden love",
+    "Karloff's full bandaged makeup reportedly took Jack Pierce around eight hours",
+    "The real Imhotep was an architect credited with Egypt's first pyramid",
+    "Egyptian embalmers removed the organs and dried the body with natron salt",
+    "The excitement over Tutankhamun's tomb, opened in 1922, inspired the film",
+    "Universal's later mummy films swapped Imhotep for a new mummy named Kharis"
+  ],
+  "hostIntro": "Tonight's guest has been napping for about three thousand seven hundred years, and he woke up in a mood. Please don't read anything aloud.",
+  "theme": {"primary": "#D4A373", "accent": "#FAEDCD"}
+}

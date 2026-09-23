@@ -37,12 +37,15 @@ terminal-of-terror/
 - Use tabs for indentation (Go standard)
 
 ### Monster Data Structure
-Monsters are defined in `internal/monsters/monsters.go` with:
-- `Name`: Monster's name
-- `Description`: Brief description
-- `Origin`: Origin of the monster (folklore, literature, etc.)
-- `FirstApp`: First appearance in media
-- `Facts`: Slice of interesting facts (aim for 5-6 facts)
+Monster types and the pack loader live in `internal/monsters/monsters.go`. The data itself lives in
+packs under `internal/monsters/packs/<pack-id>/`: a `pack.json`, one `<id>.json` per monster and an
+optional `<id>.txt` with ASCII art. Each monster has an `id`, `name`, `aliases`, `emoji`, `description`,
+`origin`, `debut`, optional `film`, `legend`, `myths` (claim/true/explanation), `quotes`, `powers`,
+`weaknesses`, `stats` (1-10), `legacy`, `facts` (5+), `hostIntro` and `theme` colours.
+See CONTRIBUTING.md for a full example.
+
+**Quotes must come from public-domain sources** (e.g. the 19th-century novels). Never add dialogue
+from copyrighted films; describe famous scenes in your own words instead.
 
 ### Adding New Commands
 1. Create a new file in `cmd/` directory
@@ -81,10 +84,11 @@ go mod tidy
 ## Common Tasks
 
 ### Adding a New Monster
-1. Edit `internal/monsters/monsters.go`
-2. Add new `Monster` struct to the `monsters` slice
-3. Include all required fields (Name, Description, Origin, FirstApp, Facts)
+1. Add `internal/monsters/packs/<pack>/<id>.json` (and `<id>.txt` for ASCII art)
+2. Add the id to the pack's `order` list in `pack.json`
+3. Include all required fields (see CONTRIBUTING.md)
 4. Ensure facts are accurate and interesting
+5. Run `go test ./...` — the data tests validate every monster
 
 ### Adding a New Command
 1. Create new file in `cmd/` directory (e.g., `cmd/newcmd.go`)
@@ -147,7 +151,8 @@ go mod tidy
 
 ## Testing Approach
 
-Currently, testing is manual:
+Run `go test ./...` first. The data tests in `internal/monsters` validate every monster.
+Then test manually:
 1. Build the application
 2. Test each command
 3. Verify output format and content
