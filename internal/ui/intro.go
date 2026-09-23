@@ -117,7 +117,13 @@ func (m model) viewIntro() string {
 		hostStyle.Width(min(w-4, 70)).Render("📺 " + host.Name + ": " + text),
 	}
 	if m.introDone() {
-		parts = append(parts, "", metaStyle.Render("Press any key to enter the vault..."))
+		if len(m.notes) > 0 {
+			parts = append(parts, "")
+			for _, n := range m.notes[:min(len(m.notes), 3)] {
+				parts = append(parts, metaStyle.Render(n))
+			}
+		}
+		parts = append(parts, "", headingStyle.Render("Press any key to enter the vault..."))
 	}
 	return center.Render(lipgloss.JoinVertical(lipgloss.Center, parts...))
 }

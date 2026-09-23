@@ -4,6 +4,7 @@ import (
 	"os"
 	"strings"
 	"testing"
+	"time"
 
 	tea "github.com/charmbracelet/bubbletea"
 	"github.com/hungovercoders/terminal-of-terror/internal/monsters"
@@ -70,6 +71,15 @@ func TestIntroSkipsThenEnters(t *testing.T) {
 	m = send(m, key("x"))
 	if m.screen != screenDetail {
 		t.Fatalf("second key should enter the explorer, got %v", m.screen)
+	}
+}
+
+func TestIntroShowsTonightsNotes(t *testing.T) {
+	halloween := time.Date(2026, 10, 31, 21, 0, 0, 0, time.Local)
+	m := send(newModel(Options{Seed: 1, Now: halloween}), size(100, 40), key("x"))
+	v := m.View()
+	if !strings.Contains(v, "Happy Halloween") || !strings.Contains(v, "It's Halloween!") {
+		t.Errorf("Halloween intro missing its greeting or note:\n%s", v)
 	}
 }
 

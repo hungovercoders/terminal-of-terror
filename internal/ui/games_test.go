@@ -4,6 +4,7 @@ import (
 	"math/rand"
 	"strings"
 	"testing"
+	"time"
 
 	tea "github.com/charmbracelet/bubbletea"
 	"github.com/hungovercoders/terminal-of-terror/internal/monsters"
@@ -101,5 +102,34 @@ func TestRenderCrypt(t *testing.T) {
 	out := RenderCrypt(p, monsters.GetAllMonsters(), 100)
 	if !strings.Contains(out, "0 of ") || !strings.Contains(out, "●●○") {
 		t.Errorf("unexpected crypt:\n%s", out)
+	}
+}
+
+func TestRenderCountdownAndTicket(t *testing.T) {
+	all := monsters.GetAllMonsters()
+	for _, d := range []time.Time{
+		time.Date(2026, 9, 23, 21, 0, 0, 0, time.Local),
+		time.Date(2026, 10, 13, 21, 0, 0, 0, time.Local),
+		time.Date(2026, 10, 31, 21, 0, 0, 0, time.Local),
+	} {
+		out := RenderCountdown(d, all, 80)
+		switch {
+		case d.Day() == 31 && !strings.Contains(out, "HAPPY HALLOWEEN"):
+			t.Errorf("%s: missing Halloween banner", d)
+		case d.Month() == time.October && d.Day() == 13 && !strings.Contains(out, "NIGHT 13"):
+			t.Errorf("%s: missing Night of Fright", d)
+		case d.Month() == time.September && !strings.Contains(out, "NIGHTS UNTIL HALLOWEEN"):
+			t.Errorf("%s: missing countdown", d)
+		}
+	}
+	ticket := RenderTicket(time.Date(2026, 9, 23, 21, 0, 0, 0, time.Local), all[0], all[1], 80)
+	if !strings.Contains(ticket, "ADMIT ONE") || !strings.Contains(ticket, "DRACULA (1931)") {
+		t.Errorf("unexpected ticket:\n%s", ticket)
+	}
+}
+
+func TestBigNumber(t *testing.T) {
+	if got := bigNumber(38); got != "▀▀█ █▄█\n▄▄█ █▄█" {
+		t.Errorf("got %q", got)
 	}
 }

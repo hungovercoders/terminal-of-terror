@@ -73,3 +73,25 @@ func TestShortQuizIsNotFlawless(t *testing.T) {
 		t.Error("a 3-question quiz is too short for Flawless Fiend")
 	}
 }
+
+func TestCalendarBadges(t *testing.T) {
+	p := store.New()
+	all := monsters.GetAllMonsters()
+	// Halloween 2025 was a Friday, but not the 13th; 13 Feb 2026 was a Friday.
+	u := Apply(p, all, Outcome{Kind: "mash", Now: time.Date(2025, 10, 31, 21, 0, 0, 0, time.UTC)})
+	if !hasBadge(u, "halloween") || hasBadge(u, "friday-13") {
+		t.Errorf("Halloween badges: %+v", u.Badges)
+	}
+	u = Apply(p, all, Outcome{Kind: "quiz", Total: 1, Completed: true, Now: time.Date(2026, 2, 13, 21, 0, 0, 0, time.UTC)})
+	if !hasBadge(u, "friday-13") {
+		t.Errorf("Friday 13th badges: %+v", u.Badges)
+	}
+	u = Apply(p, all, Outcome{Kind: "guess", Now: time.Date(2025, 10, 7, 3, 0, 0, 0, time.UTC)})
+	if !hasBadge(u, "full-moon") {
+		t.Errorf("full moon badges: %+v", u.Badges)
+	}
+	u = Apply(store.New(), all, Outcome{Kind: "explore", Now: time.Date(2025, 10, 31, 21, 0, 0, 0, time.UTC)})
+	if hasBadge(u, "halloween") {
+		t.Error("browsing isn't playing a game")
+	}
+}

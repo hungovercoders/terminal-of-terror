@@ -5,6 +5,7 @@ package crypt
 import (
 	"time"
 
+	"github.com/hungovercoders/terminal-of-terror/internal/calendar"
 	"github.com/hungovercoders/terminal-of-terror/internal/monsters"
 	"github.com/hungovercoders/terminal-of-terror/internal/store"
 )
@@ -29,6 +30,9 @@ var Badges = []Badge{
 	{"promoter", "🥊", "Fight Promoter", "Stage your first Monster Mash"},
 	{"scholar", "📚", "Midnight Scholar", "Visit every monster's page in the explorer"},
 	{"night-owl", "🦉", "Night Owl", "Play between midnight and 4am"},
+	{"full-moon", "🌕", "Survived the Full Moon", "Play a game on a full-moon night"},
+	{"friday-13", "🐈", "Unlucky for Some", "Play a game on Friday the 13th"},
+	{"halloween", "👻", "Halloween Spirit", "Play a game on Halloween"},
 	{"silent-scholar", "🎞️", "Silent Era Scholar", "Capture every silent-film monster"},
 	{"monster-kid", "📺", "Monster Kid", "Capture every Universal Classic"},
 	{"master", "👑", "Master of the Crypt", "Capture every monster"},
@@ -95,8 +99,19 @@ func Apply(p *store.Progress, all []monsters.Monster, o Outcome) Unlocks {
 		p.MashesPlayed++
 		award("promoter")
 	}
-	if o.Kind != "explore" && o.Kind != "" && o.Now.Hour() < 4 {
-		award("night-owl")
+	if played := o.Kind == "quiz" || o.Kind == "guess" || o.Kind == "mash"; played {
+		if o.Now.Hour() < 4 {
+			award("night-owl")
+		}
+		if calendar.IsFullMoon(o.Now) {
+			award("full-moon")
+		}
+		if calendar.IsFriday13(o.Now) {
+			award("friday-13")
+		}
+		if calendar.IsHalloween(o.Now) {
+			award("halloween")
+		}
 	}
 
 	for _, id := range o.Seen {

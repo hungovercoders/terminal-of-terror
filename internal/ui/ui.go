@@ -7,6 +7,7 @@ import (
 	"time"
 
 	tea "github.com/charmbracelet/bubbletea"
+	"github.com/hungovercoders/terminal-of-terror/internal/calendar"
 	"github.com/hungovercoders/terminal-of-terror/internal/host"
 	"github.com/hungovercoders/terminal-of-terror/internal/monsters"
 )
@@ -25,6 +26,7 @@ type Options struct {
 	StartID string // open on this monster's page
 	NoIntro bool   // skip the Channel 13 opening
 	Seed    int64  // random seed; 0 means use the clock
+	Now     time.Time
 }
 
 type tickMsg time.Time
@@ -61,6 +63,7 @@ type model struct {
 	noise    string
 	grain    string
 	greeting string
+	notes    []string // what's special about tonight
 	signOff  string
 	quitting bool
 }
@@ -77,6 +80,14 @@ func newModel(opts Options) model {
 		greeting: host.Greeting(r),
 		next:     screenDetail,
 		seen:     map[string]bool{},
+	}
+	now := opts.Now
+	if now.IsZero() {
+		now = time.Now()
+	}
+	m.notes = calendar.Notes(now, m.monsters)
+	if calendar.IsHalloween(now) {
+		m.greeting = "Happy Halloween, creatures of the night! Every monster in the vault is awake tonight, and so are you. I'm Count Cathode, and this is the biggest Creature Feature of the year."
 	}
 	if opts.ShowAll {
 		m.next = screenGallery

@@ -14,7 +14,9 @@ Terminal of Terror is a CLI application that brings classic universal monsters t
 - 🔎 Search across every monster's facts, films and legends
 - 🧠 The Midnight Quiz, Guess the Monster and the Monster Mash
 - ⚰️ Capture monsters for your crypt and earn badges
-- 🎲 Get random monster facts
+- 🎲 Get random monster facts, or a Fact of the Night for your shell's startup
+- 🌕 Full-moon warnings, Friday the 13th surprises, film anniversaries and a Halloween countdown
+- 🎟️ A nightly double-feature ticket
 - 📖 Interactive navigation between monsters
 - ⚡ Fast and lightweight CLI tool
 
@@ -165,6 +167,39 @@ terminal-of-terror mash                     # two random contenders
 terminal-of-terror mash dracula "wolf man"
 terminal-of-terror mash --fast              # skip the dramatic pauses
 ```
+
+### Nightly Rituals
+
+#### Fact of the Night
+
+`random --daily` gives everyone the same fact all day, and a new one tomorrow. Add it to your shell's startup file for a spooky greeting in every new terminal:
+
+```bash
+terminal-of-terror random --daily
+echo 'terminal-of-terror random --daily' >> ~/.bashrc   # or ~/.zshrc
+terminal-of-terror random --date 2026-10-31             # peek at another night
+```
+
+The card also mentions anything special about the date: full moons, Friday the 13th, classic film anniversaries (like Frankenstein's release on 21 November 1931) and the Halloween countdown.
+
+#### Halloween Countdown
+
+```bash
+terminal-of-terror countdown
+```
+
+Shows the nights until Halloween, tonight's moon phase and the next film anniversary. During October it's the **31 Nights of Fright**, with a different monster featured each night.
+
+#### Tonight's Double Feature
+
+```bash
+terminal-of-terror tonight
+terminal-of-terror tonight --shuffle   # a different bill
+```
+
+Prints a retro ticket for tonight's Channel 13 double bill, with showtimes, directors and stars. The line-up changes every night.
+
+Moon phases, anniversaries and countdowns are all worked out offline. Playing games on a full moon, Friday the 13th or Halloween earns special badges.
 
 ### More
 
