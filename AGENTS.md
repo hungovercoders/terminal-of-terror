@@ -55,7 +55,7 @@ from copyrighted films; describe famous scenes in your own words instead.
 
 ### UI Development
 - Use Lipgloss for consistent styling
-- Follow the color scheme established in `internal/ui/ui.go`
+- Follow the color scheme in `internal/ui/styles.go`; per-monster colours come from each monster's `theme`
 - Maintain keyboard navigation patterns (h/l, arrows, q)
 
 ## Building and Testing
@@ -98,11 +98,14 @@ go mod tidy
 5. Update README.md documentation
 
 ### Modifying UI
-1. Edit `internal/ui/ui.go`
-2. Update model struct if needed
+1. `internal/ui/ui.go` holds the explorer model and key handling, `render.go` the views,
+   `intro.go` the Channel 13 opening and `cards.go` the non-interactive output
+2. Update the model struct if needed
 3. Modify Update() for new interactions
-4. Adjust View() for display changes
-5. Test interactivity thoroughly
+4. Adjust the render functions for display changes
+5. Run `go test ./internal/ui` (it renders every page at several terminal sizes), and
+   `DUMP=1 go test ./internal/ui -run Dump -v` to see sample screens
+6. Test interactivity thoroughly in a real terminal
 
 ## Documentation Standards
 

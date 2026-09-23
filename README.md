@@ -9,7 +9,9 @@ Terminal of Terror is a CLI application that brings classic universal monsters t
 - 🧛 Explore 8 classic universal monsters
 - 📚 Learn terrifying facts about each creature, plus the real folklore and film history behind them
 - 🔍 Myth vs. movie checks that separate what the legends said from what Hollywood invented
-- 🎨 Beautiful terminal UI powered by Bubbletea
+- 📺 A late-night Creature Feature hosted by Count Cathode, with a TV-static opening
+- 🎨 Colours for each monster, and a black-and-white silent-film mode
+- 🔎 Search across every monster's facts, films and legends
 - 🎲 Get random monster facts
 - 📖 Interactive navigation between monsters
 - ⚡ Fast and lightweight CLI tool
@@ -18,7 +20,7 @@ Terminal of Terror is a CLI application that brings classic universal monsters t
 
 ### Prerequisites
 
-- Go 1.19 or higher
+- Go 1.24 or higher
 
 ### From Source
 
@@ -40,11 +42,25 @@ go install github.com/hungovercoders/terminal-of-terror@latest
 
 #### Interactive Monster Explorer
 
-Explore monsters interactively with a beautiful TUI:
+Tune in to the Channel 13 Creature Feature, hosted by **Count Cathode**:
 
 ```bash
 terminal-of-terror monster
 ```
+
+Each monster has its own colours and a page with sections you can flip through:
+
+| Section | What you'll learn |
+|---------|-------------------|
+| **Facts** | Terrifying facts, origin and first appearance |
+| **Legend** | The real folklore and history behind the monster |
+| **The Film** | The classic film's director, star, makeup artist and release date |
+| **Myth vs Movie** | True-or-false claims. Guess first, then press `r` to reveal the verdicts |
+| **Quotes** | Lines from the original public-domain novels |
+| **Stat Card** | Strength, speed, cunning and dread, plus powers and weaknesses |
+| **Legacy** | Sequels, remakes and crossovers |
+
+Silent-era monsters (the Phantom and the Hunchback) are shown in black and white with title cards and flickering film grain.
 
 Jump straight to a monster by name. Partial names and nicknames work too:
 
@@ -54,21 +70,31 @@ terminal-of-terror monster wolfman
 terminal-of-terror monster quasimodo
 ```
 
-Show all monsters at once:
+Open the gallery of every monster, or skip the opening:
 
 ```bash
-terminal-of-terror monster --all
-# or
-terminal-of-terror monster -a
+terminal-of-terror monster --all      # or -a
+terminal-of-terror monster --no-intro
 ```
 
-**Navigation:**
-- Use arrow keys (← →) or `h`/`l` or `p`/`n` to navigate between monsters
-- Press `q` or `Ctrl+C` to quit
+**Keys:**
+
+| Key | Action |
+|-----|--------|
+| `←` `→` / `h` `l` / `p` `n` | Previous / next monster |
+| `tab` `shift+tab` / `1`-`7` | Switch section |
+| `↑` `↓` / `j` `k`, `space`, `pgup`/`pgdn` | Scroll |
+| `r` | Reveal Myth vs Movie verdicts |
+| `/` | Search names, facts, films and legends |
+| `g` / `esc` | Back to the gallery |
+| `?` | Full help |
+| `q` / `Ctrl+C` | Quit |
+
+The explorer uses the full terminal and adapts to its size. On wide terminals the art sits beside the text.
 
 #### List All Monsters
 
-Display a simple list of all available monsters:
+Display every monster, grouped by pack:
 
 ```bash
 terminal-of-terror list
@@ -76,10 +102,20 @@ terminal-of-terror list
 
 #### Random Monster Fact
 
-Get a random fact about a random monster:
+Get a random fact about a random monster, with a word from your host:
 
 ```bash
 terminal-of-terror random
+```
+
+#### JSON Output
+
+`list`, `random` and `monster` accept `--json` for scripting:
+
+```bash
+terminal-of-terror list --json
+terminal-of-terror random --json
+terminal-of-terror monster dracula --json
 ```
 
 #### Help

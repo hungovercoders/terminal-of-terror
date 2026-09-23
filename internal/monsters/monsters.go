@@ -318,3 +318,9 @@ func GetRandomFact() (string, string) {
 	fact := monster.Facts[rand.Intn(len(monster.Facts))]
 	return monster.Name, fact
 }
+
+// RandomFact picks a random monster and one of its facts using r.
+func RandomFact(r *rand.Rand) (Monster, string) {
+	m := monsters[r.Intn(len(monsters))]
+	return m, m.Facts[r.Intn(len(m.Facts))]
+}

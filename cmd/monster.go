@@ -9,7 +9,11 @@ import (
 	"github.com/spf13/cobra"
 )
 
-var showAll bool
+var (
+	showAll     bool
+	noIntro     bool
+	monsterJSON bool
+)
 
 var monsterCmd = &cobra.Command{
 	Use:   "monster [name]",
@@ -30,9 +34,14 @@ work too, e.g. "dracula", "wolfman", "gill-man" or "quasimodo".`,
 			if err != nil {
 				return err
 			}
+			if monsterJSON {
+				return printJSON(m)
+			}
 			startID = m.ID
+		} else if monsterJSON {
+			return printJSON(monsters.GetAllMonsters())
 		}
-		return ui.RunUI(showAll, startID)
+		return ui.RunUI(ui.Options{ShowAll: showAll, StartID: startID, NoIntro: noIntro})
 	},
 }
 
@@ -55,5 +64,7 @@ func resolveMonster(query string) (*monsters.Monster, error) {
 
 func init() {
 	rootCmd.AddCommand(monsterCmd)
-	monsterCmd.Flags().BoolVarP(&showAll, "all", "a", false, "Show all monsters at once")
+	monsterCmd.Flags().BoolVarP(&showAll, "all", "a", false, "Open on the gallery of every monster")
+	monsterCmd.Flags().BoolVar(&noIntro, "no-intro", false, "Skip the Channel 13 opening")
+	monsterCmd.Flags().BoolVar(&monsterJSON, "json", false, "Print the monster's data as JSON instead of opening the explorer")
 }

@@ -19,7 +19,7 @@ Thank you for your interest in contributing to Terminal of Terror! We welcome co
 
 ### Prerequisites
 
-- Go 1.19 or higher
+- Go 1.24 or higher
 - Git
 
 ### Building the Project
