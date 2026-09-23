@@ -2,5 +2,18 @@
   "id": "universal",
   "name": "Universal Classics",
   "description": "The monsters that haunted Universal Pictures from the silent era to the 1950s.",
-  "order": ["dracula", "frankenstein", "wolf-man", "mummy", "creature", "invisible-man", "phantom", "hunchback"]
+  "order": [
+    "dracula",
+    "frankenstein",
+    "wolf-man",
+    "mummy",
+    "creature",
+    "invisible-man",
+    "phantom",
+    "hunchback",
+    "bride",
+    "draculas-daughter",
+    "werewolf-of-london",
+    "metaluna-mutant"
+  ]
 }

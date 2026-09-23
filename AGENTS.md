@@ -4,7 +4,7 @@ This document provides guidance for AI agents working on the Terminal of Terror 
 
 ## Project Overview
 
-Terminal of Terror is a Go CLI application that displays information about classic universal monsters. It uses:
+Terminal of Terror is a Go CLI application that teaches people about classic Universal monsters and world folklore through an interactive explorer, games and nightly rituals, all presented by a fictional late-night horror host, Count Cathode. It uses:
 - **Cobra** for CLI commands and structure
 - **Bubbletea** for interactive terminal UI
 - **Lipgloss** for terminal styling
@@ -13,19 +13,30 @@ Terminal of Terror is a Go CLI application that displays information about class
 
 ```
 terminal-of-terror/
-├── cmd/                    # Cobra command definitions
-│   ├── root.go            # Root command and CLI setup
-│   ├── monster.go         # Interactive monster explorer command
-│   ├── list.go            # List all monsters command
-│   └── random.go          # Random fact command
-├── internal/              # Internal packages
-│   ├── monsters/          # Monster data and logic
-│   │   └── monsters.go    # Monster structs and data
-│   └── ui/                # Bubbletea UI components
-│       └── ui.go          # TUI implementation
-├── main.go                # Application entry point
-├── go.mod                 # Go module definition
-└── go.sum                 # Go module checksums
+├── cmd/                      # Cobra command definitions
+│   ├── root.go              # Root command, --pack flag, community pack loading
+│   ├── monster.go           # Interactive explorer (monster [name])
+│   ├── list.go / random.go  # Listing and random / daily facts
+│   ├── quiz.go / guess.go   # Games
+│   ├── mash.go / crypt.go   # Monster Mash and the Crypt (progress)
+│   ├── tonight.go           # Double-feature ticket
+│   ├── countdown.go         # Halloween countdown
+│   ├── packs.go             # List packs, scaffold community packs
+│   ├── progress.go          # Records game outcomes and announces unlocks
+│   └── output.go            # --json helper
+├── internal/
+│   ├── monsters/            # Monster types, pack loader, search
+│   │   └── packs/           # Built-in data: <pack>/pack.json, <id>.json, <id>.txt art
+│   ├── ui/                  # Bubbletea screens and Lipgloss rendering
+│   ├── host/                # Count Cathode, the horror host
+│   ├── quiz/                # Question generation from monster data
+│   ├── mash/                # Monster Mash fight simulation
+│   ├── crypt/               # Captures and badges
+│   ├── store/               # Progress saved as JSON in the config dir
+│   └── calendar/            # Moon phases, Halloween, anniversaries (offline)
+├── main.go                  # Application entry point
+├── go.mod                   # Go module definition
+└── go.sum                   # Go module checksums
 ```
 
 ## Key Conventions
@@ -72,7 +83,16 @@ go build -o terminal-of-terror
 ./terminal-of-terror random
 ./terminal-of-terror monster
 ./terminal-of-terror monster --all
+./terminal-of-terror quiz
+./terminal-of-terror guess
+./terminal-of-terror mash --fast
+./terminal-of-terror crypt
+./terminal-of-terror tonight
+./terminal-of-terror countdown --date 2026-10-31
+./terminal-of-terror packs
 ```
+
+Set `TERMINAL_OF_TERROR_HOME` to a scratch directory when testing so real progress isn't touched.
 
 ### Dependencies
 Install/update dependencies:
@@ -191,12 +211,8 @@ Follow conventional commits:
 ## Future Considerations
 
 Potential areas for expansion:
-- Unit tests for monster data functions
 - Integration tests for CLI commands
-- Additional monster categories
-- Filtering and search capabilities
-- Configuration file support
-- Additional output formats (JSON, etc.)
+- More packs (Hammer Horror, literary monsters, cryptids)
 - Localization/internationalization
 
 ## Resources

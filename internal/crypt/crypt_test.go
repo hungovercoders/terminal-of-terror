@@ -60,7 +60,7 @@ func TestBadgeRules(t *testing.T) {
 		seen = append(seen, m.ID)
 	}
 	u := Apply(p, all, Outcome{Kind: "explore", Seen: seen, Correct: correct, Now: evening})
-	for _, id := range []string{"scholar", "silent-scholar", "monster-kid", "master"} {
+	for _, id := range []string{"scholar", "silent-scholar", "monster-kid", "folklorist", "master"} {
 		if !hasBadge(u, id) {
 			t.Errorf("expected badge %s", id)
 		}

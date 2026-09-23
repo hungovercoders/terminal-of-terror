@@ -92,13 +92,15 @@ func questionsAbout(r *rand.Rand, m monsters.Monster, all []monsters.Monster) []
 
 	// Which monster is this fact about?
 	for _, f := range m.Facts {
-		qs = append(qs, choice(r, Question{
+		if q, ok := choiceOK(r, Question{
 			Kind:        "fact",
 			Prompt:      "Which monster is this about?",
 			Clue:        mask(f, m),
 			Explanation: m.Name + ": " + f,
 			MonsterID:   m.ID,
-		}, m.Name, names(m.ID)))
+		}, m.Name, names(m.ID)); ok {
+			qs = append(qs, q)
+		}
 	}
 
 	// Whose story does this line come from?
@@ -106,13 +108,15 @@ func questionsAbout(r *rand.Rand, m monsters.Monster, all []monsters.Monster) []
 		if len(q.Text) < 25 {
 			continue
 		}
-		qs = append(qs, choice(r, Question{
+		if qq, ok := choiceOK(r, Question{
 			Kind:        "quote",
 			Prompt:      "Whose story does this line come from?",
 			Clue:        "“" + mask(q.Text, m) + "”",
 			Explanation: "— " + q.Speaker + ", " + q.Source,
 			MonsterID:   m.ID,
-		}, m.Name, names(m.ID)))
+		}, m.Name, names(m.ID)); ok {
+			qs = append(qs, qq)
+		}
 	}
 
 	// Book, film or folklore?
@@ -265,7 +269,12 @@ func mask(text string, m monsters.Monster) string {
 		if len(t) < 3 {
 			continue
 		}
-		re := regexp.MustCompile(`(?i)\b` + regexp.QuoteMeta(t) + `('s)?\b`)
+		pattern := `(?i)\b` + regexp.QuoteMeta(t) + `('s)?\b`
+		if !strings.Contains(t, " ") {
+			// Single words also hide compounds like "Krampusnacht".
+			pattern = `(?i)\b` + regexp.QuoteMeta(t) + `[\p{L}']*`
+		}
+		re := regexp.MustCompile(pattern)
 		text = re.ReplaceAllString(text, "▒▒▒▒")
 	}
 	return text

@@ -33,6 +33,13 @@ func TestMonsterData(t *testing.T) {
 					t.Errorf("%s is empty", field)
 				}
 			}
+			for _, r := range m.ASCII {
+				// Wide or right-to-left characters break alignment and the fog in Guess the Monster.
+				if r > 0x2FFF || (r >= 0x0590 && r <= 0x08FF) {
+					t.Errorf("ASCII art uses %q; stick to single-width, left-to-right characters", r)
+					break
+				}
+			}
 			if m.Debut.Year == 0 && m.Debut.Era == "" {
 				t.Error("debut needs a year or an era")
 			}

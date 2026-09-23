@@ -1,0 +1,40 @@
+{
+  "id": "metaluna-mutant",
+  "name": "The Metaluna Mutant",
+  "aliases": ["Metaluna Mutant", "Mutant", "This Island Earth"],
+  "emoji": "👽",
+  "description": "A big-brained insectoid worker from a dying alien world",
+  "origin": "1950s atomic-age science fiction",
+  "debut": {"medium": "film", "title": "This Island Earth", "creator": "Universal-International", "year": 1955},
+  "film": {
+    "title": "This Island Earth",
+    "year": 1955,
+    "studio": "Universal-International",
+    "director": "Joseph M. Newman",
+    "star": "Regis Parton",
+    "note": "Shot in Technicolor. Based on the novel This Island Earth by Raymond F. Jones."
+  },
+  "legend": "The 1950s swapped gothic castles for flying saucers, and audiences worried about the bomb flocked to science fiction. This Island Earth sends two scientists to Metaluna, a planet losing an interplanetary war, where they meet the Mutant: a creature bred as a worker, with an enormous exposed brain and pincer claws. It's only on screen for the final act, yet it became one of the most recognisable monsters of the decade.",
+  "myths": [
+    {"claim": "The Mutant is on screen for most of This Island Earth.", "true": false, "explanation": "It only appears in the final act, but it's the image everyone remembers."},
+    {"claim": "This Island Earth was filmed in colour.", "true": true, "explanation": "It was shot in Technicolor, which was still costly for science fiction in 1955."},
+    {"claim": "The Mutant's costume covered it from head to toe.", "true": false, "explanation": "The Mutant famously wears a pair of ordinary trousers. The costume's legs were reportedly never finished."}
+  ],
+  "quotes": [],
+  "powers": ["Crushing pincer claws", "An oversized alien brain", "An armoured exoskeleton"],
+  "weaknesses": ["Changes in air pressure", "Being far from Metaluna", "A shoestring costume budget"],
+  "stats": {"strength": 8, "speed": 4, "cunning": 6, "dread": 7},
+  "legacy": [
+    "Mystery Science Theater 3000: The Movie (1996) riffed on This Island Earth"
+  ],
+  "facts": [
+    "The Mutant comes from Metaluna, a planet losing an interplanetary war",
+    "It was bred as a worker creature, with a huge exposed brain",
+    "The Mutant wears ordinary trousers; the costume's legs were reportedly never finished",
+    "This Island Earth was based on a novel by Raymond F. Jones",
+    "The film was riffed in Mystery Science Theater 3000: The Movie (1996)",
+    "It's one of the few Universal monsters to come from outer space"
+  ],
+  "hostIntro": "Tonight we leave the graveyard for outer space! Our guest has a brain the size of a beach ball and, famously, trousers.",
+  "theme": {"primary": "#F77F00", "accent": "#FCBF49"}
+}

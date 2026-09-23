@@ -41,7 +41,10 @@ var shortTabNames = map[tab]string{
 
 // tabsFor lists the sections a monster has something to say in.
 func tabsFor(m monsters.Monster) []tab {
-	tabs := []tab{tabFacts, tabLegend}
+	tabs := []tab{tabFacts}
+	if m.Legend != "" {
+		tabs = append(tabs, tabLegend)
+	}
 	if m.Film != nil {
 		tabs = append(tabs, tabFilm)
 	}
@@ -177,8 +180,8 @@ func (m model) galleryLines(width int) ([]string, int) {
 			cursorLine = len(lines)
 		}
 		year := ""
-		if y := debutYear(mo); y != "" {
-			year = helpStyle.Render(" (" + y + ")")
+		if mo.Debut.Year != 0 {
+			year = helpStyle.Render(fmt.Sprintf(" (%d)", mo.Debut.Year))
 		}
 		lines = append(lines, marker+nameStyle.Render(name)+year)
 		lines = append(lines, "    "+hostStyle.Render(truncate(mo.Description, width-6)))
@@ -266,6 +269,9 @@ func (m model) tabBar(p palette) string {
 	var parts []string
 	for i, t := range tabsFor(m.current()) {
 		name := tabNames[t]
+		if t == tabMyths && m.current().Film == nil {
+			name = "Myth or Fact"
+		}
 		if short, ok := shortTabNames[t]; ok && m.contentWidth() < 100 {
 			name = short
 		}
@@ -355,7 +361,11 @@ func (m model) tabContent(t tab, mo monsters.Monster, p palette, w int) string {
 		}
 
 	case tabMyths:
-		heading("Myth vs Movie")
+		if mo.Film == nil {
+			heading("Myth or Fact?")
+		} else {
+			heading("Myth vs Movie")
+		}
 		if !m.revealed {
 			b.WriteString(hostStyle.Render(wrap("True or false? Make your guesses, then press r to reveal the verdicts.", w)) + "\n\n")
 		}
@@ -514,6 +524,14 @@ func formatDate(iso string) string {
 	return t.Format("2 January 2006")
 }
 
+// shortYear is the debut year for compact lists, or "lore" for folklore.
+func shortYear(mo monsters.Monster) string {
+	if mo.Debut.Year != 0 {
+		return fmt.Sprint(mo.Debut.Year)
+	}
+	return "lore"
+}
+
 func debutYear(mo monsters.Monster) string {
 	if mo.Debut.Year != 0 {
 		return fmt.Sprint(mo.Debut.Year)
@@ -522,7 +540,7 @@ func debutYear(mo monsters.Monster) string {
 }
 
 func packName(id string) string {
-	for _, p := range monsters.GetPacks() {
+	for _, p := range monsters.AllPacks() {
 		if p.ID == id {
 			return p.Name
 		}

@@ -44,7 +44,7 @@ func RenderList(list []monsters.Monster, width int) string {
 		p := paletteFor(m)
 		num := helpStyle.Render(fmt.Sprintf("%3d.", i+1))
 		name := lipgloss.NewStyle().Foreground(p.primary).Bold(true).Render(fmt.Sprintf("%-*s", nameW, m.Name))
-		year := helpStyle.Render(fmt.Sprintf("%-5s", debutYear(m)))
+		year := helpStyle.Render(fmt.Sprintf("%-5s", shortYear(m)))
 		line := fmt.Sprintf("%s %s %s %s ", num, m.Emoji, name, year)
 		desc := m.Description
 		if width > 0 {
@@ -52,7 +52,7 @@ func RenderList(list []monsters.Monster, width int) string {
 		}
 		b.WriteString(line + hostStyle.Render(desc) + "\n")
 	}
-	b.WriteString("\n" + metaStyle.Render(fmt.Sprintf("%d monsters lurk in the vault.", len(list))))
+	b.WriteString("\n" + metaStyle.Render(countOf(len(list), "monster")+" lurk in the vault."))
 	b.WriteString("\n" + helpStyle.Render("Meet one: terminal-of-terror monster <name>") + "\n")
 	return b.String()
 }
@@ -92,4 +92,37 @@ func (c FactCard) Render(width int) string {
 		BorderForeground(p.accent).
 		Padding(0, 1).
 		Render(strings.Join(parts, "\n")) + "\n"
+}
+
+// RenderPacks lists every pack and where community packs live.
+func RenderPacks(packs []monsters.Pack, communityDir string, width int) string {
+	var b strings.Builder
+	b.WriteString(titleStyle.Render("📦 MONSTER PACKS") + "\n")
+	for _, p := range packs {
+		b.WriteString("\n" + headingStyle.Render(fmt.Sprintf("%s (%s) · %s", p.Name, p.ID, countOf(len(p.Monsters), "monster"))) + "\n")
+		if p.Description != "" {
+			b.WriteString(hostStyle.Render(wrap(p.Description, textWidth(width))) + "\n")
+		}
+		var names []string
+		for _, m := range p.Monsters {
+			names = append(names, m.Emoji+" "+m.Name)
+		}
+		b.WriteString(factStyle.Render(joinFit(names, " · ", textWidth(width))) + "\n")
+		if p.Source != "built-in" && p.Source != "" {
+			b.WriteString(helpStyle.Render("from "+p.Source) + "\n")
+		}
+	}
+	b.WriteString("\n" + metaStyle.Render("Use --pack to choose, e.g. terminal-of-terror quiz --pack folklore") + "\n")
+	if communityDir != "" {
+		b.WriteString(helpStyle.Render("Community packs live in "+communityDir) + "\n")
+	}
+	b.WriteString(helpStyle.Render("Make your own: terminal-of-terror packs new <pack-id>") + "\n")
+	return b.String()
+}
+
+func countOf(n int, noun string) string {
+	if n == 1 {
+		return "1 " + noun
+	}
+	return fmt.Sprintf("%d %ss", n, noun)
 }

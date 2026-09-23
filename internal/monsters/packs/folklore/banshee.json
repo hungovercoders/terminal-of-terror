@@ -1,0 +1,32 @@
+{
+  "id": "banshee",
+  "name": "The Banshee",
+  "aliases": ["Banshee", "Bean Sídhe", "Bean Sidhe"],
+  "emoji": "😱",
+  "description": "A fairy woman whose wail warns that death is near",
+  "origin": "Irish folklore",
+  "debut": {"medium": "folklore", "title": "Irish legend", "era": "Irish oral tradition, recorded since the Middle Ages"},
+  "legend": "In Ireland, mourners called keeners once sang laments at wakes, and the banshee is their supernatural sister. Her name comes from the Irish bean sídhe, 'woman of the fairy mound'. Tradition says she follows certain old Irish families, and her keening cry in the night means one of them is about to die. She doesn't cause the death; she mourns it before it happens. Scotland has a cousin, the bean nighe, who washes the clothes of the soon-to-be-dead at a ford.",
+  "myths": [
+    {"claim": "The banshee causes the deaths she announces.", "true": false, "explanation": "She's a herald and a mourner, not a killer. Her cry is a warning."},
+    {"claim": "Her name means 'woman of the fairy mound'.", "true": true, "explanation": "It comes from the Irish bean ('woman') and sídhe ('fairy mound')."},
+    {"claim": "Tradition says she mourns only certain old Irish families.", "true": true, "explanation": "Many tellings say she follows particular ancient families, rather than anyone at all."}
+  ],
+  "quotes": [],
+  "powers": ["A wail that carries for miles", "Foreknowledge of death", "Vanishing into the night mist"],
+  "weaknesses": ["Being bound to her family", "Her endless grief", "The coming of dawn"],
+  "stats": {"strength": 2, "speed": 7, "cunning": 7, "dread": 10},
+  "legacy": [
+    "Darby O'Gill and the Little People (1959) features a terrifying banshee"
+  ],
+  "facts": [
+    "Her name comes from the Irish bean sídhe, 'woman of the fairy mound'",
+    "Her wailing cry foretells a death in the family",
+    "Tradition says she mourns only for certain old Irish families",
+    "She may appear as a young woman, a stately matron or a withered crone",
+    "She is often pictured combing her long hair with a silver comb",
+    "In Scotland, the bean nighe washes the clothes of those about to die"
+  ],
+  "hostIntro": "Hear that? No, that's not the kettle. Tonight's guest has the most famous voice in Ireland, and you really don't want to hear it close up.",
+  "theme": {"primary": "#ADE8F4", "accent": "#CAF0F8"}
+}

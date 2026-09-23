@@ -3,10 +3,12 @@ package monsters
 import (
 	"embed"
 	"encoding/json"
+	"errors"
 	"fmt"
 	"io/fs"
 	"log"
 	"math/rand"
+	"os"
 	"path"
 	"sort"
 	"strings"
@@ -123,8 +125,9 @@ func (m Monster) IsSilent() bool {
 var builtinFS embed.FS
 
 var (
-	packs    []Pack
-	monsters []Monster
+	allPacks []Pack    // everything loaded
+	packs    []Pack    // the packs in use (see UsePacks)
+	monsters []Monster // monsters from the packs in use
 )
 
 func init() {
@@ -136,6 +139,7 @@ func init() {
 	if err != nil {
 		log.Fatalf("Failed to load monsters data: %v", err)
 	}
+	allPacks = loaded
 	setPacks(loaded)
 }
 
@@ -159,9 +163,9 @@ func LoadPacks(fsys fs.FS, source string) ([]Pack, error) {
 		if !e.IsDir() {
 			continue
 		}
-		p, err := loadPack(fsys, e.Name())
-		if err != nil {
-			return nil, fmt.Errorf("pack %q: %w", e.Name(), err)
+		p, errs := loadPack(fsys, e.Name())
+		if len(errs) > 0 {
+			return nil, fmt.Errorf("pack %q: %w", e.Name(), errors.Join(errs...))
 		}
 		p.Source = source
 		out = append(out, p)
@@ -178,14 +182,21 @@ func packRank(id string) string {
 	return "1" + id
 }
 
-func loadPack(fsys fs.FS, dir string) (Pack, error) {
+// loadPack reads one pack directory. Files that can't be read are
+// skipped and reported, so one bad monster doesn't sink the whole pack.
+func loadPack(fsys fs.FS, dir string) (Pack, []error) {
 	var p Pack
+	var errs []error
 	raw, err := fs.ReadFile(fsys, path.Join(dir, "pack.json"))
-	if err != nil {
-		return p, err
-	}
-	if err := json.Unmarshal(raw, &p); err != nil {
-		return p, fmt.Errorf("pack.json: %w", err)
+	switch {
+	case errors.Is(err, fs.ErrNotExist):
+		p.Name = dir // pack.json is optional for community packs
+	case err != nil:
+		return p, []error{err}
+	default:
+		if err := json.Unmarshal(raw, &p); err != nil {
+			return p, []error{fmt.Errorf("pack.json: %w", err)}
+		}
 	}
 	if p.ID == "" {
 		p.ID = dir
@@ -193,7 +204,7 @@ func loadPack(fsys fs.FS, dir string) (Pack, error) {
 
 	files, err := fs.Glob(fsys, path.Join(dir, "*.json"))
 	if err != nil {
-		return p, err
+		return p, []error{err}
 	}
 	byID := map[string]Monster{}
 	for _, f := range files {
@@ -202,11 +213,13 @@ func loadPack(fsys fs.FS, dir string) (Pack, error) {
 		}
 		raw, err := fs.ReadFile(fsys, f)
 		if err != nil {
-			return p, err
+			errs = append(errs, err)
+			continue
 		}
 		var m Monster
 		if err := json.Unmarshal(raw, &m); err != nil {
-			return p, fmt.Errorf("%s: %w", path.Base(f), err)
+			errs = append(errs, fmt.Errorf("%s: %w", path.Base(f), err))
+			continue
 		}
 		if m.ID == "" {
 			m.ID = strings.TrimSuffix(path.Base(f), ".json")
@@ -233,7 +246,7 @@ func loadPack(fsys fs.FS, dir string) (Pack, error) {
 	for _, id := range rest {
 		p.Monsters = append(p.Monsters, byID[id])
 	}
-	return p, nil
+	return p, errs
 }
 
 // GetAllMonsters returns all available monsters
@@ -241,9 +254,23 @@ func GetAllMonsters() []Monster {
 	return monsters
 }
 
-// GetPacks returns all loaded packs
+// GetPacks returns the packs in use
 func GetPacks() []Pack {
 	return packs
+}
+
+// AllPacks returns every loaded pack, ignoring any --pack filter.
+func AllPacks() []Pack {
+	return allPacks
+}
+
+// EveryMonster returns every loaded monster, ignoring any --pack filter.
+func EveryMonster() []Monster {
+	var out []Monster
+	for _, p := range allPacks {
+		out = append(out, p.Monsters...)
+	}
+	return out
 }
 
 // GetRandomMonster returns a random monster
@@ -323,4 +350,154 @@ func GetRandomFact() (string, string) {
 func RandomFact(r *rand.Rand) (Monster, string) {
 	m := monsters[r.Intn(len(monsters))]
 	return m, m.Facts[r.Intn(len(m.Facts))]
+}
+
+// LoadUserPacks reads community packs from dir, where each subdirectory is
+// a pack. Broken or incomplete monsters are skipped and reported; a missing
+// dir simply means no community packs.
+func LoadUserPacks(dir string) ([]Pack, []error) {
+	entries, err := os.ReadDir(dir)
+	if errors.Is(err, fs.ErrNotExist) {
+		return nil, nil
+	}
+	if err != nil {
+		return nil, []error{err}
+	}
+	fsys := os.DirFS(dir)
+	var out []Pack
+	var errs []error
+	for _, e := range entries {
+		if !e.IsDir() {
+			continue
+		}
+		p, perrs := loadPack(fsys, e.Name())
+		for _, err := range perrs {
+			errs = append(errs, fmt.Errorf("pack %q: %w", e.Name(), err))
+		}
+		p.Source = dir + string(os.PathSeparator) + e.Name()
+		var ok []Monster
+		for _, m := range p.Monsters {
+			if problems := Validate(m); len(problems) > 0 {
+				errs = append(errs, fmt.Errorf("pack %q: skipping %q: %s", p.ID, m.ID, strings.Join(problems, "; ")))
+				continue
+			}
+			applyDefaults(&m)
+			ok = append(ok, m)
+		}
+		p.Monsters = ok
+		if len(ok) > 0 {
+			out = append(out, p)
+		}
+	}
+	return out, errs
+}
+
+// Validate lists what a community monster is missing to be playable.
+func Validate(m Monster) []string {
+	var problems []string
+	if strings.TrimSpace(m.Name) == "" {
+		problems = append(problems, "needs a name")
+	}
+	if strings.TrimSpace(m.Description) == "" {
+		problems = append(problems, "needs a description")
+	}
+	if len(m.Facts) == 0 {
+		problems = append(problems, "needs at least one fact")
+	}
+	for _, v := range []int{m.Stats.Strength, m.Stats.Speed, m.Stats.Cunning, m.Stats.Dread} {
+		if v < 0 || v > 10 {
+			problems = append(problems, "stats must be between 1 and 10")
+			break
+		}
+	}
+	return problems
+}
+
+// applyDefaults fills in optional fields so community monsters work everywhere.
+func applyDefaults(m *Monster) {
+	if m.Emoji == "" {
+		m.Emoji = "👹"
+	}
+	if m.Origin == "" {
+		m.Origin = "Unknown"
+	}
+	if m.Debut.Title == "" {
+		m.Debut.Title = m.Name
+	}
+	if m.Debut.Year == 0 && m.Debut.Era == "" {
+		m.Debut.Era = "date unknown"
+	}
+	for _, s := range []*int{&m.Stats.Strength, &m.Stats.Speed, &m.Stats.Cunning, &m.Stats.Dread} {
+		if *s == 0 {
+			*s = 5
+		}
+	}
+	if len(m.Powers) == 0 {
+		m.Powers = []string{"Sheer terror"}
+	}
+	if len(m.Weaknesses) == 0 {
+		m.Weaknesses = []string{"A good night's sleep"}
+	}
+}
+
+// AddPacks merges extra packs into the collection. Packs or monsters whose
+// ids are already taken are skipped and reported.
+func AddPacks(extra []Pack) []error {
+	var errs []error
+	packIDs := map[string]bool{}
+	monsterIDs := map[string]bool{}
+	for _, p := range allPacks {
+		packIDs[p.ID] = true
+		for _, m := range p.Monsters {
+			monsterIDs[m.ID] = true
+		}
+	}
+	merged := append([]Pack{}, allPacks...)
+	for _, p := range extra {
+		if packIDs[p.ID] {
+			errs = append(errs, fmt.Errorf("pack %q: a pack with that id already exists", p.ID))
+			continue
+		}
+		var ok []Monster
+		for _, m := range p.Monsters {
+			if monsterIDs[m.ID] {
+				errs = append(errs, fmt.Errorf("pack %q: skipping %q: a monster with that id already exists", p.ID, m.ID))
+				continue
+			}
+			monsterIDs[m.ID] = true
+			ok = append(ok, m)
+		}
+		if len(ok) == 0 {
+			continue
+		}
+		p.Monsters = ok
+		packIDs[p.ID] = true
+		merged = append(merged, p)
+	}
+	allPacks = merged
+	setPacks(merged)
+	return errs
+}
+
+// UsePacks limits every command to the named packs.
+func UsePacks(ids []string) error {
+	var keep []Pack
+	for _, id := range ids {
+		found := false
+		for _, p := range allPacks {
+			if p.ID == id {
+				keep = append(keep, p)
+				found = true
+			}
+		}
+		if !found {
+			var names []string
+			for _, p := range allPacks {
+				names = append(names, p.ID)
+			}
+			return fmt.Errorf("no pack called %q; choose from: %s", id, strings.Join(names, ", "))
+		}
+	}
+	setPacks(keep)
+	return nil
 }

@@ -22,7 +22,8 @@ func record(o crypt.Outcome) {
 	if o.Now.IsZero() {
 		o.Now = time.Now()
 	}
-	u := crypt.Apply(p, monsters.GetAllMonsters(), o)
+	// Badges like Master of the Crypt count every monster, not just a --pack selection.
+	u := crypt.Apply(p, monsters.EveryMonster(), o)
 	if err := p.Save(); err != nil {
 		fmt.Fprintf(os.Stderr, "⚠️  Couldn't save your progress: %v\n", err)
 		return

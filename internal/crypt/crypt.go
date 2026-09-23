@@ -35,6 +35,7 @@ var Badges = []Badge{
 	{"halloween", "👻", "Halloween Spirit", "Play a game on Halloween"},
 	{"silent-scholar", "🎞️", "Silent Era Scholar", "Capture every silent-film monster"},
 	{"monster-kid", "📺", "Monster Kid", "Capture every Universal Classic"},
+	{"folklorist", "🌍", "Folklorist", "Capture 5 monsters from World Folklore"},
 	{"master", "👑", "Master of the Crypt", "Capture every monster"},
 }
 
@@ -139,6 +140,15 @@ func Apply(p *store.Progress, all []monsters.Monster, o Outcome) Unlocks {
 	}
 	if allWhere(all, func(m monsters.Monster) bool { return m.Pack == "universal" }, captured) {
 		award("monster-kid")
+	}
+	folk := 0
+	for _, m := range all {
+		if m.Pack == "folklore" && captured(m) {
+			folk++
+		}
+	}
+	if folk >= 5 {
+		award("folklorist")
 	}
 	if every(all, captured) {
 		award("master")

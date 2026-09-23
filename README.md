@@ -6,7 +6,7 @@ Terminal of Terror is a CLI application that brings classic universal monsters t
 
 ## Features
 
-- 🧛 Explore 8 classic universal monsters
+- 🧛 Explore 19 monsters: 12 Universal Classics and 7 from world folklore
 - 📚 Learn terrifying facts about each creature, plus the real folklore and film history behind them
 - 🔍 Myth vs. movie checks that separate what the legends said from what Hollywood invented
 - 📺 A late-night Creature Feature hosted by Count Cathode, with a TV-static opening
@@ -222,6 +222,8 @@ terminal-of-terror --version
 
 ## Monsters Included
 
+### Universal Classics (`--pack universal`)
+
 - 🧛 **Dracula** - The legendary vampire count from Transylvania
 - 🧟 **Frankenstein's Monster** - The tragic creature created by Dr. Victor Frankenstein
 - 🐺 **The Wolf Man** - A man cursed to transform into a werewolf
@@ -230,6 +232,40 @@ terminal-of-terror --version
 - 👻 **The Invisible Man** - A scientist who discovers the secret of invisibility
 - 🎭 **The Phantom of the Opera** - A disfigured musical genius haunting the Paris Opera House
 - 🔔 **The Hunchback of Notre Dame** - The deformed bell-ringer of Notre Dame Cathedral
+- 👰 **The Bride of Frankenstein** - The Monster's electrifying mate
+- 🦇 **Dracula's Daughter** - A melancholy countess desperate to escape her father's curse
+- 🌿 **The Werewolf of London** - Hollywood's first mainstream werewolf, six years before the Wolf Man
+- 👽 **The Metaluna Mutant** - A big-brained worker from a dying alien world
+
+### World Folklore (`--pack folklore`)
+
+- 🗿 **The Golem** - A clay giant from Jewish folklore, brought to life to protect its people
+- 😱 **The Banshee** - The Irish fairy woman whose wail foretells a death
+- 🧙 **Baba Yaga** - The Slavic forest witch with a hut on chicken legs
+- 🥒 **The Kappa** - A polite but dangerous Japanese river imp
+- 🏮 **The Jiangshi** - The Chinese hopping corpse that drains the breath of life
+- 💧 **La Llorona** - The weeping woman of Mexican and Latin American legend
+- 😈 **Krampus** - The horned Alpine demon who punishes naughty children
+
+## Monster Packs
+
+Monsters come in packs. Use `--pack` with any command to choose which ones to use:
+
+```bash
+terminal-of-terror packs                        # list every pack
+terminal-of-terror quiz --pack folklore         # a folklore-only quiz
+terminal-of-terror monster --pack universal,folklore
+```
+
+### Community Packs
+
+Make your own pack of monsters, with no Go code required:
+
+```bash
+terminal-of-terror packs new cryptids
+```
+
+This creates `~/.config/terminal-of-terror/packs/cryptids/` (or the equivalent config directory on your OS) with an example monster to edit. Every pack in that folder is loaded automatically, and your monsters appear in the explorer, quiz, guessing game, Mash and everything else. Only `name`, `description` and `facts` are required. See [CONTRIBUTING.md](CONTRIBUTING.md) for every field, and consider contributing a great pack back to the project!
 
 ## Contributing
 
@@ -251,5 +287,7 @@ This project is licensed under the MIT License - see the [LICENSE](LICENSE) file
 
 ## Acknowledgments
 
-- Inspired by the classic Universal Monsters films
-- Monster facts compiled from various horror history sources
+- Inspired by the classic Universal Monsters films and the late-night horror hosts who showed them
+- Monster facts compiled from horror history and folklore sources
+- Quotes come only from public-domain texts, such as the original 19th-century novels
+- Count Cathode and Channel 13 are fictional

@@ -51,7 +51,16 @@ Then try the various commands:
 ./terminal-of-terror random
 ./terminal-of-terror monster
 ./terminal-of-terror monster --all
+./terminal-of-terror quiz
+./terminal-of-terror guess
+./terminal-of-terror mash
+./terminal-of-terror crypt
+./terminal-of-terror tonight
+./terminal-of-terror countdown
+./terminal-of-terror packs
 ```
+
+Set `TERMINAL_OF_TERROR_HOME` to a scratch directory while testing, so your real progress isn't touched.
 
 ## Making Changes
 
@@ -64,7 +73,7 @@ Then try the various commands:
 
 ### Adding New Monsters
 
-Monsters live in **packs** under `internal/monsters/packs/<pack-id>/`. Each pack has:
+Monsters live in **packs** under `internal/monsters/packs/<pack-id>/`. The built-in packs are `universal` (Universal Classics) and `folklore` (World Folklore). Each pack has:
 
 - `pack.json` — the pack's `id`, `name`, `description` and the display `order` of monster ids
 - `<monster-id>.json` — one file per monster
@@ -102,7 +111,20 @@ Guidelines:
 - **Quotes must come from public-domain sources** such as 19th-century novels. Don't quote dialogue from copyrighted films; describe famous scenes in your own words instead.
 - `film` is optional (folklore monsters may not have one). `debut` needs either a `year` or an `era`.
 - Stats are 1–10 and just for fun (they power the Monster Mash).
-- Run `go test ./...`: the data tests check every monster has the required fields.
+- ASCII art must use single-width, left-to-right characters (no emoji, CJK or Hebrew/Arabic letters), or it will misalign and break the fog in Guess the Monster.
+- Every fact, myth check, quote and film credit automatically becomes quiz material, so write facts that make good questions.
+- Treat folklore from living cultures with respect: explain where a legend comes from and what it means to the people who tell it.
+- Run `go test ./...`: the data tests check every built-in monster has the required fields.
+
+### Community Packs
+
+You can try a pack without touching the repository:
+
+```bash
+terminal-of-terror packs new my-pack
+```
+
+This creates a pack in your config directory (`$TERMINAL_OF_TERROR_HOME/packs` if that's set). Community monsters only need `name`, `description` and `facts`; everything else gets a sensible default. Broken files are skipped with a warning. When your pack is polished, it can be moved into `internal/monsters/packs/` and contributed as a built-in pack. Built-in monsters need every field.
 
 ### Adding New Features
 

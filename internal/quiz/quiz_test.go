@@ -60,6 +60,10 @@ func TestMask(t *testing.T) {
 	if strings.Contains(got, "Dracula") {
 		t.Errorf("mask left the name in: %q", got)
 	}
+	k := monsters.GetMonsterByName("krampus")
+	if got := mask("Krampusnacht and Krampuslauf", *k); strings.Contains(got, "Krampus") {
+		t.Errorf("mask left a compound in: %q", got)
+	}
 }
 
 func TestRank(t *testing.T) {

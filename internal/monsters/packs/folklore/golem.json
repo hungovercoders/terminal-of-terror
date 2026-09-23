@@ -1,0 +1,33 @@
+{
+  "id": "golem",
+  "name": "The Golem",
+  "aliases": ["Golem", "Golem of Prague"],
+  "emoji": "🗿",
+  "description": "A giant of clay, brought to life with sacred words to protect its people",
+  "origin": "Jewish folklore",
+  "debut": {"medium": "folklore", "title": "Jewish legend", "era": "ancient roots; the Prague legend was written down in the 1800s"},
+  "legend": "The Talmud tells of a sage who formed a man and sent him to a colleague, who realised it couldn't speak and returned it to dust. Over the centuries, golem legends grew, and the most famous tells of Rabbi Judah Loew, the Maharal of Prague, who shaped a golem from river clay in the 16th century to defend the city's Jewish quarter from attack. Written versions tying the story to Rabbi Loew only appear in the 19th century, long after his death.",
+  "myths": [
+    {"claim": "The golem is an evil monster.", "true": false, "explanation": "The golem is a protector. The danger in the tales comes when it grows too strong to control."},
+    {"claim": "Erasing a single letter can stop a golem.", "true": true, "explanation": "In one version, the word emet ('truth') wakes it. Rub out the first letter and it reads met ('dead')."},
+    {"claim": "The Golem of Prague legend was written down in Rabbi Loew's lifetime.", "true": false, "explanation": "Rabbi Loew died in 1609, but written versions naming him as the golem's maker date from the 1800s."}
+  ],
+  "quotes": [],
+  "powers": ["Tireless strength", "Total obedience to its maker", "Immunity to pain"],
+  "weaknesses": ["A single erased letter", "Removal of the sacred name", "Growing beyond control"],
+  "stats": {"strength": 10, "speed": 3, "cunning": 2, "dread": 6},
+  "legacy": [
+    "Der Golem, wie er in die Welt kam (1920), directed by Paul Wegener and Carl Boese",
+    "An ancestor of countless stories about artificial beings, from robots to androids"
+  ],
+  "facts": [
+    "A golem is shaped from clay and brought to life with sacred words",
+    "Writing emet ('truth') on its forehead wakes it; erasing a letter leaves met ('dead')",
+    "The word golem appears once in the Bible, in Psalm 139, meaning unformed substance",
+    "The most famous golem was said to protect the Jewish quarter of Prague",
+    "Legend says its remains lie in the attic of Prague's Old-New Synagogue",
+    "In most tales the golem cannot speak"
+  ],
+  "hostIntro": "Tonight's guest was made, not born: six feet of river clay with one very important word on its forehead. Please don't touch the lettering.",
+  "theme": {"primary": "#A68A64", "accent": "#E6CCB2"}
+}

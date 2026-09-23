@@ -1,0 +1,33 @@
+{
+  "id": "jiangshi",
+  "name": "The Jiangshi",
+  "aliases": ["Jiangshi", "Hopping Vampire", "Chinese Hopping Vampire", "Kyonshi"],
+  "emoji": "🏮",
+  "description": "A stiff-limbed corpse that hops through the night, draining the breath of life",
+  "origin": "Chinese folklore",
+  "debut": {"medium": "folklore", "title": "Chinese ghost stories", "era": "recorded in 18th-century story collections"},
+  "legend": "Jiangshi means 'stiff corpse'. Its limbs are so rigid that it can only hop, arms stretched out in front. Rather than drinking blood, it drains qi, the life force carried on the breath. One popular origin story involves the 'corpse walkers' of western Hunan, Taoist priests said to guide the dead home for burial at night, their charges hopping behind them. 18th-century writers such as Ji Yun and Yuan Mei collected jiangshi tales, and Hong Kong cinema made the creature a star.",
+  "myths": [
+    {"claim": "Jiangshi drink blood like European vampires.", "true": false, "explanation": "Traditionally they drain qi, the breath of life. The blood-drinking came later, from Western vampire stories."},
+    {"claim": "Holding your breath can hide you from a jiangshi.", "true": true, "explanation": "The creature finds the living by their breath, so holding yours makes you invisible to it."},
+    {"claim": "A jiangshi hops because its body is too stiff to walk.", "true": true, "explanation": "Its limbs are locked rigid, so it bounds along with arms outstretched."}
+  ],
+  "quotes": [],
+  "powers": ["Draining qi, the breath of life", "Relentless hopping pursuit", "An iron-hard body"],
+  "weaknesses": ["Yellow paper talismans", "Sticky rice", "Mirrors", "A rooster's crow", "Held breath"],
+  "stats": {"strength": 7, "speed": 4, "cunning": 2, "dread": 8},
+  "legacy": [
+    "Mr. Vampire (1985) and its many sequels",
+    "Countless video games, anime and comics"
+  ],
+  "facts": [
+    "Jiangshi means 'stiff corpse' in Chinese",
+    "It hops with arms outstretched because its limbs are too stiff to bend",
+    "It is usually dressed in the robes of a Qing dynasty official",
+    "A yellow paper talisman stuck to its forehead stops it in its tracks",
+    "It hunts by sensing breath, so holding yours can save you",
+    "Hong Kong's Mr. Vampire (1985) made the hopping vampire a movie star"
+  ],
+  "hostIntro": "Boing, boing, boing. That's not a kangaroo on the roof, folks. Tonight's guest hops, and holding your breath is strongly recommended.",
+  "theme": {"primary": "#E85D04", "accent": "#FFBA08"}
+}
