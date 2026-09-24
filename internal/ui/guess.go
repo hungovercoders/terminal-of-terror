@@ -267,6 +267,13 @@ func (m guessModel) View() string {
 	}
 	box := lipgloss.NewStyle().Border(lipgloss.RoundedBorder()).BorderForeground(p.accent).Padding(0, 1).Render(artStyle.Render(art))
 
+	// The side panel wraps to whatever room the portrait leaves, so a long
+	// clue can't push the layout into a taller stacked view mid-round.
+	sideW := w - lipgloss.Width(box) - 3
+	sideBySide := sideW >= 32
+	if !sideBySide {
+		sideW = w
+	}
 	var side strings.Builder
 	side.WriteString(lipgloss.NewStyle().Bold(true).Render("Who lurks in the fog?") + "\n")
 	side.WriteString(helpStyle.Render(fmt.Sprintf("Fog cleared: %d%% · worth %d pts", int(fogReveal[m.stage]*100), fogPoints[m.stage])) + "\n\n")
@@ -275,7 +282,7 @@ func (m guessModel) View() string {
 	}
 	side.WriteString("\n")
 	for _, c := range g.clues(m.stage) {
-		side.WriteString(metaStyle.Render("Clue: "+c) + "\n")
+		side.WriteString(metaStyle.Render(wrap("Clue: "+c, sideW)) + "\n")
 	}
 
 	var bottom strings.Builder
@@ -293,7 +300,7 @@ func (m guessModel) View() string {
 	}
 
 	sideText := side.String()
-	if lipgloss.Width(box)+lipgloss.Width(sideText)+3 <= w {
+	if sideBySide {
 		b.WriteString(lipgloss.JoinHorizontal(lipgloss.Top, box, "   ", sideText) + "\n\n")
 	} else {
 		b.WriteString(box + "\n\n" + sideText + "\n")

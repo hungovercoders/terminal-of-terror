@@ -7,6 +7,7 @@ import (
 	"time"
 
 	tea "github.com/charmbracelet/bubbletea"
+	"github.com/charmbracelet/lipgloss"
 	"github.com/hungovercoders/terminal-of-terror/internal/monsters"
 	"github.com/hungovercoders/terminal-of-terror/internal/quiz"
 	"github.com/hungovercoders/terminal-of-terror/internal/store"
@@ -129,7 +130,7 @@ func TestRenderCountdownAndTicket(t *testing.T) {
 }
 
 func TestBigNumber(t *testing.T) {
-	if got := bigNumber(38); got != "▀▀█ █▄█\n▄▄█ █▄█" {
+	if got := bigNumber(38); got != "▀▀█ █▀█\n ▀█ █▀█\n▄▄█ █▄█" {
 		t.Errorf("got %q", got)
 	}
 }
@@ -150,6 +151,48 @@ func TestGuessNeedsEnoughMonsters(t *testing.T) {
 	for _, g := range NewGuessRounds(r, all, 5) {
 		if len(g.Options) != 4 {
 			t.Errorf("full roster should give 4 options, got %d", len(g.Options))
+		}
+	}
+}
+
+func TestTilde(t *testing.T) {
+	t.Setenv("HOME", "/home/ghoul")
+	cases := map[string]string{
+		"/home/ghoul/.config/terminal-of-terror/progress.json": "~/.config/terminal-of-terror/progress.json",
+		"/home/ghoul":         "~",
+		"/home/ghoulish/x":    "/home/ghoulish/x",
+		"/tmp/somewhere/else": "/tmp/somewhere/else",
+	}
+	for in, want := range cases {
+		if got := Tilde(in); got != want {
+			t.Errorf("Tilde(%q) = %q, want %q", in, got, want)
+		}
+	}
+}
+
+// TestGuessLayoutStaysPut makes sure revealing clues doesn't change the layout.
+func TestGuessLayoutStaysPut(t *testing.T) {
+	r := rand.New(rand.NewSource(3))
+	var rounds []GuessRound
+	for _, g := range NewGuessRounds(r, monsters.GetAllMonsters(), 19) {
+		if g.Monster.ID == "mummy" { // the longest origin clue
+			rounds = append(rounds, g)
+		}
+	}
+	var m tea.Model = newGuessModel(rounds, r)
+	m, _ = m.Update(size(90, 40))
+	first := strings.Index(m.View(), "Who lurks in the fog?")
+	m = step(m, " ", " ", " ")
+	v := m.View()
+	if !strings.Contains(v, "Origin:") {
+		t.Fatal("expected the origin clue by stage 3")
+	}
+	if got := strings.Index(v, "Who lurks in the fog?"); got != first {
+		t.Errorf("side panel moved from %d to %d once clues appeared", first, got)
+	}
+	for _, line := range strings.Split(v, "\n") {
+		if lipgloss.Width(line) > 90 {
+			t.Errorf("line wider than the terminal: %q", line)
 		}
 	}
 }

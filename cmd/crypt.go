@@ -34,7 +34,7 @@ it in the quiz or Guess the Monster, plus your badges and records.`,
 		fmt.Print(ui.RenderCrypt(p, monsters.GetAllMonsters(), ui.TerminalWidth()))
 		if path, err := store.Path(); err == nil {
 			fmt.Println()
-			fmt.Println(ui.Dim("Progress is saved in " + path))
+			fmt.Println(ui.Dim("Progress is saved in " + ui.Tilde(path)))
 		}
 		return nil
 	},

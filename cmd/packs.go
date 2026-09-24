@@ -102,7 +102,7 @@ var packsNewCmd = &cobra.Command{
 		if err := os.WriteFile(filepath.Join(packDir, monsterID+".txt"), []byte(art), 0o644); err != nil {
 			return err
 		}
-		fmt.Printf("Created %s\n\n", packDir)
+		fmt.Printf("Created %s\n\n", ui.Tilde(packDir))
 		fmt.Printf("Edit %s.json (and %s.txt for its portrait), then try:\n", monsterID, monsterID)
 		fmt.Printf("  terminal-of-terror monster %q\n  terminal-of-terror quiz --pack %s\n\n", monsterName, id)
 		fmt.Println("Only name, description and facts are required. See CONTRIBUTING.md for every field.")

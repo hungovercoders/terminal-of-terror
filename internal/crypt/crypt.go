@@ -24,8 +24,8 @@ type Badge struct {
 // Badges lists every achievement in display order.
 var Badges = []Badge{
 	{"first-fright", "🎃", "First Fright", "Finish your first quiz"},
-	{"flawless", "💀", "Flawless Fiend", "Score 100% on a quiz of 5 or more questions"},
-	{"grave-robber", "⚰️", "Grave Robber", "Capture your first monster"},
+	{"flawless", "🏆", "Flawless Fiend", "Score 100% on a quiz of 5 or more questions"},
+	{"grave-robber", "🦴", "Grave Robber", "Capture your first monster"},
 	{"eagle-eye", "🔍", "Eagle Eye", "Name a monster in Guess the Monster before the fog lifts"},
 	{"promoter", "🥊", "Fight Promoter", "Stage your first Monster Mash"},
 	{"scholar", "📚", "Midnight Scholar", "Visit every monster's page in the explorer"},
@@ -33,7 +33,7 @@ var Badges = []Badge{
 	{"full-moon", "🌕", "Survived the Full Moon", "Play a game on a full-moon night"},
 	{"friday-13", "🐈", "Unlucky for Some", "Play a game on Friday the 13th"},
 	{"halloween", "👻", "Halloween Spirit", "Play a game on Halloween"},
-	{"silent-scholar", "🎞️", "Silent Era Scholar", "Capture every silent-film monster"},
+	{"silent-scholar", "🎬", "Silent Era Scholar", "Capture every silent-film monster"},
 	{"monster-kid", "📺", "Monster Kid", "Capture every Universal Classic"},
 	{"folklorist", "🌍", "Folklorist", "Capture 5 monsters from World Folklore"},
 	{"master", "👑", "Master of the Crypt", "Capture every monster"},

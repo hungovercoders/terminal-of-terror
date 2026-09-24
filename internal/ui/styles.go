@@ -1,6 +1,7 @@
 package ui
 
 import (
+	"os"
 	"strings"
 
 	"github.com/charmbracelet/lipgloss"
@@ -95,6 +96,22 @@ func artWidth(art string) int {
 		w = max(w, lipgloss.Width(l))
 	}
 	return w
+}
+
+// Tilde shortens a path under the home directory to ~/..., the way people
+// usually write it.
+func Tilde(path string) string {
+	home, err := os.UserHomeDir()
+	if err != nil || home == "" || home == "/" {
+		return path
+	}
+	if path == home {
+		return "~"
+	}
+	if rest, ok := strings.CutPrefix(path, home+string(os.PathSeparator)); ok {
+		return "~" + string(os.PathSeparator) + rest
+	}
+	return path
 }
 
 // Dim renders text in the muted help colour.

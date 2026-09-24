@@ -21,7 +21,7 @@ func RenderCrypt(p *store.Progress, all []monsters.Monster, width int) string {
 			captured++
 		}
 	}
-	b.WriteString(titleStyle.Render("⚰️  THE CRYPT") + "\n\n")
+	b.WriteString(titleStyle.Render("💀 THE CRYPT") + "\n\n")
 	b.WriteString(headingStyle.Render(fmt.Sprintf("%d of %d monsters captured · %d of %d badges", captured, len(all), len(p.Badges), len(crypt.Badges))) + "\n")
 	b.WriteString(helpStyle.Render(fmt.Sprintf("Answer %d questions about a monster correctly, in quizzes or Guess the Monster, to capture it.", crypt.CaptureAt)) + "\n")
 
@@ -75,7 +75,7 @@ func RenderUnlocks(u crypt.Unlocks) string {
 	}
 	var b strings.Builder
 	for _, m := range u.Captured {
-		b.WriteString(trueStyle.Render("⚰️  CAPTURED: ") + lipgloss.NewStyle().Bold(true).Foreground(paletteFor(m).primary).Render(m.Emoji+" "+m.Name) + helpStyle.Render(" has joined your crypt") + "\n")
+		b.WriteString(trueStyle.Render("💀 CAPTURED: ") + lipgloss.NewStyle().Bold(true).Foreground(paletteFor(m).primary).Render(m.Emoji+" "+m.Name) + helpStyle.Render(" has joined your crypt") + "\n")
 	}
 	for _, bd := range u.Badges {
 		b.WriteString(lipgloss.NewStyle().Bold(true).Foreground(colorGold).Render("🏅 BADGE: "+bd.Emoji+" "+bd.Name) + helpStyle.Render(" · "+bd.Description) + "\n")

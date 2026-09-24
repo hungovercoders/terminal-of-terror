@@ -11,26 +11,33 @@ import (
 	"github.com/hungovercoders/terminal-of-terror/internal/monsters"
 )
 
-var digits = map[rune][2]string{
-	'0': {"█▀█", "█▄█"},
-	'1': {"▄█ ", " █ "},
-	'2': {"▀▀█", "█▄▄"},
-	'3': {"▀▀█", "▄▄█"},
-	'4': {"█ █", "▀▀█"},
-	'5': {"█▀▀", "▄▄█"},
-	'6': {"█▄▄", "█▄█"},
-	'7': {"▀▀█", "  █"},
-	'8': {"█▄█", "█▄█"},
-	'9': {"█▀█", "▀▀█"},
+// digits is a three-row block font; two rows made 3 and 8 look alike.
+var digits = map[rune][3]string{
+	'0': {"█▀█", "█ █", "█▄█"},
+	'1': {"▀█ ", " █ ", "▄█▄"},
+	'2': {"▀▀█", "█▀▀", "█▄▄"},
+	'3': {"▀▀█", " ▀█", "▄▄█"},
+	'4': {"█ █", "▀▀█", "  █"},
+	'5': {"█▀▀", "▀▀█", "▄▄█"},
+	'6': {"█▀▀", "█▀█", "█▄█"},
+	'7': {"▀▀█", "  █", "  █"},
+	'8': {"█▀█", "█▀█", "█▄█"},
+	'9': {"█▀█", "▀▀█", "▄▄█"},
 }
 
 // bigNumber renders n in the block font.
 func bigNumber(n int) string {
-	var top, bottom []string
+	var rows [3][]string
 	for _, r := range fmt.Sprint(n) {
-		top, bottom = append(top, digits[r][0]), append(bottom, digits[r][1])
+		for i := range rows {
+			rows[i] = append(rows[i], digits[r][i])
+		}
 	}
-	return strings.Join(top, " ") + "\n" + strings.Join(bottom, " ")
+	lines := make([]string, len(rows))
+	for i, row := range rows {
+		lines[i] = strings.Join(row, " ")
+	}
+	return strings.Join(lines, "\n")
 }
 
 const pumpkin = `         )
