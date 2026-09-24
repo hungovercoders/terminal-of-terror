@@ -28,7 +28,7 @@ Correct guesses count towards capturing monsters for your crypt.`,
 		r := rand.New(rand.NewSource(time.Now().UnixNano()))
 		rounds := ui.NewGuessRounds(r, monsters.GetAllMonsters(), guessRounds)
 		if len(rounds) == 0 {
-			return fmt.Errorf("no monsters with portraits to guess")
+			return fmt.Errorf("Guess the Monster needs at least 3 different monsters, including one with a portrait; try a different --pack")
 		}
 		res, err := ui.RunGuess(rounds, r)
 		if err != nil {

@@ -3,6 +3,7 @@ package ui
 import (
 	"fmt"
 	"math/rand"
+	"sort"
 	"strings"
 
 	tea "github.com/charmbracelet/bubbletea"
@@ -74,26 +75,41 @@ func (r GuessResult) EagleEye() bool {
 	return false
 }
 
-// NewGuessRounds picks n different monsters that have portraits.
+// minGuessOptions is the fewest choices that make a round worth playing.
+const minGuessOptions = 3
+
+// NewGuessRounds picks n different monsters that have portraits. Wrong
+// answers can be any other monster. It returns nil when there are too few
+// distinct monsters for a fair guess.
 func NewGuessRounds(r *rand.Rand, all []monsters.Monster, n int) []GuessRound {
 	var pool []monsters.Monster
+	names := map[string]bool{}
 	for _, m := range all {
+		names[m.Name] = true
 		if m.ASCII != "" {
 			pool = append(pool, m)
 		}
 	}
+	if len(names) < minGuessOptions {
+		return nil
+	}
+	var everyName []string
+	for name := range names {
+		everyName = append(everyName, name)
+	}
+	sort.Strings(everyName) // map order is random; keep seeded games repeatable
 	r.Shuffle(len(pool), func(i, j int) { pool[i], pool[j] = pool[j], pool[i] })
 	n = min(n, len(pool))
 	rounds := make([]GuessRound, n)
 	for i := 0; i < n; i++ {
 		m := pool[i]
 		opts := []string{m.Name}
-		for _, j := range r.Perm(len(pool)) {
+		for _, j := range r.Perm(len(everyName)) {
 			if len(opts) == 4 {
 				break
 			}
-			if pool[j].ID != m.ID {
-				opts = append(opts, pool[j].Name)
+			if everyName[j] != m.Name {
+				opts = append(opts, everyName[j])
 			}
 		}
 		r.Shuffle(len(opts), func(a, b int) { opts[a], opts[b] = opts[b], opts[a] })

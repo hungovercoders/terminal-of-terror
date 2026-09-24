@@ -186,25 +186,9 @@ func questionsAbout(r *rand.Rand, m monsters.Monster, all []monsters.Monster) []
 		}, fmt.Sprint(f.Year), nearbyYears(r, f.Year)))
 	}
 
-	// Which of these is its weakness?
-	var others []string
-	for _, o := range all {
-		if o.ID != m.ID {
-			others = append(others, o.Weaknesses...)
-		}
-	}
-	others = without(others, m.Weaknesses)
-	if len(m.Weaknesses) > 0 {
-		w := m.Weaknesses[r.Intn(len(m.Weaknesses))]
-		if q, ok := choiceOK(r, Question{
-			Kind:        "weakness",
-			Prompt:      fmt.Sprintf("According to its stat card, which of these is a weakness of %s?", m.Name),
-			Explanation: m.Name + "'s weaknesses: " + strings.Join(m.Weaknesses, ", ") + ".",
-			MonsterID:   m.ID,
-		}, w, others); ok {
-			qs = append(qs, q)
-		}
-	}
+	// No "which is its weakness?" questions: weaknesses written for different
+	// monsters overlap in meaning ("Sunlight", "The coming of dawn"), so a
+	// wrong option could be just as right as the answer.
 	return qs
 }
 

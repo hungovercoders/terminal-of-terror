@@ -225,7 +225,9 @@ func loadPack(fsys fs.FS, dir string) (Pack, []error) {
 			m.ID = strings.TrimSuffix(path.Base(f), ".json")
 		}
 		if art, err := fs.ReadFile(fsys, path.Join(dir, m.ID+".txt")); err == nil {
-			m.ASCII = strings.TrimRight(string(art), "\n")
+			// Normalise Windows line endings; a stray \r would garble the layout.
+			text := strings.ReplaceAll(string(art), "\r\n", "\n")
+			m.ASCII = strings.TrimRight(strings.ReplaceAll(text, "\r", ""), "\n")
 		}
 		m.Pack = p.ID
 		byID[m.ID] = m
@@ -254,11 +256,6 @@ func GetAllMonsters() []Monster {
 	return monsters
 }
 
-// GetPacks returns the packs in use
-func GetPacks() []Pack {
-	return packs
-}
-
 // AllPacks returns every loaded pack, ignoring any --pack filter.
 func AllPacks() []Pack {
 	return allPacks
@@ -271,11 +268,6 @@ func EveryMonster() []Monster {
 		out = append(out, p.Monsters...)
 	}
 	return out
-}
-
-// GetRandomMonster returns a random monster
-func GetRandomMonster() Monster {
-	return monsters[rand.Intn(len(monsters))]
 }
 
 // GetMonsterByName returns a monster by id, name or alias (case-insensitive)
@@ -337,13 +329,6 @@ func normalize(s string) string {
 		}
 	}
 	return strings.Join(strings.Fields(b.String()), " ")
-}
-
-// GetRandomFact returns a random fact from a random monster
-func GetRandomFact() (string, string) {
-	monster := GetRandomMonster()
-	fact := monster.Facts[rand.Intn(len(monster.Facts))]
-	return monster.Name, fact
 }
 
 // RandomFact picks a random monster and one of its facts using r.
@@ -482,7 +467,12 @@ func AddPacks(extra []Pack) []error {
 // UsePacks limits every command to the named packs.
 func UsePacks(ids []string) error {
 	var keep []Pack
+	seen := map[string]bool{}
 	for _, id := range ids {
+		if seen[id] {
+			continue // --pack a,a means a, not every monster twice
+		}
+		seen[id] = true
 		found := false
 		for _, p := range allPacks {
 			if p.ID == id {

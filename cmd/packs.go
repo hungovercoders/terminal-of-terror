@@ -59,7 +59,7 @@ var packsNewCmd = &cobra.Command{
 	Use:   "new <pack-id>",
 	Short: "Create a community pack with an example monster to edit",
 	Example: `  terminal-of-terror packs new cryptids
-  terminal-of-terror monster "my monster"`,
+  terminal-of-terror monster "my cryptids monster"`,
 	Args: cobra.ExactArgs(1),
 	RunE: func(cmd *cobra.Command, args []string) error {
 		id := args[0]
@@ -79,14 +79,18 @@ var packsNewCmd = &cobra.Command{
 		if err := os.MkdirAll(packDir, 0o755); err != nil {
 			return err
 		}
+		// Base the example monster on the pack id, so monsters from different
+		// packs never share an id or name (duplicates are skipped at load).
+		monsterID := id + "-monster"
+		monsterName := "My " + id + " monster"
 		files := map[string]any{
 			"pack.json": map[string]any{
 				"id":          id,
 				"name":        "My " + id + " pack",
 				"description": "Describe your pack here.",
-				"order":       []string{"my-monster"},
+				"order":       []string{monsterID},
 			},
-			"my-monster.json": exampleMonster(),
+			monsterID + ".json": exampleMonster(monsterID, monsterName),
 		}
 		for name, v := range files {
 			raw, _ := json.MarshalIndent(v, "", "  ")
@@ -95,12 +99,12 @@ var packsNewCmd = &cobra.Command{
 			}
 		}
 		art := "   .-\"\"\"-.\n  /  o o  \\\n |    ^    |\n  \\ '---' /\n   '-----'\n"
-		if err := os.WriteFile(filepath.Join(packDir, "my-monster.txt"), []byte(art), 0o644); err != nil {
+		if err := os.WriteFile(filepath.Join(packDir, monsterID+".txt"), []byte(art), 0o644); err != nil {
 			return err
 		}
 		fmt.Printf("Created %s\n\n", packDir)
-		fmt.Println("Edit my-monster.json (and my-monster.txt for its portrait), then try:")
-		fmt.Printf("  terminal-of-terror monster \"my monster\"\n  terminal-of-terror quiz --pack %s\n\n", id)
+		fmt.Printf("Edit %s.json (and %s.txt for its portrait), then try:\n", monsterID, monsterID)
+		fmt.Printf("  terminal-of-terror monster %q\n  terminal-of-terror quiz --pack %s\n\n", monsterName, id)
 		fmt.Println("Only name, description and facts are required. See CONTRIBUTING.md for every field.")
 		return nil
 	},
@@ -114,10 +118,10 @@ func communityDir() (string, error) {
 	return filepath.Join(d, "packs"), nil
 }
 
-func exampleMonster() map[string]any {
+func exampleMonster(id, name string) map[string]any {
 	return map[string]any{
-		"id":          "my-monster",
-		"name":        "My Monster",
+		"id":          id,
+		"name":        name,
 		"emoji":       "👹",
 		"description": "A one-line description of your monster",
 		"origin":      "Where the legend comes from",

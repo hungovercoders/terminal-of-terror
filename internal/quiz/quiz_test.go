@@ -71,3 +71,13 @@ func TestRank(t *testing.T) {
 		t.Error("unexpected ranks")
 	}
 }
+
+func TestNoAmbiguousWeaknessQuestions(t *testing.T) {
+	for seed := int64(1); seed <= 20; seed++ {
+		for _, q := range Generate(rand.New(rand.NewSource(seed)), monsters.GetAllMonsters(), 30, "") {
+			if q.Kind == "weakness" {
+				t.Fatalf("weakness questions can have several right answers: %+v", q)
+			}
+		}
+	}
+}

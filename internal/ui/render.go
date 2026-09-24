@@ -143,9 +143,11 @@ func (m model) viewGallery() string {
 		}
 		lines, cursorLine := m.galleryLines(listW)
 		h := m.availableHeight(header, footer)
+		// Scroll so the selected name and its description sit above the
+		// "more below" marker, but never under the "more above" one (row 0).
 		offset := 0
-		if h > 0 && cursorLine >= h-1 {
-			offset = cursorLine - h + 3
+		if h > 0 && cursorLine+1 >= h-1 {
+			offset = min(cursorLine-h+3, cursorLine-1)
 		}
 		list := viewport(lines, offset, h)
 		if showPreview {

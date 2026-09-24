@@ -39,15 +39,19 @@ the dice. Leave out one or both names for random contenders.`,
 		if len(fighters) == 2 && fighters[0].ID == fighters[1].ID {
 			return fmt.Errorf("%s can't fight itself... pick two different monsters", fighters[0].Name)
 		}
-		all := monsters.GetAllMonsters()
-		if len(all) < 2 {
-			return fmt.Errorf("the Monster Mash needs at least two monsters")
-		}
+		// Fill empty corners from monsters not already fighting. Picking from
+		// this pool (not retrying at random) can't loop forever.
 		for len(fighters) < 2 {
-			m := all[r.Intn(len(all))]
-			if len(fighters) == 0 || m.ID != fighters[0].ID {
-				fighters = append(fighters, m)
+			var pool []monsters.Monster
+			for _, m := range monsters.GetAllMonsters() {
+				if len(fighters) == 0 || m.ID != fighters[0].ID {
+					pool = append(pool, m)
+				}
 			}
+			if len(pool) == 0 {
+				return fmt.Errorf("the Monster Mash needs at least two different monsters")
+			}
+			fighters = append(fighters, pool[r.Intn(len(pool))])
 		}
 
 		bout := mash.Fight(r, fighters[0], fighters[1])

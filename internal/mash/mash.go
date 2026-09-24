@@ -39,14 +39,6 @@ func (b Bout) WinnerMonster() monsters.Monster {
 	return b.B
 }
 
-// LoserMonster returns the defeated monster.
-func (b Bout) LoserMonster() monsters.Monster {
-	if b.Winner == 0 {
-		return b.B
-	}
-	return b.A
-}
-
 // Tally returns rounds won by A and B.
 func (b Bout) Tally() (a, bWins int) {
 	for _, r := range b.Rounds {

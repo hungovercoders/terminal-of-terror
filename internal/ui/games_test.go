@@ -133,3 +133,23 @@ func TestBigNumber(t *testing.T) {
 		t.Errorf("got %q", got)
 	}
 }
+
+func TestGuessNeedsEnoughMonsters(t *testing.T) {
+	all := monsters.GetAllMonsters()
+	r := rand.New(rand.NewSource(1))
+	if got := NewGuessRounds(r, all[:2], 3); got != nil {
+		t.Errorf("two monsters can't make a fair guess, got %d rounds", len(got))
+	}
+	// One portrait is enough when other monsters can supply wrong answers.
+	few := []monsters.Monster{all[0], all[1], all[2]}
+	few[1].ASCII, few[2].ASCII = "", ""
+	rounds := NewGuessRounds(r, few, 3)
+	if len(rounds) != 1 || len(rounds[0].Options) != 3 {
+		t.Fatalf("want 1 round with 3 options, got %+v", rounds)
+	}
+	for _, g := range NewGuessRounds(r, all, 5) {
+		if len(g.Options) != 4 {
+			t.Errorf("full roster should give 4 options, got %d", len(g.Options))
+		}
+	}
+}

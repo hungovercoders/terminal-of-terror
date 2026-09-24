@@ -52,7 +52,11 @@ func RenderList(list []monsters.Monster, width int) string {
 		}
 		b.WriteString(line + hostStyle.Render(desc) + "\n")
 	}
-	b.WriteString("\n" + metaStyle.Render(countOf(len(list), "monster")+" lurk in the vault."))
+	verb := " lurk"
+	if len(list) == 1 {
+		verb = " lurks"
+	}
+	b.WriteString("\n" + metaStyle.Render(countOf(len(list), "monster")+verb+" in the vault."))
 	b.WriteString("\n" + helpStyle.Render("Meet one: terminal-of-terror monster <name>") + "\n")
 	return b.String()
 }

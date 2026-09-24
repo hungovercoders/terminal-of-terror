@@ -31,8 +31,23 @@ type Options struct {
 
 type tickMsg time.Time
 
-func tick() tea.Cmd {
-	return tea.Tick(70*time.Millisecond, func(t time.Time) tea.Msg { return tickMsg(t) })
+// Animation speeds: the intro runs fast; the silent-film grain only needs
+// an occasional flicker, so idle silent pages don't redraw constantly.
+const (
+	introTick = 70 * time.Millisecond
+	grainTick = 600 * time.Millisecond
+)
+
+func tick(d time.Duration) tea.Cmd {
+	return tea.Tick(d, func(t time.Time) tea.Msg { return tickMsg(t) })
+}
+
+// tickEvery is how often the current screen animates.
+func (m model) tickEvery() time.Duration {
+	if m.screen == screenIntro {
+		return introTick
+	}
+	return grainTick
 }
 
 type model struct {
@@ -124,12 +139,12 @@ func (m *model) ensureTick() tea.Cmd {
 		return nil
 	}
 	m.ticking = true
-	return tick()
+	return tick(m.tickEvery())
 }
 
 func (m model) Init() tea.Cmd {
 	if m.ticking {
-		return tick()
+		return tick(m.tickEvery())
 	}
 	return nil
 }
@@ -157,6 +172,9 @@ func (m model) Update(msg tea.Msg) (tea.Model, tea.Cmd) {
 			return m.quit()
 		}
 		if m.screen == screenIntro {
+			if msg.String() == "q" {
+				return m.quit()
+			}
 			if !m.introDone() {
 				m.frame = introDoneFrame(m.greeting)
 				return m, nil

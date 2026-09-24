@@ -123,7 +123,7 @@ func (m model) viewIntro() string {
 				parts = append(parts, metaStyle.Render(n))
 			}
 		}
-		parts = append(parts, "", headingStyle.Render("Press any key to enter the vault..."))
+		parts = append(parts, "", headingStyle.Render("Press any key to enter the vault...")+helpStyle.Render("  (q to quit)"))
 	}
 	return center.Render(lipgloss.JoinVertical(lipgloss.Center, parts...))
 }

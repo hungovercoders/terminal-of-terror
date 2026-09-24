@@ -69,3 +69,34 @@ func TestMissingUserDirIsFine(t *testing.T) {
 		t.Errorf("got %v %v", p, errs)
 	}
 }
+
+func TestUsePacksIgnoresRepeats(t *testing.T) {
+	restorePacks(t)
+	before := len(GetAllMonsters())
+	universal := 0
+	for _, m := range GetAllMonsters() {
+		if m.Pack == "universal" {
+			universal++
+		}
+	}
+	if err := UsePacks([]string{"universal", "universal"}); err != nil {
+		t.Fatal(err)
+	}
+	if got := len(GetAllMonsters()); got != universal || got >= before {
+		t.Errorf("--pack universal,universal gave %d monsters, want %d", got, universal)
+	}
+}
+
+func TestCRLFArtIsNormalised(t *testing.T) {
+	restorePacks(t)
+	dir := t.TempDir()
+	writeFile(t, filepath.Join(dir, "win", "ghost.json"), `{"name":"Windows Ghost","description":"Saved on Windows","facts":["x"]}`)
+	writeFile(t, filepath.Join(dir, "win", "ghost.txt"), " (o o)\r\n  | |\r\n")
+	loaded, errs := LoadUserPacks(dir)
+	if len(errs) != 0 {
+		t.Fatal(errs)
+	}
+	if art := loaded[0].Monsters[0].ASCII; art != " (o o)\n  | |" {
+		t.Errorf("art = %q, want CRLF stripped", art)
+	}
+}

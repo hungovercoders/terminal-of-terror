@@ -159,3 +159,39 @@ func TestDumpScreens(t *testing.T) {
 	m2 = send(m2, key("4"), key("r"))
 	t.Log("\n" + m2.View())
 }
+
+func TestQQuitsFromTheIntro(t *testing.T) {
+	for _, done := range []bool{false, true} {
+		m := send(newModel(Options{Seed: 1}), size(100, 30))
+		if done {
+			m = send(m, key("x"))
+		}
+		next, cmd := m.Update(key("q"))
+		if !next.(model).quitting || cmd == nil {
+			t.Errorf("intro finished=%v: q should quit", done)
+		}
+	}
+}
+
+func TestSilentGrainTicksSlowly(t *testing.T) {
+	m := newModel(Options{StartID: "phantom", Seed: 1})
+	if !m.needsTick() || m.tickEvery() != grainTick || grainTick < 500*time.Millisecond {
+		t.Errorf("silent pages should flicker slowly, got %v", m.tickEvery())
+	}
+	if i := newModel(Options{Seed: 1}); i.tickEvery() != introTick {
+		t.Error("intro should animate at intro speed")
+	}
+}
+
+// TestGallerySelectionVisibleOnTinyScreens covers the smallest gallery viewport.
+func TestGallerySelectionVisibleOnTinyScreens(t *testing.T) {
+	for _, h := range []int{8, 9, 10, 12, 24} {
+		m := send(newModel(Options{NoIntro: true, ShowAll: true, Seed: 1}), size(80, h))
+		for i := range monsters.GetAllMonsters() {
+			if name := m.monsters[m.cursor].Name; !strings.Contains(m.View(), name) {
+				t.Fatalf("height %d, cursor %d: selected %q not visible", h, i, name)
+			}
+			m = send(m, key("j"))
+		}
+	}
+}
