@@ -113,12 +113,12 @@ func RenderPacks(packs []monsters.Pack, communityDir string, width int) string {
 		}
 		b.WriteString(factStyle.Render(joinFit(names, " · ", textWidth(width))) + "\n")
 		if p.Source != "built-in" && p.Source != "" {
-			b.WriteString(helpStyle.Render("from "+p.Source) + "\n")
+			b.WriteString(helpStyle.Render("from "+Tilde(p.Source)) + "\n")
 		}
 	}
 	b.WriteString("\n" + metaStyle.Render("Use --pack to choose, e.g. terminal-of-terror quiz --pack folklore") + "\n")
 	if communityDir != "" {
-		b.WriteString(helpStyle.Render("Community packs live in "+communityDir) + "\n")
+		b.WriteString(helpStyle.Render("Community packs live in "+Tilde(communityDir)) + "\n")
 	}
 	b.WriteString(helpStyle.Render("Make your own: terminal-of-terror packs new <pack-id>") + "\n")
 	return b.String()

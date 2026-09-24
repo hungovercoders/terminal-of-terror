@@ -164,10 +164,11 @@ func (m quizModel) View() string {
 		if m.res.Answers[m.i] == q.Answer {
 			b.WriteString(trueStyle.Render("✔ Correct!") + "\n")
 		} else {
-			b.WriteString(mythStyle.Render("✘ Not quite. The answer is "+q.Correct()+".") + "\n")
+			// Don't double the full stop after answers like "Lon Chaney Jr."
+			b.WriteString(mythStyle.Render(wrap("✘ Not quite. The answer is "+strings.TrimSuffix(q.Correct(), ".")+".", w)) + "\n")
 		}
 		b.WriteString(factStyle.Render(wrap(q.Explanation, w)) + "\n")
-		b.WriteString(hostStyle.Render("📺 "+m.quip) + "\n\n")
+		b.WriteString(hostStyle.Render(wrap("📺 "+m.quip, w)) + "\n\n")
 		b.WriteString(helpStyle.Render("enter next question · q quit") + "\n")
 	} else {
 		b.WriteString(helpStyle.Render(joinFit([]string{"1-4 or a-d answer", "↑/↓ + enter", "q quit"}, " · ", w)) + "\n")

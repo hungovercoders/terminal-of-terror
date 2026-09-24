@@ -42,7 +42,7 @@ work too, e.g. "dracula", "wolfman", "gill-man" or "quasimodo".`,
 		} else if monsterJSON {
 			return printJSON(monsters.GetAllMonsters())
 		}
-		seen, err := ui.RunUI(ui.Options{ShowAll: showAll, StartID: startID, NoIntro: noIntro})
+		seen, err := ui.RunUI(ui.Options{ShowAll: showAll, StartID: startID, NoIntro: noIntro, Seed: seed()})
 		if err != nil {
 			return err
 		}

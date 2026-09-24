@@ -3,7 +3,6 @@ package cmd
 import (
 	"fmt"
 	"math/rand"
-	"time"
 
 	"github.com/hungovercoders/terminal-of-terror/internal/calendar"
 	"github.com/hungovercoders/terminal-of-terror/internal/host"
@@ -43,13 +42,13 @@ and a new one tomorrow. It's perfect for your shell's startup file.`,
 		if err != nil {
 			return err
 		}
-		seed := time.Now().UnixNano()
+		s := seed()
 		title := "RANDOM TERROR FACT"
 		if randomDaily || randomDate != "" {
-			seed = calendar.DailySeed(now)
+			s = calendar.DailySeed(now)
 			title = "FACT OF THE NIGHT · " + now.Format("Monday 2 January")
 		}
-		r := rand.New(rand.NewSource(seed))
+		r := rand.New(rand.NewSource(s))
 		m, fact := monsters.RandomFact(r)
 		notes := calendar.Notes(now, monsters.GetAllMonsters())
 		if randomJSON {

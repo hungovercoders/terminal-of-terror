@@ -31,3 +31,6 @@ go.work.sum
 # Editor/IDE
 # .idea/
 # .vscode/
+
+# Demo recording scratch space (docs/demos/render.sh)
+docs/demos/.frames/

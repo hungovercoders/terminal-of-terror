@@ -2,8 +2,6 @@ package cmd
 
 import (
 	"fmt"
-	"math/rand"
-	"time"
 
 	"github.com/hungovercoders/terminal-of-terror/internal/crypt"
 	"github.com/hungovercoders/terminal-of-terror/internal/monsters"
@@ -25,7 +23,7 @@ Correct guesses count towards capturing monsters for your crypt.`,
 		if guessRounds < 1 {
 			return fmt.Errorf("--rounds must be at least 1")
 		}
-		r := rand.New(rand.NewSource(time.Now().UnixNano()))
+		r := newRand()
 		rounds := ui.NewGuessRounds(r, monsters.GetAllMonsters(), guessRounds)
 		if len(rounds) == 0 {
 			return fmt.Errorf("Guess the Monster needs at least 3 different monsters, including one with a portrait; try a different --pack")
