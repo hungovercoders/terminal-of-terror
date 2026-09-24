@@ -24,7 +24,7 @@ Man and more, then test yourself in the Midnight Quiz, capture monsters for
 your crypt, and check tonight's double feature.
 
 Start here:  terminal-of-terror monster`,
-	Version: "1.0.0",
+	Version: appVersion(),
 	PersistentPreRunE: func(cmd *cobra.Command, args []string) error {
 		loadCommunityPacks()
 		if len(packFilter) > 0 {
