@@ -2,6 +2,7 @@ package ui
 
 import (
 	"math/rand"
+	"path/filepath"
 	"strings"
 	"testing"
 	"time"
@@ -156,12 +157,16 @@ func TestGuessNeedsEnoughMonsters(t *testing.T) {
 }
 
 func TestTilde(t *testing.T) {
-	t.Setenv("HOME", "/home/ghoul")
+	// os.UserHomeDir reads HOME on Unix and USERPROFILE on Windows.
+	home := filepath.FromSlash("/home/ghoul")
+	t.Setenv("HOME", home)
+	t.Setenv("USERPROFILE", home)
+	p := filepath.FromSlash
 	cases := map[string]string{
-		"/home/ghoul/.config/terminal-of-terror/progress.json": "~/.config/terminal-of-terror/progress.json",
-		"/home/ghoul":         "~",
-		"/home/ghoulish/x":    "/home/ghoulish/x",
-		"/tmp/somewhere/else": "/tmp/somewhere/else",
+		p("/home/ghoul/.config/terminal-of-terror/progress.json"): p("~/.config/terminal-of-terror/progress.json"),
+		home:                     "~",
+		p("/home/ghoulish/x"):    p("/home/ghoulish/x"),
+		p("/tmp/somewhere/else"): p("/tmp/somewhere/else"),
 	}
 	for in, want := range cases {
 		if got := Tilde(in); got != want {
