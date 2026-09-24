@@ -2,6 +2,8 @@ package ui
 
 import (
 	"os"
+	"path/filepath"
+	"runtime"
 	"strings"
 
 	"github.com/charmbracelet/lipgloss"
@@ -99,17 +101,25 @@ func artWidth(art string) int {
 }
 
 // Tilde shortens a path under the home directory to ~/..., the way people
-// usually write it.
+// usually write it. Windows paths are left alone: cmd.exe doesn't expand ~,
+// so a shortened path couldn't be copied and used there.
 func Tilde(path string) string {
-	home, err := os.UserHomeDir()
-	if err != nil || home == "" || home == "/" {
+	if runtime.GOOS == "windows" {
 		return path
 	}
-	if path == home {
+	home, err := os.UserHomeDir()
+	if err != nil || home == "" {
+		return path
+	}
+	home, clean := filepath.Clean(home), filepath.Clean(path)
+	if home == string(filepath.Separator) {
+		return path
+	}
+	if clean == home {
 		return "~"
 	}
-	if rest, ok := strings.CutPrefix(path, home+string(os.PathSeparator)); ok {
-		return "~" + string(os.PathSeparator) + rest
+	if rest, ok := strings.CutPrefix(clean, home+string(filepath.Separator)); ok {
+		return "~" + string(filepath.Separator) + rest
 	}
 	return path
 }

@@ -2,7 +2,6 @@ package cmd
 
 import (
 	"fmt"
-	"math/rand"
 	"os"
 	"time"
 
@@ -27,7 +26,7 @@ the dice. Leave out one or both names for random contenders.`,
   terminal-of-terror mash "wolf man" mummy`,
 	Args: cobra.MaximumNArgs(2),
 	RunE: func(cmd *cobra.Command, args []string) error {
-		r := rand.New(rand.NewSource(time.Now().UnixNano()))
+		r := newRand()
 		var fighters []monsters.Monster
 		for _, a := range args {
 			m, err := resolveMonster(a)

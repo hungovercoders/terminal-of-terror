@@ -2,8 +2,6 @@ package cmd
 
 import (
 	"fmt"
-	"math/rand"
-	"time"
 
 	"github.com/hungovercoders/terminal-of-terror/internal/crypt"
 	"github.com/hungovercoders/terminal-of-terror/internal/monsters"
@@ -40,7 +38,7 @@ crypt. Name a monster to be quizzed only about that one.`,
 			}
 			focus = m.ID
 		}
-		r := rand.New(rand.NewSource(time.Now().UnixNano()))
+		r := newRand()
 		qs := quiz.Generate(r, monsters.GetAllMonsters(), quizQuestions, focus)
 		if len(qs) == 0 {
 			return fmt.Errorf("couldn't find any questions to ask")

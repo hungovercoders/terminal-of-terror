@@ -3,7 +3,6 @@ package cmd
 import (
 	"fmt"
 	"math/rand"
-	"time"
 
 	"github.com/hungovercoders/terminal-of-terror/internal/calendar"
 	"github.com/hungovercoders/terminal-of-terror/internal/host"
@@ -32,11 +31,11 @@ every night, so check back tomorrow, or use --shuffle for a different bill.`,
 		if len(all) < 2 {
 			return fmt.Errorf("a double feature needs at least two monsters")
 		}
-		seed := calendar.DailySeed(now) * 13
+		s := calendar.DailySeed(now) * 13
 		if tonightShuffle {
-			seed = time.Now().UnixNano()
+			s = newRand().Int63()
 		}
-		r := rand.New(rand.NewSource(seed))
+		r := rand.New(rand.NewSource(s))
 		pick := r.Perm(len(all))
 		first, second := all[pick[0]], all[pick[1]]
 

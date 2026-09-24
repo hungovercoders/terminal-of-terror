@@ -7,6 +7,9 @@
 # Needs: go, vhs (https://github.com/charmbracelet/vhs), ffmpeg, and ttyd 1.7.7
 # or newer. Set TTYD=/path/to/ttyd to pick a specific ttyd binary.
 #
+# Recordings use a fixed TERMINAL_OF_TERROR_SEED (DEMO_SEED, default 13), so
+# re-recording gives the same questions, portraits and fights every time.
+#
 # Two workarounds live here rather than in the tapes:
 #  - ttyd's browser terminal defaults to Unicode 6 widths, which draws emoji
 #    one cell wide and knocks every box border out of line. A small ttyd
@@ -44,7 +47,8 @@ chmod +x "$work/bin/ttyd"
 # ttyd starts "bash" from PATH; this one swaps vhs's plain prompt for a pumpkin.
 real_bash=$(command -v bash)
 printf '%s\n' "PS1='\\[\\e[38;2;255;122;26m\\]🎃 \\[\\e[0m\\]'" \
-  "export HOME='$work/home' TERMINAL_OF_TERROR_HOME='$config'" > "$work/rc"
+  "export HOME='$work/home' TERMINAL_OF_TERROR_HOME='$config'" \
+  "export TERMINAL_OF_TERROR_SEED='${DEMO_SEED:-13}'" > "$work/rc"
 printf '#!%s\nexec "%s" --noprofile --rcfile "%s" -i +o history\n' \
   "$real_bash" "$real_bash" "$work/rc" > "$work/bin/bash"
 chmod +x "$work/bin/bash"
@@ -88,6 +92,9 @@ export TMPDIR="$root/$demos/.frames/tmp"
 export PATH="$work/bin:$PATH"
 export VHS_NO_SANDBOX=${VHS_NO_SANDBOX:-true}
 
+# One line of JSON, ready to drop into each tape.
+theme=$(tr -d '\n' < "$demos/theme.json" | tr -s ' ')
+
 names=("$@")
 if [ ${#names[@]} -eq 0 ]; then
   for tape in "$demos"/*.tape; do names+=("$(basename "$tape" .tape)"); done
@@ -97,11 +104,17 @@ for name in "${names[@]}"; do
   echo "🎬 $name"
   frames="$demos/.frames/$name"
   rm -rf "$frames"
-  vhs "$demos/$name.tape" > "$work/$name.log" 2>&1 || { cat "$work/$name.log"; exit 1; }
+  # Fill in the shared theme, so theme.json is the only place it lives.
+  awk -v theme="$theme" '$0 == "Set Theme @theme.json" { print "Set Theme " theme; next } { print }' \
+    "$demos/$name.tape" > "$work/$name.tape"
+  vhs "$work/$name.tape" > "$work/$name.log" 2>&1 || { cat "$work/$name.log"; exit 1; }
   [ -e "$frames/frame-text-00001.png" ] || { cat "$work/$name.log"; echo "no frames for $name" >&2; exit 1; }
 
-  inputs=(-framerate 50 -start_number 1 -i "$frames/frame-text-%05d.png"
-          -framerate 50 -start_number 1 -i "$frames/frame-cursor-%05d.png")
+  # Read the frames back at the rate they were captured.
+  fps=$(awk '$1 == "Set" && $2 == "Framerate" { print $3 }' "$demos/$name.tape")
+  fps=${fps:-50}
+  inputs=(-framerate "$fps" -start_number 1 -i "$frames/frame-text-%05d.png"
+          -framerate "$fps" -start_number 1 -i "$frames/frame-cursor-%05d.png")
   pad="pad=iw+48:ih+48:24:24:color=$bg"
   if [[ "$stills" == *" $name "* ]]; then
     last=$(find "$frames" -name 'frame-text-*.png' | sort | tail -1)

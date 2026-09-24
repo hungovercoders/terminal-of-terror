@@ -534,13 +534,6 @@ func shortYear(mo monsters.Monster) string {
 	return "lore"
 }
 
-func debutYear(mo monsters.Monster) string {
-	if mo.Debut.Year != 0 {
-		return fmt.Sprint(mo.Debut.Year)
-	}
-	return mo.Debut.Era
-}
-
 func packName(id string) string {
 	for _, p := range monsters.AllPacks() {
 		if p.ID == id {

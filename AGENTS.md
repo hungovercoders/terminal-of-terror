@@ -95,7 +95,8 @@ go build -o terminal-of-terror
 ./terminal-of-terror packs
 ```
 
-Set `TERMINAL_OF_TERROR_HOME` to a scratch directory when testing so real progress isn't touched.
+Set `TERMINAL_OF_TERROR_HOME` to a scratch directory when testing so real progress isn't touched, and
+`TERMINAL_OF_TERROR_SEED` to a number to make every random choice repeatable.
 
 ### Dependencies
 Install/update dependencies:

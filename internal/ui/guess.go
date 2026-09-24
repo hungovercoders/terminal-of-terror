@@ -248,7 +248,7 @@ func (m guessModel) View() string {
 
 	if m.finished {
 		best := len(m.res.Rounds) * fogPoints[0]
-		b.WriteString(headingStyle.Render(fmt.Sprintf("Final score: %d of a possible %d points", m.res.Score(), best)) + "\n\n")
+		b.WriteString(headingStyle.Render(wrap(fmt.Sprintf("Final score: %d of a possible %d points", m.res.Score(), best), w)) + "\n\n")
 		b.WriteString(hostStyle.Render(wrap("📺 "+host.Name+": “"+finalWord(m.res.Score()*100/max(best, 1))+"”", w)) + "\n\n")
 		b.WriteString(helpStyle.Render("Press any key to leave the studio") + "\n")
 		return b.String()
@@ -267,18 +267,29 @@ func (m guessModel) View() string {
 	}
 	box := lipgloss.NewStyle().Border(lipgloss.RoundedBorder()).BorderForeground(p.accent).Padding(0, 1).Render(artStyle.Render(art))
 
-	// The side panel wraps to whatever room the portrait leaves, so a long
-	// clue can't push the layout into a taller stacked view mid-round.
+	// Put the side panel beside the portrait only if its widest possible
+	// line fits: every option and the longest status line. Judging the whole
+	// round up front means revealing clues can never flip the layout.
 	sideW := w - lipgloss.Width(box) - 3
-	sideBySide := sideW >= 32
+	need := max(lipgloss.Width(fogStatus(len(fogReveal)-1, false)), lipgloss.Width(fogStatus(len(fogReveal)-1, true)))
+	for i, o := range g.Options {
+		need = max(need, lipgloss.Width(optionLine(i, o, false, true, true, false)))
+	}
+	sideBySide := sideW >= max(need, 24)
 	if !sideBySide {
 		sideW = w
+		box = lipgloss.NewStyle().MaxWidth(w).Render(box)
 	}
 	var side strings.Builder
 	side.WriteString(lipgloss.NewStyle().Bold(true).Render("Who lurks in the fog?") + "\n")
-	side.WriteString(helpStyle.Render(fmt.Sprintf("Fog cleared: %d%% · worth %d pts", int(fogReveal[m.stage]*100), fogPoints[m.stage])) + "\n\n")
+	shownStage := m.stage
+	if m.answered {
+		shownStage = g.Stage
+	}
+	side.WriteString(helpStyle.Render(wrap(fogStatus(shownStage, m.answered), sideW)) + "\n\n")
 	for i, o := range g.Options {
-		side.WriteString(optionLine(i, o, m.cursor == i, m.answered, i == g.Answer, i == g.Chosen) + "\n")
+		// "✔ 1. " takes five columns before the name.
+		side.WriteString(optionLine(i, truncate(o, sideW-5), m.cursor == i, m.answered, i == g.Answer, i == g.Chosen) + "\n")
 	}
 	side.WriteString("\n")
 	for _, c := range g.clues(m.stage) {
@@ -288,12 +299,12 @@ func (m guessModel) View() string {
 	var bottom strings.Builder
 	if m.answered {
 		if g.Correct() {
-			bottom.WriteString(trueStyle.Render(fmt.Sprintf("✔ It's %s! +%d points", g.Monster.Name, g.Points())) + "\n")
+			bottom.WriteString(trueStyle.Render(wrap(fmt.Sprintf("✔ It's %s! +%d points", g.Monster.Name, g.Points()), w)) + "\n")
 		} else {
-			bottom.WriteString(mythStyle.Render("✘ It was "+g.Monster.Name+".") + "\n")
+			bottom.WriteString(mythStyle.Render(wrap("✘ It was "+g.Monster.Name+".", w)) + "\n")
 		}
 		bottom.WriteString(factStyle.Render(wrap(g.Monster.Description+". First appearance: "+g.Monster.FirstAppearance()+".", w)) + "\n")
-		bottom.WriteString(hostStyle.Render("📺 "+m.quip) + "\n\n")
+		bottom.WriteString(hostStyle.Render(wrap("📺 "+m.quip, w)) + "\n\n")
 		bottom.WriteString(helpStyle.Render("enter next round · q quit") + "\n")
 	} else {
 		bottom.WriteString(helpStyle.Render(joinFit([]string{"space clear the fog", "1-4 guess", "↑/↓ + enter", "q quit"}, " · ", w)) + "\n")
@@ -309,11 +320,26 @@ func (m guessModel) View() string {
 	return b.String()
 }
 
+// fogStatus describes the fog: how much is cleared and what a guess is
+// worth, or, once answered, how much was cleared when the guess was made.
+func fogStatus(stage int, answered bool) string {
+	pct := int(fogReveal[stage] * 100)
+	if answered {
+		return fmt.Sprintf("You guessed with %d%% of the fog cleared", pct)
+	}
+	return fmt.Sprintf("Fog cleared: %d%% · worth %d pts", pct, fogPoints[stage])
+}
+
 // clues grow as the fog lifts.
 func (g GuessRound) clues(stage int) []string {
 	var out []string
 	if stage >= 2 {
-		out = append(out, fmt.Sprintf("First appeared in %s", debutYear(g.Monster)))
+		if y := g.Monster.Debut.Year; y != 0 {
+			out = append(out, fmt.Sprintf("First appeared in %d", y))
+		} else {
+			// Folklore has an era, not a year: "widely recorded in the Edo period".
+			out = append(out, "The legend: "+g.Monster.Debut.Era)
+		}
 	}
 	if stage >= 3 {
 		out = append(out, "Origin: "+g.Monster.Origin)

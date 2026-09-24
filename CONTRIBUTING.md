@@ -146,7 +146,7 @@ This creates a pack in your config directory (`$TERMINAL_OF_TERROR_HOME/packs` i
 
 ### Recording the Demos
 
-The README's GIFs and screenshots are recorded from scripts in [`docs/demos/`](docs/demos): one [VHS](https://github.com/charmbracelet/vhs) `.tape` file per demo, plus `theme.json`. To re-record them:
+The README's GIFs and screenshots are recorded from scripts in [`docs/demos/`](docs/demos): one [VHS](https://github.com/charmbracelet/vhs) `.tape` file per demo, plus `theme.json`, the colour theme `render.sh` fills into every tape. To re-record them:
 
 ```bash
 docs/demos/render.sh              # everything
@@ -155,7 +155,9 @@ docs/demos/render.sh hero quiz    # just some
 
 You'll need `go`, `vhs`, `ffmpeg` and **ttyd 1.7.7 or newer**. Older ttyd builds draw emoji one cell wide, which knocks every box border out of line; `TTYD=/path/to/ttyd` picks a specific binary. The script builds the app, uses a scratch home directory with sample crypt progress, and writes the results to `docs/assets/`. Look at the results before committing, and keep the hero GIF under about 2 MB so the README loads quickly.
 
-To add a demo, copy a similar tape, change its `Output` line and commands, and add its name to the `stills` list in `render.sh` if it should be a PNG rather than a GIF.
+Recordings are repeatable: `render.sh` sets `TERMINAL_OF_TERROR_SEED` (13 unless you set `DEMO_SEED`), which fixes every random choice (quiz questions, portraits, fights and the host's lines), so the keys a tape presses always get the same result. If you change the seed or the monster data, check that each tape still shows what it should: the guess tape, for example, expects the right answer to be option 1. `TERMINAL_OF_TERROR_SEED` is also handy for reproducing a bug report.
+
+To add a demo, copy a similar tape, change its `Output` line and commands, and add its name to the `stills` list in `render.sh` if it should be a PNG rather than a GIF. Keep `Set Theme @theme.json` and `Set Framerate` in the tape: the script fills in the theme and reads the frame rate back when encoding.
 
 ## Commit Guidelines
 

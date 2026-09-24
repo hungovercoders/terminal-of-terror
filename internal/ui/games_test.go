@@ -1,8 +1,10 @@
 package ui
 
 import (
+	"fmt"
 	"math/rand"
 	"path/filepath"
+	"runtime"
 	"strings"
 	"testing"
 	"time"
@@ -157,47 +159,114 @@ func TestGuessNeedsEnoughMonsters(t *testing.T) {
 }
 
 func TestTilde(t *testing.T) {
-	// os.UserHomeDir reads HOME on Unix and USERPROFILE on Windows.
-	home := filepath.FromSlash("/home/ghoul")
-	t.Setenv("HOME", home)
-	t.Setenv("USERPROFILE", home)
 	p := filepath.FromSlash
 	cases := map[string]string{
 		p("/home/ghoul/.config/terminal-of-terror/progress.json"): p("~/.config/terminal-of-terror/progress.json"),
-		home:                     "~",
+		p("/home/ghoul"):         "~",
+		p("/home/ghoul/"):        "~",
 		p("/home/ghoulish/x"):    p("/home/ghoulish/x"),
 		p("/tmp/somewhere/else"): p("/tmp/somewhere/else"),
 	}
-	for in, want := range cases {
-		if got := Tilde(in); got != want {
-			t.Errorf("Tilde(%q) = %q, want %q", in, got, want)
+	// A trailing separator on the home directory must not stop the match.
+	for _, home := range []string{p("/home/ghoul"), p("/home/ghoul/")} {
+		// os.UserHomeDir reads HOME on Unix and USERPROFILE on Windows.
+		t.Setenv("HOME", home)
+		t.Setenv("USERPROFILE", home)
+		for in, want := range cases {
+			if runtime.GOOS == "windows" {
+				want = in // cmd.exe can't expand ~, so Windows paths stay whole
+			}
+			if got := Tilde(in); got != want {
+				t.Errorf("home %q: Tilde(%q) = %q, want %q", home, in, got, want)
+			}
 		}
 	}
 }
 
-// TestGuessLayoutStaysPut makes sure revealing clues doesn't change the layout.
-func TestGuessLayoutStaysPut(t *testing.T) {
-	r := rand.New(rand.NewSource(3))
-	var rounds []GuessRound
-	for _, g := range NewGuessRounds(r, monsters.GetAllMonsters(), 19) {
-		if g.Monster.ID == "mummy" { // the longest origin clue
-			rounds = append(rounds, g)
+// TestGuessLayoutFits plays every monster at several widths: no line may be
+// wider than the terminal, and clearing the fog must never move the side
+// panel (the layout is decided once per round).
+func TestGuessLayoutFits(t *testing.T) {
+	all := monsters.GetAllMonsters()
+	for _, width := range []int{40, 50, 60, 70, 80, 90, 100} {
+		for seed := int64(1); seed <= 5; seed++ {
+			r := rand.New(rand.NewSource(seed))
+			rounds := NewGuessRounds(r, all, len(all))
+			if len(rounds) == 0 {
+				t.Fatal("no rounds to play")
+			}
+			var m tea.Model = newGuessModel(rounds, r)
+			m, _ = m.Update(size(width, 60))
+			for range rounds {
+				g := m.(guessModel).res.Rounds[m.(guessModel).i]
+				check := func(when string) {
+					for _, line := range strings.Split(m.View(), "\n") {
+						if lw := lipgloss.Width(line); lw > width {
+							t.Fatalf("width %d, %s, %s: line is %d wide: %q", width, g.Monster.ID, when, lw, line)
+						}
+					}
+				}
+				panelAt := panelPosition(m.View())
+				for stage := 0; stage < len(fogReveal); stage++ {
+					check(fmt.Sprintf("stage %d", stage))
+					if got := panelPosition(m.View()); got != panelAt {
+						t.Fatalf("width %d, %s: side panel moved from %v to %v at stage %d", width, g.Monster.ID, panelAt, got, stage)
+					}
+					m = step(m, " ")
+				}
+				m = step(m, "1")
+				check("answered")
+				m = step(m, "enter")
+			}
+			check := m.View()
+			for _, line := range strings.Split(check, "\n") {
+				if lipgloss.Width(line) > width {
+					t.Fatalf("width %d: final screen line too wide: %q", width, line)
+				}
+			}
 		}
 	}
-	var m tea.Model = newGuessModel(rounds, r)
-	m, _ = m.Update(size(90, 40))
-	first := strings.Index(m.View(), "Who lurks in the fog?")
-	m = step(m, " ", " ", " ")
-	v := m.View()
-	if !strings.Contains(v, "Origin:") {
-		t.Fatal("expected the origin clue by stage 3")
-	}
-	if got := strings.Index(v, "Who lurks in the fog?"); got != first {
-		t.Errorf("side panel moved from %d to %d once clues appeared", first, got)
-	}
-	for _, line := range strings.Split(v, "\n") {
-		if lipgloss.Width(line) > 90 {
-			t.Errorf("line wider than the terminal: %q", line)
+}
+
+// panelPosition is the line and on-screen column where the side panel starts.
+func panelPosition(view string) [2]int {
+	for i, line := range strings.Split(view, "\n") {
+		if j := strings.Index(line, "Who lurks in the fog?"); j >= 0 {
+			return [2]int{i, lipgloss.Width(line[:j])}
 		}
+	}
+	return [2]int{-1, -1}
+}
+
+func TestFogStatusAfterGuessing(t *testing.T) {
+	r := rand.New(rand.NewSource(1))
+	var m tea.Model = newGuessModel(NewGuessRounds(r, monsters.GetAllMonsters(), 1), r)
+	m, _ = m.Update(size(100, 40))
+	m = step(m, "1")
+	if v := m.View(); !strings.Contains(v, "You guessed with 15% of the fog cleared") || strings.Contains(v, "worth 100 pts") {
+		t.Errorf("after guessing through the thickest fog the panel should say so:\n%s", v)
+	}
+}
+
+func TestGuessCluesReadNaturally(t *testing.T) {
+	for _, m := range monsters.GetAllMonsters() {
+		g := GuessRound{Monster: m}
+		clue := g.clues(2)[0]
+		if m.Debut.Year == 0 && strings.HasPrefix(clue, "First appeared in") {
+			t.Errorf("%s: folklore clue reads %q", m.ID, clue)
+		}
+		if m.Debut.Year != 0 && clue != fmt.Sprintf("First appeared in %d", m.Debut.Year) {
+			t.Errorf("%s: clue %q", m.ID, clue)
+		}
+	}
+}
+
+func TestWrongAnswerHasOneFullStop(t *testing.T) {
+	q := quiz.Question{Prompt: "Who played the Wolf Man?", Options: []string{"Boris Karloff", "Lon Chaney Jr."}, Answer: 1}
+	var m tea.Model = newQuizModel([]quiz.Question{q}, rand.New(rand.NewSource(1)))
+	m, _ = m.Update(size(80, 24))
+	m = step(m, "1")
+	if v := m.View(); !strings.Contains(v, "The answer is Lon Chaney Jr.") || strings.Contains(v, "Jr..") {
+		t.Errorf("unexpected wrong-answer line:\n%s", v)
 	}
 }
