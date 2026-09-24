@@ -34,3 +34,6 @@ go.work.sum
 
 # Demo recording scratch space (docs/demos/render.sh)
 docs/demos/.frames/
+
+# GoReleaser output
+dist/

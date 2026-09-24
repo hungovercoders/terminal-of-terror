@@ -159,6 +159,28 @@ Recordings are repeatable: `render.sh` sets `TERMINAL_OF_TERROR_SEED` (13 unless
 
 To add a demo, copy a similar tape, change its `Output` line and commands, and add its name to the `stills` list in `render.sh` if it should be a PNG rather than a GIF. Keep `Set Theme @theme.json` and `Set Framerate` in the tape: the script fills in the theme and reads the frame rate back when encoding.
 
+## Releasing
+
+Releases are built by [GoReleaser](https://goreleaser.com) from `.goreleaser.yaml` whenever a `v*` tag is pushed. `.github/workflows/release.yml` runs the tests, builds archives for Linux, macOS and Windows (amd64 and arm64), and publishes a GitHub release. The release notes are the tag's section of CHANGELOG.md.
+
+1. **Pick the version.** Follow [semantic versioning](https://semver.org): new features bump the minor version (1.1.0), fixes bump the patch (1.0.1). Stay below 2.0.0 unless you also change the module path to `github.com/hungovercoders/terminal-of-terror/v2`, which Go requires for v2 and later; otherwise `go install ...@latest` would ignore the release.
+2. **Update CHANGELOG.md.** [git-cliff](https://git-cliff.org) turns the conventional commits since the last tag into a new section:
+   ```bash
+   git cliff --unreleased --tag v1.1.0 --prepend CHANGELOG.md
+   ```
+   Then edit it so it reads well for players, not just developers.
+3. **Commit** the changelog (`chore(release): prepare for v1.1.0`) and merge it into `main`.
+4. **Tag and push** from an up-to-date `main`:
+   ```bash
+   git tag v1.1.0
+   git push origin v1.1.0
+   ```
+   The workflow refuses to publish if CHANGELOG.md has no `## [1.1.0]` section.
+
+To try a release locally without publishing anything, run `goreleaser release --snapshot --clean` and look in `dist/`. CI runs `goreleaser check` on every pull request to catch config mistakes.
+
+The version shown by `--version` comes from the tag: GoReleaser sets it at build time, and `go install ...@v1.1.0` reads it from Go's build info.
+
 ## Commit Guidelines
 
 ### Commit Message Format

@@ -1,0 +1,43 @@
+# Builds release binaries for every platform. Runs from
+# .github/workflows/release.yml when a v* tag is pushed; see "Releasing" in
+# CONTRIBUTING.md. Try it locally with: goreleaser release --snapshot --clean
+version: 2
+
+project_name: terminal-of-terror
+
+builds:
+  - main: .
+    binary: terminal-of-terror
+    env:
+      - CGO_ENABLED=0
+    goos: [linux, darwin, windows]
+    goarch: [amd64, arm64]
+    flags:
+      - -trimpath
+    ldflags:
+      - -s -w -X github.com/hungovercoders/terminal-of-terror/cmd.version={{ .Version }}
+    mod_timestamp: "{{ .CommitTimestamp }}"
+
+archives:
+  - formats: [tar.gz]
+    format_overrides:
+      - goos: windows
+        formats: [zip]
+    name_template: "{{ .ProjectName }}_{{ .Version }}_{{ .Os }}_{{ .Arch }}"
+    files:
+      - README.md
+      - LICENSE
+      - CHANGELOG.md
+
+checksum:
+  name_template: checksums.txt
+
+# Release notes come from the tag's section of CHANGELOG.md instead.
+changelog:
+  disable: true
+
+release:
+  name_template: "Terminal of Terror {{ .Version }}"
+  footer: |
+    ---
+    📺 Install with `go install github.com/hungovercoders/terminal-of-terror@v{{ .Version }}`, or download the archive for your system below.

@@ -7,6 +7,7 @@
 
 ### 📺 Channel 13's Creature Feature, live in your terminal
 
+[![Release](https://img.shields.io/github/v/release/hungovercoders/terminal-of-terror?color=ff7a1a)](https://github.com/hungovercoders/terminal-of-terror/releases/latest)
 [![CI](https://github.com/hungovercoders/terminal-of-terror/actions/workflows/ci.yml/badge.svg)](https://github.com/hungovercoders/terminal-of-terror/actions/workflows/ci.yml)
 [![Go version](https://img.shields.io/github/go-mod/go-version/hungovercoders/terminal-of-terror?color=ff7a1a)](go.mod)
 [![License: MIT](https://img.shields.io/badge/license-MIT-8b0000)](LICENSE)
@@ -28,7 +29,7 @@
 
 | Time | Feature |
 |------|---------|
-| 9:00 PM | [🔮 Summon it](#-summon-it): install in one line |
+| 9:00 PM | [🔮 Summon it](#-summon-it): download or install |
 | 9:05 PM | [🌙 Your first night](#-your-first-night): five commands to try |
 | 9:15 PM | [🧛 The Creature Feature](#-the-creature-feature): the interactive explorer |
 | 10:00 PM | [🧠 Games](#-games): the Midnight Quiz, Guess the Monster and the Monster Mash |
@@ -40,13 +41,24 @@
 
 ## 🔮 Summon it
 
-With [Go 1.24+](https://go.dev/dl/) installed:
+**Download it:** grab the archive for your system from the [latest release](https://github.com/hungovercoders/terminal-of-terror/releases/latest). There are builds for Linux, macOS and Windows, for both Intel and ARM. Unpack it and put `terminal-of-terror` somewhere on your `PATH`.
+
+```bash
+# e.g. Linux on Intel/AMD, version 1.0.0
+tar xzf terminal-of-terror_1.0.0_linux_amd64.tar.gz
+sudo mv terminal-of-terror /usr/local/bin/
+```
+
+> [!NOTE]
+> On macOS, the binary isn't signed, so the first run may be blocked. Run `xattr -d com.apple.quarantine terminal-of-terror` to let it through.
+
+**Or install it with [Go 1.24+](https://go.dev/dl/):**
 
 ```bash
 go install github.com/hungovercoders/terminal-of-terror@latest
 ```
 
-Or build it from source:
+**Or build it from source:**
 
 ```bash
 git clone https://github.com/hungovercoders/terminal-of-terror.git

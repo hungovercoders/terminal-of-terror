@@ -37,6 +37,8 @@ terminal-of-terror/
 ├── docs/
 │   ├── assets/              # README GIFs and screenshots (generated)
 │   └── demos/               # VHS tapes, theme and render.sh that record them
+├── .goreleaser.yaml          # Release builds (see "Releasing" in CONTRIBUTING.md)
+├── .github/workflows/       # ci.yml on every PR; release.yml on v* tags
 ├── main.go                  # Application entry point
 ├── go.mod                   # Go module definition
 └── go.sum                   # Go module checksums
@@ -113,6 +115,11 @@ go mod tidy
 3. Include all required fields (see CONTRIBUTING.md)
 4. Ensure facts are accurate and interesting
 5. Run `go test ./...` — the data tests validate every monster
+
+### Cutting a Release
+Follow "Releasing" in CONTRIBUTING.md: update CHANGELOG.md with git-cliff, merge, then push a `v*` tag.
+Never push a tag without the maintainer's go-ahead: it publishes a release. Keep versions below v2.0.0
+unless the module path gains a `/v2` suffix.
 
 ### Adding a New Command
 1. Create new file in `cmd/` directory (e.g., `cmd/newcmd.go`)
