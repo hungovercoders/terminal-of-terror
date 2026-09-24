@@ -1,0 +1,94 @@
+name: CI
+
+on:
+  push:
+    branches: [main]
+  pull_request:
+
+permissions:
+  contents: read
+
+concurrency:
+  group: ci-${{ github.ref }}
+  cancel-in-progress: true
+
+jobs:
+  lint:
+    name: Format, vet and tidy
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-go@v5
+        with:
+          go-version-file: go.mod
+
+      - name: gofmt
+        run: |
+          unformatted=$(gofmt -l .)
+          if [ -n "$unformatted" ]; then
+            echo "These files need gofmt:"
+            echo "$unformatted"
+            exit 1
+          fi
+
+      - name: go vet
+        run: go vet ./...
+
+      - name: go mod tidy
+        run: |
+          go mod tidy
+          git diff --exit-code go.mod go.sum || (echo "Run 'go mod tidy' and commit the result." && exit 1)
+
+  test:
+    name: Test (${{ matrix.os }})
+    runs-on: ${{ matrix.os }}
+    strategy:
+      fail-fast: false
+      matrix:
+        os: [ubuntu-latest, macos-latest, windows-latest]
+    env:
+      # Keep progress and community packs out of the runner's real config dir.
+      TERMINAL_OF_TERROR_HOME: ${{ github.workspace }}/.tot-home
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-go@v5
+        with:
+          go-version-file: go.mod
+
+      - name: Unit tests (with race detector)
+        if: runner.os == 'Linux'
+        run: go test -race ./...
+
+      - name: Unit tests
+        if: runner.os != 'Linux'
+        run: go test ./...
+
+      - name: Build
+        run: go build -o terminal-of-terror${{ runner.os == 'Windows' && '.exe' || '' }} .
+
+      - name: Smoke test the commands
+        shell: bash
+        run: |
+          set -euo pipefail
+          bin=./terminal-of-terror
+          [ "$RUNNER_OS" = "Windows" ] && bin=./terminal-of-terror.exe
+          $bin --help > /dev/null
+          $bin --version
+          $bin list > /dev/null
+          $bin list --json > /dev/null
+          $bin random > /dev/null
+          $bin random --daily --date 2026-10-31 > /dev/null
+          $bin monster dracula --json > /dev/null
+          $bin quiz -n 3 --json > /dev/null
+          $bin countdown --date 2026-10-13 > /dev/null
+          $bin tonight --date 2026-10-31 > /dev/null
+          $bin mash dracula mummy --fast > /dev/null
+          $bin crypt > /dev/null
+          $bin packs new ci-pack > /dev/null
+          $bin list --pack ci-pack > /dev/null
+          $bin packs > /dev/null
+          # Unknown names should fail cleanly rather than crash.
+          if $bin monster zombie-accountant 2> /dev/null; then
+            echo "expected an error for an unknown monster"
+            exit 1
+          fi

@@ -1,5 +1,7 @@
 # Terminal of Terror 🎃
 
+[![CI](https://github.com/hungovercoders/terminal-of-terror/actions/workflows/ci.yml/badge.svg)](https://github.com/hungovercoders/terminal-of-terror/actions/workflows/ci.yml)
+
 A terminal tool that terrifies you with universal monsters!
 
 Terminal of Terror is a CLI application that brings classic universal monsters to your terminal. Explore famous monsters like Dracula, Frankenstein's Monster, The Wolf Man, and more! Learn fascinating and terrifying facts about these legendary creatures from horror history.
