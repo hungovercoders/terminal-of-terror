@@ -1,0 +1,33 @@
+{
+  "id": "kappa",
+  "name": "The Kappa",
+  "aliases": ["Kappa", "Kawataro"],
+  "emoji": "🥒",
+  "description": "A polite but dangerous river imp with a dish of water on its head",
+  "origin": "Japanese folklore (yōkai)",
+  "debut": {"medium": "folklore", "title": "Japanese yōkai tales", "era": "widely recorded in the Edo period (1603–1868)"},
+  "legend": "Kappa are yōkai that lurk in Japan's rivers and ponds. They're about the size of a child, with a beak, a shell and a dish-shaped hollow on top of the head that holds water, the source of their strength. Kappa drag people and horses into the water and love to challenge passers-by to sumo. But they're bound by manners: bow to a kappa and it must bow back, spilling its water. And a kappa that makes a promise always keeps it.",
+  "myths": [
+    {"claim": "Bowing to a kappa can save your life.", "true": true, "explanation": "It is so polite that it bows back, spills the water from its head and loses its strength."},
+    {"claim": "Kappa-maki sushi is named after the creature.", "true": true, "explanation": "Cucumber rolls are named after the kappa's favourite food."},
+    {"claim": "Kappa are always evil.", "true": false, "explanation": "Some tales have grateful kappa helping farmers or teaching people how to set broken bones."}
+  ],
+  "quotes": [],
+  "powers": ["Powerful swimming", "Surprising strength", "Sumo wrestling skill", "Secret medical knowledge"],
+  "weaknesses": ["Spilling the water on its head", "Good manners", "Cucumbers", "Its own promises"],
+  "stats": {"strength": 7, "speed": 6, "cunning": 6, "dread": 4},
+  "legacy": [
+    "Ryūnosuke Akutagawa's satirical novel Kappa (1927)",
+    "A mascot for towns, sushi and water-safety campaigns across Japan"
+  ],
+  "facts": [
+    "The kappa carries a dish of water in the top of its head",
+    "If that water spills, the kappa loses its strength",
+    "It is so polite that it must bow back if you bow to it",
+    "Its favourite food is cucumber, which gave kappa-maki its name",
+    "Kappa love to challenge people to sumo wrestling",
+    "A kappa that makes a promise always keeps it"
+  ],
+  "hostIntro": "Tonight's guest lives at the bottom of the river and loves a wrestling match. Remember your manners, and bring cucumbers.",
+  "theme": {"primary": "#52B788", "accent": "#D8F3DC"}
+}

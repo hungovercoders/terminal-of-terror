@@ -1,0 +1,33 @@
+{
+  "id": "baba-yaga",
+  "name": "Baba Yaga",
+  "aliases": ["Baba Jaga", "Bony Leg"],
+  "emoji": "🧙",
+  "description": "The forest witch of Slavic tales, who lives in a hut on chicken legs",
+  "origin": "Slavic folklore",
+  "debut": {"medium": "folklore", "title": "Slavic folk tales", "era": "oral tradition, recorded in print from the 1700s"},
+  "legend": "Deep in the forest, a hut turns on giant chicken legs, surrounded by a fence of bones topped with glowing skulls. Inside lives Baba Yaga, a bony old witch who flies in a mortar, steers with a pestle and sweeps away her tracks with a broom. She's unpredictable: she might eat you, or, if you're brave and polite, she might help you. In the tale of Vasilisa the Beautiful, collected by Alexander Afanasyev in the 1850s and 60s, she sends the heroine home with a burning skull lantern.",
+  "myths": [
+    {"claim": "Baba Yaga is always a villain.", "true": false, "explanation": "She's famously ambiguous. Heroes who are brave, clever or polite often leave with her help."},
+    {"claim": "Baba Yaga flies on a broomstick.", "true": false, "explanation": "She flies in a mortar and steers with a pestle. The broom just sweeps away her tracks."},
+    {"claim": "Her hut stands on chicken legs.", "true": true, "explanation": "It can even turn to face visitors, if they know the right words."}
+  ],
+  "quotes": [],
+  "powers": ["Flight by mortar and pestle", "A hut that walks", "Ancient forest magic", "Knowledge of every path"],
+  "weaknesses": ["Clever, polite guests", "A heroine's magic doll", "Her own bargains"],
+  "stats": {"strength": 5, "speed": 7, "cunning": 10, "dread": 9},
+  "legacy": [
+    "Mussorgsky's 'The Hut on Hen's Legs' in Pictures at an Exhibition (1874)",
+    "Countless picture books, films and games"
+  ],
+  "facts": [
+    "Her hut stands on chicken legs and can turn to face visitors",
+    "She flies in a giant mortar, steering with a pestle",
+    "She sweeps away her tracks with a broom as she flies",
+    "Her fence is made of bones, topped with skulls whose eyes glow",
+    "In Vasilisa the Beautiful she gives the heroine a burning skull lantern",
+    "Mussorgsky wrote music about her hut in Pictures at an Exhibition"
+  ],
+  "hostIntro": "Mind your manners tonight, viewers. Our guest lives in a house with chicken legs, and she's much nicer to people who say please.",
+  "theme": {"primary": "#BC4749", "accent": "#F2E8CF"}
+}

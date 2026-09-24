@@ -1,0 +1,34 @@
+{
+  "id": "la-llorona",
+  "name": "La Llorona",
+  "aliases": ["Llorona", "The Weeping Woman"],
+  "emoji": "💧",
+  "description": "The weeping woman who wanders the riverbanks at night, searching for her children",
+  "origin": "Mexican and Latin American folklore",
+  "debut": {"medium": "folklore", "title": "Mexican legend", "era": "colonial Mexico, from the 16th century onward"},
+  "legend": "The best-known version tells of a woman who, abandoned by the man she loved, drowned her children in a river and then drowned herself in grief. Now her spirit wanders near water at night in a white dress, crying for the children she lost. Some historians connect her to a weeping woman described among the omens of the Spanish conquest in the 16th-century Florentine Codex. Today the tale is told from Argentina to the American Southwest, often by parents who want children home before dark.",
+  "myths": [
+    {"claim": "La Llorona's story is only told in Mexico.", "true": false, "explanation": "Versions are told across Latin America and in the southwestern United States."},
+    {"claim": "Some trace her to a weeping woman in a 16th-century record of omens.", "true": true, "explanation": "The Florentine Codex describes a woman heard weeping at night among the omens before the conquest."},
+    {"claim": "The legend is often used to keep children away from rivers at night.", "true": true, "explanation": "Generations of parents have warned that La Llorona might mistake a wandering child for her own."}
+  ],
+  "quotes": [],
+  "powers": ["A wail that chills the blood", "Appearing wherever there is water", "Luring the lost"],
+  "weaknesses": ["Her endless grief", "Children safely home before dark", "The light of day"],
+  "stats": {"strength": 3, "speed": 6, "cunning": 6, "dread": 10},
+  "legacy": [
+    "La Llorona (2019), Jayro Bustamante's acclaimed Guatemalan film",
+    "The Curse of La Llorona (2019)",
+    "'La Llorona', a Mexican folk song still widely sung"
+  ],
+  "facts": [
+    "Her name means 'the weeping woman'",
+    "She wanders near rivers and lakes at night, crying for her lost children",
+    "Parents tell the tale to keep children away from water after dark",
+    "Some trace her to a weeping woman described in the 16th-century Florentine Codex",
+    "The legend is told across Latin America and the American Southwest",
+    "She is usually described wearing a flowing white dress"
+  ],
+  "hostIntro": "If you hear crying down by the river tonight, don't go and look. Our guest has been searching the waterways for centuries.",
+  "theme": {"primary": "#F1FAEE", "accent": "#A8DADC"}
+}

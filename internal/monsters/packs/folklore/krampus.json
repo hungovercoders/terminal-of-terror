@@ -1,0 +1,34 @@
+{
+  "id": "krampus",
+  "name": "Krampus",
+  "aliases": ["The Krampus", "Krampusz"],
+  "emoji": "😈",
+  "description": "The horned Christmas demon who punishes naughty children",
+  "origin": "Alpine folklore",
+  "debut": {"medium": "folklore", "title": "Alpine folk tradition", "era": "centuries-old customs of Austria, Bavaria and nearby regions"},
+  "legend": "In the Alps, St. Nicholas doesn't travel alone. On the night of 5 December, Krampusnacht, the eve of St. Nicholas Day, he's joined by Krampus: shaggy, horned, long-tongued and rattling chains and bells. While the saint rewards good children, Krampus swats the naughty with birch switches and, in the scarier tellings, carries them off in a sack. In the 1800s people sent each other Krampus greeting cards, and today towns hold Krampuslauf parades where costumed Krampuses charge through the streets.",
+  "myths": [
+    {"claim": "Krampus visits on Christmas Eve.", "true": false, "explanation": "His night is 5 December, Krampusnacht, the eve of St. Nicholas Day."},
+    {"claim": "Krampus is St. Nicholas's enemy.", "true": false, "explanation": "They work as a team: the saint rewards the good while Krampus deals with the naughty."},
+    {"claim": "Krampus parades are still held today.", "true": true, "explanation": "Krampuslauf runs take place every December in Austria, Germany and increasingly around the world."}
+  ],
+  "quotes": [],
+  "powers": ["Stinging birch switches", "Rattling chains and bells", "A sack big enough for a child", "A long, lolling tongue"],
+  "weaknesses": ["Genuinely good children", "St. Nicholas's authority", "Only one night a year"],
+  "stats": {"strength": 8, "speed": 7, "cunning": 6, "dread": 9},
+  "legacy": [
+    "Krampus (2015), a horror comedy by Michael Dougherty",
+    "Krampus festivals now held far beyond the Alps"
+  ],
+  "facts": [
+    "Krampus is a horned, hairy creature from Alpine folklore",
+    "He accompanies St. Nicholas, who rewards the good while Krampus punishes the naughty",
+    "His night is 5 December, Krampusnacht, the eve of St. Nicholas Day",
+    "He carries chains, bells and bundles of birch switches",
+    "Naughty children might be stuffed into his sack and carried away",
+    "In Krampuslauf parades, costumed Krampuses charge through town streets",
+    "People sent each other Krampus greeting cards in the 1800s"
+  ],
+  "hostIntro": "It's never too early for Christmas! Tonight's guest is on a naughty list of his own, and he's checking yours twice.",
+  "theme": {"primary": "#D00000", "accent": "#F48C06"}
+}

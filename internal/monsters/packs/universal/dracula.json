@@ -1,0 +1,52 @@
+{
+  "id": "dracula",
+  "name": "Dracula",
+  "aliases": ["Count Dracula", "The Count", "Vampire"],
+  "emoji": "🧛",
+  "description": "The legendary vampire count from Transylvania",
+  "origin": "Eastern European vampire folklore",
+  "debut": {"medium": "novel", "title": "Dracula", "creator": "Bram Stoker", "year": 1897},
+  "film": {
+    "title": "Dracula",
+    "year": 1931,
+    "releaseDate": "1931-02-12",
+    "studio": "Universal",
+    "director": "Tod Browning",
+    "star": "Bela Lugosi",
+    "makeup": "Jack Pierce",
+    "note": "A Spanish-language version was shot at night on the same sets, with Carlos Villarías as the Count."
+  },
+  "legend": "Stoker never went to Transylvania. He built his Count from library research: travel writing about the Carpathians, Emily Gerard's essay on Transylvanian superstitions, and reports of the 18th-century vampire panics in Serbia, where villagers dug up corpses they blamed for deaths. Those folklore vampires were bloated, ruddy peasants, nothing like a cultured nobleman. Earlier stories such as Polidori's The Vampyre (1819) and Le Fanu's Carmilla (1872) had already given the vampire aristocratic polish.",
+  "myths": [
+    {"claim": "In Stoker's novel, sunlight destroys Dracula.", "true": false, "explanation": "The Count walks through London by day; sunlight only weakens his powers. Death-by-daylight arrived with the film Nosferatu (1922)."},
+    {"claim": "Dracula casts no reflection in a mirror.", "true": true, "explanation": "Jonathan Harker cuts himself shaving when he realises the Count, standing behind him, does not appear in the glass."},
+    {"claim": "Folklore vampires were pale, elegant aristocrats.", "true": false, "explanation": "Eastern European accounts describe swollen, red-faced corpses of ordinary villagers. The aristocrat is a literary invention."},
+    {"claim": "Dracula is a faithful portrait of Vlad the Impaler.", "true": false, "explanation": "Stoker borrowed the name and a few lines of history from a book about Wallachia. Most scholars think he knew little of Vlad's cruelty."},
+    {"claim": "A vampire must be invited in before entering a home.", "true": true, "explanation": "Van Helsing explains that the Count may not enter a house unless someone within first bids him come."}
+  ],
+  "quotes": [
+    {"text": "Welcome to my house! Enter freely and of your own will!", "speaker": "Count Dracula", "source": "Dracula (1897), chapter 2"},
+    {"text": "Listen to them—the children of the night. What music they make!", "speaker": "Count Dracula", "source": "Dracula (1897), chapter 2"}
+  ],
+  "powers": ["Shapeshifting into a bat, wolf or mist", "Command over wolves and rats", "Hypnotic will", "Stirring up fog and storms", "Strength of many men"],
+  "weaknesses": ["Garlic", "The crucifix", "Sacred wafers", "A wooden stake", "Running water"],
+  "stats": {"strength": 8, "speed": 7, "cunning": 10, "dread": 10},
+  "legacy": [
+    "Dracula's Daughter (1936)",
+    "Son of Dracula (1943), with Lon Chaney Jr.",
+    "House of Frankenstein (1944) and House of Dracula (1945), with John Carradine",
+    "Abbott and Costello Meet Frankenstein (1948), Lugosi's second and final screen Dracula",
+    "Hammer's Dracula (1958), starring Christopher Lee"
+  ],
+  "facts": [
+    "Dracula can transform into a bat, a wolf or mist",
+    "Garlic, the crucifix and sacred wafers all keep him at bay",
+    "He must rest in earth from his homeland and ships fifty boxes of it to England",
+    "He casts no reflection, as Jonathan Harker discovers while shaving",
+    "Stoker took the name from Vlad III of Wallachia, but little else",
+    "Bela Lugosi played the Count on Broadway in 1927 before the film",
+    "Lugosi was buried in one of his Dracula capes in 1956"
+  ],
+  "hostIntro": "Good evening, night owls. Tonight's guest has travelled all the way from the Carpathians, and he's brought his own earth. Mind your necks.",
+  "theme": {"primary": "#C1121F", "accent": "#F1E4E8"}
+}

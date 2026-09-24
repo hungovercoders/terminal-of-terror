@@ -1,0 +1,53 @@
+{
+  "id": "frankenstein",
+  "name": "Frankenstein's Monster",
+  "aliases": ["Frankenstein", "The Monster", "The Creature of Frankenstein"],
+  "emoji": "🧟",
+  "description": "The tragic creature created by Dr. Victor Frankenstein",
+  "origin": "Gothic literature",
+  "debut": {"medium": "novel", "title": "Frankenstein; or, The Modern Prometheus", "creator": "Mary Shelley", "year": 1818},
+  "film": {
+    "title": "Frankenstein",
+    "year": 1931,
+    "releaseDate": "1931-11-21",
+    "studio": "Universal",
+    "director": "James Whale",
+    "star": "Boris Karloff",
+    "makeup": "Jack Pierce",
+    "note": "The opening credits listed the Monster's actor only as a question mark."
+  },
+  "legend": "In the rain-soaked summer of 1816, the 'year without a summer' after the eruption of Mount Tambora, Lord Byron challenged his guests at the Villa Diodati by Lake Geneva to write ghost stories. Eighteen-year-old Mary Godwin, soon to be Mary Shelley, produced the tale that became Frankenstein. It fed on the science of the day: experiments in galvanism, where electric current made the muscles of dead animals and even executed criminals twitch.",
+  "myths": [
+    {"claim": "The monster's name is Frankenstein.", "true": false, "explanation": "Victor Frankenstein is the creator. Shelley never names the creature; he is called 'wretch', 'daemon' and 'creature'."},
+    {"claim": "In the novel, the monster is brought to life by lightning.", "true": false, "explanation": "Shelley keeps the method vague: Victor infuses 'a spark of being'. The lightning-and-machinery spectacle belongs to the 1931 film."},
+    {"claim": "The novel's monster is articulate and well read.", "true": true, "explanation": "He learns language by secretly watching a cottage family and reads Paradise Lost, Plutarch's Lives and The Sorrows of Young Werther."},
+    {"claim": "Victor Frankenstein's assistant Igor appears in the novel.", "true": false, "explanation": "Victor works alone. The 1931 film gave him a hunchbacked helper named Fritz; Ygor was Bela Lugosi's character in Son of Frankenstein (1939)."}
+  ],
+  "quotes": [
+    {"text": "I beheld the wretch—the miserable monster whom I had created.", "speaker": "Victor Frankenstein", "source": "Frankenstein (1818)"},
+    {"text": "I was benevolent and good; misery made me a fiend.", "speaker": "The Creature", "source": "Frankenstein (1818)"},
+    {"text": "Beware; for I am fearless, and therefore powerful.", "speaker": "The Creature", "source": "Frankenstein (1818)"}
+  ],
+  "powers": ["Tremendous strength", "Endurance of cold and hunger", "Surprising speed across rough ground", "A quick, self-taught mind"],
+  "weaknesses": ["Fire", "Loneliness", "Torch-bearing villagers", "Rejection by his maker"],
+  "stats": {"strength": 10, "speed": 6, "cunning": 7, "dread": 8},
+  "legacy": [
+    "Bride of Frankenstein (1935)",
+    "Son of Frankenstein (1939), Karloff's last full performance as the Monster",
+    "The Ghost of Frankenstein (1942), with Lon Chaney Jr.",
+    "Frankenstein Meets the Wolf Man (1943), with Bela Lugosi as the Monster",
+    "Hammer's The Curse of Frankenstein (1957)",
+    "Young Frankenstein (1974)"
+  ],
+  "facts": [
+    "The creature is never named in the novel; Frankenstein is his creator",
+    "Victor gathers his materials from dissecting rooms and slaughterhouses",
+    "He teaches himself to speak and read by secretly watching a cottage family",
+    "Mary Shelley began the story at 18, during a ghost-story contest with Lord Byron",
+    "He demands that Victor build him a female companion",
+    "Boris Karloff was credited only as '?' in the film's opening titles",
+    "Jack Pierce's flat-topped head and neck electrodes defined the look for generations"
+  ],
+  "hostIntro": "Tonight we open the laboratory doors on a fellow stitched together from spare parts and bad decisions. Don't blame him, blame the doctor.",
+  "theme": {"primary": "#7CB518", "accent": "#DDE5B6"}
+}

@@ -1,0 +1,41 @@
+{
+  "id": "draculas-daughter",
+  "name": "Dracula's Daughter",
+  "aliases": ["Countess Zaleska", "Countess Marya Zaleska"],
+  "emoji": "🦇",
+  "description": "A melancholy countess desperate to escape her father's curse",
+  "origin": "Universal's sequel to Dracula, loosely based on Stoker's 'Dracula's Guest'",
+  "debut": {"medium": "film", "title": "Dracula's Daughter", "creator": "Universal Pictures", "year": 1936},
+  "film": {
+    "title": "Dracula's Daughter",
+    "year": 1936,
+    "studio": "Universal",
+    "director": "Lambert Hillyer",
+    "star": "Gloria Holden",
+    "note": "Edward Van Sloan returns from the 1931 film as the vampire hunter, now spelled Von Helsing."
+  },
+  "legend": "Universal bought the rights to 'Dracula's Guest', a short story published in 1914, two years after Bram Stoker's death, and used little of it. Instead the film picks up moments after Dracula (1931) ends. Countess Marya Zaleska burns her father's body, hoping to be free of her thirst, then turns to a psychiatrist for a cure. That makes her one of the screen's first reluctant, sympathetic vampires.",
+  "myths": [
+    {"claim": "Dracula's daughter appears in Stoker's novel.", "true": false, "explanation": "She's Universal's invention. The novel's Count has three 'brides', but no daughter."},
+    {"claim": "The story begins right where Dracula (1931) ends.", "true": true, "explanation": "It opens in Carfax Abbey, just after the Count has been staked."},
+    {"claim": "Bela Lugosi returns as Dracula.", "true": false, "explanation": "Lugosi does not appear. The film is about his daughter, played by Gloria Holden."},
+    {"claim": "The Countess hopes psychiatry can cure her.", "true": true, "explanation": "She seeks out psychiatrist Dr. Jeffrey Garth, hoping science can free her from her curse."}
+  ],
+  "quotes": [],
+  "powers": ["A hypnotic gaze", "Nocturnal stealth", "Aristocratic charm", "Centuries of patience"],
+  "weaknesses": ["Longing for a normal life", "A wooden arrow", "Sunlight", "Her jealous servant Sandor"],
+  "stats": {"strength": 4, "speed": 6, "cunning": 8, "dread": 7},
+  "legacy": [
+    "Son of Dracula (1943) kept the family business going"
+  ],
+  "facts": [
+    "Countess Zaleska burns her father's body, hoping to free herself from his curse",
+    "She turns to a psychiatrist, hoping science can cure her vampirism",
+    "The story begins moments after Dracula (1931) ends",
+    "Van Helsing, now spelled Von Helsing, is arrested for Dracula's murder",
+    "Universal based it very loosely on Stoker's story 'Dracula's Guest'",
+    "Edward Van Sloan reprised his vampire-hunter role from the 1931 film"
+  ],
+  "hostIntro": "Like father, like daughter? Tonight's guest would very much like to be nothing like her dad. Therapy is involved. So is biting.",
+  "theme": {"primary": "#9D4EDD", "accent": "#E0AAFF"}
+}

@@ -1,0 +1,44 @@
+{
+  "id": "bride",
+  "name": "The Bride of Frankenstein",
+  "aliases": ["Bride", "The Bride", "The Monster's Mate"],
+  "emoji": "👰",
+  "description": "The Monster's electrifying mate, alive for only a few unforgettable minutes",
+  "origin": "Inspired by the unfinished female creature in Mary Shelley's novel",
+  "debut": {"medium": "film", "title": "Bride of Frankenstein", "creator": "Universal Pictures", "year": 1935},
+  "film": {
+    "title": "Bride of Frankenstein",
+    "year": 1935,
+    "studio": "Universal",
+    "director": "James Whale",
+    "star": "Elsa Lanchester",
+    "makeup": "Jack Pierce",
+    "note": "Boris Karloff returns as the Monster, with Ernest Thesiger as the sinister Dr. Pretorius."
+  },
+  "legend": "In Shelley's novel, the creature begs Victor for a companion and Victor starts work on one in a hut on the Orkney Islands, then tears her apart before she ever lives, fearing what the two might do together. Universal's sequel finally let her live. James Whale opened the film with Mary Shelley herself telling Byron and Percy Shelley that her story wasn't over, and cast the same actress as both the author and the Bride.",
+  "myths": [
+    {"claim": "In Shelley's novel, the female creature is brought to life.", "true": false, "explanation": "Victor destroys her unfinished body. Only the 1935 film lets her live."},
+    {"claim": "Elsa Lanchester also plays Mary Shelley in the film.", "true": true, "explanation": "She appears as Mary Shelley in the prologue and as the Bride at the end."},
+    {"claim": "The Bride is on screen for most of the film.", "true": false, "explanation": "She's only brought to life in the last few minutes, yet became one of horror's most famous images."},
+    {"claim": "The Bride's hiss was inspired by swans.", "true": true, "explanation": "Lanchester said she based it on the angry hissing of swans."}
+  ],
+  "quotes": [],
+  "powers": ["An electrifying presence", "A hiss that stops hearts", "A body built from the finest parts"],
+  "weaknesses": ["Rejection", "An exploding laboratory", "A body only hours old"],
+  "stats": {"strength": 5, "speed": 5, "cunning": 6, "dread": 8},
+  "legacy": [
+    "Young Frankenstein (1974) affectionately parodies her hair",
+    "The Bride (1985)",
+    "Gods and Monsters (1998), a film about director James Whale"
+  ],
+  "facts": [
+    "Elsa Lanchester plays both the Bride and Mary Shelley in the film's prologue",
+    "The Bride comes to life only in the last few minutes of the film",
+    "Lanchester said she based the Bride's famous hiss on angry swans",
+    "Her lightning-streaked hair became one of horror's most famous looks",
+    "In Shelley's novel, Victor destroys the female creature before she ever lives",
+    "Dr. Pretorius shows off tiny people he has grown in glass jars"
+  ],
+  "hostIntro": "Tonight, wedding bells! Or is that the lightning? Our guest has been waiting a century for her big entrance, and she makes it count.",
+  "theme": {"primary": "#CDB4DB", "accent": "#F8F9FA"}
+}

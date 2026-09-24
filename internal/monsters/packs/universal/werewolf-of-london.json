@@ -1,0 +1,42 @@
+{
+  "id": "werewolf-of-london",
+  "name": "The Werewolf of London",
+  "aliases": ["Werewolf of London", "Dr. Glendon", "Wilfred Glendon"],
+  "emoji": "🌿",
+  "description": "A botanist who brings a curse home from Tibet, along with a very rare flower",
+  "origin": "Universal original, drawing on European werewolf folklore",
+  "debut": {"medium": "film", "title": "Werewolf of London", "creator": "Universal Pictures", "year": 1935},
+  "film": {
+    "title": "Werewolf of London",
+    "year": 1935,
+    "studio": "Universal",
+    "director": "Stuart Walker",
+    "star": "Henry Hull",
+    "makeup": "Jack Pierce",
+    "note": "Warner Oland plays the mysterious Dr. Yogami, another werewolf hunting the same flower."
+  },
+  "legend": "Six years before The Wolf Man, Universal made Hollywood's first mainstream werewolf picture. Botanist Wilfred Glendon is attacked in Tibet while hunting a flower that blooms only by moonlight, and back in London he learns the blossom is the only thing that can hold off his transformation. The flower is pure invention, but the idea of a respectable man hiding a beast inside owes plenty to Dr Jekyll and Mr Hyde.",
+  "myths": [
+    {"claim": "The Wolf Man (1941) was Hollywood's first werewolf movie.", "true": false, "explanation": "Werewolf of London beat it by six years."},
+    {"claim": "The moon-blooming mariphasa flower is a real plant.", "true": false, "explanation": "It was invented for the film."},
+    {"claim": "Henry Hull's werewolf still looks largely human.", "true": true, "explanation": "Hull reportedly wanted a lighter makeup so audiences could recognise him, so his werewolf stays upright and fully dressed."}
+  ],
+  "quotes": [],
+  "powers": ["A scientist's cunning", "Prowling unseen through foggy London", "The strength of a wolf"],
+  "weaknesses": ["Running out of mariphasa blooms", "The rising moon", "A Scotland Yard bullet"],
+  "stats": {"strength": 7, "speed": 7, "cunning": 7, "dread": 6},
+  "legacy": [
+    "The Wolf Man (1941) refined Universal's werewolf formula",
+    "Warren Zevon's song 'Werewolves of London' (1978) borrowed the name"
+  ],
+  "facts": [
+    "It was Hollywood's first mainstream werewolf movie, six years before The Wolf Man",
+    "Botanist Wilfred Glendon is attacked in Tibet while hunting a rare flower",
+    "The moon-blooming mariphasa flower is the only thing that holds off his change",
+    "Henry Hull reportedly pushed for a lighter makeup so audiences could see his face",
+    "Warner Oland plays Dr. Yogami, a second werewolf who wants the same flower",
+    "Unlike later werewolves, Glendon stays upright and dressed while transformed"
+  ],
+  "hostIntro": "A nice quiet botanist, a nice quiet garden, and a nice quiet curse from Tibet. Tonight's feature proves you should never bring souvenirs home.",
+  "theme": {"primary": "#B5838D", "accent": "#E5989B"}
+}

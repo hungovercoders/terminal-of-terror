@@ -4,7 +4,7 @@ This document provides guidance for AI agents working on the Terminal of Terror 
 
 ## Project Overview
 
-Terminal of Terror is a Go CLI application that displays information about classic universal monsters. It uses:
+Terminal of Terror is a Go CLI application that teaches people about classic Universal monsters and world folklore through an interactive explorer, games and nightly rituals, all presented by a fictional late-night horror host, Count Cathode. It uses:
 - **Cobra** for CLI commands and structure
 - **Bubbletea** for interactive terminal UI
 - **Lipgloss** for terminal styling
@@ -13,19 +13,30 @@ Terminal of Terror is a Go CLI application that displays information about class
 
 ```
 terminal-of-terror/
-├── cmd/                    # Cobra command definitions
-│   ├── root.go            # Root command and CLI setup
-│   ├── monster.go         # Interactive monster explorer command
-│   ├── list.go            # List all monsters command
-│   └── random.go          # Random fact command
-├── internal/              # Internal packages
-│   ├── monsters/          # Monster data and logic
-│   │   └── monsters.go    # Monster structs and data
-│   └── ui/                # Bubbletea UI components
-│       └── ui.go          # TUI implementation
-├── main.go                # Application entry point
-├── go.mod                 # Go module definition
-└── go.sum                 # Go module checksums
+├── cmd/                      # Cobra command definitions
+│   ├── root.go              # Root command, --pack flag, community pack loading
+│   ├── monster.go           # Interactive explorer (monster [name])
+│   ├── list.go / random.go  # Listing and random / daily facts
+│   ├── quiz.go / guess.go   # Games
+│   ├── mash.go / crypt.go   # Monster Mash and the Crypt (progress)
+│   ├── tonight.go           # Double-feature ticket
+│   ├── countdown.go         # Halloween countdown
+│   ├── packs.go             # List packs, scaffold community packs
+│   ├── progress.go          # Records game outcomes and announces unlocks
+│   └── output.go            # --json helper
+├── internal/
+│   ├── monsters/            # Monster types, pack loader, search
+│   │   └── packs/           # Built-in data: <pack>/pack.json, <id>.json, <id>.txt art
+│   ├── ui/                  # Bubbletea screens and Lipgloss rendering
+│   ├── host/                # Count Cathode, the horror host
+│   ├── quiz/                # Question generation from monster data
+│   ├── mash/                # Monster Mash fight simulation
+│   ├── crypt/               # Captures and badges
+│   ├── store/               # Progress saved as JSON in the config dir
+│   └── calendar/            # Moon phases, Halloween, anniversaries (offline)
+├── main.go                  # Application entry point
+├── go.mod                   # Go module definition
+└── go.sum                   # Go module checksums
 ```
 
 ## Key Conventions
@@ -37,12 +48,15 @@ terminal-of-terror/
 - Use tabs for indentation (Go standard)
 
 ### Monster Data Structure
-Monsters are defined in `internal/monsters/monsters.go` with:
-- `Name`: Monster's name
-- `Description`: Brief description
-- `Origin`: Origin of the monster (folklore, literature, etc.)
-- `FirstApp`: First appearance in media
-- `Facts`: Slice of interesting facts (aim for 5-6 facts)
+Monster types and the pack loader live in `internal/monsters/monsters.go`. The data itself lives in
+packs under `internal/monsters/packs/<pack-id>/`: a `pack.json`, one `<id>.json` per monster and an
+optional `<id>.txt` with ASCII art. Each monster has an `id`, `name`, `aliases`, `emoji`, `description`,
+`origin`, `debut`, optional `film`, `legend`, `myths` (claim/true/explanation), `quotes`, `powers`,
+`weaknesses`, `stats` (1-10), `legacy`, `facts` (5+), `hostIntro` and `theme` colours.
+See CONTRIBUTING.md for a full example.
+
+**Quotes must come from public-domain sources** (e.g. the 19th-century novels). Never add dialogue
+from copyrighted films; describe famous scenes in your own words instead.
 
 ### Adding New Commands
 1. Create a new file in `cmd/` directory
@@ -52,7 +66,7 @@ Monsters are defined in `internal/monsters/monsters.go` with:
 
 ### UI Development
 - Use Lipgloss for consistent styling
-- Follow the color scheme established in `internal/ui/ui.go`
+- Follow the color scheme in `internal/ui/styles.go`; per-monster colours come from each monster's `theme`
 - Maintain keyboard navigation patterns (h/l, arrows, q)
 
 ## Building and Testing
@@ -69,7 +83,16 @@ go build -o terminal-of-terror
 ./terminal-of-terror random
 ./terminal-of-terror monster
 ./terminal-of-terror monster --all
+./terminal-of-terror quiz
+./terminal-of-terror guess
+./terminal-of-terror mash --fast
+./terminal-of-terror crypt
+./terminal-of-terror tonight
+./terminal-of-terror countdown --date 2026-10-31
+./terminal-of-terror packs
 ```
+
+Set `TERMINAL_OF_TERROR_HOME` to a scratch directory when testing so real progress isn't touched.
 
 ### Dependencies
 Install/update dependencies:
@@ -81,10 +104,11 @@ go mod tidy
 ## Common Tasks
 
 ### Adding a New Monster
-1. Edit `internal/monsters/monsters.go`
-2. Add new `Monster` struct to the `monsters` slice
-3. Include all required fields (Name, Description, Origin, FirstApp, Facts)
+1. Add `internal/monsters/packs/<pack>/<id>.json` (and `<id>.txt` for ASCII art)
+2. Add the id to the pack's `order` list in `pack.json`
+3. Include all required fields (see CONTRIBUTING.md)
 4. Ensure facts are accurate and interesting
+5. Run `go test ./...` — the data tests validate every monster
 
 ### Adding a New Command
 1. Create new file in `cmd/` directory (e.g., `cmd/newcmd.go`)
@@ -94,11 +118,14 @@ go mod tidy
 5. Update README.md documentation
 
 ### Modifying UI
-1. Edit `internal/ui/ui.go`
-2. Update model struct if needed
+1. `internal/ui/ui.go` holds the explorer model and key handling, `render.go` the views,
+   `intro.go` the Channel 13 opening and `cards.go` the non-interactive output
+2. Update the model struct if needed
 3. Modify Update() for new interactions
-4. Adjust View() for display changes
-5. Test interactivity thoroughly
+4. Adjust the render functions for display changes
+5. Run `go test ./internal/ui` (it renders every page at several terminal sizes), and
+   `DUMP=1 go test ./internal/ui -run Dump -v` to see sample screens
+6. Test interactivity thoroughly in a real terminal
 
 ## Documentation Standards
 
@@ -147,7 +174,8 @@ go mod tidy
 
 ## Testing Approach
 
-Currently, testing is manual:
+Run `go test ./...` first. The data tests in `internal/monsters` validate every monster.
+Then test manually:
 1. Build the application
 2. Test each command
 3. Verify output format and content
@@ -183,12 +211,8 @@ Follow conventional commits:
 ## Future Considerations
 
 Potential areas for expansion:
-- Unit tests for monster data functions
 - Integration tests for CLI commands
-- Additional monster categories
-- Filtering and search capabilities
-- Configuration file support
-- Additional output formats (JSON, etc.)
+- More packs (Hammer Horror, literary monsters, cryptids)
 - Localization/internationalization
 
 ## Resources

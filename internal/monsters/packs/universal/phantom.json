@@ -1,0 +1,50 @@
+{
+  "id": "phantom",
+  "name": "The Phantom of the Opera",
+  "aliases": ["Phantom", "Erik", "The Opera Ghost"],
+  "emoji": "🎭",
+  "description": "A disfigured musical genius haunting the Paris Opera House",
+  "origin": "French serial fiction",
+  "debut": {"medium": "serialized novel", "title": "Le Fantôme de l'Opéra", "creator": "Gaston Leroux", "year": 1909},
+  "film": {
+    "title": "The Phantom of the Opera",
+    "year": 1925,
+    "releaseDate": "1925-09-06",
+    "studio": "Universal",
+    "director": "Rupert Julian",
+    "star": "Lon Chaney",
+    "makeup": "Lon Chaney",
+    "silent": true,
+    "note": "The masked-ball sequence was shot in early two-colour Technicolor."
+  },
+  "legend": "Leroux was a journalist, and he wove real details of the Palais Garnier into his tale. Beneath the opera house sits a vast water tank, built because the foundations kept flooding, which became the Phantom's underground lake. In 1896 a counterweight of the great chandelier fell during a performance and killed a member of the audience, and Leroux turned the accident into his most famous scene.",
+  "myths": [
+    {"claim": "There really is a body of water beneath the Paris Opera.", "true": true, "explanation": "Builders created a huge water reservoir to steady the foundations, and it is still used today for firefighters' diving practice."},
+    {"claim": "The chandelier disaster was inspired by a real accident.", "true": true, "explanation": "In 1896 a counterweight from the chandelier crashed into the seats and killed a spectator."},
+    {"claim": "In Leroux's novel, only half of Erik's face is disfigured.", "true": false, "explanation": "Leroux describes a face like a death's head. The famous half-mask comes from the 1986 stage musical."},
+    {"claim": "Lon Chaney designed his own Phantom makeup.", "true": true, "explanation": "The 'Man of a Thousand Faces' built the skull-like look himself and kept it secret until the film was released."}
+  ],
+  "quotes": [
+    {"text": "The Opera ghost really existed.", "speaker": "Narrator", "source": "The Phantom of the Opera (1911 English translation), prologue"}
+  ],
+  "powers": ["Genius composer and singer", "Ventriloquism", "Secret passages and trapdoors", "Master of disguise", "A deadly lasso"],
+  "weaknesses": ["Unrequited love", "Being unmasked", "An angry mob", "Jealousy"],
+  "stats": {"strength": 5, "speed": 6, "cunning": 10, "dread": 8},
+  "legacy": [
+    "Phantom of the Opera (1943), Universal's Technicolor remake with Claude Rains",
+    "Hammer's The Phantom of the Opera (1962)",
+    "Phantom of the Paradise (1974)",
+    "Andrew Lloyd Webber's stage musical (1986), Broadway's longest-running show"
+  ],
+  "facts": [
+    "The Phantom's real name is Erik",
+    "He lives beside an underground lake beneath the Paris Opera",
+    "Erik is a master of music, magic and architecture",
+    "Lon Chaney created his own makeup and kept it secret until the premiere",
+    "He falls in love with Christine Daaé, a young soprano",
+    "The masked-ball scene was filmed in early two-colour Technicolor",
+    "Universal's opera house set on Stage 28 stood until 2014"
+  ],
+  "hostIntro": "Take your seats, the overture is starting. Tonight's feature is a silent picture, so you'll have to scream extra loud.",
+  "theme": {"primary": "#E5E5E5", "accent": "#9E9E9E"}
+}

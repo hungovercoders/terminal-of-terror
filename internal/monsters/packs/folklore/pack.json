@@ -1,0 +1,6 @@
+{
+  "id": "folklore",
+  "name": "World Folklore",
+  "description": "Monsters from the stories people have told around fires for centuries, from Prague to Tokyo.",
+  "order": ["golem", "banshee", "baba-yaga", "kappa", "jiangshi", "la-llorona", "krampus"]
+}
