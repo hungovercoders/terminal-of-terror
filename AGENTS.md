@@ -34,6 +34,9 @@ terminal-of-terror/
 │   ├── crypt/               # Captures and badges
 │   ├── store/               # Progress saved as JSON in the config dir
 │   └── calendar/            # Moon phases, Halloween, anniversaries (offline)
+├── docs/
+│   ├── assets/              # README GIFs and screenshots (generated)
+│   └── demos/               # VHS tapes, theme and render.sh that record them
 ├── main.go                  # Application entry point
 ├── go.mod                   # Go module definition
 └── go.sum                   # Go module checksums
@@ -126,6 +129,10 @@ go mod tidy
 5. Run `go test ./internal/ui` (it renders every page at several terminal sizes), and
    `DUMP=1 go test ./internal/ui -run Dump -v` to see sample screens
 6. Test interactivity thoroughly in a real terminal
+7. If the change is visible in the README demos, re-record them with `docs/demos/render.sh`
+   (see "Recording the Demos" in CONTRIBUTING.md) and check the results
+8. Avoid emoji that need a variation selector (e.g. ⚰️, 🎞️): terminals disagree on their width
+   and they break box alignment. Prefer emoji that are wide by default (🦴, 🎬, 💀)
 
 ## Documentation Standards
 

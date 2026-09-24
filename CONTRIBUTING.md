@@ -1,6 +1,8 @@
 # Contributing to Terminal of Terror
 
-Thank you for your interest in contributing to Terminal of Terror! We welcome contributions from the community.
+Thank you for your interest in contributing to Terminal of Terror! We welcome contributions from the community, whether that's a new monster, a whole pack of them, a fix or a better fact.
+
+> 📺 *"Every monster in the vault was once a stranger at the door. Come on in."* - Count Cathode
 
 ## Getting Started
 
@@ -139,7 +141,21 @@ This creates a pack in your config directory (`$TERMINAL_OF_TERROR_HOME/packs` i
 
 - Update README.md for user-facing changes
 - Update this CONTRIBUTING.md for process changes
-- Ensure all commands are documented
+- Ensure all commands are documented, including in the README's command reference
+- Re-record the demos when a change shows up in them (see below)
+
+### Recording the Demos
+
+The README's GIFs and screenshots are recorded from scripts in [`docs/demos/`](docs/demos): one [VHS](https://github.com/charmbracelet/vhs) `.tape` file per demo, plus `theme.json`. To re-record them:
+
+```bash
+docs/demos/render.sh              # everything
+docs/demos/render.sh hero quiz    # just some
+```
+
+You'll need `go`, `vhs`, `ffmpeg` and **ttyd 1.7.7 or newer**. Older ttyd builds draw emoji one cell wide, which knocks every box border out of line; `TTYD=/path/to/ttyd` picks a specific binary. The script builds the app, uses a scratch home directory with sample crypt progress, and writes the results to `docs/assets/`. Look at the results before committing, and keep the hero GIF under about 2 MB so the README loads quickly.
+
+To add a demo, copy a similar tape, change its `Output` line and commands, and add its name to the `stills` list in `render.sh` if it should be a PNG rather than a GIF.
 
 ## Commit Guidelines
 
