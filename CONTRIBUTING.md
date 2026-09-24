@@ -43,6 +43,8 @@ Run the automated tests:
 go test ./...
 ```
 
+CI runs these on Linux, macOS and Windows for every pull request, along with `gofmt`, `go vet`, a `go mod tidy` check and a smoke test of each command. Run `gofmt -w .` and `go vet ./...` before pushing to catch the same problems locally.
+
 Then try the various commands:
 
 ```bash

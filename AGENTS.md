@@ -175,6 +175,8 @@ go mod tidy
 ## Testing Approach
 
 Run `go test ./...` first. The data tests in `internal/monsters` validate every monster.
+CI (`.github/workflows/ci.yml`) runs gofmt, go vet, a go mod tidy check, the tests (with `-race` on Linux)
+on Linux, macOS and Windows, and a smoke test of every command. Add new commands to the smoke test.
 Then test manually:
 1. Build the application
 2. Test each command
