@@ -4,6 +4,8 @@ Thank you for your interest in contributing to Terminal of Terror! We welcome co
 
 > 📺 *"Every monster in the vault was once a stranger at the door. Come on in."* - Count Cathode
 
+New to the codebase, or to Go? [Count Cathode's Night School](docs/course/README.md) builds the whole program from scratch in 31 lessons and explains why each part is the way it is.
+
 ## Getting Started
 
 1. **Fork the repository** on GitHub

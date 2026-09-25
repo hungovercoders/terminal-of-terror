@@ -210,9 +210,17 @@ The answer index is valid, no option repeats, no question repeats, no clue conta
 
 `TestMask` checks the possessive and the compound case directly, because those are the fiddly bits.
 
+## Run it
+
+```bash
+go test ./internal/quiz -v
+go run . quiz --json -n 3
+```
+
+Fifty seeds of questions checked in a blink, then three real questions as data, answers and all. The `--json` flag is Night 26's, but it's already there.
+
 ## Try it
 
-- Run `go run . quiz --json | head -40` to see generated questions as data. (The flag is Night 26's, but it's already there.)
 - Add a question kind: "Which monster is afraid of *garlic*?" from `Weaknesses`. Then read the comment about weaknesses again and decide whether it's safe. Try picking distractors only from monsters whose weaknesses don't contain the same word.
 - Set `limit` to `n` and generate a few quizzes. That's the pile.
 

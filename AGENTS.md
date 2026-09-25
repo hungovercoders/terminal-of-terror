@@ -36,6 +36,7 @@ terminal-of-terror/
 │   └── calendar/            # Moon phases, Halloween, anniversaries (offline)
 ├── docs/
 │   ├── assets/              # README GIFs and screenshots (generated)
+│   ├── course/              # Count Cathode's Night School: the 31-night build-it-yourself course
 │   └── demos/               # VHS tapes, theme and render.sh that record them
 ├── .goreleaser.yaml          # Release builds (see "Releasing" in CONTRIBUTING.md)
 ├── .github/workflows/       # ci.yml on every PR; release.yml on v* tags
@@ -154,6 +155,12 @@ unless the module path gains a `/v2` suffix.
 - Maintain clear contribution guidelines
 - Update when processes change
 - Include examples for common tasks
+
+### The course (docs/course/)
+- `docs/course/README.md` is the index; `night-NN.md` is one lesson. Nights 1-14 are build-along and their code
+  must compile as written; nights 15-31 quote the repository's files, so update a lesson when you change code it shows.
+- Every lesson keeps the same sections (intro quote, "Tonight you'll learn", "Where we are", "Run it", "Try it",
+  "💀 Terrifying fact", "🕯️ Before dawn", sign-off quote, navigation links). TUTORIAL.md only points at the course.
 
 ### Code Comments
 - Comment exported functions and types
