@@ -38,6 +38,7 @@
 | Midnight | [📜 The roster](#-the-roster): every monster in the vault |
 | 1:00 AM | [📦 Packs](#-monster-packs): make your own monsters |
 | 3:00 AM | [📖 Command reference](#-command-reference), for the insomniacs |
+| Dawn | [📚 Night School](#-night-school): build it yourself, in 31 nights |
 
 ## 🔮 Summon it
 
@@ -338,6 +339,12 @@ This creates `~/.config/terminal-of-terror/packs/cryptids/` (or your OS's equiva
 Every command also takes `--pack`, and `terminal-of-terror [command] --help` has the details.
 
 </details>
+
+## 📚 Night School
+
+Want to know how it's built, or build your own? [**Count Cathode's Night School**](docs/course/README.md) is a 31-night course that builds Terminal of Terror from an empty folder to a released Go CLI: Cobra commands, embedded monster data, a Bubble Tea explorer, games, saved progress, community packs, CI and a GoReleaser release. One lesson a night, each with an exercise and a terrifying Go fact.
+
+> 📺 *"Thirty-one nights. Bring a blanket."*
 
 ## 🤝 Contributing
 
