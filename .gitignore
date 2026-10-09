@@ -37,3 +37,6 @@ docs/demos/.frames/
 
 # GoReleaser output
 dist/
+
+# Generated website (go run ./site)
+site/dist/

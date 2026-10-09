@@ -1,0 +1,119 @@
+{{define "content"}}
+{{$root := .Root}}{{$m := .Data.Monster}}{{$d := .Data}}
+<article class="monster{{if $d.Silent}} silent{{end}}" data-prev="{{if $d.Prev}}{{$d.Prev.ID}}.html{{end}}" data-next="{{if $d.Next}}{{$d.Next.ID}}.html{{end}}">
+<nav class="monster-nav" aria-label="Monsters">
+  {{if $d.Prev}}<a class="prev" href="{{$root}}monsters/{{$d.Prev.ID}}.html" title="Previous (h)">← {{$d.Prev.Emoji}} {{$d.Prev.Name}}</a>{{else}}<span></span>{{end}}
+  <a class="gallery" href="{{$root}}monsters/index.html" title="Gallery (g)">{{$d.Number}} / {{$d.Total}} · {{$d.Pack.Name}}</a>
+  {{if $d.Next}}<a class="next" href="{{$root}}monsters/{{$d.Next.ID}}.html" title="Next (l)">{{$d.Next.Name}} {{$d.Next.Emoji}} →</a>{{else}}<span></span>{{end}}
+</nav>
+
+<header class="monster-head">
+  {{if $d.Silent}}<div class="intertitle"><span class="orn">❦</span><h1>{{$m.Name}}</h1><span class="orn">❦</span></div>
+  {{else}}<h1><span class="title-emoji">{{$m.Emoji}}</span> {{$m.Name}}</h1>{{end}}
+  <p class="lede">{{$m.Description}}</p>
+  {{if $m.Aliases}}<p class="aliases">Also known as {{range $i, $a := $m.Aliases}}{{if $i}}, {{end}}<span>{{$a}}</span>{{end}}</p>{{end}}
+  {{if $m.HostIntro}}<p class="host-line">📺 <em>"{{$m.HostIntro}}"</em></p>{{end}}
+</header>
+
+<nav class="section-tabs" aria-label="Sections">
+  <a href="#facts"><kbd>1</kbd> Facts</a>
+  <a href="#legend"><kbd>2</kbd> Legend</a>
+  {{if $m.Film}}<a href="#film"><kbd>3</kbd> The Film</a>{{end}}
+  {{if $m.Myths}}<a href="#myths"><kbd>4</kbd> Myth vs Movie</a>{{end}}
+  {{if $m.Quotes}}<a href="#quotes"><kbd>5</kbd> Quotes</a>{{end}}
+  <a href="#stats"><kbd>6</kbd> Stat Card</a>
+  {{if $m.Legacy}}<a href="#legacy"><kbd>7</kbd> Legacy</a>{{end}}
+</nav>
+
+<div class="monster-body">
+  <aside class="portrait-col">
+    {{if $d.Art}}<pre class="portrait" id="portrait" data-art="{{$d.Art}}" aria-label="ASCII portrait of {{$m.Name}}">{{$d.Art}}</pre>{{end}}
+    <dl class="dossier">
+      <dt>Origin</dt><dd>{{$m.Origin}}</dd>
+      <dt>First appeared</dt><dd>{{firstAppearance $m}}</dd>
+      {{if $m.Film}}<dt>Classic film</dt><dd><em>{{$m.Film.Title}}</em> ({{$m.Film.Year}})</dd>{{end}}
+      <dt>Pack</dt><dd><a href="{{$root}}monsters/index.html">{{$d.Pack.Name}}</a></dd>
+    </dl>
+    <pre class="term small" data-copy><code>terminal-of-terror monster {{$m.ID}}</code></pre>
+  </aside>
+
+  <div class="sections">
+    <section id="facts">
+      <h2>💀 Facts</h2>
+      <ul class="facts">{{range $m.Facts}}<li>{{.}}</li>{{end}}</ul>
+    </section>
+
+    <section id="legend">
+      <h2>📜 Legend</h2>
+      <p>{{$m.Legend}}</p>
+    </section>
+
+    {{if $m.Film}}
+    <section id="film">
+      <h2>🎬 The Film</h2>
+      <table class="plain credits">
+        <tbody>
+          <tr><th>Title</th><td><em>{{$m.Film.Title}}</em> ({{$m.Film.Year}}){{if $m.Film.Silent}} · a silent picture{{end}}</td></tr>
+          {{if $m.Film.Studio}}<tr><th>Studio</th><td>{{$m.Film.Studio}}</td></tr>{{end}}
+          <tr><th>Director</th><td>{{$m.Film.Director}}</td></tr>
+          <tr><th>Starring</th><td>{{$m.Film.Star}}</td></tr>
+          {{if $m.Film.Makeup}}<tr><th>Makeup</th><td>{{$m.Film.Makeup}}</td></tr>{{end}}
+          {{if $m.Film.ReleaseDate}}<tr><th>Released</th><td>{{$m.Film.ReleaseDate}}</td></tr>{{end}}
+        </tbody>
+      </table>
+      {{if $m.Film.Note}}<p class="note">🎞️ {{$m.Film.Note}}</p>{{end}}
+    </section>
+    {{end}}
+
+    {{if $m.Myths}}
+    <section id="myths" class="myths">
+      <h2>🎭 Myth vs Movie</h2>
+      <p class="small">True or false? Make your guess, then click a card (or press <kbd>r</kbd>) for the verdict.</p>
+      <ul class="myth-list">
+        {{range $m.Myths}}<li><button class="myth" type="button" aria-expanded="false" data-true="{{.True}}">
+          <span class="claim">{{.Claim}}</span>
+          <span class="verdict">{{if .True}}✔ TRUE{{else}}✘ FALSE{{end}}</span>
+          <span class="explain">{{.Explanation}}</span>
+        </button></li>{{end}}
+      </ul>
+      <p><button class="btn small" type="button" id="reveal-all">Reveal all verdicts <kbd>r</kbd></button></p>
+    </section>
+    {{end}}
+
+    {{if $m.Quotes}}
+    <section id="quotes">
+      <h2>🕯️ Quotes</h2>
+      {{range $m.Quotes}}<blockquote class="quote"><p>“{{.Text}}”</p><footer>{{.Speaker}}, <cite>{{.Source}}</cite></footer></blockquote>{{end}}
+      <p class="small">Lines come only from public-domain texts.</p>
+    </section>
+    {{end}}
+
+    <section id="stats">
+      <h2>🃏 Stat Card</h2>
+      <dl class="statbars">
+        {{range $d.Stats}}<div class="statrow"><dt>{{.Name}}</dt><dd><span class="bar" style="--v:{{pct .Value}}%"><span class="fill"></span></span><span class="num">{{.Value}}</span></dd></div>{{end}}
+      </dl>
+      <div class="split">
+        <div><h3>⚡ Powers</h3><ul>{{range $m.Powers}}<li>{{.}}</li>{{end}}</ul></div>
+        <div><h3>🧄 Weaknesses</h3><ul>{{range $m.Weaknesses}}<li>{{.}}</li>{{end}}</ul></div>
+      </div>
+      <p class="small">Stats power the Monster Mash: <code>terminal-of-terror mash {{$m.ID}}</code></p>
+    </section>
+
+    {{if $m.Legacy}}
+    <section id="legacy">
+      <h2>🎞️ Legacy</h2>
+      <ul>{{range $m.Legacy}}<li>{{.}}</li>{{end}}</ul>
+    </section>
+    {{end}}
+  </div>
+</div>
+
+<nav class="monster-nav bottom" aria-label="Monsters">
+  {{if $d.Prev}}<a class="prev" href="{{$root}}monsters/{{$d.Prev.ID}}.html">← {{$d.Prev.Emoji}} {{$d.Prev.Name}}</a>{{else}}<span></span>{{end}}
+  <a class="gallery" href="{{$root}}monsters/index.html">Back to the gallery</a>
+  {{if $d.Next}}<a class="next" href="{{$root}}monsters/{{$d.Next.ID}}.html">{{$d.Next.Name}} {{$d.Next.Emoji}} →</a>{{else}}<span></span>{{end}}
+</nav>
+<p class="keys-hint small">⌨️ <kbd>h</kbd> <kbd>l</kbd> previous / next · <kbd>1</kbd>–<kbd>7</kbd> sections · <kbd>r</kbd> reveal · <kbd>g</kbd> gallery, just like the terminal.</p>
+</article>
+{{end}}

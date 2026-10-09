@@ -7,6 +7,7 @@
 
 ### 📺 Channel 13's Creature Feature, live in your terminal
 
+[![Website](https://img.shields.io/badge/website-channel%2013-bd93f9)](https://hungovercoders.github.io/terminal-of-terror/)
 [![Release](https://img.shields.io/github/v/release/hungovercoders/terminal-of-terror?color=ff7a1a)](https://github.com/hungovercoders/terminal-of-terror/releases/latest)
 [![CI](https://github.com/hungovercoders/terminal-of-terror/actions/workflows/ci.yml/badge.svg)](https://github.com/hungovercoders/terminal-of-terror/actions/workflows/ci.yml)
 [![Go version](https://img.shields.io/github/go-mod/go-version/hungovercoders/terminal-of-terror?color=ff7a1a)](go.mod)
@@ -345,6 +346,10 @@ Every command also takes `--pack`, and `terminal-of-terror [command] --help` has
 Want to know how it's built, or build your own? [**Count Cathode's Night School**](docs/course/README.md) is a 31-night course that builds Terminal of Terror from an empty folder to a released Go CLI: Cobra commands, embedded monster data, a Bubble Tea explorer, games, saved progress, community packs, CI and a GoReleaser release. One lesson a night, each with an exercise and a terrifying Go fact.
 
 > 📺 *"Thirty-one nights. Bring a blanket."*
+
+## 🌐 The website
+
+Everything above, plus a page for every monster and the whole Night School, is at [**hungovercoders.github.io/terminal-of-terror**](https://hungovercoders.github.io/terminal-of-terror/). It's generated from this repository by `go run ./site` (the monster pages come straight from the packs, the course from `docs/course`) and published by `.github/workflows/pages.yml` on every push to `main`.
 
 ## 🤝 Contributing
 
