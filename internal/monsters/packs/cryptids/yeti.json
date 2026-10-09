@@ -5,15 +5,7 @@
   "emoji": "🧊",
   "description": "The shaggy wild man of the high Himalaya, known to Sherpas long before anyone called it abominable",
   "origin": "Sherpa and Tibetan folklore of the Himalaya",
-  "debut": {"medium": "folklore", "title": "Sherpa and Tibetan tales of the yeti", "era": "ancient in the Himalaya; 'Abominable Snowman' coined in 1921"},
-  "film": {
-    "title": "The Abominable Snowman",
-    "year": 1957,
-    "studio": "Hammer",
-    "director": "Val Guest",
-    "star": "Peter Cushing",
-    "note": "Written by Nigel Kneale from his BBC play The Creature. Forrest Tucker took top billing as the showman; Cushing is the botanist who comes to respect the creature."
-  },
+  "debut": {"medium": "folklore", "title": "Sherpa and Tibetan tales of a wild man of the snows", "era": "ancient in the Himalaya; the English nickname was coined by a journalist in 1921"},
   "legend": "To the Sherpa people of Nepal and the Tibetan communities across the range, the yeti was a creature of the high rocks long before any Westerner went looking: part animal, part spirit, to be respected and avoided. The name probably comes from the Sherpa yeh-teh, loosely 'animal of the rocky place', and another name, meh-teh, means 'man-bear'. In 1921 Lieutenant-Colonel Charles Howard-Bury's Everest reconnaissance expedition found large footprints at about 21,000 feet; his porters called the maker metoh-kangmi, roughly 'man-bear snowman', which journalist Henry Newman in Calcutta rendered as 'Abominable Snowman', and the name stuck. Eric Shipton's 1951 photograph of a huge footprint beside an ice axe on the Menlung Glacier set off a decade of expeditions, including one sent by the Daily Mail in 1954. In 1960 Edmund Hillary borrowed the yeti 'scalp' kept at Khumjung monastery and took it to Chicago, Paris and London, where experts found it had been moulded from the hide of a serow, a Himalayan goat-antelope. A 2017 genetic study of nine supposed yeti relics found that eight were bears and one was a dog. In the villages, none of that has changed the stories much.",
   "myths": [
     {"claim": "The name 'Abominable Snowman' is a mistranslation.", "true": true, "explanation": "In 1921 journalist Henry Newman turned metoh-kangmi, roughly 'man-bear snowman', into 'Abominable Snowman', and later admitted he had chosen the word for effect."},

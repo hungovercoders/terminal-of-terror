@@ -190,7 +190,7 @@ Then edit `/tmp/tot-scratch/packs/urban-legends/urban-legends-monster.json`: ren
 
 ## Try it
 
-- `packs new Urban-Legends` with a capital. Read the error. Now try `packs new urban-legends` twice. Then try `packs new cryptids`: that id belongs to a built-in pack, so the community pack loads with a warning and is skipped.
+- `packs new Urban-Legends` with a capital. Read the error. Now try `packs new urban-legends` twice. Then try `packs new cryptids`: that id belongs to a built-in pack, so the command refuses it rather than scaffold a pack the loader would always reject.
 - Make a pack with a monster whose id is `dracula`. Who wins?
 - Give a community monster `"quotes"` with a `source`. It shows on the Quotes page; but the rules say public-domain only. Should `Validate` check anything about that? (It can't. Some rules are for people.)
 

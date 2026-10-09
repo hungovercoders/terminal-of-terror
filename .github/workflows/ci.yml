@@ -92,6 +92,11 @@ jobs:
           $bin mash dracula mummy --fast > /dev/null
           $bin crypt > /dev/null
           $bin packs new ci-pack > /dev/null
+          # A community pack can't take a built-in pack's id.
+          if $bin packs new cryptids 2> /dev/null; then
+            echo "expected an error for a built-in pack id"
+            exit 1
+          fi
           $bin list --pack ci-pack > /dev/null
           $bin packs > /dev/null
           # Unknown names should fail cleanly rather than crash.

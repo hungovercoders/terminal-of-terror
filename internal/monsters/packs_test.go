@@ -32,14 +32,22 @@ func TestLoadUserPacks(t *testing.T) {
 	writeFile(t, filepath.Join(dir, "urban-legends", "nameless.json"), `{"description":"no name","facts":["x"]}`)
 	writeFile(t, filepath.Join(dir, "urban-legends", "broken.json"), `{nope`)
 	writeFile(t, filepath.Join(dir, "clash", "dracula.json"), `{"name":"Dracula Again","description":"dupe","facts":["x"]}`)
+	writeFile(t, filepath.Join(dir, "cryptids", "thing.json"), `{"name":"The Thing","description":"a built-in pack id","facts":["x"]}`)
 
 	loaded, errs := LoadUserPacks(dir)
 	if len(errs) != 2 {
 		t.Fatalf("want 2 load errors (broken + nameless), got %v", errs)
 	}
 	errs = AddPacks(loaded)
-	if len(errs) != 1 || !strings.Contains(errs[0].Error(), "dracula") {
-		t.Fatalf("want 1 clash error, got %v", errs)
+	if len(errs) != 2 {
+		t.Fatalf("want 2 clash errors (monster id, pack id), got %v", errs)
+	}
+	joined := errs[0].Error() + errs[1].Error()
+	if !strings.Contains(joined, "dracula") || !strings.Contains(joined, `pack "cryptids"`) {
+		t.Fatalf("want a monster clash and a pack clash, got %v", errs)
+	}
+	if m := GetMonsterByName("the thing"); m != nil {
+		t.Error("a community pack with a built-in id must not load")
 	}
 
 	m := GetMonsterByName("bloody mary")

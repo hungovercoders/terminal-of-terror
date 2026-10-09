@@ -66,6 +66,13 @@ var packsNewCmd = &cobra.Command{
 		if !packIDPattern.MatchString(id) {
 			return fmt.Errorf("pack ids use lowercase letters, numbers and dashes, e.g. 'urban-legends'")
 		}
+		// A community pack can never share an id with a built-in one: the
+		// loader would reject it on every run.
+		for _, p := range monsters.AllPacks() {
+			if p.ID == id && p.Source == "built-in" {
+				return fmt.Errorf("%q is a built-in pack; choose another id", id)
+			}
+		}
 		dir, err := communityDir()
 		if err != nil {
 			return err

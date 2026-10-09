@@ -1,11 +1,11 @@
 {
   "id": "loch-ness-monster",
   "name": "The Loch Ness Monster",
-  "aliases": ["Nessie", "Loch Ness Monster"],
+  "aliases": ["Nessie", "Loch Ness Monster", "Loch Ness", "Ness"],
   "emoji": "🦕",
   "description": "A long-necked something said to live in the deep, dark water of Loch Ness",
   "origin": "The Scottish Highlands",
-  "debut": {"medium": "legend", "title": "Highland water-beast lore and the Inverness Courier's 1933 report", "year": 1933},
+  "debut": {"medium": "legend", "title": "Highland water-beast lore and the Inverness Courier's 1933 report", "era": "the modern legend began in 1933, when a new road opened up the view of the loch"},
   "legend": "Loch Ness is 23 miles long and more than 200 metres deep, and its peat-dark water hides whatever is in it. The oldest tale is in Adomnán's Life of St Columba, written around the year 700, in which the saint orders a 'water beast' back into the River Ness in 565. The modern monster was born in 1933, after a new road along the north shore opened up the view: on 2 May the Inverness Courier reported that Aldie Mackay had seen something large rolling and plunging in the loch, and that summer George Spicer described a creature crossing the road in front of his car. The Daily Mail hired big-game hunter Marmaduke Wetherell, whose 'footprints' turned out to have been made with a dried hippopotamus foot. On 21 April 1934 the paper printed the famous 'Surgeon's Photograph', credited to London doctor Robert Kenneth Wilson; in 1994 it was revealed that Wetherell's stepson Christian Spurling had built the head and neck onto a toy submarine. Sonar sweeps such as Operation Deepscan (1987) and a 2018 environmental DNA survey found no reptile, but a great deal of eel. Folklorists note that Highland lochs had water-horses, or kelpies, long before anyone had a camera.",
   "myths": [
     {"claim": "The Surgeon's Photograph is genuine.", "true": false, "explanation": "In 1994 it emerged that Christian Spurling had modelled the head and neck on a toy submarine for his stepfather, Marmaduke Wetherell, who wanted revenge on the Daily Mail."},

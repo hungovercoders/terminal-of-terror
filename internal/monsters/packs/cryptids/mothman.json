@@ -5,15 +5,7 @@
   "emoji": "🦋",
   "description": "A winged, red-eyed figure that haunted Point Pleasant, West Virginia, in 1966 and 1967",
   "origin": "Point Pleasant, West Virginia, USA",
-  "debut": {"medium": "legend", "title": "Point Pleasant sightings reported in the Point Pleasant Register", "year": 1966},
-  "film": {
-    "title": "The Mothman Prophecies",
-    "year": 2002,
-    "studio": "Screen Gems",
-    "director": "Mark Pellington",
-    "star": "Richard Gere",
-    "note": "Loosely based on John Keel's 1975 book, with Gere as a Washington Post reporter drawn to Point Pleasant."
-  },
+  "debut": {"medium": "legend", "title": "Point Pleasant sightings reported in the Point Pleasant Register", "era": "sightings from November 1966 to December 1967"},
   "legend": "On the night of 15 November 1966, two young couples, Roger and Linda Scarberry and Steve and Mary Mallette, drove out to the 'TNT area', an abandoned Second World War munitions works north of Point Pleasant, West Virginia. They told police they had seen a grey, man-sized creature with ten-foot wings and glowing red eyes, and that it had followed their car at speeds they put at 100 miles an hour. The Point Pleasant Register ran the story the next day, and a copy editor, with the Batman TV series in mind, christened it Mothman. Dozens of sightings followed over the next thirteen months, along with reports of strange lights and men in black. Then on 15 December 1967 the Silver Bridge over the Ohio River collapsed in rush-hour traffic, killing 46 people. The sightings stopped, and journalist John Keel's 1975 book The Mothman Prophecies tied the two together as omen and disaster. Engineers found the bridge fell because a single corroded eyebar cracked. Wildlife biologists suggested the creature was a sandhill crane, a bird with a seven-foot wingspan and red skin around its eyes, well off its usual route. Point Pleasant has embraced its monster all the same.",
   "myths": [
     {"claim": "The first sighting was near an old munitions works.", "true": true, "explanation": "The TNT area, a disused Second World War explosives plant north of Point Pleasant, is where the two couples reported the creature on 15 November 1966."},

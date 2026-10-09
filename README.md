@@ -327,7 +327,7 @@ terminal-of-terror random                     # or just any old fact
 | 🧪 | **Mr Hyde** | Robert Louis Stevenson's novella (1886) | *Dr. Jekyll and Mr. Hyde* (1931), Fredric March |
 | 🎨 | **Dorian Gray** | Oscar Wilde's novel (1890) | *The Picture of Dorian Gray* (1945), Hurd Hatfield |
 | 🐈 | **Carmilla** | Sheridan Le Fanu's novella (1872) | |
-| 🎃 | **The Headless Horseman** | Washington Irving's story (1820) | *The Headless Horseman* (1922), Will Rogers |
+| 🎃 | **The Headless Horseman** | Washington Irving's story (1820) | *The Headless Horseman* (1922), a silent with Will Rogers as Ichabod |
 | 🦴 | **Grendel** | *Beowulf*, the Old English poem | |
 | 🐲 | **The Jabberwock** | Lewis Carroll's *Jabberwocky* (1871) | |
 
