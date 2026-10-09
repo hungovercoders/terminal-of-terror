@@ -1,0 +1,36 @@
+{
+  "id": "pontianak",
+  "name": "The Pontianak",
+  "aliases": ["Kuntilanak", "Matianak"],
+  "emoji": "🌺",
+  "description": "The ghost of a woman who died in childbirth, beautiful until she turns around",
+  "origin": "Malay and Indonesian folklore",
+  "debut": {"medium": "folklore", "title": "Malay and Indonesian legend", "era": "oral tradition across the Malay world, in print by the 19th century"},
+  "legend": "Across Malaysia, Indonesia, Singapore and Brunei, the pontianak (kuntilanak in Indonesia, matianak in some tellings) is the restless ghost of a woman who died while pregnant or in childbirth. She appears as a lovely woman in white with long black hair, and the first warning of her presence is reportedly the sweet scent of frangipani, which turns to rot as she draws near. In many tellings she haunts banana trees, is heard before she is seen, and her baby's cry grows quieter the closer she comes. The folklore also offers a cure: drive a nail into the hole at the nape of her neck and she becomes an ordinary, gentle wife, until someone pulls it out. The city of Pontianak in West Kalimantan takes its name from her: legend says Sultan Syarif Abdurrahman Alkadrie fired cannons to drive the ghosts away before founding the town in 1771, and carbide cannons are still fired there to this day. Since Cathay-Keris released the film Pontianak in 1957 she has been the star of Malay horror cinema.",
+  "myths": [
+    {"claim": "You can tell a pontianak is near by the scent of frangipani.", "true": true, "explanation": "In many tellings the sweet smell of frangipani (plumeria) announces her, then turns to the stench of decay."},
+    {"claim": "A city is named after her.", "true": true, "explanation": "Pontianak, the capital of West Kalimantan in Indonesia, reportedly took her name after its founder fired cannons at the ghosts troubling the site in 1771."},
+    {"claim": "The pontianak and the langsuir are the same ghost.", "true": false, "explanation": "They are close cousins in Malay folklore, but the langsuir is usually described as flying, with a hole in her back and long nails, and tellings keep them distinct."},
+    {"claim": "A nail in the back of the neck turns her human.", "true": true, "explanation": "Drive a nail into the nape of her neck and, in the stories, she becomes a beautiful and obedient wife. Remove it and she is a pontianak again."}
+  ],
+  "quotes": [],
+  "powers": ["Appearing as a beautiful woman", "A cry that sounds far away when she is close", "Tearing out organs with her long nails", "Flight and vanishing into the night"],
+  "weaknesses": ["A nail driven into the nape of her neck", "Her own scent, which gives her away", "Sharp objects and the smell of rust, in some tellings", "The pull of her unfinished grief"],
+  "stats": {"strength": 6, "speed": 7, "cunning": 8, "dread": 9},
+  "legacy": [
+    "Pontianak (1957), the Cathay-Keris film starring Maria Menado that launched Malay horror cinema, now believed lost",
+    "Pontianak Harum Sundal Malam (2004) and Indonesia's Kuntilanak series (2006 onward)",
+    "A staple of Singaporean and Malaysian campfire stories, from army camps to school dormitories"
+  ],
+  "facts": [
+    "The pontianak is the ghost of a woman who died in pregnancy or childbirth",
+    "She is called kuntilanak in Indonesia and matianak in some tellings",
+    "The scent of frangipani (plumeria) warns that she is near",
+    "A nail driven into the nape of her neck tames her, in the stories",
+    "The city of Pontianak in West Kalimantan, founded in 1771, is named after her",
+    "The 1957 film Pontianak, made by Cathay-Keris in Singapore, is believed lost",
+    "In many tellings she lives in banana trees and her baby's cry sounds far away when she is close"
+  ],
+  "hostIntro": "Do you smell flowers? Frangipani, sweet as a wedding? Oh dear. Tonight's guest is the most beautiful woman in the Malay world, and I'd keep a nail handy.",
+  "theme": {"primary": "#FF85A1", "accent": "#FFF0F3"}
+}

@@ -1,0 +1,36 @@
+{
+  "id": "bunyip",
+  "name": "The Bunyip",
+  "aliases": ["Bunyip", "Kianpraty"],
+  "emoji": "🐊",
+  "description": "A bellowing creature of the billabongs and swamps of south-eastern Australia",
+  "origin": "Aboriginal Australian traditions, especially of the Wemba-Wemba and other south-eastern peoples",
+  "debut": {"medium": "folklore", "title": "Aboriginal Australian oral tradition", "era": "oral tradition for thousands of years; first printed in 1845"},
+  "legend": "The bunyip lives in the billabongs, swamps and waterholes of south-eastern Australia, and the word itself comes from the Wemba-Wemba people of what is now Victoria, though many nations have their own name and their own story. Descriptions vary enormously between peoples and tellings: some give it a dog's face, some tusks, flippers or a long neck, and some describe only a terrible bellowing in the night. What most tellings share is a warning to respect dangerous water, and in Ngarrindjeri tradition the related mulyawonk carries a lesson against taking more fish than you need. British settlers heard the stories and reported their own sightings, and in 1847 a strange skull found on the Murrumbidgee was exhibited in the Australian Museum in Sydney as a bunyip's; experts soon identified it as the deformed skull of a foal or calf. Scientists have since wondered whether the stories carry a memory of Diprotodon and other giant marsupials that lived alongside the first Australians.",
+  "myths": [
+    {"claim": "Everyone agrees what a bunyip looks like.", "true": false, "explanation": "Descriptions differ from nation to nation and even from telling to telling, from a seal-like animal to a long-necked beast with tusks."},
+    {"claim": "A museum once exhibited a bunyip skull.", "true": true, "explanation": "The Australian Museum in Sydney showed a supposed bunyip skull in 1847. It was soon identified as a deformed foal or calf skull."},
+    {"claim": "The bunyip may be a memory of extinct giant animals.", "true": true, "explanation": "The naturalist George Bennett suggested in 1871 that the stories recall megafauna such as Diprotodon, a wombat-like marsupial the size of a car."},
+    {"claim": "The bunyip is a settler invention.", "true": false, "explanation": "Settlers borrowed the word and the fright, but the stories belong to Aboriginal peoples and were old long before 1845."}
+  ],
+  "quotes": [],
+  "powers": ["A bellow that carries across the swamp", "Dragging the unwary into deep water", "Lurking unseen beneath the surface", "Being whatever the last witness said it was"],
+  "weaknesses": ["Leaving the water", "Daylight and dry seasons", "Respectful fishing, which gives it no cause", "Sceptical scientists with a tape measure"],
+  "stats": {"strength": 8, "speed": 5, "cunning": 5, "dread": 7},
+  "legacy": [
+    "Bunyip Bluegum, the koala hero of Norman Lindsay's The Magic Pudding (1918)",
+    "The Bunyip of Berkeley's Creek (1973) by Jenny Wagner and Ron Brooks, a classic Australian picture book",
+    "The bunyip of the animated film Dot and the Kangaroo (1977), who frightened a generation of Australian children"
+  ],
+  "facts": [
+    "The bunyip comes from Aboriginal Australian traditions, especially in the south-east",
+    "The word bunyip is from the Wemba-Wemba language of Victoria",
+    "It lives in billabongs, swamps and waterholes and is often heard rather than seen",
+    "Descriptions vary greatly between nations and tellings",
+    "The word first appeared in print in the Geelong Advertiser in 1845",
+    "A supposed bunyip skull was exhibited in Sydney in 1847 and turned out to be a deformed foal or calf",
+    "Scientists have suggested the stories recall extinct megafauna such as Diprotodon"
+  ],
+  "hostIntro": "Tonight's guest lives at the bottom of a billabong, and nobody can agree on what it looks like, which is exactly how it likes it. Listen for the bellow, and stay well back from the water's edge.",
+  "theme": {"primary": "#8A9A5B", "accent": "#E9EDC9"}
+}

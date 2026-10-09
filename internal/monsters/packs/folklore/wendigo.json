@@ -1,0 +1,39 @@
+{
+  "id": "wendigo",
+  "name": "The Wendigo",
+  "aliases": ["Windigo", "Wendigo"],
+  "emoji": "🦌",
+  "description": "A spirit of winter and endless hunger that turns people against their own kind",
+  "origin": "Algonquian-speaking peoples of the Great Lakes and the subarctic (Cree, Ojibwe, Innu and others)",
+  "debut": {"medium": "folklore", "title": "Cree, Ojibwe and Innu oral tradition", "era": "oral tradition, recorded by outsiders from the 17th century"},
+  "legend": "The wendigo belongs to the Cree, Ojibwe, Innu, Saulteaux and other Algonquian-speaking nations of the northern forests, where winter famine was a real and recurring danger. In their stories it is a spirit of hunger and cold: a person who gives in to greed or eats human flesh may be taken over by it, or may become one, growing taller with every meal and never once feeling full. Tellings differ from nation to nation, but the wendigo is usually gaunt and ravenous rather than a horned beast, and the stories carry a lesson about sharing and restraint in a hard country. The wendigo is still a serious part of living cultures, and Indigenous writers today use it to talk about greed in the modern world.",
+  "myths": [
+    {"claim": "The wendigo has antlers and the skull of a deer.", "true": false, "explanation": "That look is a modern invention from films and games. Traditional tellings describe a gaunt, towering, famished figure, sometimes with a heart of ice."},
+    {"claim": "A wendigo can never eat enough to be satisfied.", "true": true, "explanation": "In many tellings it grows in proportion to what it eats, so it is always starving. That is the point of the story."},
+    {"claim": "The wendigo was invented by a horror writer.", "true": false, "explanation": "Algernon Blackwood's 1910 novella borrowed the name, but the stories are far older and belong to the Cree, Ojibwe and their neighbours."},
+    {"claim": "The legend is tied to real winters of famine.", "true": true, "explanation": "The wendigo is associated with the dead of winter, when food ran out in the northern forests, and it warns against the ultimate taboo."}
+  ],
+  "quotes": [
+    {"text": "The Wendigo is simply the Call of the Wild personified, which some natures hear to their own destruction.", "speaker": "Dr Cathcart (fiction)", "source": "Algernon Blackwood, The Wendigo (1910)"},
+    {"text": "My feet of fire! My burning feet of fire!", "speaker": "Défago (fiction)", "source": "Algernon Blackwood, The Wendigo (1910)"}
+  ],
+  "powers": ["Hunger that never ends", "Growing with every meal", "Spreading its hunger to others", "Running through the winter forest faster than any hunter"],
+  "weaknesses": ["Generosity and sharing", "Its heart of ice, in some tellings", "Fire and the coming spring", "A full stomach that it can never have"],
+  "stats": {"strength": 8, "speed": 8, "cunning": 6, "dread": 9},
+  "legacy": [
+    "Algernon Blackwood's novella The Wendigo (1910), the first famous outsider's retelling",
+    "Stephen King's Pet Sematary (1983) and the film Ravenous (1999)",
+    "Indigenous writers such as Basil Johnston (Ojibwe), who describe it as a lesson about greed"
+  ],
+  "facts": [
+    "The wendigo comes from the Cree, Ojibwe, Innu and other Algonquian-speaking peoples",
+    "It is a spirit of hunger and winter, and in many tellings it can never be satisfied",
+    "Traditional descriptions make it gaunt and towering, not antlered: the deer skull is a modern invention",
+    "In some tellings a person who gives in to greed or cannibalism becomes a wendigo",
+    "Algernon Blackwood borrowed the name for his novella The Wendigo in 1910",
+    "Indigenous writers today use the wendigo as a way of talking about greed",
+    "The Ojibwe spelling is wiindigoo and the Cree is wihtikow; English has dozens of variants"
+  ],
+  "hostIntro": "Tonight's guest comes from the long northern winter, and it is always, always hungry. Put the antlers away, that's a costume. The real thing is thin, tall and never full.",
+  "theme": {"primary": "#89C2D9", "accent": "#EAF4F4"}
+}
