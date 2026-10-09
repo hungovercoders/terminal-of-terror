@@ -12,7 +12,7 @@
 [![CI](https://github.com/hungovercoders/terminal-of-terror/actions/workflows/ci.yml/badge.svg)](https://github.com/hungovercoders/terminal-of-terror/actions/workflows/ci.yml)
 [![Go version](https://img.shields.io/github/go-mod/go-version/hungovercoders/terminal-of-terror?color=ff7a1a)](go.mod)
 [![License: MIT](https://img.shields.io/badge/license-MIT-8b0000)](LICENSE)
-![Monsters](https://img.shields.io/badge/monsters-19-2a9d8f)
+![Monsters](https://img.shields.io/badge/monsters-43-2a9d8f)
 ![Viewer discretion](https://img.shields.io/badge/viewer%20discretion-advised-000000)
 
 <img src="docs/assets/hero.gif" alt="Terminal of Terror: the Channel 13 intro, Dracula's pages, a myth-vs-movie reveal, the silent-film Phantom and a search for 'silver'" width="820">
@@ -21,7 +21,7 @@
 
 > 📺 *"Good evening, creatures of the night, and welcome to the Channel 13 Creature Feature. I'm your host, Count Cathode, broadcasting from beyond the static."*
 
-**Terminal of Terror** brings the classic Universal monsters and creatures from world folklore to your terminal. Meet 19 monsters, learn the real history behind them (who played them, who did the makeup, and which "facts" Hollywood simply made up), then prove what you know in the Midnight Quiz and fill your crypt.
+**Terminal of Terror** brings the classic Universal monsters, creatures from world folklore, the cryptids people swear they have seen and the monsters of the great Gothic novels to your terminal. Meet 43 monsters in four packs, learn the real history behind them (who played them, who did the makeup, and which "facts" Hollywood simply made up), then prove what you know in the Midnight Quiz and fill your crypt.
 
 > [!WARNING]
 > **Viewer discretion is advised.** Side effects may include knowing far too much about 1930s makeup artists, a sudden distrust of huts with chicken legs, and correcting your friends about silver bullets.
@@ -284,6 +284,12 @@ terminal-of-terror random                     # or just any old fact
 | 🦇 | **Dracula's Daughter** | *Dracula's Daughter* (1936) | Gloria Holden |
 | 🌿 | **The Werewolf of London** | *Werewolf of London* (1935) | Henry Hull |
 | 👽 | **The Metaluna Mutant** | *This Island Earth* (1955) | Regis Parton |
+| 🩸 | **Son of Dracula** | *Son of Dracula* (1943) | Lon Chaney Jr. as Count Alucard |
+| 🦍 | **Paula Dupree, the Ape Woman** | *Captive Wild Woman* (1943) | Acquanetta |
+| 💀 | **The Mad Ghoul** | *The Mad Ghoul* (1943) | David Bruce, with George Zucco |
+| 🐭 | **The Mole People** | *The Mole People* (1956) | John Agar |
+| 🦂 | **The Tarantula** | *Tarantula* (1955) | John Agar |
+| 🦗 | **The Deadly Mantis** | *The Deadly Mantis* (1957) | Craig Stevens |
 
 ### World Folklore · `--pack folklore`
 
@@ -296,8 +302,36 @@ terminal-of-terror random                     # or just any old fact
 | 🏮 | **The Jiangshi** | Chinese ghost stories |
 | 💧 | **La Llorona** | Mexican and Latin American legend |
 | 😈 | **Krampus** | Alpine folk tradition |
+| 🦌 | **The Wendigo** | Cree, Ojibwe and Innu tradition of the northern forests |
+| 🐎 | **The Nuckelavee** | Orkney folklore, Scotland |
+| 👹 | **The Rakshasa** | Hindu mythology and the Sanskrit epics |
+| 🌺 | **The Pontianak** | Malay and Indonesian folklore |
+| 🪦 | **The Draugr** | The Icelandic sagas |
+| 🐊 | **The Bunyip** | Aboriginal Australian traditions of the south-east |
 
-<img src="docs/assets/list.png" alt="terminal-of-terror list: all 19 monsters grouped by pack" width="820">
+### Cryptids · `--pack cryptids`
+
+| | Monster | Where it was seen |
+|-|---------|-------------------|
+| 🦶 | **The Sasquatch** | The Pacific Northwest; "Bigfoot" since the 1958 Bluff Creek footprints |
+| 🦕 | **The Loch Ness Monster** | The Scottish Highlands; the modern legend began in 1933 |
+| 🦋 | **The Mothman** | Point Pleasant, West Virginia, 1966 to 1967 |
+| 🐐 | **El Chupacabra** | Puerto Rico in 1995, then across the Americas |
+| 🐴 | **The Jersey Devil** | The Pine Barrens of New Jersey; the great panic of January 1909 |
+| 🧊 | **The Yeti** | Sherpa and Tibetan folklore of the Himalaya |
+
+### Literary Monsters · `--pack literary`
+
+| | Monster | The book | The classic film |
+|-|---------|----------|------------------|
+| 🧪 | **Mr Hyde** | Robert Louis Stevenson's novella (1886) | *Dr. Jekyll and Mr. Hyde* (1931), Fredric March |
+| 🎨 | **Dorian Gray** | Oscar Wilde's novel (1890) | *The Picture of Dorian Gray* (1945), Hurd Hatfield |
+| 🐈 | **Carmilla** | Sheridan Le Fanu's novella (1872) | |
+| 🎃 | **The Headless Horseman** | Washington Irving's story (1820) | *The Headless Horseman* (1922), Will Rogers |
+| 🦴 | **Grendel** | *Beowulf*, the Old English poem | |
+| 🐲 | **The Jabberwock** | Lewis Carroll's *Jabberwocky* (1871) | |
+
+<img src="docs/assets/list.png" alt="terminal-of-terror list: every monster grouped by pack" width="820">
 
 ## 📦 Monster packs
 
@@ -306,7 +340,8 @@ Monsters come in packs. Use `--pack` with any command to choose which ones come 
 ```bash
 terminal-of-terror packs                       # every pack in the vault
 terminal-of-terror quiz --pack folklore        # a folklore-only quiz
-terminal-of-terror monster --pack universal,folklore
+terminal-of-terror guess --pack cryptids       # who lurks in the fog? probably Bigfoot
+terminal-of-terror monster --pack universal,literary
 ```
 
 ### 🧪 Make your own
