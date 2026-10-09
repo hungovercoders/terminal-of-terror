@@ -21,7 +21,7 @@
 
 > 📺 *"Good evening, creatures of the night, and welcome to the Channel 13 Creature Feature. I'm your host, Count Cathode, broadcasting from beyond the static."*
 
-**Terminal of Terror** brings the classic Universal monsters, creatures from world folklore, the cryptids people swear they have seen and the monsters of the great Gothic novels to your terminal. Meet 43 monsters in four packs, learn the real history behind them (who played them, who did the makeup, and which "facts" Hollywood simply made up), then prove what you know in the Midnight Quiz and fill your crypt.
+**Terminal of Terror** brings the classic Universal monsters, creatures from world folklore, the cryptids people swear they have seen and the great literary monsters to your terminal. Meet 43 monsters in four packs, learn the real history behind them (who played them, who did the makeup, and which "facts" Hollywood simply made up), then prove what you know in the Midnight Quiz and fill your crypt.
 
 > [!WARNING]
 > **Viewer discretion is advised.** Side effects may include knowing far too much about 1930s makeup artists, a sudden distrust of huts with chicken legs, and correcting your friends about silver bullets.

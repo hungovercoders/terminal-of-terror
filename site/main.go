@@ -141,7 +141,7 @@ func Build(cfg Config) (int, error) {
 
 	b.render("index.html", Page{
 		Title:       site.Name,
-		Description: "Meet the classic Universal monsters, world folklore, cryptids and the monsters of Gothic literature in your terminal: an interactive explorer, the Midnight Quiz, Guess the Monster, the Monster Mash and nightly rituals, all hosted by Count Cathode.",
+		Description: "Meet the classic Universal monsters, world folklore, cryptids and literary monsters in your terminal: an interactive explorer, the Midnight Quiz, Guess the Monster, the Monster Mash and nightly rituals, all hosted by Count Cathode.",
 		Section:     "home",
 		Data:        homeData(packs, all, course),
 	})
