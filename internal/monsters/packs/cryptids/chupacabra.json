@@ -1,0 +1,38 @@
+{
+  "id": "chupacabra",
+  "name": "El Chupacabra",
+  "aliases": ["Chupacabra", "The Goat-Sucker"],
+  "emoji": "🐐",
+  "description": "A spiny, blood-draining night creature first reported in Puerto Rico in 1995",
+  "origin": "Puerto Rico, then across Latin America and the southern United States",
+  "debut": {"medium": "legend", "title": "Reports of drained livestock in Puerto Rico", "year": 1995},
+  "legend": "In March 1995 farmers in Puerto Rico began finding sheep, goats and chickens dead with small puncture wounds and, they said, no blood left in them. That August, Madelyne Tolentino of Canóvanas described seeing a creature with large dark eyes, thin arms, a row of spines down its back and a hopping, two-legged gait. Comedian and broadcaster Silverio Pérez gave it its name, 'goat-sucker', and within months reports had spread to Mexico, Chile and the United States. In Canóvanas the mayor, José 'Chemo' Soto, led armed patrols with a goat in a cage as bait. Investigator Benjamin Radford later noted that Tolentino's description closely matches the alien in the film Species, which had opened in Puerto Rico weeks before her sighting. The 'chupacabras' shot or found dead in Texas and the south-west since the mid-2000s are a different animal altogether: hairless, blue-grey and four-legged, and every one tested has been a coyote or dog with severe mange. Vets add that animals killed by dogs often look drained, because the blood pools inside the body. El chupacabra is unusual among monsters in having a birthday, and it is younger than most of its fans.",
+  "myths": [
+    {"claim": "Chupacabra reports began in Puerto Rico in 1995.", "true": true, "explanation": "The first dead livestock were reported in March 1995, and Madelyne Tolentino's description that August gave the creature its look."},
+    {"claim": "The name means 'goat-sucker' in Spanish.", "true": true, "explanation": "Chupar is 'to suck' and cabra is 'goat'. Comedian Silverio Pérez is credited with coining it."},
+    {"claim": "El chupacabra is an ancient Latin American legend.", "true": false, "explanation": "It dates from 1995. Older tales of blood-drinking creatures exist, but the chupacabra itself is younger than the web browser."},
+    {"claim": "The hairless 'chupacabras' of Texas have been identified by DNA.", "true": true, "explanation": "Every carcass tested has been a coyote, dog or coyote-dog cross suffering from sarcoptic mange, which strips the fur and thickens the skin."},
+    {"claim": "Its victims are really drained of blood.", "true": false, "explanation": "Vets who examine the animals find the blood still inside, pooled in the body, and bite marks typical of dogs."}
+  ],
+  "quotes": [],
+  "powers": ["Puncturing with two neat fangs", "Leaping fences in a single hop", "A row of spines that glow, witnesses say", "Spreading across a continent in under a year"],
+  "weaknesses": ["Veterinary pathology", "DNA tests", "Mange", "Caged goats with armed escorts", "Film release dates"],
+  "stats": {"strength": 5, "speed": 8, "cunning": 6, "dread": 7},
+  "legacy": [
+    "The X-Files episode 'El Mundo Gira' (1997)",
+    "Scooby-Doo! and the Monster of Mexico (2003)",
+    "Benjamin Radford's investigation Tracking the Chupacabra (2011)",
+    "The Grimm episode 'Chupacabra' (2014)"
+  ],
+  "facts": [
+    "The first reports came from Puerto Rico in March 1995",
+    "Madelyne Tolentino of Canóvanas gave the famous description of a spined, big-eyed creature in August 1995",
+    "The name was coined by Puerto Rican comedian Silverio Pérez and means goat-sucker",
+    "The mayor of Canóvanas led hunts for it with a caged goat as bait",
+    "Tolentino's description closely matches the alien in the 1995 film Species",
+    "DNA tests show the hairless Texas chupacabras are coyotes and dogs with mange",
+    "Vets say the 'drained' animals still have their blood; it has pooled inside the body"
+  ],
+  "hostIntro": "Tonight's guest is the youngest monster on the channel and already has a terrible reputation among goats. Lock up the livestock.",
+  "theme": {"primary": "#E36414", "accent": "#FDF0D5"}
+}

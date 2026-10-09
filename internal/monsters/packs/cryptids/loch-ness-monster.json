@@ -1,0 +1,41 @@
+{
+  "id": "loch-ness-monster",
+  "name": "The Loch Ness Monster",
+  "aliases": ["Nessie", "Loch Ness Monster"],
+  "emoji": "🦕",
+  "description": "A long-necked something said to live in the deep, dark water of Loch Ness",
+  "origin": "The Scottish Highlands",
+  "debut": {"medium": "legend", "title": "Highland water-beast lore and the Inverness Courier's 1933 report", "year": 1933},
+  "legend": "Loch Ness is 23 miles long and more than 200 metres deep, and its peat-dark water hides whatever is in it. The oldest tale is in Adomnán's Life of St Columba, written around the year 700, in which the saint orders a 'water beast' back into the River Ness in 565. The modern monster was born in 1933, after a new road along the north shore opened up the view: on 2 May the Inverness Courier reported that Aldie Mackay had seen something large rolling and plunging in the loch, and that summer George Spicer described a creature crossing the road in front of his car. The Daily Mail hired big-game hunter Marmaduke Wetherell, whose 'footprints' turned out to have been made with a dried hippopotamus foot. On 21 April 1934 the paper printed the famous 'Surgeon's Photograph', credited to London doctor Robert Kenneth Wilson; in 1994 it was revealed that Wetherell's stepson Christian Spurling had built the head and neck onto a toy submarine. Sonar sweeps such as Operation Deepscan (1987) and a 2018 environmental DNA survey found no reptile, but a great deal of eel. Folklorists note that Highland lochs had water-horses, or kelpies, long before anyone had a camera.",
+  "myths": [
+    {"claim": "The Surgeon's Photograph is genuine.", "true": false, "explanation": "In 1994 it emerged that Christian Spurling had modelled the head and neck on a toy submarine for his stepfather, Marmaduke Wetherell, who wanted revenge on the Daily Mail."},
+    {"claim": "The first written account of a Ness monster is from the 6th century.", "true": true, "explanation": "Adomnán's Life of St Columba, written around 700, describes the saint banishing a water beast in the River Ness in 565, though in the river rather than the loch."},
+    {"claim": "Nessie is a surviving plesiosaur.", "true": false, "explanation": "Plesiosaurs died out 66 million years ago, and Loch Ness was solid ice until about 10,000 years ago. A cold freshwater loch could not feed a breeding population either."},
+    {"claim": "A DNA survey of the loch found a great deal of eel.", "true": true, "explanation": "The 2018 environmental DNA study found no reptile DNA at all, but eels everywhere. A very large eel remains the scientists' favourite candidate."},
+    {"claim": "Loch Ness holds more water than every lake in England and Wales put together.", "true": true, "explanation": "It is so long and deep that it contains more fresh water than all the lakes of England and Wales combined."}
+  ],
+  "quotes": [
+    {"text": "Thou shalt go no further, nor touch the man; go back with all speed.", "speaker": "St Columba, to the water beast", "source": "Adomnán, Life of St Columba (c. 700), Book II, in Wentworth Huyshe's 1905 translation"}
+  ],
+  "powers": ["Hiding in 200 metres of peat-dark water", "Appearing only when the camera is out of focus", "A neck that rises and dips without warning", "Turning a quiet Highland loch into a tourist magnet"],
+  "weaknesses": ["Sonar", "Environmental DNA", "Stepsons with a conscience", "Clear water", "Hippopotamus feet"],
+  "stats": {"strength": 7, "speed": 5, "cunning": 6, "dread": 5},
+  "legacy": [
+    "The Secret of the Loch (1934), the first Nessie film",
+    "The Loch Ness Investigation Bureau, which watched the water from 1962 to 1972",
+    "Loch Ness (1996), with Ted Danson",
+    "The Water Horse (2007)",
+    "The Loch Ness Centre at Drumnadrochit"
+  ],
+  "facts": [
+    "The earliest tale of a Ness water beast is in Adomnán's Life of St Columba, written around the year 700",
+    "The modern legend began in 1933, when a new road opened up the view of the loch",
+    "The Surgeon's Photograph appeared in the Daily Mail on 21 April 1934",
+    "In 1994 it emerged that the photograph showed a model head on a toy submarine",
+    "Operation Deepscan swept the loch with a line of sonar boats in 1987",
+    "A 2018 environmental DNA survey found no reptile DNA but a great deal of eel",
+    "Loch Ness holds more water than all the lakes of England and Wales combined"
+  ],
+  "hostIntro": "Tonight's guest has been photographed hundreds of times and never once in focus. She's Scottish, she's shy, and she's quite possibly an eel.",
+  "theme": {"primary": "#1B4965", "accent": "#BEE9E8"}
+}

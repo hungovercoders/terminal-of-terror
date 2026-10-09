@@ -1,0 +1,6 @@
+{
+  "id": "cryptids",
+  "name": "Cryptids",
+  "description": "Creatures people swear they have seen, from the Himalayas to the Jersey Pine Barrens.",
+  "order": ["bigfoot", "loch-ness-monster", "mothman", "chupacabra", "jersey-devil", "yeti"]
+}
