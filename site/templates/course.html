@@ -1,0 +1,23 @@
+{{define "content"}}
+{{$root := .Root}}
+<div class="course-layout">
+  <aside class="course-side">{{template "coursenav" .}}</aside>
+  <article class="prose course-intro">
+    {{.Data.Intro}}
+    <p><a class="btn primary" href="{{$root}}night-school/night-01.html">Begin Night 1 →</a></p>
+  </article>
+</div>
+{{end}}
+
+{{define "coursenav"}}
+{{$root := .Root}}
+<nav class="coursenav" aria-label="Lessons">
+  <a class="coursenav-title" href="{{$root}}night-school/index.html">📺 Night School</a>
+  {{range .Data.Weeks}}
+  <details open>
+    <summary>{{.Title}}</summary>
+    <ol>{{range .Lessons}}<li value="{{.Night}}"><a href="{{$root}}night-school/{{.Slug}}.html">{{.Title}}</a></li>{{end}}</ol>
+  </details>
+  {{end}}
+</nav>
+{{end}}

@@ -35,11 +35,12 @@ terminal-of-terror/
 │   ├── store/               # Progress saved as JSON in the config dir
 │   └── calendar/            # Moon phases, Halloween, anniversaries (offline)
 ├── docs/
-│   ├── assets/              # README GIFs and screenshots (generated)
+│   ├── assets/              # README GIFs and screenshots (generated); the website uses them too
 │   ├── course/              # Count Cathode's Night School: the 31-night build-it-yourself course
 │   └── demos/               # VHS tapes, theme and render.sh that record them
+├── site/                     # The website generator (go run ./site): templates/, static/, writes site/dist
 ├── .goreleaser.yaml          # Release builds (see "Releasing" in CONTRIBUTING.md)
-├── .github/workflows/       # ci.yml on every PR; release.yml on v* tags
+├── .github/workflows/       # ci.yml on every PR; release.yml on v* tags; pages.yml deploys the site
 ├── main.go                  # Application entry point
 ├── go.mod                   # Go module definition
 └── go.sum                   # Go module checksums
@@ -116,6 +117,16 @@ go mod tidy
 3. Include all required fields (see CONTRIBUTING.md)
 4. Ensure facts are accurate and interesting
 5. Run `go test ./...` — the data tests validate every monster
+
+### Changing the Website
+1. `site/main.go` builds the pages, `site/course.go` renders the Night School markdown with goldmark
+2. Templates are in `site/templates/` (Go html/template, one file per page kind plus `base.html`),
+   styles in `site/static/style.css`, behaviour in `site/static/site.js`
+3. Monster pages are generated from the packs and the course from `docs/course`, so content changes
+   belong there, not in the templates
+4. Run `go test ./site` (it builds the site and checks every internal link) and `go run ./site`, then
+   look at `site/dist` in a browser at desktop and phone widths
+5. The README's install, games and rituals copy is repeated on the landing page template: update both
 
 ### Cutting a Release
 Follow "Releasing" in CONTRIBUTING.md: update CHANGELOG.md with git-cliff, merge, then push a `v*` tag.

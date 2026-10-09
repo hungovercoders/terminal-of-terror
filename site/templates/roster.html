@@ -1,0 +1,27 @@
+{{define "content"}}
+{{$root := .Root}}
+<header class="page-head">
+  <p class="kicker">📜 Every monster in the vault</p>
+  <h1>The Roster</h1>
+  <p class="lede">{{.Site.MonsterCount}} monsters in {{.Site.PackCount}} packs, and room for yours. Click one to open its file: facts, legend, the classic film, myth versus movie, quotes, a stat card and its legacy.</p>
+</header>
+{{range .Data.Packs}}
+<section class="pack">
+  <h2>{{.Name}} <code class="chip">--pack {{.ID}}</code></h2>
+  <p>{{.Description}}</p>
+  <ul class="cards big">
+    {{range .Monsters}}<li><a class="card{{if .IsSilent}} silent{{end}}" href="{{$root}}monsters/{{.ID}}.html" style="--m-primary:{{.Theme.Primary}};--m-accent:{{.Theme.Accent}}">
+      <span class="card-emoji">{{.Emoji}}</span>
+      <span class="card-name">{{.Name}}</span>
+      <span class="card-meta">{{firstAppearance .}}</span>
+      {{if .Film}}<span class="card-film"><em>{{.Film.Title}}</em> ({{.Film.Year}}) · {{.Film.Star}}</span>{{else}}<span class="card-film">{{.Origin}}</span>{{end}}
+      <span class="card-desc">{{.Description}}</span>
+    </a></li>{{end}}
+  </ul>
+</section>
+{{end}}
+<section class="pack">
+  <h2>🧪 Your pack here</h2>
+  <p>Community packs load from <code>~/.config/terminal-of-terror/packs</code>. Scaffold one with <code>terminal-of-terror packs new &lt;pack-id&gt;</code>, edit the example monster, and it joins every game. The <a href="{{.Site.Repo}}/blob/main/CONTRIBUTING.md">contributing guide</a> lists every field.</p>
+</section>
+{{end}}

@@ -1,0 +1,257 @@
+{{define "content"}}
+{{$root := .Root}}{{$site := .Site}}
+<section class="hero" id="top">
+  <div class="hero-copy">
+    <h1 class="logo" aria-label="Terminal of Terror">▀█▀ █▀▀ █▀█ █▀▄▀█ █ █▄ █ ▄▀█ █     █▀█ █▀▀
+ █  ██▄ █▀▄ █ ▀ █ █ █ ▀█ █▀█ █▄▄   █▄█ █▀
+▀█▀ █▀▀ █▀█ █▀█ █▀█ █▀█
+ █  ██▄ █▀▄ █▀▄ █▄█ █▀▄</h1>
+    <p class="tagline">📺 {{$site.Tagline}}</p>
+    <p class="host-line typewriter" data-type="{{.Data.Greeting}}">📺 <em>"{{.Data.Greeting}}"</em></p>
+    <p class="lede">Meet <strong>{{$site.MonsterCount}} monsters</strong> from the Universal classics and world folklore. Learn the real history behind them: who played them, who did the makeup, and which "facts" Hollywood simply made up. Then prove it in the Midnight Quiz and fill your crypt.</p>
+    <p class="cta-row">
+      <a class="btn primary" href="#summon">🔮 Summon it</a>
+      <a class="btn" href="{{$root}}monsters/index.html">🧛 Meet the monsters</a>
+      <a class="btn ghost" href="{{$root}}night-school/index.html">📚 Night School</a>
+    </p>
+    <div class="warning">⚠️ <strong>Viewer discretion is advised.</strong> Side effects may include knowing far too much about 1930s makeup artists, a sudden distrust of huts with chicken legs, and correcting your friends about silver bullets.</div>
+  </div>
+  <figure class="tv">
+    <div class="tv-screen"><img src="{{$root}}assets/hero.gif" alt="Terminal of Terror: the Channel 13 intro, Dracula's pages, a myth-vs-movie reveal, the silent-film Phantom and a search for 'silver'" loading="eager"></div>
+    <figcaption><span class="knob"></span><span class="knob"></span><span class="tv-brand">CATHODE · CH 13</span></figcaption>
+  </figure>
+</section>
+
+<section class="tonight-strip" aria-label="Tonight">
+  <div class="tile" id="countdown-tile"><span class="tile-emoji">🎃</span><span class="tile-big" id="countdown-nights">…</span><span class="tile-label" id="countdown-label">nights until Halloween</span></div>
+  <div class="tile" id="moon-tile"><span class="tile-emoji" id="moon-emoji">🌙</span><span class="tile-big" id="moon-name">…</span><span class="tile-label">tonight's moon</span></div>
+  <div class="tile wide" id="fact-tile"><span class="tile-label">✨ Tonight's fact · <span id="fact-date"></span></span><span class="tile-fact" id="fact-text">…</span><a class="tile-link" id="fact-link" href="{{$root}}monsters/index.html"></a></div>
+</section>
+
+<section class="programme" id="programme">
+  <h2><span class="h-emoji">📅</span> Tonight's Programme</h2>
+  <table class="schedule">
+    <tbody>
+      <tr><td class="time">9:00 PM</td><td><a href="#summon">🔮 Summon it</a> · download or install</td></tr>
+      <tr><td class="time">9:05 PM</td><td><a href="#first-night">🌙 Your first night</a> · five commands to try</td></tr>
+      <tr><td class="time">9:15 PM</td><td><a href="#explorer">🧛 The Creature Feature</a> · the interactive explorer</td></tr>
+      <tr><td class="time">10:00 PM</td><td><a href="#games">🧠 Games</a> · the Midnight Quiz, Guess the Monster and the Monster Mash</td></tr>
+      <tr><td class="time">10:45 PM</td><td><a href="#crypt">💀 The Crypt</a> · capture monsters, earn badges</td></tr>
+      <tr><td class="time">11:30 PM</td><td><a href="#rituals">🕛 Nightly rituals</a> · fact of the night, double features, the Halloween countdown</td></tr>
+      <tr><td class="time">Midnight</td><td><a href="#roster">📜 The roster</a> · every monster in the vault</td></tr>
+      <tr><td class="time">1:00 AM</td><td><a href="#packs">📦 Packs</a> · make your own monsters</td></tr>
+      <tr><td class="time">3:00 AM</td><td><a href="#reference">📖 Command reference</a>, for the insomniacs</td></tr>
+      <tr><td class="time">Dawn</td><td><a href="#school">📚 Night School</a> · build it yourself, in 31 nights</td></tr>
+    </tbody>
+  </table>
+</section>
+
+<section id="summon">
+  <h2><span class="h-emoji">🔮</span> Summon it</h2>
+  <div class="tabs" data-tabs>
+    <div class="tab-list" role="tablist">
+      <button role="tab" aria-selected="true" data-tab="download">Download</button>
+      <button role="tab" aria-selected="false" data-tab="go">go install</button>
+      <button role="tab" aria-selected="false" data-tab="source">From source</button>
+    </div>
+    <div class="tab-panel" data-panel="download">
+      <p>Grab the archive for your system from the <a href="{{$site.Repo}}/releases/latest">latest release</a>. There are builds for Linux, macOS and Windows, for both Intel and ARM. Unpack it and put <code>terminal-of-terror</code> somewhere on your <code>PATH</code>.</p>
+      <div class="downloads" id="downloads" data-repo="hungovercoders/terminal-of-terror">
+        <a class="dl" href="{{$site.Repo}}/releases/latest" data-asset="linux_amd64">🐧 Linux <small>x86-64</small></a>
+        <a class="dl" href="{{$site.Repo}}/releases/latest" data-asset="linux_arm64">🐧 Linux <small>ARM</small></a>
+        <a class="dl" href="{{$site.Repo}}/releases/latest" data-asset="darwin_arm64">🍎 macOS <small>Apple silicon</small></a>
+        <a class="dl" href="{{$site.Repo}}/releases/latest" data-asset="darwin_amd64">🍎 macOS <small>Intel</small></a>
+        <a class="dl" href="{{$site.Repo}}/releases/latest" data-asset="windows_amd64">🪟 Windows <small>x86-64</small></a>
+        <a class="dl" href="{{$site.Repo}}/releases/latest" data-asset="windows_arm64">🪟 Windows <small>ARM</small></a>
+      </div>
+      <p class="small" id="release-note">Latest release: <a href="{{$site.Repo}}/releases/latest" id="release-version">see GitHub</a></p>
+      <pre class="term" data-copy id="tar-example"><code><span class="c"># e.g. Linux on Intel/AMD, version 1.0.0</span>
+tar xzf terminal-of-terror_1.0.0_linux_amd64.tar.gz
+sudo mv terminal-of-terror /usr/local/bin/</code></pre>
+      <p class="note">📝 On macOS, the binary isn't signed, so the first run may be blocked. Run <code>xattr -d com.apple.quarantine terminal-of-terror</code> to let it through.</p>
+    </div>
+    <div class="tab-panel" data-panel="go" hidden>
+      <p>With <a href="https://go.dev/dl/">Go 1.24 or newer</a> installed:</p>
+      <pre class="term" data-copy><code>go install github.com/hungovercoders/terminal-of-terror@latest</code></pre>
+    </div>
+    <div class="tab-panel" data-panel="source" hidden>
+      <pre class="term" data-copy><code>git clone https://github.com/hungovercoders/terminal-of-terror.git
+cd terminal-of-terror
+go build -o terminal-of-terror</code></pre>
+    </div>
+  </div>
+</section>
+
+<section id="first-night">
+  <h2><span class="h-emoji">🌙</span> Your first night</h2>
+  <pre class="term" data-copy><code>terminal-of-terror monster           <span class="c"># tune in to the Creature Feature</span>
+terminal-of-terror quiz              <span class="c"># test yourself in the Midnight Quiz</span>
+terminal-of-terror tonight           <span class="c"># see tonight's double bill</span>
+terminal-of-terror countdown         <span class="c"># how many nights until Halloween?</span>
+terminal-of-terror random --daily    <span class="c"># the Fact of the Night</span></code></pre>
+  <p class="note">💡 Add <code>terminal-of-terror random --daily</code> to your <code>~/.bashrc</code> or <code>~/.zshrc</code> and every new terminal opens with the Fact of the Night.</p>
+</section>
+
+<section id="explorer">
+  <h2><span class="h-emoji">🧛</span> The Creature Feature</h2>
+  <p>{{$site.Host}} opens the broadcast through a wall of TV static, then hands you the keys to the vault. Every monster has its own colours and a page full of sections:</p>
+  <div class="split">
+    <table class="plain">
+      <thead><tr><th>Section</th><th>What you'll learn</th></tr></thead>
+      <tbody>{{range .Data.Sections}}<tr><th>{{.Name}}</th><td>{{.Learn}}</td></tr>{{end}}</tbody>
+    </table>
+    <div>
+      <p>🎞️ The silent-era monsters, the Phantom and the Hunchback, flicker in black and white with title cards and film grain, just as they did in 1923 and 1925.</p>
+      <p>Jump straight to a monster by name, nickname or even part of a name:</p>
+      <pre class="term" data-copy><code>terminal-of-terror monster dracula
+terminal-of-terror monster wolfman
+terminal-of-terror monster quasimodo
+terminal-of-terror monster --all       <span class="c"># open on the gallery</span>
+terminal-of-terror monster --no-intro  <span class="c"># skip the static</span></code></pre>
+      <details>
+        <summary>⌨️ Keys</summary>
+        <table class="plain keys">
+          <tbody>
+            <tr><td><kbd>←</kbd> <kbd>→</kbd> / <kbd>h</kbd> <kbd>l</kbd> / <kbd>p</kbd> <kbd>n</kbd></td><td>Previous / next monster</td></tr>
+            <tr><td><kbd>tab</kbd> <kbd>shift+tab</kbd> / <kbd>1</kbd>-<kbd>7</kbd></td><td>Switch section</td></tr>
+            <tr><td><kbd>↑</kbd> <kbd>↓</kbd> / <kbd>j</kbd> <kbd>k</kbd>, <kbd>space</kbd>, <kbd>pgup</kbd>/<kbd>pgdn</kbd></td><td>Scroll</td></tr>
+            <tr><td><kbd>r</kbd></td><td>Reveal the Myth vs Movie verdicts</td></tr>
+            <tr><td><kbd>/</kbd></td><td>Search names, facts, films and legends</td></tr>
+            <tr><td><kbd>g</kbd> / <kbd>esc</kbd></td><td>Back to the gallery</td></tr>
+            <tr><td><kbd>?</kbd></td><td>Full help</td></tr>
+            <tr><td><kbd>q</kbd> / <kbd>Ctrl+C</kbd></td><td>Quit</td></tr>
+          </tbody>
+        </table>
+      </details>
+    </div>
+  </div>
+</section>
+
+<section id="games">
+  <h2><span class="h-emoji">🧠</span> Games</h2>
+  <div class="games">
+    <article class="game">
+      <img src="{{$root}}assets/quiz.gif" alt="The Midnight Quiz: a true-or-false question, a wrong answer with its explanation, and a final rank" loading="lazy">
+      <h3>The Midnight Quiz</h3>
+      <p>Questions built from the monster data: facts, film credits, lines from the novels and myth checks. Every answer explains itself, so you learn as you play. Finish with a rank from <strong>Ghoul-in-Training</strong> to <strong>Master of Horror</strong>.</p>
+      <pre class="term" data-copy><code>terminal-of-terror quiz
+terminal-of-terror quiz -n 5
+terminal-of-terror quiz dracula</code></pre>
+    </article>
+    <article class="game">
+      <img src="{{$root}}assets/guess.gif" alt="Guess the Monster: a portrait slowly clears from the fog as clues appear" loading="lazy">
+      <h3>Guess the Monster</h3>
+      <p>A portrait is hidden in the fog. Press <kbd>space</kbd> to clear a little more (clues appear as it lifts), but every clearing costs points. Name the monster through the thickest fog for the <strong>Eagle Eye</strong> badge.</p>
+      <pre class="term" data-copy><code>terminal-of-terror guess
+terminal-of-terror guess --rounds 8</code></pre>
+    </article>
+    <article class="game">
+      <img src="{{$root}}assets/mash.gif" alt="The Monster Mash: Dracula and the Wolf Man compare stat cards and fight three rounds" loading="lazy">
+      <h3>The Monster Mash</h3>
+      <p>Three rounds, no rules, no refunds. Two monsters fight it out over strength, speed, cunning and dread, decided by their stat cards and a roll of the dice.</p>
+      <pre class="term" data-copy><code>terminal-of-terror mash
+terminal-of-terror mash dracula "wolf man"
+terminal-of-terror mash --fast</code></pre>
+    </article>
+  </div>
+</section>
+
+<section id="crypt">
+  <h2><span class="h-emoji">💀</span> The Crypt</h2>
+  <div class="split">
+    <div>
+      <p>Answer three questions about a monster correctly, in quizzes or Guess the Monster, and it's <strong>captured</strong>. Your crypt keeps your collection, your badges and your records.</p>
+      <pre class="term" data-copy><code>terminal-of-terror crypt
+terminal-of-terror crypt reset   <span class="c"># release them all and start again</span></code></pre>
+      <p class="small">Progress is saved as JSON in your config directory (e.g. <code>~/.config/terminal-of-terror/progress.json</code> on Linux). Set <code>TERMINAL_OF_TERROR_HOME</code> to keep it somewhere else.</p>
+    </div>
+    <img class="shot" src="{{$root}}assets/crypt.png" alt="The Crypt: captured monsters, progress towards the rest, badges and records" loading="lazy">
+  </div>
+  <h3>🏅 All {{$site.BadgeCount}} badges</h3>
+  <ul class="badges">
+    {{range .Data.Badges}}<li class="badge"><span class="badge-emoji">{{.Emoji}}</span><span class="badge-name">{{.Name}}</span><span class="badge-how">{{.Description}}</span></li>{{end}}
+  </ul>
+</section>
+
+<section id="rituals">
+  <h2><span class="h-emoji">🕛</span> Nightly rituals</h2>
+  <p>Everything here is worked out offline: moon phases, film anniversaries and the countdown to Halloween.</p>
+  <div class="rituals">
+    <article>
+      <h3>🎟️ Tonight's Double Feature</h3>
+      <p>A retro ticket for tonight's Channel 13 double bill. The line-up changes every night.</p>
+      <pre class="term" data-copy><code>terminal-of-terror tonight
+terminal-of-terror tonight --shuffle
+terminal-of-terror tonight --date 2026-10-31</code></pre>
+      <img class="shot" src="{{$root}}assets/tonight.png" alt="A double-feature ticket for Halloween night: Dracula's Daughter (1936) and Krampus" loading="lazy">
+    </article>
+    <article>
+      <h3>🎃 The Halloween Countdown</h3>
+      <p>The nights until Halloween, tonight's moon and the next film anniversary. During October it's the <strong>31 Nights of Fright</strong>, with a different monster featured every night.</p>
+      <pre class="term" data-copy><code>terminal-of-terror countdown</code></pre>
+      <img class="shot" src="{{$root}}assets/countdown.png" alt="A jack-o'-lantern beside '18 nights until Halloween', with Night 13 of the 31 Nights of Fright featuring the Golem" loading="lazy">
+    </article>
+    <article>
+      <h3>✨ The Fact of the Night</h3>
+      <p>The same fact for everyone all day, and a new one tomorrow. It notices full moons, Friday the 13th and anniversaries too: on 21 November it'll remind you that <em>Frankenstein</em> opened in 1931.</p>
+      <pre class="term" data-copy><code>terminal-of-terror random --daily
+terminal-of-terror random --date 2026-11-21
+terminal-of-terror random</code></pre>
+      <img class="shot" src="{{$root}}assets/random.png" alt="The Fact of the Night card for 21 November, marking Frankenstein's 95th anniversary" loading="lazy">
+    </article>
+  </div>
+</section>
+
+<section id="roster">
+  <h2><span class="h-emoji">📜</span> The roster</h2>
+  {{range .Data.Packs}}
+  <h3>{{.Name}} <code class="chip">--pack {{.ID}}</code></h3>
+  <p class="small">{{.Description}}</p>
+  <ul class="cards">
+    {{range .Monsters}}<li><a class="card{{if .IsSilent}} silent{{end}}" href="{{$root}}monsters/{{.ID}}.html" style="--m-primary:{{.Theme.Primary}};--m-accent:{{.Theme.Accent}}"><span class="card-emoji">{{.Emoji}}</span><span class="card-name">{{.Name}}</span><span class="card-meta">{{if .Film}}<em>{{.Film.Title}}</em> ({{.Film.Year}}){{else}}{{.Origin}}{{end}}</span></a></li>{{end}}
+  </ul>
+  {{end}}
+  <p><a class="btn" href="{{$root}}monsters/index.html">Open the full roster →</a></p>
+</section>
+
+<section id="packs">
+  <h2><span class="h-emoji">📦</span> Monster packs</h2>
+  <p>Monsters come in packs. Use <code>--pack</code> with any command to choose which ones come out to play:</p>
+  <pre class="term" data-copy><code>terminal-of-terror packs                       <span class="c"># every pack in the vault</span>
+terminal-of-terror quiz --pack folklore        <span class="c"># a folklore-only quiz</span>
+terminal-of-terror monster --pack universal,folklore</code></pre>
+  <h3>🧪 Make your own</h3>
+  <p>Build your own monsters without writing any Go:</p>
+  <pre class="term" data-copy><code>terminal-of-terror packs new cryptids</code></pre>
+  <p>This creates <code>~/.config/terminal-of-terror/packs/cryptids/</code> (or your OS's equivalent) with an example monster to edit. Every pack there loads automatically, and its monsters join the explorer, the quiz, the guessing game, the Mash and everything else. Only <code>name</code>, <code>description</code> and <code>facts</code> are required. See <a href="{{$site.Repo}}/blob/main/CONTRIBUTING.md">CONTRIBUTING.md</a> for every field, and if your pack turns out frightfully good, send it our way.</p>
+</section>
+
+<section id="reference">
+  <h2><span class="h-emoji">📖</span> Command reference</h2>
+  <p class="small">Every command, for the insomniacs. Each also takes <code>--pack</code>, and <code>terminal-of-terror [command] --help</code> has the details.</p>
+  <table class="plain">
+    <thead><tr><th>Command</th><th>What it does</th></tr></thead>
+    <tbody>{{range .Data.Commands}}<tr><td><code>{{.Use}}</code></td><td>{{.Does}}</td></tr>{{end}}</tbody>
+  </table>
+</section>
+
+<section id="school">
+  <h2><span class="h-emoji">📚</span> Night School</h2>
+  <p>Want to know how it's built, or build your own? <a href="{{$root}}night-school/index.html"><strong>{{$site.Host}}'s Night School</strong></a> is a {{$site.LessonCount}}-night course that builds Terminal of Terror from an empty folder to a released Go CLI: Cobra commands, embedded monster data, a Bubble Tea explorer, games, saved progress, community packs, CI and a GoReleaser release. One lesson a night, each with an exercise and a terrifying Go fact.</p>
+  <div class="weeks">
+    {{range .Data.Course.Weeks}}
+    <div class="week">
+      <h3>{{.Title}}</h3>
+      <p class="small">{{.Theme}}</p>
+      <ol>{{range .Lessons}}<li value="{{.Night}}"><a href="{{$root}}night-school/{{.Slug}}.html">{{.Title}}</a></li>{{end}}</ol>
+    </div>
+    {{end}}
+  </div>
+  <p class="host-line">📺 <em>"Thirty-one nights. Bring a blanket."</em></p>
+  <p><a class="btn primary" href="{{$root}}night-school/night-01.html">Start Night 1 →</a></p>
+</section>
+{{end}}
+
+{{define "scripts"}}
+<script type="application/json" id="facts">{{json .Data.Facts}}</script>
+{{end}}

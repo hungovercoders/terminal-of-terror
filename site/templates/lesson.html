@@ -1,0 +1,38 @@
+{{define "content"}}
+{{$root := .Root}}{{$l := .Data.Lesson}}
+<div class="course-layout">
+  <aside class="course-side">{{template "coursenav" .}}</aside>
+  <article class="prose lesson">
+    <p class="kicker">{{$l.Week}} · Night {{$l.Night}} of {{.Site.LessonCount}}</p>
+    <h1>Night {{$l.Night}} · {{$l.Title}}</h1>
+    {{$l.Body}}
+    <nav class="lesson-nav" aria-label="Lessons">
+      {{with .Data.Prev}}<a class="prev" href="{{$root}}night-school/{{.Slug}}.html">← Night {{.Night}} · {{.Title}}</a>{{else}}<span></span>{{end}}
+      <a href="{{$root}}night-school/index.html">Index</a>
+      {{with .Data.Next}}<a class="next" href="{{$root}}night-school/{{.Slug}}.html">Night {{.Night}} · {{.Title}} →</a>{{else}}<a class="next" href="{{$root}}index.html">Back to Channel 13 →</a>{{end}}
+    </nav>
+  </article>
+</div>
+{{end}}
+
+{{define "coursenav"}}
+{{$root := .Root}}{{$cur := .Data.Lesson.Slug}}
+<nav class="coursenav" aria-label="Lessons">
+  <a class="coursenav-title" href="{{$root}}night-school/index.html">📺 Night School</a>
+  {{range .Data.Course.Weeks}}
+  <details{{range .Lessons}}{{if eq .Slug $cur}} open{{end}}{{end}}>
+    <summary>{{.Title}}</summary>
+    <ol>{{range .Lessons}}<li value="{{.Night}}"><a href="{{$root}}night-school/{{.Slug}}.html"{{if eq .Slug $cur}} aria-current="page"{{end}}>{{.Title}}</a></li>{{end}}</ol>
+  </details>
+  {{end}}
+</nav>
+{{end}}
+
+{{define "head"}}
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.11.1/styles/base16/dracula.min.css">
+{{end}}
+
+{{define "scripts"}}
+<script src="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.11.1/highlight.min.js" defer></script>
+<script>window.addEventListener('DOMContentLoaded',function(){if(window.hljs){hljs.highlightAll()}})</script>
+{{end}}
