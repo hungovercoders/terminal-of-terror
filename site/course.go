@@ -7,7 +7,6 @@ import (
 	"os"
 	"path/filepath"
 	"regexp"
-	"sort"
 	"strings"
 
 	"github.com/yuin/goldmark"
@@ -37,14 +36,11 @@ type Lesson struct {
 	Night   int
 	Slug    string // night-01
 	Title   string // It's Alive!
-	Summary string // what you'll learn, from the index table
+	Summary string // what you'll learn, from the index table, as plain text
 	Quote   string // the host's opening line
 	Body    template.HTML
 	Week    string
 }
-
-// Heading is the lesson title as the index shows it.
-func (l Lesson) Heading() string { return fmt.Sprintf("Night %d · %s", l.Night, l.Title) }
 
 var (
 	weekRe   = regexp.MustCompile(`^### (Week \d+ · [^—]+?)\s*—\s*(.+)$`)
@@ -72,7 +68,7 @@ func loadCourse(dir string) (*Course, error) {
 		if m := rowRe.FindStringSubmatch(line); m != nil && week != nil {
 			var n int
 			fmt.Sscanf(m[1], "%d", &n)
-			week.Lessons = append(week.Lessons, Lesson{Night: n, Slug: m[2], Title: m[3], Summary: m[4], Week: week.Title})
+			week.Lessons = append(week.Lessons, Lesson{Night: n, Slug: m[2], Title: m[3], Summary: strings.ReplaceAll(m[4], "`", ""), Week: week.Title})
 		}
 	}
 	for i := range c.Weeks {
@@ -91,8 +87,6 @@ func loadCourse(dir string) (*Course, error) {
 		}
 		c.Lessons = append(c.Lessons, *l)
 	}
-	sort.Slice(c.Lessons, func(i, j int) bool { return c.Lessons[i].Night < c.Lessons[j].Night })
-
 	intro, err := renderMarkdown(raw)
 	if err != nil {
 		return nil, err

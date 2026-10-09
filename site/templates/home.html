@@ -25,7 +25,7 @@
 <section class="tonight-strip" aria-label="Tonight">
   <div class="tile" id="countdown-tile"><span class="tile-emoji">🎃</span><span class="tile-big" id="countdown-nights">…</span><span class="tile-label" id="countdown-label">nights until Halloween</span></div>
   <div class="tile" id="moon-tile"><span class="tile-emoji" id="moon-emoji">🌙</span><span class="tile-big" id="moon-name">…</span><span class="tile-label">tonight's moon</span></div>
-  <div class="tile wide" id="fact-tile"><span class="tile-label">✨ Fact of the Night · <span id="fact-date"></span></span><span class="tile-fact" id="fact-text">…</span><a class="tile-link" id="fact-link" href="{{$root}}monsters/index.html"></a></div>
+  <div class="tile wide" id="fact-tile"><span class="tile-label">✨ Tonight's fact · <span id="fact-date"></span></span><span class="tile-fact" id="fact-text">…</span><a class="tile-link" id="fact-link" href="{{$root}}monsters/index.html"></a></div>
 </section>
 
 <section class="programme" id="programme">
@@ -65,7 +65,7 @@
         <a class="dl" href="{{$site.Repo}}/releases/latest" data-asset="windows_arm64">🪟 Windows <small>ARM</small></a>
       </div>
       <p class="small" id="release-note">Latest release: <a href="{{$site.Repo}}/releases/latest" id="release-version">see GitHub</a></p>
-      <pre class="term" data-copy><code><span class="c"># e.g. Linux on Intel/AMD, version 1.0.0</span>
+      <pre class="term" data-copy id="tar-example"><code><span class="c"># e.g. Linux on Intel/AMD, version 1.0.0</span>
 tar xzf terminal-of-terror_1.0.0_linux_amd64.tar.gz
 sudo mv terminal-of-terror /usr/local/bin/</code></pre>
       <p class="note">📝 On macOS, the binary isn't signed, so the first run may be blocked. Run <code>xattr -d com.apple.quarantine terminal-of-terror</code> to let it through.</p>

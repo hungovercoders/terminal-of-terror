@@ -17,13 +17,11 @@ import (
 	"fmt"
 	"html/template"
 	"io/fs"
+	"math/rand"
 	"net/url"
 	"os"
-	"path"
 	"path/filepath"
-	"sort"
 	"strings"
-	"time"
 
 	"github.com/hungovercoders/terminal-of-terror/internal/crypt"
 	"github.com/hungovercoders/terminal-of-terror/internal/host"
@@ -71,7 +69,6 @@ type Site struct {
 	PackCount    int
 	BadgeCount   int
 	LessonCount  int
-	Year         int
 	Host         string
 	Channel      string
 }
@@ -126,7 +123,6 @@ func Build(cfg Config) (int, error) {
 		PackCount:    len(packs),
 		BadgeCount:   len(crypt.Badges),
 		LessonCount:  len(course.Lessons),
-		Year:         time.Now().Year(),
 		Host:         host.Name,
 		Channel:      host.Channel,
 	}
@@ -159,7 +155,7 @@ func Build(cfg Config) (int, error) {
 		d := monsterData(packs, all, i)
 		b.render("monsters/"+m.ID+".html", Page{
 			Title:       m.Name,
-			Description: m.Description + ". " + firstSentence(m.Legend),
+			Description: m.Description + ". " + excerpt(m.Legend, 140),
 			Section:     "monsters",
 			Theme:       d.Theme,
 			Data:        d,
@@ -195,8 +191,25 @@ type builder struct {
 	cfg      Config
 	site     Site
 	basePath string // the path part of BaseURL, e.g. "/terminal-of-terror/"
+	tmpls    map[string]*template.Template
 	pages    []string
 	err      error
+}
+
+// template parses base.html plus templates/<name> once and caches it.
+func (b *builder) template(name string) (*template.Template, error) {
+	if t, ok := b.tmpls[name]; ok {
+		return t, nil
+	}
+	t, err := template.New("").Funcs(funcs).ParseFS(siteFS, "templates/base.html", "templates/"+name)
+	if err != nil {
+		return nil, err
+	}
+	if b.tmpls == nil {
+		b.tmpls = map[string]*template.Template{}
+	}
+	b.tmpls[name] = t
+	return t, nil
 }
 
 // render executes templates/<kind>.html inside the base layout and writes
@@ -214,7 +227,7 @@ func (b *builder) render(rel string, p Page) {
 		p.Root = b.basePath
 	}
 
-	tmpl, err := template.New("").Funcs(funcs).ParseFS(siteFS, "templates/base.html", "templates/"+templateFor(rel))
+	tmpl, err := b.template(templateFor(rel))
 	if err != nil {
 		b.err = err
 		return
@@ -359,7 +372,8 @@ func homeData(packs []monsters.Pack, all []monsters.Monster, course *Course) hom
 		Packs:    packs,
 		Monsters: all,
 		Badges:   crypt.Badges,
-		Greeting: host.Greeting(nil),
+		// A fixed seed, so rebuilding the site without changes is a no-op.
+		Greeting: host.Greeting(rand.New(rand.NewSource(13))),
 		SignOff:  "That's all for tonight. Sleep tight, and check under the bed.",
 		Facts:    facts,
 		Course:   course,
@@ -396,17 +410,16 @@ func rosterData(packs []monsters.Pack) rosterPage { return rosterPage{Packs: pac
 
 // monsterPage feeds one monster's page.
 type monsterPage struct {
-	Monster  monsters.Monster
-	Pack     monsters.Pack
-	Theme    *Theme
-	Prev     *monsters.Monster
-	Next     *monsters.Monster
-	Number   int
-	Total    int
-	Stats    []stat
-	Art      string
-	ArtWidth int
-	Silent   bool
+	Monster monsters.Monster
+	Pack    monsters.Pack
+	Theme   *Theme
+	Prev    *monsters.Monster
+	Next    *monsters.Monster
+	Number  int
+	Total   int
+	Stats   []stat
+	Art     string
+	Silent  bool
 }
 
 type stat struct {
@@ -439,9 +452,6 @@ func monsterData(packs []monsters.Pack, all []monsters.Monster, i int) monsterPa
 	}
 	if i+1 < len(all) {
 		d.Next = &all[i+1]
-	}
-	for _, line := range strings.Split(m.ASCII, "\n") {
-		d.ArtWidth = max(d.ArtWidth, len([]rune(line)))
 	}
 	t := &Theme{Primary: m.Theme.Primary, Accent: m.Theme.Accent, Silent: d.Silent}
 	if d.Silent {
@@ -481,40 +491,23 @@ func (d lessonData) Next() *Lesson {
 // ---- template helpers ----
 
 var funcs = template.FuncMap{
-	"add":   func(a, b int) int { return a + b },
-	"pct":   func(v int) int { return v * 10 },
-	"lower": strings.ToLower,
+	"pct": func(v int) int { return v * 10 },
 	"json": func(v any) (template.JS, error) {
 		b, err := json.Marshal(v)
 		return template.JS(b), err
 	},
-	"safe": func(s string) template.HTML { return template.HTML(s) },
-	"seq": func(n int) []int {
-		out := make([]int, n)
-		for i := range out {
-			out[i] = i + 1
-		}
-		return out
-	},
 	"firstAppearance": func(m monsters.Monster) string { return m.FirstAppearance() },
-	"join":            strings.Join,
-	"hasPrefix":       strings.HasPrefix,
-	"year":            func() int { return time.Now().Year() },
-	"sortedKeys": func(m map[string]string) []string {
-		keys := make([]string, 0, len(m))
-		for k := range m {
-			keys = append(keys, k)
-		}
-		sort.Strings(keys)
-		return keys
-	},
-	"basename": path.Base,
 }
 
-// firstSentence cuts a paragraph down to its first sentence, for meta descriptions.
-func firstSentence(s string) string {
-	if i := strings.Index(s, ". "); i > 0 {
-		return s[:i+1]
+// excerpt shortens a paragraph to about n characters on a word boundary,
+// for meta descriptions. Splitting on ". " would cut "St. Nicholas" in half.
+func excerpt(s string, n int) string {
+	if len(s) <= n {
+		return s
 	}
-	return s
+	cut := strings.LastIndex(s[:n], " ")
+	if cut <= 0 {
+		cut = n
+	}
+	return strings.TrimRight(s[:cut], ",;:") + "…"
 }

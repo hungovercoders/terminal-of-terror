@@ -125,7 +125,9 @@
     if (factsEl) {
       try {
         var facts = JSON.parse(factsEl.textContent);
-        // The same fact for everyone all day, and a new one tomorrow.
+        // A fact that stays put all day and changes tomorrow. It's picked
+        // by this hash, not the CLI's seeded math/rand, so it need not be
+        // the one `random --daily` shows; the tile says "Tonight's fact".
         var seed = today.getFullYear() * 10000 + (today.getMonth() + 1) * 100 + today.getDate();
         var x = seed;
         x = ((x >>> 16) ^ x) * 0x45d9f3b; x = ((x >>> 16) ^ x) * 0x45d9f3b; x = (x >>> 16) ^ x;
@@ -157,10 +159,13 @@
             a.title = asset.name;
           }
         });
-        var tar = $$("pre.term code")[0];
-        if (tar && rel.tag_name) {
+        var tar = $("#tar-example");
+        if (tar && /^v?\d+\.\d+\.\d+$/.test(rel.tag_name)) {
+          // Swap the example version in the text nodes only; the tag is
+          // data from the API, never markup.
           var ver = rel.tag_name.replace(/^v/, "");
-          tar.innerHTML = tar.innerHTML.replace(/1\.0\.0/g, ver);
+          var walker = document.createTreeWalker(tar, NodeFilter.SHOW_TEXT);
+          while (walker.nextNode()) walker.currentNode.nodeValue = walker.currentNode.nodeValue.replace(/1\.0\.0/g, ver);
         }
       })
       .catch(function () { /* the links already point at the releases page */ });

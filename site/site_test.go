@@ -112,7 +112,7 @@ func TestMonsterPageContent(t *testing.T) {
 			t.Fatal(err)
 		}
 		page := string(body)
-		for _, want := range []string{m.Name, m.Facts[0], m.Legend[:20], "terminal-of-terror monster " + m.ID} {
+		for _, want := range []string{m.Name, m.Facts[0], string([]rune(m.Legend)[:20]), "terminal-of-terror monster " + m.ID} {
 			if !strings.Contains(page, htmlEscape(want)) {
 				t.Errorf("%s: page lacks %q", m.ID, want)
 			}
