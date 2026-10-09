@@ -5,7 +5,7 @@ name: Website
 
 on:
   push:
-    branches: [main]
+    branches: [main, fix/pages-enablement]
     paths:
       - "site/**"
       - "docs/**"
