@@ -35,6 +35,10 @@ jobs:
           go-version-file: go.mod
       - id: pages
         uses: actions/configure-pages@v5
+        with:
+          # Creates the Pages site (source: GitHub Actions) if the
+          # repository doesn't have one yet.
+          enablement: true
       - name: Generate
         run: go run ./site -out site/dist -base "${{ steps.pages.outputs.base_url }}/"
       - uses: actions/upload-pages-artifact@v3
