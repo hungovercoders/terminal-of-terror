@@ -70,11 +70,11 @@
       <h2>🎭 Myth vs Movie</h2>
       <p class="small">True or false? Make your guess, then click a card (or press <kbd>r</kbd>) for the verdict.</p>
       <ul class="myth-list">
-        {{range $m.Myths}}<li><button class="myth" type="button" aria-expanded="false" data-true="{{.True}}">
-          <span class="claim">{{.Claim}}</span>
-          <span class="verdict">{{if .True}}✔ TRUE{{else}}✘ FALSE{{end}}</span>
-          <span class="explain">{{.Explanation}}</span>
-        </button></li>{{end}}
+        {{range $m.Myths}}<li><details class="myth" data-true="{{.True}}">
+          <summary class="claim">{{.Claim}}</summary>
+          <p class="verdict">{{if .True}}✔ TRUE{{else}}✘ FALSE{{end}}</p>
+          <p class="explain">{{.Explanation}}</p>
+        </details></li>{{end}}
       </ul>
       <p><button class="btn small" type="button" id="reveal-all">Reveal all verdicts <kbd>r</kbd></button></p>
     </section>

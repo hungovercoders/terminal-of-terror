@@ -17,6 +17,7 @@ import (
 	"fmt"
 	"html/template"
 	"io/fs"
+	"net/url"
 	"os"
 	"path"
 	"path/filepath"
@@ -76,7 +77,9 @@ type Site struct {
 }
 
 // Page is the data handed to a template: the site, the page's own fields
-// and Root, the relative path back to the site's top level ("" or "../").
+// and Root, the path back to the site's top level ("" or "../"). The 404
+// page is the exception: GitHub Pages serves it at whatever address was
+// missing, so its Root is the site's absolute path instead.
 type Page struct {
 	Site        Site
 	Root        string
@@ -128,7 +131,11 @@ func Build(cfg Config) (int, error) {
 		Channel:      host.Channel,
 	}
 
-	b := &builder{cfg: cfg, site: site}
+	base, err := url.Parse(cfg.BaseURL)
+	if err != nil {
+		return 0, fmt.Errorf("base URL: %w", err)
+	}
+	b := &builder{cfg: cfg, site: site, basePath: base.Path}
 	if err := b.copyStatic(); err != nil {
 		return 0, err
 	}
@@ -185,10 +192,11 @@ func Build(cfg Config) (int, error) {
 }
 
 type builder struct {
-	cfg   Config
-	site  Site
-	pages []string
-	err   error
+	cfg      Config
+	site     Site
+	basePath string // the path part of BaseURL, e.g. "/terminal-of-terror/"
+	pages    []string
+	err      error
 }
 
 // render executes templates/<kind>.html inside the base layout and writes
@@ -202,6 +210,9 @@ func (b *builder) render(rel string, p Page) {
 	p.Site = b.site
 	p.Path = rel
 	p.Root = strings.Repeat("../", strings.Count(rel, "/"))
+	if rel == "404.html" {
+		p.Root = b.basePath
+	}
 
 	tmpl, err := template.New("").Funcs(funcs).ParseFS(siteFS, "templates/base.html", "templates/"+templateFor(rel))
 	if err != nil {

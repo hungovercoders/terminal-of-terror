@@ -195,12 +195,10 @@
     $$(".bar").forEach(function (b) { b.classList.add("pending"); });
     requestAnimationFrame(function () { setTimeout(function () { $$(".bar").forEach(function (b) { b.classList.remove("pending"); }); }, 150); });
 
-    // Myth vs Movie: click to reveal, r for everything.
+    // Myth vs Movie: each card is a <details>, so clicking works without
+    // us; r opens the lot, like the explorer.
     var myths = $$(".myth");
-    myths.forEach(function (m) {
-      m.addEventListener("click", function () { m.setAttribute("aria-expanded", m.getAttribute("aria-expanded") === "true" ? "false" : "true"); });
-    });
-    var revealAll = function () { myths.forEach(function (m) { m.setAttribute("aria-expanded", "true"); }); };
+    var revealAll = function () { myths.forEach(function (m) { m.open = true; }); };
     var revealBtn = $("#reveal-all");
     if (revealBtn) revealBtn.addEventListener("click", revealAll);
 
@@ -219,6 +217,7 @@
     }
 
     // The explorer's keys, for people who never left the terminal.
+    var scrollMode = reduceMotion ? "auto" : "smooth";
     document.addEventListener("keydown", function (e) {
       if (e.metaKey || e.ctrlKey || e.altKey) return;
       var tag = (e.target.tagName || "").toLowerCase();
@@ -229,12 +228,14 @@
         case "l": case "ArrowRight": case "n": if (next) location.href = next; break;
         case "g": case "Escape": location.href = "index.html"; break;
         case "r": revealAll(); break;
-        case "j": window.scrollBy({ top: 80, behavior: "smooth" }); break;
-        case "k": window.scrollBy({ top: -80, behavior: "smooth" }); break;
+        case "j": window.scrollBy({ top: 80, behavior: scrollMode }); break;
+        case "k": window.scrollBy({ top: -80, behavior: scrollMode }); break;
         default:
           if (e.key >= "1" && e.key <= "7") {
-            var a = tabs[Number(e.key) - 1];
-            if (a) $(a.getAttribute("href")).scrollIntoView({ behavior: reduceMotion ? "auto" : "smooth" });
+            // Tabs keep the explorer's numbers even when a monster has no
+            // film or quotes, so find the one labelled with this key.
+            var a = tabs.filter(function (t) { var k = $("kbd", t); return k && k.textContent === e.key; })[0];
+            if (a) $(a.getAttribute("href")).scrollIntoView({ behavior: scrollMode });
           }
       }
     });

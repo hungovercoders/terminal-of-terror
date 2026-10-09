@@ -40,7 +40,22 @@ func TestBuild(t *testing.T) {
 		t.Fatal(err)
 	}
 	for _, p := range pages {
-		checkLinks(t, out, p)
+		checkLinks(t, out, "/tot/", p)
+	}
+
+	// GitHub Pages serves 404.html at the missing address, so its links
+	// must not be relative.
+	notFound, err := os.ReadFile(filepath.Join(out, "404.html"))
+	if err != nil {
+		t.Fatal(err)
+	}
+	for _, want := range []string{`href="/tot/static/style.css"`, `href="/tot/index.html"`, `src="/tot/static/site.js"`} {
+		if !strings.Contains(string(notFound), want) {
+			t.Errorf("404.html lacks %s", want)
+		}
+	}
+	if strings.Contains(string(notFound), `href="static/`) || strings.Contains(string(notFound), `href="../`) {
+		t.Error("404.html still has relative links")
 	}
 }
 
@@ -49,8 +64,9 @@ var (
 	relMarkdownRe = regexp.MustCompile(`href="(?:[^":]*/)?[^":/]*\.md(?:#[^"]*)?"`)
 )
 
-// checkLinks follows every relative href and src on the page.
-func checkLinks(t *testing.T, root, page string) {
+// checkLinks follows every href and src on the page that points into the
+// site, relative or absolute under basePath.
+func checkLinks(t *testing.T, root, basePath, page string) {
 	t.Helper()
 	body, err := os.ReadFile(page)
 	if err != nil {
@@ -67,6 +83,14 @@ func checkLinks(t *testing.T, root, page string) {
 			continue
 		}
 		target := filepath.Join(filepath.Dir(page), filepath.FromSlash(link))
+		if strings.HasPrefix(link, "/") {
+			if !strings.HasPrefix(link, basePath) {
+				rel, _ := filepath.Rel(root, page)
+				t.Errorf("%s links to %q, which is outside the site", rel, m[1])
+				continue
+			}
+			target = filepath.Join(root, filepath.FromSlash(strings.TrimPrefix(link, basePath)))
+		}
 		if strings.HasSuffix(link, "/") {
 			target = filepath.Join(target, "index.html")
 		}
