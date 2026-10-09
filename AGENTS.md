@@ -247,7 +247,7 @@ Follow conventional commits:
 
 Potential areas for expansion:
 - Integration tests for CLI commands
-- More packs (Hammer Horror, literary monsters, cryptids)
+- More packs (Hammer Horror, kaiju, video-game monsters)
 - Localization/internationalization
 
 ## Resources

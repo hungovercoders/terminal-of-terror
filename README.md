@@ -314,10 +314,10 @@ terminal-of-terror monster --pack universal,folklore
 Build your own monsters without writing any Go:
 
 ```bash
-terminal-of-terror packs new cryptids
+terminal-of-terror packs new urban-legends
 ```
 
-This creates `~/.config/terminal-of-terror/packs/cryptids/` (or your OS's equivalent) with an example monster to edit. Every pack there loads automatically, and its monsters join the explorer, the quiz, the guessing game, the Mash and everything else. Only `name`, `description` and `facts` are required. See [CONTRIBUTING.md](CONTRIBUTING.md) for every field, and if your pack turns out frightfully good, send it our way.
+This creates `~/.config/terminal-of-terror/packs/urban-legends/` (or your OS's equivalent) with an example monster to edit. Every pack there loads automatically, and its monsters join the explorer, the quiz, the guessing game, the Mash and everything else. Only `name`, `description` and `facts` are required. See [CONTRIBUTING.md](CONTRIBUTING.md) for every field, and if your pack turns out frightfully good, send it our way.
 
 ## 📖 Command reference
 

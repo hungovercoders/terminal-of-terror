@@ -25,11 +25,12 @@ func writeFile(t *testing.T, path, content string) {
 func TestLoadUserPacks(t *testing.T) {
 	restorePacks(t)
 	dir := t.TempDir()
-	writeFile(t, filepath.Join(dir, "cryptids", "pack.json"), `{"id":"cryptids","name":"Cryptids"}`)
-	writeFile(t, filepath.Join(dir, "cryptids", "mothman.json"), `{"name":"Mothman","description":"Red-eyed winged figure of West Virginia","facts":["Sighted in Point Pleasant in 1966"]}`)
-	writeFile(t, filepath.Join(dir, "cryptids", "mothman.txt"), " (o o)\n")
-	writeFile(t, filepath.Join(dir, "cryptids", "nameless.json"), `{"description":"no name","facts":["x"]}`)
-	writeFile(t, filepath.Join(dir, "cryptids", "broken.json"), `{nope`)
+	// Community ids must not clash with built-in ones (cryptids and mothman are built in now).
+	writeFile(t, filepath.Join(dir, "urban-legends", "pack.json"), `{"id":"urban-legends","name":"Urban Legends"}`)
+	writeFile(t, filepath.Join(dir, "urban-legends", "bloody-mary.json"), `{"name":"Bloody Mary","description":"Say her name three times in the mirror","facts":["A chant game recorded by folklorists since the 1970s"]}`)
+	writeFile(t, filepath.Join(dir, "urban-legends", "bloody-mary.txt"), " (o o)\n")
+	writeFile(t, filepath.Join(dir, "urban-legends", "nameless.json"), `{"description":"no name","facts":["x"]}`)
+	writeFile(t, filepath.Join(dir, "urban-legends", "broken.json"), `{nope`)
 	writeFile(t, filepath.Join(dir, "clash", "dracula.json"), `{"name":"Dracula Again","description":"dupe","facts":["x"]}`)
 
 	loaded, errs := LoadUserPacks(dir)
@@ -41,15 +42,15 @@ func TestLoadUserPacks(t *testing.T) {
 		t.Fatalf("want 1 clash error, got %v", errs)
 	}
 
-	m := GetMonsterByName("mothman")
+	m := GetMonsterByName("bloody mary")
 	if m == nil {
-		t.Fatal("mothman not loaded")
+		t.Fatal("bloody-mary not loaded")
 	}
-	if m.Pack != "cryptids" || m.Emoji == "" || m.Stats.Strength != 5 || m.ASCII != " (o o)" || m.Debut.Era == "" {
+	if m.Pack != "urban-legends" || m.Emoji == "" || m.Stats.Strength != 5 || m.ASCII != " (o o)" || m.Debut.Era == "" {
 		t.Errorf("defaults not applied: %+v", m)
 	}
 
-	if err := UsePacks([]string{"cryptids"}); err != nil {
+	if err := UsePacks([]string{"urban-legends"}); err != nil {
 		t.Fatal(err)
 	}
 	if len(GetAllMonsters()) != 1 {
@@ -58,7 +59,7 @@ func TestLoadUserPacks(t *testing.T) {
 	if len(EveryMonster()) <= 1 {
 		t.Error("EveryMonster should ignore the filter")
 	}
-	if err := UsePacks([]string{"nope"}); err == nil || !strings.Contains(err.Error(), "cryptids") {
+	if err := UsePacks([]string{"nope"}); err == nil || !strings.Contains(err.Error(), "urban-legends") {
 		t.Errorf("unknown pack should list choices, got %v", err)
 	}
 }
