@@ -1,0 +1,45 @@
+{
+  "id": "mole-people",
+  "name": "The Mole People",
+  "aliases": ["Mole Man", "Mole Men"],
+  "emoji": "🐭",
+  "description": "Clawed, hunched diggers enslaved by a lost Sumerian city beneath the mountains",
+  "origin": "1950s atomic-age science fiction",
+  "debut": {"medium": "film", "title": "The Mole People", "creator": "Universal-International", "year": 1956},
+  "film": {
+    "title": "The Mole People",
+    "year": 1956,
+    "studio": "Universal-International",
+    "director": "Virgil W. Vogel",
+    "star": "John Agar",
+    "makeup": "Bud Westmore",
+    "note": "Vogel, a Universal film editor, made his directing debut here. The mole creature masks are credited to Jack Kevan, who worked under Bud Westmore on the Creature from the Black Lagoon."
+  },
+  "legend": "The Mole People turns an archaeological dig into a trip down the rabbit hole. John Agar and Hugh Beaumont play archaeologists who find a Sumerian tablet high in the mountains of Asia, follow it into a cavern and discover a lost city whose people have lived underground so long that they are albinos who cannot bear light. The Sumerians keep a race of hunched, clawed mole creatures as slaves to dig and to harvest the mushrooms that feed the city, and an ordinary flashlight becomes a holy weapon, because the pale priests take its beam for the fire of the goddess Ishtar. It's the mole people, bursting out of the floor to drag their victims under, that stuck with audiences. The film was the directorial debut of Virgil Vogel, a Universal editor, and it opens with a straight-faced lecture on hollow-earth theories from Dr Frank Baxter, a real English professor from the University of Southern California who was then a television star.",
+  "myths": [
+    {"claim": "The mole people are the villains of the film.", "true": false, "explanation": "They're slaves. The villains are the albino Sumerians who whip them, and by the end the mole people rise up against their masters."},
+    {"claim": "The film opens with a lecture from a real university professor.", "true": true, "explanation": "Dr Frank Baxter of the University of Southern California, famous for television science programmes, explains hollow-earth theories before the story begins."},
+    {"claim": "The Mole People was shot in colour.", "true": false, "explanation": "It's black and white, which suits a film set almost entirely in the dark."},
+    {"claim": "A flashlight is the heroes' most powerful weapon.", "true": true, "explanation": "The albinos cannot stand its beam, and the priests take it for the fire of Ishtar, so the archaeologists hold the city at bay with batteries."}
+  ],
+  "quotes": [],
+  "powers": ["Tunnelling through solid rock", "Dragging victims down through the floor", "Claws like garden forks", "Strength in numbers"],
+  "weaknesses": ["Their Sumerian overseers' whips", "A slow, shuffling gait", "A budget that shows", "Being the only characters the audience likes"],
+  "stats": {"strength": 6, "speed": 3, "cunning": 3, "dread": 6},
+  "legacy": [
+    "Mystery Science Theater 3000 riffed on it in 1997",
+    "It's a regular on 'worst Universal science-fiction film' lists, which only made it more loved",
+    "Alan Napier, the high priest, went on to play Alfred the butler in the 1960s Batman series"
+  ],
+  "facts": [
+    "The mole people are slaves of an underground Sumerian civilisation, not its rulers",
+    "Their masters are albinos who have lived without sunlight for thousands of years",
+    "The slaves harvest mushrooms, the only crop that grows in the dark",
+    "An ordinary flashlight terrifies the Sumerians, who think it carries the fire of Ishtar",
+    "John Agar's archaeologist is joined by Hugh Beaumont, later the father in Leave It to Beaver",
+    "It was the directorial debut of Virgil Vogel, a Universal film editor",
+    "A real professor, Dr Frank Baxter of USC, opens the film with a lecture on hollow-earth theories"
+  ],
+  "hostIntro": "Tonight we go underground, viewers, where the sun never shines and the mushrooms are plentiful. Bring a torch. The locals find it very upsetting.",
+  "theme": {"primary": "#7F5539", "accent": "#DDB892"}
+}

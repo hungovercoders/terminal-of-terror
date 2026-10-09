@@ -1,0 +1,44 @@
+{
+  "id": "ape-woman",
+  "name": "Paula Dupree, the Ape Woman",
+  "aliases": ["Paula Dupree", "Ape Woman", "Captive Wild Woman"],
+  "emoji": "🦍",
+  "description": "A circus gorilla turned into a glamorous woman by a mad endocrinologist",
+  "origin": "1940s Universal sequel era",
+  "debut": {"medium": "film", "title": "Captive Wild Woman", "creator": "Universal", "year": 1943},
+  "film": {
+    "title": "Captive Wild Woman",
+    "year": 1943,
+    "studio": "Universal",
+    "director": "Edward Dmytryk",
+    "star": "Acquanetta",
+    "makeup": "Jack Pierce",
+    "note": "Ray 'Crash' Corrigan plays the gorilla Cheela in his ape suit. Much of the circus footage was lifted from The Big Cage (1933), a Clyde Beatty lion-taming picture."
+  },
+  "legend": "Universal's 1940s horror line was cheap and quick, and Captive Wild Woman is barely an hour of it. John Carradine plays Dr Sigmund Walters, an endocrinologist who steals a gorilla called Cheela from a circus and, with gland transplants and a borrowed human brain, turns her into a beautiful, silent young woman he names Paula Dupree. Paula can calm the big cats, so the circus takes her on, but jealousy over the lion tamer makes her slide back towards the ape, by stages, in Jack Pierce's make-up. Universal launched Acquanetta, a model the studio reportedly billed as the 'Venezuelan Volcano', as its new horror star, and when the film did well enough it gave her a reluctant monster of her own, with two sequels of ever-shrinking budget.",
+  "myths": [
+    {"claim": "Paula Dupree starts the film as a gorilla.", "true": true, "explanation": "She's Cheela, a circus gorilla played by Ray 'Crash' Corrigan in his famous ape suit, until Dr Walters gets his hands on her."},
+    {"claim": "Captive Wild Woman was a lavish production.", "true": false, "explanation": "It runs barely an hour and borrows most of its circus thrills from The Big Cage (1933). Milburn Stone was reportedly cast as the lion tamer partly because he resembled Clyde Beatty in that footage."},
+    {"claim": "Acquanetta played Paula in all three films.", "true": false, "explanation": "She returned for Jungle Woman (1944), but Vicky Lane took over for The Jungle Captive (1945)."},
+    {"claim": "Boris Karloff plays the mad scientist.", "true": false, "explanation": "It's John Carradine, a year before he put on Dracula's cape for House of Frankenstein."}
+  ],
+  "quotes": [],
+  "powers": ["The strength of a gorilla", "A calming influence over lions and tigers", "Passing for human at a glance", "Changing shape when jealous"],
+  "weaknesses": ["Jealousy", "Gunfire", "Mad scientists with ideas", "A running time of barely an hour"],
+  "stats": {"strength": 8, "speed": 6, "cunning": 4, "dread": 5},
+  "legacy": [
+    "Jungle Woman (1944), with Acquanetta returning and much of the first film replayed in flashback",
+    "The Jungle Captive (1945), with Vicky Lane as Paula and Rondo Hatton as the henchman"
+  ],
+  "facts": [
+    "Paula Dupree begins the film as Cheela, a circus gorilla",
+    "Dr Sigmund Walters, played by John Carradine, turns her human with gland transplants and a transplanted brain",
+    "She can calm lions and tigers, which gets her a job in the circus",
+    "Jealousy makes her revert to an ape, by stages, in Jack Pierce's make-up",
+    "Ray 'Crash' Corrigan, a cowboy star of the serials, plays the gorilla in his own ape suit",
+    "Much of the circus footage came from The Big Cage (1933), starring lion tamer Clyde Beatty",
+    "Universal followed it with Jungle Woman (1944) and The Jungle Captive (1945)"
+  ],
+  "hostIntro": "Tonight's guest came to Hollywood from the ape house by way of a mad doctor's operating table. She's beautiful, she's silent, and she does not like it when you look at other women.",
+  "theme": {"primary": "#386641", "accent": "#A7C957"}
+}

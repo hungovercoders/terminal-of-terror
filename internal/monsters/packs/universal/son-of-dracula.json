@@ -1,0 +1,46 @@
+{
+  "id": "son-of-dracula",
+  "name": "Son of Dracula",
+  "aliases": ["Count Alucard", "Alucard"],
+  "emoji": "🩸",
+  "description": "A vampire count who moves to the American South under a thinly disguised name",
+  "origin": "1940s Universal sequel era",
+  "debut": {"medium": "film", "title": "Son of Dracula", "creator": "Universal", "year": 1943},
+  "film": {
+    "title": "Son of Dracula",
+    "year": 1943,
+    "releaseDate": "1943-11-05",
+    "studio": "Universal",
+    "director": "Robert Siodmak",
+    "star": "Lon Chaney Jr.",
+    "makeup": "Jack Pierce",
+    "note": "Directed by Robert Siodmak from a story by his brother Curt, who had written The Wolf Man two years earlier. Special effects by John P. Fulton."
+  },
+  "legend": "By 1943 Universal had moved its vampire from Transylvania to Dark Oaks, a plantation somewhere in the American South. A mysterious Count Alucard arrives at the invitation of Katherine Caldwell, a young heiress with a taste for the occult, and it takes the local doctor an embarrassingly long time to notice that the Count's name is Dracula spelled backwards. Katherine marries him on purpose, planning to borrow his immortality for herself and her mortal sweetheart, which makes her one of the few people in these films to out-scheme a vampire. Lon Chaney Jr., fresh from The Wolf Man, plays a burly, moustached Count, and the film gave the series its first on-screen transformations: the vampire becomes a bat before our eyes, and drifts across the swamp as a wisp of mist, in effects by John P. Fulton.",
+  "myths": [
+    {"claim": "The Count calls himself Alucard, which is Dracula spelled backwards.", "true": true, "explanation": "The reversed name is the film's running joke, and later vampire stories, from comics to the Castlevania games, borrowed the trick."},
+    {"claim": "Bela Lugosi plays the Count's son.", "true": false, "explanation": "Lugosi does not appear. Lon Chaney Jr. plays Alucard, which made him the only actor to play all four of Universal's big monsters: the Wolf Man, Frankenstein's monster, the Mummy and Dracula."},
+    {"claim": "Son of Dracula was the first film to show a vampire turning into a bat on screen.", "true": true, "explanation": "Earlier films cut away from the change. Here John P. Fulton's effects show the bat become the Count, which Turner Classic Movies credits as a screen first."},
+    {"claim": "The film is set in Transylvania.", "true": false, "explanation": "The Count has crossed the Atlantic. The story unfolds at Dark Oaks, a plantation in the American South, complete with swamps and Spanish moss."}
+  ],
+  "quotes": [],
+  "powers": ["Turning into a bat", "Drifting across water as mist", "A hypnotic stare", "Immortality to share with a bride"],
+  "weaknesses": ["The sunrise", "A burning coffin", "Anyone who reads his name backwards", "A bride with plans of her own"],
+  "stats": {"strength": 8, "speed": 7, "cunning": 7, "dread": 8},
+  "legacy": [
+    "House of Frankenstein (1944) and House of Dracula (1945), with John Carradine as the Count",
+    "Abbott and Costello Meet Frankenstein (1948) brought Lugosi back to the cape",
+    "The name Alucard became a vampire in-joke, reused in comics, anime and the Castlevania video games"
+  ],
+  "facts": [
+    "Alucard is Dracula spelled backwards, a disguise that fools the locals for most of the film",
+    "Lon Chaney Jr. is the only actor to play Dracula, the Wolf Man, Frankenstein's monster and the Mummy for Universal",
+    "The story is set at Dark Oaks, a plantation in the American South, rather than in Transylvania",
+    "It was the first film to show a vampire turning into a bat on screen",
+    "Director Robert Siodmak worked from a story by his brother Curt Siodmak, who wrote The Wolf Man",
+    "Katherine Caldwell marries the Count deliberately, hoping to make herself immortal",
+    "The Count meets his end when his coffin is set alight and the sun comes up"
+  ],
+  "hostIntro": "Tonight's guest insists his name is Alucard. Say it backwards, dear viewer, and then check the locks. He's brought the family business to the bayou.",
+  "theme": {"primary": "#800F2F", "accent": "#FF8FA3"}
+}
