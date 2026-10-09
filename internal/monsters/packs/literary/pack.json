@@ -1,0 +1,6 @@
+{
+  "id": "literary",
+  "name": "Literary Monsters",
+  "description": "Monsters born on the page, from a London laboratory to a Danish mead hall.",
+  "order": ["mr-hyde", "dorian-gray", "carmilla", "headless-horseman", "grendel", "jabberwock"]
+}

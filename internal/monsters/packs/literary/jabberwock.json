@@ -1,0 +1,43 @@
+{
+  "id": "jabberwock",
+  "name": "The Jabberwock",
+  "aliases": ["Jabberwock", "Jabberwocky"],
+  "emoji": "🐲",
+  "description": "The nonsense monster with jaws that bite and claws that catch",
+  "origin": "Victorian nonsense verse",
+  "debut": {"medium": "poem", "title": "Jabberwocky", "creator": "Lewis Carroll", "year": 1871},
+  "legend": "The first stanza is older than the rest: Carroll wrote it in 1855, aged 23, for Mischmasch, a magazine he made for his family, under the title 'Stanza of Anglo-Saxon Poetry', complete with mock-scholarly glosses. He built the full poem into Through the Looking-Glass (1871), where Alice finds it printed backwards and has to hold it up to a mirror; later Humpty Dumpty explains that 'slithy' is 'lithe and slimy', packed together 'like a portmanteau', and gave English its word for blended words. John Tenniel's drawing of the beast, with its waistcoat, buck teeth and bat wings, was meant to be the frontispiece, but Carroll polled around thirty mothers on whether it would frighten their children and put the White Knight there instead. 'Chortle' and 'galumph', both invented for the poem, are in the dictionary now, and 'vorpal' has been sharpening swords in fantasy games for decades.",
+  "myths": [
+    {"claim": "The Jabberwock is slain with a vorpal sword.", "true": true, "explanation": "The hero takes 'his vorpal sword in hand', and 'the vorpal blade went snicker-snack'. Nobody, Carroll included, ever said what vorpal means."},
+    {"claim": "Jabberwocky is the name of the monster.", "true": false, "explanation": "The poem is 'Jabberwocky'; the creature is the Jabberwock. Carroll later explained the name as 'jabber' plus the Anglo-Saxon 'wocer', meaning offspring."},
+    {"claim": "The poem is pure nonsense that means nothing.", "true": false, "explanation": "The grammar is perfectly ordinary and the story is clear, as Alice says: somebody killed something. Humpty Dumpty even supplies definitions."},
+    {"claim": "The first stanza was written years before the rest.", "true": true, "explanation": "Carroll wrote it in 1855 for his family magazine Mischmasch as a parody of Anglo-Saxon verse, sixteen years before the novel."},
+    {"claim": "Tenniel's Jabberwock was the book's frontispiece.", "true": false, "explanation": "It was meant to be, but after Carroll asked around thirty mothers whether it was too frightening, the White Knight took its place and the Jabberwock moved inside."}
+  ],
+  "quotes": [
+    {"text": "Beware the Jabberwock, my son! The jaws that bite, the claws that catch!", "speaker": "The hero's father", "source": "Jabberwocky, in Through the Looking-Glass (1871), chapter 1"},
+    {"text": "One, two! One, two! And through and through the vorpal blade went snicker-snack!", "speaker": "Narrator", "source": "Jabberwocky, in Through the Looking-Glass (1871), chapter 1"},
+    {"text": "Somehow it seems to fill my head with ideas—only I don't exactly know what they are! However, somebody killed something: that's clear, at any rate.", "speaker": "Alice", "source": "Through the Looking-Glass (1871), chapter 1"},
+    {"text": "You see it's like a portmanteau—there are two meanings packed up into one word.", "speaker": "Humpty Dumpty", "source": "Through the Looking-Glass (1871), chapter 6"}
+  ],
+  "powers": ["Jaws that bite", "Claws that catch", "Eyes of flame", "Whiffling through the tulgey wood", "Burbling"],
+  "weaknesses": ["A vorpal sword", "A beamish boy", "Going snicker-snack", "Being explained by Humpty Dumpty"],
+  "stats": {"strength": 7, "speed": 6, "cunning": 4, "dread": 6},
+  "legacy": [
+    "Terry Gilliam's Jabberwocky (1977), with Michael Palin",
+    "Tim Burton's Alice in Wonderland (2010), where the Jabberwocky is voiced by Christopher Lee",
+    "The vorpal sword, a treasure of Dungeons & Dragons since the 1970s",
+    "Translations into dozens of languages, each inventing its own nonsense words"
+  ],
+  "facts": [
+    "The poem appears in Through the Looking-Glass, where Alice has to read it in a mirror",
+    "Carroll wrote the first stanza in 1855 for his family magazine Mischmasch",
+    "Humpty Dumpty explains the words to Alice and uses 'portmanteau' for blended words",
+    "The hero kills the Jabberwock with a vorpal sword that goes snicker-snack",
+    "The words chortle and galumph were invented for the poem and are now in the dictionary",
+    "Tenniel's drawing was moved off the frontispiece for being too frightening for children",
+    "The poem also warns of the Jubjub bird and the frumious Bandersnatch"
+  ],
+  "hostIntro": "Tonight's guest came whiffling through the tulgey wood and burbling as it came, so keep clear of the jaws. And the claws. Frankly, keep clear of the whole thing.",
+  "theme": {"primary": "#7B4FBF", "accent": "#E4D6F5"}
+}
