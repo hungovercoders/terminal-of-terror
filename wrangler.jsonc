@@ -14,5 +14,8 @@
     "not_found_handling": "404-page"
   },
   "routes": [{ "pattern": "terminalofterror.com", "custom_domain": true }],
+  // Non-production branches deploy with `wrangler preview`, which needs this
+  // block even when it is empty.
+  "previews": {},
   "observability": { "enabled": true }
 }
