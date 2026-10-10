@@ -1,0 +1,6 @@
+{
+  "id": "mythology",
+  "name": "Classical Mythology",
+  "description": "The monsters of Greece and Rome, who were terrifying heroes three thousand years before Hollywood.",
+  "order": ["medusa", "minotaur", "cerberus", "hydra", "polyphemus", "sphinx"]
+}
