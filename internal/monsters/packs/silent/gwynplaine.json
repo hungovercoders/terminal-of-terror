@@ -23,7 +23,7 @@
     {"claim": "The Joker was modelled on Conrad Veidt's Gwynplaine.", "true": true, "explanation": "Bob Kane, Bill Finger and Jerry Robinson all acknowledged that a photograph of Veidt in the film was the starting point for the Joker's face in 1940."},
     {"claim": "The Man Who Laughs is a talkie.", "true": false, "explanation": "It came out in 1928 with a synchronised score and sound effects, but no spoken lines. Veidt's dental prosthesis reportedly made talking impossible."},
     {"claim": "In Hugo's novel, Gwynplaine is the villain.", "true": false, "explanation": "He is the hero, gentle and loyal, in love with the blind girl Dea, who is the one person who cannot see his face."},
-    {"claim": "The same actor played Cesare in The Cabinet of Dr. Caligari.", "true": true, "explanation": "Conrad Veidt played the sleepwalker in 1920, Gwynplaine in 1928 and Major Strasser in Casablanca in 1942."}
+    {"claim": "Conrad Veidt, who played Gwynplaine, also played Cesare in The Cabinet of Dr. Caligari.", "true": true, "explanation": "Conrad Veidt played the sleepwalker in 1920, Gwynplaine in 1928 and Major Strasser in Casablanca in 1942."}
   ],
   "quotes": [
     {"text": "Ursus and Homo were fast friends.", "speaker": "Narrator", "source": "The Man Who Laughs (1869 English translation), preliminary chapter"}
