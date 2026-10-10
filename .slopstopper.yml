@@ -67,5 +67,10 @@ hygiene:
 # sets; this is for one-offs. `enabled` takes a single check back from a
 # profile.
 workflows:
-  disabled: []
+  # No API here: these four ship with the ui profile but would only skip.
+  disabled:
+    - ss-hygiene-openapi-check.yml
+    - ss-reliability-api-health-check.yml
+    - ss-reliability-api-latency-check.yml
+    - ss-security-api-headers-check.yml
   enabled: []
