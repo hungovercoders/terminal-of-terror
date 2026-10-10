@@ -1,0 +1,18 @@
+// The website, served by Cloudflare as static assets with no Worker script.
+// Workers Builds runs `go run ./site -out dist` on every push and deploys
+// with `npx wrangler deploy`: main goes to terminalofterror.com, other
+// branches get a preview URL. Response headers come from public/_headers.
+{
+  "$schema": "node_modules/wrangler/config-schema.json",
+  "name": "terminal-of-terror",
+  "compatibility_date": "2026-10-10",
+  "assets": {
+    "directory": "./dist",
+    // The site links pages by their .html names; the default handling would
+    // redirect every one of them to an extensionless URL.
+    "html_handling": "none",
+    "not_found_handling": "404-page"
+  },
+  "routes": [{ "pattern": "terminalofterror.com", "custom_domain": true }],
+  "observability": { "enabled": true }
+}

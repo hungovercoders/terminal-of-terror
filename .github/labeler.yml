@@ -36,8 +36,8 @@ tests:
 
 security:
   - changed-files:
-      - any-glob-to-any-file: ['.zap/**', '.gitleaks.toml', 'site/templates/base.html']
+      - any-glob-to-any-file: ['.zap/**', '.gitleaks.toml', 'public/_headers']
 
 config:
   - changed-files:
-      - any-glob-to-any-file: ['.slopstopper.yml']
+      - any-glob-to-any-file: ['.slopstopper.yml', 'wrangler.jsonc']

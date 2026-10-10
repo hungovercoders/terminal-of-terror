@@ -9,6 +9,7 @@ here when your task is not covered there. Read only the doc whose trigger matche
 | ----------------------------------------------- | ----------------------------------------------------------------------- |
 | changing the explorer or any terminal screen    | Read [ui.md](ui.md) for the UI files, render tests and demo re-recording |
 | changing the website generator or its templates | Read [website.md](website.md) for the templates, link tests and local build |
+| changing the site's Content-Security-Policy      | Read [security/CSP_EXCEPTIONS.md](security/CSP_EXCEPTIONS.md) for the baseline's origins and how to register a relaxed page |
 | editing a Night School lesson                   | Read [course-authoring.md](course-authoring.md) for the lesson structure and compile rules |
 | adding monsters, packs or releasing             | Read [CONTRIBUTING.md](../CONTRIBUTING.md) for monster fields, demos and the release steps |
 | learning how the program is built               | Read [course/README.md](../course/README.md) for the 31-night course index |

@@ -24,7 +24,7 @@ func TestBuild(t *testing.T) {
 	if n != want {
 		t.Errorf("wrote %d pages, want %d", n, want)
 	}
-	for _, f := range []string{"index.html", "monsters/index.html", "monsters/dracula.html", "night-school/index.html", "night-school/night-31.html", "404.html", "static/style.css", "static/site.js", "assets/hero.gif", "sitemap.xml", "robots.txt", ".nojekyll"} {
+	for _, f := range []string{"index.html", "monsters/index.html", "monsters/dracula.html", "night-school/index.html", "night-school/night-31.html", "404.html", "static/style.css", "static/site.js", "assets/hero.gif", "sitemap.xml", "robots.txt"} {
 		if _, err := os.Stat(filepath.Join(out, f)); err != nil {
 			t.Errorf("missing %s", f)
 		}
@@ -44,7 +44,7 @@ func TestBuild(t *testing.T) {
 		checkLinks(t, out, "/tot/", p)
 	}
 
-	// GitHub Pages serves 404.html at the missing address, so its links
+	// Cloudflare serves 404.html at the missing address, so its links
 	// must not be relative.
 	notFound, err := os.ReadFile(filepath.Join(out, "404.html"))
 	if err != nil {
@@ -209,16 +209,38 @@ func TestLLMsTxtLinksEverything(t *testing.T) {
 	}
 }
 
-// TestContentSecurityPolicy keeps the <meta> CSP strict: GitHub Pages can't
-// send headers, so this test stands in for the DAST scan's CSP rules.
+// TestContentSecurityPolicy keeps the CSP in public/_headers strict and the
+// pages free of the inline styles and scripts it would block. The build must
+// also publish the file as _headers, where Cloudflare reads it.
 func TestContentSecurityPolicy(t *testing.T) {
 	out := t.TempDir()
-	if _, err := Build(Config{Out: out, BaseURL: "https://example.test/tot/", CourseDir: "../course", AssetsDir: "../docs/assets"}); err != nil {
+	if _, err := Build(Config{Out: out, BaseURL: "https://example.test/tot/", CourseDir: "../course", AssetsDir: "../docs/assets", HeadersFile: "../public/_headers"}); err != nil {
 		t.Fatal(err)
+	}
+	headers, err := os.ReadFile(filepath.Join(out, "_headers"))
+	if err != nil {
+		t.Fatalf("the build should publish _headers: %v", err)
+	}
+	var csp string
+	for _, line := range strings.Split(string(headers), "\n") {
+		if v, ok := strings.CutPrefix(strings.TrimSpace(line), "Content-Security-Policy:"); ok {
+			csp = v
+		}
+	}
+	if csp == "" {
+		t.Fatal("public/_headers sets no Content-Security-Policy")
+	}
+	for _, bad := range []string{"'unsafe-inline'", "'unsafe-eval'"} {
+		if strings.Contains(csp, bad) {
+			t.Errorf("the CSP allows %s", bad)
+		}
+	}
+	if !strings.Contains(csp, "frame-ancestors 'none'") {
+		t.Error("the CSP should forbid framing with frame-ancestors 'none'")
 	}
 	inlineStyle := regexp.MustCompile(`<style|\sstyle="|\son[a-z]+="`)
 	scriptTag := regexp.MustCompile(`<script[^>]*>`)
-	err := filepath.WalkDir(out, func(p string, d fs.DirEntry, err error) error {
+	err = filepath.WalkDir(out, func(p string, d fs.DirEntry, err error) error {
 		if err != nil || d.IsDir() || filepath.Ext(p) != ".html" {
 			return err
 		}
@@ -227,14 +249,6 @@ func TestContentSecurityPolicy(t *testing.T) {
 			return err
 		}
 		page := string(raw)
-		if !strings.Contains(page, `http-equiv="Content-Security-Policy"`) {
-			t.Errorf("%s: no Content-Security-Policy", p)
-		}
-		for _, bad := range []string{"'unsafe-inline'", "'unsafe-eval'"} {
-			if strings.Contains(page, bad) {
-				t.Errorf("%s: the CSP allows %s", p, bad)
-			}
-		}
 		if m := inlineStyle.FindString(page); m != "" {
 			t.Errorf("%s: inline %q, which the CSP blocks; move it to static/", p, m)
 		}
@@ -247,5 +261,21 @@ func TestContentSecurityPolicy(t *testing.T) {
 	})
 	if err != nil {
 		t.Fatal(err)
+	}
+}
+
+func TestIndexRewrites(t *testing.T) {
+	out := t.TempDir()
+	if _, err := Build(Config{Out: out, BaseURL: "https://example.test/", CourseDir: "../course", AssetsDir: "../docs/assets"}); err != nil {
+		t.Fatal(err)
+	}
+	raw, err := os.ReadFile(filepath.Join(out, "_redirects"))
+	if err != nil {
+		t.Fatal(err)
+	}
+	for _, want := range []string{"/ /index.html 200", "/monsters/ /monsters/index.html 200", "/night-school/ /night-school/index.html 200"} {
+		if !strings.Contains(string(raw), want+"\n") {
+			t.Errorf("_redirects is missing %q:\n%s", want, raw)
+		}
 	}
 }

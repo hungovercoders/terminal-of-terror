@@ -1,0 +1,25 @@
+# Response headers for the website, in Cloudflare's _headers format.
+# `go run ./site` copies this file into the output as _headers, Cloudflare
+# applies it to every asset, and `slopstopper serve` applies it locally, so
+# the PR checks see exactly what production sends.
+#
+# The CSP allows no inline styles or scripts: per-monster colours live in
+# static/themes.css and behaviour in static/site.js. TestContentSecurityPolicy
+# in site/site_test.go keeps it that way.
+
+/*
+  Content-Security-Policy: default-src 'self'; script-src 'self' https://cdnjs.cloudflare.com; style-src 'self' https://cdnjs.cloudflare.com; font-src 'self'; img-src 'self' data:; connect-src https://api.github.com; base-uri 'self'; form-action 'self'; object-src 'none'; frame-ancestors 'none'
+  X-Content-Type-Options: nosniff
+  X-Frame-Options: DENY
+  Referrer-Policy: strict-origin-when-cross-origin
+  Permissions-Policy: camera=(), microphone=(), geolocation=(), payment=(), usb=()
+  Cross-Origin-Opener-Policy: same-origin
+  Strict-Transport-Security: max-age=31536000; includeSubDomains
+
+# Screenshots and the social card, embeddable by other sites' link previews.
+/assets/*
+  Cross-Origin-Resource-Policy: cross-origin
+
+# Font files never change in place: a new version gets a new file name.
+/static/fonts/*
+  Cache-Control: public, max-age=31536000, immutable
