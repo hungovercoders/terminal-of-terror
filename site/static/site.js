@@ -25,6 +25,17 @@
     }, 900);
   }
 
+  /* ---- the hero: a still first, the 1.4 MB recording once the page is up ---- */
+  function heroAnimation() {
+    var hero = $("#hero");
+    if (!hero || reduceMotion) return;
+    window.addEventListener("load", function () {
+      var gif = new Image();
+      gif.onload = function () { hero.src = gif.src; };
+      gif.src = hero.getAttribute("data-animated");
+    });
+  }
+
   /* ---- the VCR clock ---- */
   function vcrClock() {
     var clock = $("#clock");
@@ -55,6 +66,15 @@
       }
     };
     setTimeout(step, 1200);
+  }
+
+  /* ---- Night School: syntax highlighting ---- */
+  // highlight.js is deferred after this script; every deferred script has
+  // run by DOMContentLoaded.
+  function highlight() {
+    document.addEventListener("DOMContentLoaded", function () {
+      if (window.hljs) window.hljs.highlightAll();
+    });
   }
 
   /* ---- tabs ---- */
@@ -158,9 +178,12 @@
     var downloads = $("#downloads");
     if (!downloads || !window.fetch) return;
     var repo = downloads.getAttribute("data-repo");
-    fetch("https://api.github.com/repos/" + repo + "/releases/latest", { headers: { Accept: "application/vnd.github+json" } })
-      .then(function (r) { return r.ok ? r.json() : null; })
-      .then(function (rel) {
+    // The list, not /releases/latest, which answers 404 until the first
+    // release and leaves an error in the console.
+    fetch("https://api.github.com/repos/" + repo + "/releases?per_page=10", { headers: { Accept: "application/vnd.github+json" } })
+      .then(function (r) { return r.ok ? r.json() : []; })
+      .then(function (list) {
+        var rel = list.filter(function (r) { return !r.prerelease && !r.draft; })[0];
         if (!rel || !rel.assets) return;
         var v = $("#release-version");
         if (v) v.textContent = rel.tag_name;
@@ -274,8 +297,10 @@
   }
 
   tuneIn();
+  heroAnimation();
   vcrClock();
   typewriter();
+  highlight();
   tabs();
   copyButtons();
   tonight();

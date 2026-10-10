@@ -16,6 +16,7 @@ import (
 	"fmt"
 	"html/template"
 	"io/fs"
+	"math"
 	"math/rand"
 	"net/url"
 	"os"
@@ -92,10 +93,14 @@ func (p Page) URL() string { return p.Site.BaseURL + p.Path }
 
 // Theme is a page's colour scheme.
 type Theme struct {
+	ID      string // the monster's id, naming its class in static/themes.css
 	Primary string
 	Accent  string
 	Silent  bool
 }
+
+// siteDescription is the home page's description and llms.txt's summary.
+const siteDescription = "Meet the classic Universal monsters, world folklore, cryptids, literary monsters, Greek myth and the silent screen in your terminal: an interactive explorer, the Midnight Quiz, Guess the Monster, the Monster Mash and nightly rituals, all hosted by Count Cathode."
 
 // Build writes the whole site and returns how many HTML pages it made.
 func Build(cfg Config) (int, error) {
@@ -137,10 +142,13 @@ func Build(cfg Config) (int, error) {
 	if err := b.copyAssets(); err != nil {
 		return 0, err
 	}
+	if err := writeFile(filepath.Join(cfg.Out, "static", "themes.css"), []byte(themesCSS(packs, all))); err != nil {
+		return 0, err
+	}
 
 	b.render("index.html", Page{
 		Title:       site.Name,
-		Description: "Meet the classic Universal monsters, world folklore, cryptids, literary monsters, Greek myth and the silent screen in your terminal: an interactive explorer, the Midnight Quiz, Guess the Monster, the Monster Mash and nightly rituals, all hosted by Count Cathode.",
+		Description: siteDescription,
 		Section:     "home",
 		Data:        homeData(packs, all, course),
 	})
@@ -180,7 +188,7 @@ func Build(cfg Config) (int, error) {
 	if b.err != nil {
 		return 0, b.err
 	}
-	if err := b.writeExtras(); err != nil {
+	if err := b.writeExtras(packs, course); err != nil {
 		return 0, err
 	}
 	return len(b.pages), nil
@@ -280,6 +288,42 @@ func (b *builder) copyStatic() error {
 	})
 }
 
+// themesCSS gives every monster a class carrying its colours, so pages need
+// no inline styles and the Content-Security-Policy can forbid them. Cards
+// use the monster's own theme; its page uses monsterData's, which turns
+// silent-era monsters grey.
+func themesCSS(packs []monsters.Pack, all []monsters.Monster) string {
+	var sb strings.Builder
+	vars := func(primary, accent string) string {
+		return fmt.Sprintf("--m-primary:%s;--m-accent:%s;--m-text:%s", primary, accent, readable(primary))
+	}
+	for i, m := range all {
+		page := monsterData(packs, all, i).Theme
+		fmt.Fprintf(&sb, ".card.m-%s{%s}\nbody.m-%s{%s}\n", m.ID, vars(m.Theme.Primary, m.Theme.Accent), m.ID, vars(page.Primary, page.Accent))
+	}
+	return sb.String()
+}
+
+// llmsTxt maps the site for AI assistants (llmstxt.org): a summary, then a
+// link to every monster by pack and every Night School lesson.
+func (b *builder) llmsTxt(packs []monsters.Pack, course *Course) string {
+	var sb strings.Builder
+	base := b.site.BaseURL
+	fmt.Fprintf(&sb, "# %s\n\n> %s\n\n", b.site.Name, siteDescription)
+	fmt.Fprintf(&sb, "Install it with `go install github.com/hungovercoders/terminal-of-terror@latest`. Source: %s\n", b.site.Repo)
+	for _, p := range packs {
+		fmt.Fprintf(&sb, "\n## %s\n\n", p.Name)
+		for _, m := range p.Monsters {
+			fmt.Fprintf(&sb, "- [%s](%smonsters/%s.html): %s\n", m.Name, base, m.ID, m.Description)
+		}
+	}
+	sb.WriteString("\n## Count Cathode's Night School\n\n")
+	for _, l := range course.Lessons {
+		fmt.Fprintf(&sb, "- [Night %d: %s](%snight-school/%s.html): %s\n", l.Night, l.Title, base, l.Slug, l.Summary)
+	}
+	return sb.String()
+}
+
 // copyAssets brings the README's GIFs and screenshots along to <out>/assets.
 func (b *builder) copyAssets() error {
 	entries, err := os.ReadDir(b.cfg.AssetsDir)
@@ -302,7 +346,7 @@ func (b *builder) copyAssets() error {
 }
 
 // writeExtras adds the files a static host wants beside the pages.
-func (b *builder) writeExtras() error {
+func (b *builder) writeExtras(packs []monsters.Pack, course *Course) error {
 	var sm strings.Builder
 	sm.WriteString(`<?xml version="1.0" encoding="UTF-8"?>` + "\n")
 	sm.WriteString(`<urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">` + "\n")
@@ -317,6 +361,7 @@ func (b *builder) writeExtras() error {
 	files := map[string]string{
 		"sitemap.xml": sm.String(),
 		"robots.txt":  "User-agent: *\nAllow: /\nSitemap: " + b.site.BaseURL + "sitemap.xml\n",
+		"llms.txt":    b.llmsTxt(packs, course),
 		".nojekyll":   "",
 	}
 	for name, body := range files {
@@ -452,7 +497,7 @@ func monsterData(packs []monsters.Pack, all []monsters.Monster, i int) monsterPa
 	if i+1 < len(all) {
 		d.Next = &all[i+1]
 	}
-	t := &Theme{Primary: m.Theme.Primary, Accent: m.Theme.Accent, Silent: d.Silent}
+	t := &Theme{ID: m.ID, Primary: m.Theme.Primary, Accent: m.Theme.Accent, Silent: d.Silent}
 	if d.Silent {
 		t.Primary, t.Accent = "#F5F5F5", "#BDBDBD"
 	}
@@ -490,12 +535,62 @@ func (d lessonData) Next() *Lesson {
 // ---- template helpers ----
 
 var funcs = template.FuncMap{
-	"pct": func(v int) int { return v * 10 },
 	"json": func(v any) (template.JS, error) {
 		b, err := json.Marshal(v)
 		return template.JS(b), err
 	},
 	"firstAppearance": func(m monsters.Monster) string { return m.FirstAppearance() },
+}
+
+// panelColor is --panel in style.css, the lightest background monster
+// colours sit on, so a colour readable on it is readable everywhere.
+const panelColor = "#1a1425"
+
+// readable lifts a #RRGGBB colour toward white, a step at a time, until
+// small text in it meets WCAG AA (4.5:1) on panelColor. Colours that
+// already pass come back unchanged, so a theme only changes where it must.
+func readable(hex string) string {
+	c, ok := parseHex(hex)
+	if !ok {
+		return hex
+	}
+	bg, _ := parseHex(panelColor)
+	for mix := 0.0; mix <= 1; mix += 0.05 {
+		var lifted [3]float64
+		for i, v := range c {
+			lifted[i] = v + (1-v)*mix
+		}
+		if contrast(lifted, bg) >= 4.5 {
+			return fmt.Sprintf("#%02X%02X%02X", int(lifted[0]*255+0.5), int(lifted[1]*255+0.5), int(lifted[2]*255+0.5))
+		}
+	}
+	return "#FFFFFF"
+}
+
+func parseHex(hex string) ([3]float64, bool) {
+	var r, g, b uint8
+	if n, err := fmt.Sscanf(hex, "#%02x%02x%02x", &r, &g, &b); err != nil || n != 3 {
+		return [3]float64{}, false
+	}
+	return [3]float64{float64(r) / 255, float64(g) / 255, float64(b) / 255}, true
+}
+
+// contrast is the WCAG contrast ratio between two sRGB colours.
+func contrast(a, b [3]float64) float64 {
+	la, lb := luminance(a), luminance(b)
+	return (max(la, lb) + 0.05) / (min(la, lb) + 0.05)
+}
+
+func luminance(c [3]float64) float64 {
+	var lin [3]float64
+	for i, v := range c {
+		if v <= 0.04045 {
+			lin[i] = v / 12.92
+		} else {
+			lin[i] = math.Pow((v+0.055)/1.055, 2.4)
+		}
+	}
+	return 0.2126*lin[0] + 0.7152*lin[1] + 0.0722*lin[2]
 }
 
 // excerpt shortens a paragraph to about n characters on a word boundary,

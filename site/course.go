@@ -132,7 +132,10 @@ func renderMarkdown(src []byte) (template.HTML, error) {
 	if err := markdown.Convert(src, &buf); err != nil {
 		return "", err
 	}
-	return template.HTML(buf.String()), nil
+	// Code blocks scroll sideways on a phone, so keyboard users need to be
+	// able to focus them to scroll.
+	out := strings.ReplaceAll(buf.String(), "<pre><code", `<pre tabindex="0"><code`)
+	return template.HTML(out), nil
 }
 
 // linkRewriter points the lessons' links at the website instead of the

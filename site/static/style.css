@@ -20,6 +20,7 @@
   --gold: #ffd700;
   --sky: #8be9fd;
   --m-primary: var(--orange);
+  --m-text: var(--orange);
   --m-accent: var(--purple);
   --font-display: "Bebas Neue", "Impact", "Arial Narrow", sans-serif;
   --font-body: "IBM Plex Sans", system-ui, sans-serif;
@@ -194,7 +195,7 @@ table.plain thead th { color: var(--ink-faint); font-family: var(--font-mono); f
 
 .tv { background: linear-gradient(160deg, #3a2a1e, #1c130c); border-radius: 22px; padding: 18px 18px 12px; box-shadow: 0 30px 60px rgba(0, 0, 0, 0.6), inset 0 1px 0 rgba(255, 255, 255, 0.08); }
 .tv-screen { background: #000; border-radius: 16px / 22px; padding: 6px; overflow: hidden; box-shadow: inset 0 0 40px rgba(0, 0, 0, 0.9), 0 0 0 3px #0a0806; }
-.tv-screen img { border-radius: 12px / 18px; width: 100%; filter: saturate(1.1) contrast(1.05); }
+.tv-screen img { border-radius: 12px / 18px; width: 100%; height: auto; filter: saturate(1.1) contrast(1.05); }
 .tv figcaption { display: flex; align-items: center; gap: 10px; padding-top: 10px; }
 .knob { width: 14px; height: 14px; border-radius: 50%; background: radial-gradient(circle at 35% 35%, #8a6a4a, #2b1d12); box-shadow: 0 1px 2px #000; }
 .tv-brand { margin-left: auto; font-family: var(--font-mono); font-size: 0.65rem; letter-spacing: 0.3em; color: #a88a6a; }
@@ -252,7 +253,7 @@ table.plain thead th { color: var(--ink-faint); font-family: var(--font-mono); f
 }
 .card:hover { transform: translateY(-3px); box-shadow: 0 12px 30px rgba(0, 0, 0, 0.5), 0 0 24px color-mix(in srgb, var(--m-primary) 35%, transparent); color: var(--ink); }
 .card-emoji { font-size: 2rem; line-height: 1; margin-bottom: 0.2em; }
-.card-name { font-family: var(--font-display); font-size: 1.45rem; letter-spacing: 0.04em; color: var(--m-primary); line-height: 1.05; }
+.card-name { font-family: var(--font-display); font-size: 1.45rem; letter-spacing: 0.04em; color: var(--m-text); line-height: 1.05; }
 .card-meta { font-size: 0.82rem; color: var(--ink-dim); }
 .card-film { font-size: 0.85rem; color: var(--m-accent); }
 .card-desc { font-size: 0.85rem; color: var(--ink-dim); margin-top: 0.4em; }
@@ -290,7 +291,7 @@ table.plain thead th { color: var(--ink-faint); font-family: var(--font-mono); f
 .portrait {
   margin: 0 0 1em; padding: 0.8em; overflow-x: auto;
   font-size: clamp(0.5rem, 1.1vw, 0.72rem); line-height: 1.1;
-  color: var(--m-primary); text-shadow: 0 0 10px color-mix(in srgb, var(--m-primary) 70%, transparent);
+  color: var(--m-text); text-shadow: 0 0 10px color-mix(in srgb, var(--m-primary) 70%, transparent);
   background: #07060b; border: 1px solid color-mix(in srgb, var(--m-primary) 35%, var(--line)); border-radius: var(--radius);
 }
 .dossier { display: grid; grid-template-columns: auto 1fr; gap: 0.25em 0.8em; font-size: 0.9rem; margin: 0 0 1em; }
@@ -325,7 +326,9 @@ table.plain thead th { color: var(--ink-faint); font-family: var(--font-mono); f
 .bar { flex: 1; height: 14px; background: #07060b; border: 1px solid var(--line); border-radius: 999px; overflow: hidden; }
 .bar .fill { display: block; height: 100%; width: var(--v); background: linear-gradient(90deg, var(--m-accent), var(--m-primary)); box-shadow: 0 0 10px color-mix(in srgb, var(--m-primary) 70%, transparent); transition: width 0.9s cubic-bezier(0.2, 0.8, 0.2, 1); }
 .bar.pending .fill { width: 0; }
-.num { font-family: var(--font-mono); color: var(--m-primary); width: 1.6em; text-align: right; }
+.bar.v1 { --v: 10%; } .bar.v2 { --v: 20%; } .bar.v3 { --v: 30%; } .bar.v4 { --v: 40%; } .bar.v5 { --v: 50%; }
+.bar.v6 { --v: 60%; } .bar.v7 { --v: 70%; } .bar.v8 { --v: 80%; } .bar.v9 { --v: 90%; } .bar.v10 { --v: 100%; }
+.num { font-family: var(--font-mono); color: var(--m-text); width: 1.6em; text-align: right; }
 .keys-hint { text-align: center; margin-top: 1.5rem; }
 
 /* silent-era monsters: black and white, with grain and a title card */
@@ -358,7 +361,10 @@ table.plain thead th { color: var(--ink-faint); font-family: var(--font-mono); f
 .prose h3 { font-size: 1.35rem; margin-top: 1.4em; }
 .prose h4 { font-size: 1.1rem; color: var(--purple); margin: 1.2em 0 0.4em; }
 .prose pre { background: #07060b; border: 1px solid var(--line); border-radius: var(--radius); padding: 1em 1.1em; overflow-x: auto; font-size: 0.86rem; line-height: 1.5; }
-.prose pre code.hljs { background: none; padding: 0; }
+.prose pre code.hljs { background: none; padding: 0; overflow: visible; }
+/* The theme's comment colour is too dim to read on the code background. */
+.prose .hljs-comment { color: var(--ink-faint); }
+.prose pre:focus-visible { outline: 2px solid var(--orange); outline-offset: 2px; }
 .prose table { width: 100%; border-collapse: collapse; font-size: 0.93rem; margin: 1em 0; display: block; overflow-x: auto; }
 .prose th, .prose td { text-align: left; padding: 0.45em 0.6em; border-bottom: 1px solid var(--line); vertical-align: top; }
 .prose th { color: var(--purple); }

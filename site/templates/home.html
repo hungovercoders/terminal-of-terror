@@ -17,7 +17,7 @@
     <div class="warning">⚠️ <strong>Viewer discretion is advised.</strong> Side effects may include knowing far too much about 1930s makeup artists, a sudden distrust of huts with chicken legs, and correcting your friends about silver bullets.</div>
   </div>
   <figure class="tv">
-    <div class="tv-screen"><img src="{{$root}}assets/hero.gif" alt="Terminal of Terror: the Channel 13 intro, Dracula's pages, a myth-vs-movie reveal, the silent-film Phantom and a search for 'silver'" loading="eager"></div>
+    <div class="tv-screen"><img id="hero" src="{{$root}}assets/hero-poster.png" data-animated="{{$root}}assets/hero.gif" width="1068" height="678" alt="Terminal of Terror: the Channel 13 intro, Dracula's pages, a myth-vs-movie reveal, the silent-film Phantom and a search for 'silver'" fetchpriority="high"></div>
     <figcaption><span class="knob"></span><span class="knob"></span><span class="tv-brand">CATHODE · CH 13</span></figcaption>
   </figure>
 </section>
@@ -208,7 +208,7 @@ terminal-of-terror random</code></pre>
   <h3>{{.Name}} <code class="chip">--pack {{.ID}}</code></h3>
   <p class="small">{{.Description}}</p>
   <ul class="cards">
-    {{range .Monsters}}<li><a class="card{{if .IsSilent}} silent{{end}}" href="{{$root}}monsters/{{.ID}}.html" style="--m-primary:{{.Theme.Primary}};--m-accent:{{.Theme.Accent}}"><span class="card-emoji">{{.Emoji}}</span><span class="card-name">{{.Name}}</span><span class="card-meta">{{if .Film}}<em>{{.Film.Title}}</em> ({{.Film.Year}}){{else}}{{.Origin}}{{end}}</span></a></li>{{end}}
+    {{range .Monsters}}<li><a class="card m-{{.ID}}{{if .IsSilent}} silent{{end}}" href="{{$root}}monsters/{{.ID}}.html"><span class="card-emoji">{{.Emoji}}</span><span class="card-name">{{.Name}}</span><span class="card-meta">{{if .Film}}<em>{{.Film.Title}}</em> ({{.Film.Year}}){{else}}{{.Origin}}{{end}}</span></a></li>{{end}}
   </ul>
   {{end}}
   <p><a class="btn" href="{{$root}}monsters/index.html">Open the full roster →</a></p>
