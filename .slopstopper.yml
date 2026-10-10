@@ -24,13 +24,12 @@ profile: ui
 # checks and DAST's API mode (api.openapi.spec) hit on a PR, and without it
 # they skip there. Leave it blank if you have no preview environment.
 urls:
-  production: https://hungovercoders.github.io/terminal-of-terror/
+  production: https://terminalofterror.com/
   preview:
 
 # Paths each browser check audits, comma-separated. `/` is the default.
-# Ours are relative (no leading /) because production lives under
-# /terminal-of-terror/ on GitHub Pages, and a leading / would resolve to
-# the host root instead.
+# Relative (no leading /) so they also work if the site is ever served
+# under a sub-path (slopstopper#401).
 # For a larger site, `reliability.coverage.*` in the schema reference
 # derives these from your sitemap or the PR's diff instead.
 pages:
@@ -41,16 +40,16 @@ pages:
   broken_links:  ./
 
 # The site-wide share image the smoke test asserts. '' skips the assertion.
-# GitHub Pages can't set the CORP header the og-image assertion needs; the
-# site's share card is assets/tonight.png.
+# The site's share card; public/_headers gives /assets/* the CORP header.
 smoke:
-  og_image_path: ''
+  og_image_path: /assets/tonight.png
 
 # Your security-headers file, for the CSP-drift check. Common values:
 # public/_headers (Cloudflare Pages / Netlify) or worker/headers.json.
 # null skips the check.
 headers:
-  source: null
+  source: public/_headers
+  format: cloudflare-text
 
 # The README is the project's storefront (install, games, roster, command
 # reference), mirrored on the website's landing page, so it is deliberately

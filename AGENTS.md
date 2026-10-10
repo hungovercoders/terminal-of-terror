@@ -19,9 +19,10 @@ internal/quiz/ mash/     Quiz question generation, Monster Mash fight simulation
 internal/crypt/ store/   Captures and badges; progress saved as JSON in the config dir
 internal/calendar/       Moon phases, Halloween, anniversaries (offline)
 site/                    Website generator (go run ./site), writes site/dist
+wrangler.jsonc public/    Cloudflare hosting (Workers Builds deploys main) and the site's response headers
 course/                  Count Cathode's Night School, the 31-night course (also rendered on the website)
 docs/assets/ docs/demos/ README GIFs and screenshots, and the VHS tapes that record them
-.github/workflows/       ci.yml on every PR, release.yml on v* tags, pages.yml deploys the site, ss-*.yml slopstopper
+.github/workflows/       ci.yml on every PR, release.yml on v* tags, ss-*.yml slopstopper
 ```
 
 ## Rules

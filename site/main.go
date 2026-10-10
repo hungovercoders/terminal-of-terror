@@ -5,8 +5,8 @@
 //	go run ./site                 # writes site/dist
 //	go run ./site -out /tmp/www   # somewhere else
 //
-// .github/workflows/pages.yml runs it on every push to main and publishes
-// the result to GitHub Pages.
+// Cloudflare Workers Builds runs `go run ./site -out dist` on every push to
+// main and serves dist as static assets (see wrangler.jsonc).
 package main
 
 import (
@@ -33,7 +33,7 @@ var siteFS embed.FS
 
 const (
 	repoURL     = "https://github.com/hungovercoders/terminal-of-terror"
-	defaultBase = "https://hungovercoders.github.io/terminal-of-terror/"
+	defaultBase = "https://terminalofterror.com/"
 )
 
 func main() {
@@ -41,9 +41,10 @@ func main() {
 	base := flag.String("base", defaultBase, "public URL of the site, for the sitemap and social cards")
 	course := flag.String("course", "course", "directory holding the Night School lessons")
 	assets := flag.String("assets", "docs/assets", "directory holding the README GIFs and screenshots")
+	headers := flag.String("headers", "public/_headers", "Cloudflare _headers file to publish beside the pages")
 	flag.Parse()
 
-	n, err := Build(Config{Out: *out, BaseURL: *base, CourseDir: *course, AssetsDir: *assets})
+	n, err := Build(Config{Out: *out, BaseURL: *base, CourseDir: *course, AssetsDir: *assets, HeadersFile: *headers})
 	if err != nil {
 		fmt.Fprintln(os.Stderr, "site:", err)
 		os.Exit(1)
@@ -53,10 +54,11 @@ func main() {
 
 // Config says where the site's inputs are and where to write it.
 type Config struct {
-	Out       string
-	BaseURL   string
-	CourseDir string
-	AssetsDir string
+	Out         string
+	BaseURL     string
+	CourseDir   string
+	AssetsDir   string
+	HeadersFile string // copied to <Out>/_headers when set
 }
 
 // Site is what every template can see.
@@ -75,7 +77,7 @@ type Site struct {
 
 // Page is the data handed to a template: the site, the page's own fields
 // and Root, the path back to the site's top level ("" or "../"). The 404
-// page is the exception: GitHub Pages serves it at whatever address was
+// page is the exception: Cloudflare serves it at whatever address was
 // missing, so its Root is the site's absolute path instead.
 type Page struct {
 	Site        Site
@@ -304,6 +306,20 @@ func themesCSS(packs []monsters.Pack, all []monsters.Monster) string {
 	return sb.String()
 }
 
+// indexRewrites serves each section's index.html at its directory URL
+// (/monsters/ → /monsters/index.html). wrangler.jsonc turns off Cloudflare's
+// own HTML handling, which would otherwise redirect every .html link the
+// site uses to an extensionless URL.
+func (b *builder) indexRewrites() string {
+	var sb strings.Builder
+	for _, p := range b.pages {
+		if dir, ok := strings.CutSuffix(p, "index.html"); ok {
+			fmt.Fprintf(&sb, "%s%s %s%s 200\n", b.basePath, dir, b.basePath, p)
+		}
+	}
+	return sb.String()
+}
+
 // llmsTxt maps the site for AI assistants (llmstxt.org): a summary, then a
 // link to every monster by pack and every Night School lesson.
 func (b *builder) llmsTxt(packs []monsters.Pack, course *Course) string {
@@ -362,7 +378,14 @@ func (b *builder) writeExtras(packs []monsters.Pack, course *Course) error {
 		"sitemap.xml": sm.String(),
 		"robots.txt":  "User-agent: *\nAllow: /\nSitemap: " + b.site.BaseURL + "sitemap.xml\n",
 		"llms.txt":    b.llmsTxt(packs, course),
-		".nojekyll":   "",
+		"_redirects":  b.indexRewrites(),
+	}
+	if b.cfg.HeadersFile != "" {
+		headers, err := os.ReadFile(b.cfg.HeadersFile)
+		if err != nil {
+			return fmt.Errorf("headers: %w", err)
+		}
+		files["_headers"] = string(headers)
 	}
 	for name, body := range files {
 		if err := writeFile(filepath.Join(b.cfg.Out, name), []byte(body)); err != nil {
