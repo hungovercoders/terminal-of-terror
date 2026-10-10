@@ -11,28 +11,33 @@
 
 docs:
   - changed-files:
-      - any-glob-to-any-file: ['docs/**', '**/*.md', 'README.md', 'AGENTS.md', 'CLAUDE.md']
+      - any-glob-to-any-file: ['docs/**', '*.md', 'course/**']
 
 ci:
   - changed-files:
-      - any-glob-to-any-file: ['.github/**', 'Taskfile*.yml', '.ss/**', 'install*.sh']
+      - any-glob-to-any-file: ['.github/**', 'Taskfile*.yml', '.ss/**', 'mise.toml', '.goreleaser.yaml', '.githooks/**']
 
 deps:
   - changed-files:
-      - any-glob-to-any-file: ['package.json', 'package-lock.json', 'requirements*.txt', 'pyproject.toml']
+      - any-glob-to-any-file: ['go.mod', 'go.sum', 'package.json', 'package-lock.json']
 
 src:
   - changed-files:
-      - any-glob-to-any-file: ['src/**', 'app/**', 'lib/**', 'components/**']
+      # One file must be Go source or the site, and not a test.
+      - all-globs-to-any-file: ['{main.go,cmd/**/*.go,internal/**/*.go,site/**}', '!**/*_test.go']
+
+monsters:
+  - changed-files:
+      - any-glob-to-any-file: ['internal/monsters/packs/**']
 
 tests:
   - changed-files:
-      - any-glob-to-any-file: ['tests/**', '**/*.test.*', '**/*.spec.*']
+      - any-glob-to-any-file: ['**/*_test.go', '.ss/tests/**']
 
 security:
   - changed-files:
-      - any-glob-to-any-file: ['.zap/**', '.gitleaks.toml', 'docs/security/**']
+      - any-glob-to-any-file: ['.zap/**', '.gitleaks.toml', 'site/templates/base.html']
 
 config:
   - changed-files:
-      - any-glob-to-any-file: ['.slopstopper.yml', 'wrangler.jsonc', 'vercel.json', 'netlify.toml']
+      - any-glob-to-any-file: ['.slopstopper.yml']

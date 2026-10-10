@@ -73,4 +73,7 @@ workflows:
     - ss-reliability-api-health-check.yml
     - ss-reliability-api-latency-check.yml
     - ss-security-api-headers-check.yml
+    # The doc updater's prompt describes slopstopper itself (slopstopper#411).
+    - ss-hygiene-doc-updater.md
+    - ss-hygiene-doc-updater.lock.yml
   enabled: []
