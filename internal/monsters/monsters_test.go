@@ -23,65 +23,91 @@ func TestMonsterData(t *testing.T) {
 				t.Errorf("duplicate id %q", m.ID)
 			}
 			seen[m.ID] = true
-
-			for field, v := range map[string]string{
-				"id": m.ID, "name": m.Name, "emoji": m.Emoji, "description": m.Description,
-				"origin": m.Origin, "legend": m.Legend, "pack": m.Pack,
-				"debut.medium": m.Debut.Medium, "debut.title": m.Debut.Title, "ascii": m.ASCII,
-			} {
-				if strings.TrimSpace(v) == "" {
-					t.Errorf("%s is empty", field)
-				}
-			}
-			for _, r := range m.ASCII {
-				// Wide or right-to-left characters break alignment and the fog in Guess the Monster.
-				if r > 0x2FFF || (r >= 0x0590 && r <= 0x08FF) {
-					t.Errorf("ASCII art uses %q; stick to single-width, left-to-right characters", r)
-					break
-				}
-			}
-			if m.Debut.Year == 0 && m.Debut.Era == "" {
-				t.Error("debut needs a year or an era")
-			}
-			if len(m.Facts) < 5 {
-				t.Errorf("want at least 5 facts, got %d", len(m.Facts))
-			}
-			if len(m.Myths) < 3 {
-				t.Errorf("want at least 3 myth checks, got %d", len(m.Myths))
-			}
-			for _, my := range m.Myths {
-				if my.Claim == "" || my.Explanation == "" {
-					t.Errorf("incomplete myth check: %+v", my)
-				}
-			}
-			for _, q := range m.Quotes {
-				if q.Text == "" || q.Speaker == "" || q.Source == "" {
-					t.Errorf("incomplete quote: %+v", q)
-				}
-			}
-			if len(m.Powers) < 2 || len(m.Weaknesses) < 2 {
-				t.Error("want at least 2 powers and 2 weaknesses")
-			}
-			for name, s := range map[string]int{
-				"strength": m.Stats.Strength, "speed": m.Stats.Speed,
-				"cunning": m.Stats.Cunning, "dread": m.Stats.Dread,
-			} {
-				if s < 1 || s > 10 {
-					t.Errorf("stat %s = %d, want 1-10", name, s)
-				}
-			}
-			if !hexColor.MatchString(m.Theme.Primary) || !hexColor.MatchString(m.Theme.Accent) {
-				t.Errorf("theme colours must be #RRGGBB: %+v", m.Theme)
-			}
-			if f := m.Film; f != nil {
-				if f.Title == "" || f.Year == 0 || f.Director == "" || f.Star == "" {
-					t.Errorf("incomplete film: %+v", f)
-				}
-				if f.ReleaseDate != "" && !isoDate.MatchString(f.ReleaseDate) {
-					t.Errorf("releaseDate %q must be YYYY-MM-DD", f.ReleaseDate)
-				}
-			}
+			checkRequired(t, m)
+			checkASCII(t, m.ASCII)
+			checkStories(t, m)
+			checkStatsAndTheme(t, m)
+			checkFilm(t, m.Film)
 		})
+	}
+}
+
+func checkRequired(t *testing.T, m Monster) {
+	t.Helper()
+	for field, v := range map[string]string{
+		"id": m.ID, "name": m.Name, "emoji": m.Emoji, "description": m.Description,
+		"origin": m.Origin, "legend": m.Legend, "pack": m.Pack,
+		"debut.medium": m.Debut.Medium, "debut.title": m.Debut.Title, "ascii": m.ASCII,
+	} {
+		if strings.TrimSpace(v) == "" {
+			t.Errorf("%s is empty", field)
+		}
+	}
+	if m.Debut.Year == 0 && m.Debut.Era == "" {
+		t.Error("debut needs a year or an era")
+	}
+}
+
+// checkASCII rejects wide or right-to-left characters, which break
+// alignment and the fog in Guess the Monster.
+func checkASCII(t *testing.T, art string) {
+	t.Helper()
+	for _, r := range art {
+		if r > 0x2FFF || (r >= 0x0590 && r <= 0x08FF) {
+			t.Errorf("ASCII art uses %q; stick to single-width, left-to-right characters", r)
+			return
+		}
+	}
+}
+
+func checkStories(t *testing.T, m Monster) {
+	t.Helper()
+	if len(m.Facts) < 5 {
+		t.Errorf("want at least 5 facts, got %d", len(m.Facts))
+	}
+	if len(m.Myths) < 3 {
+		t.Errorf("want at least 3 myth checks, got %d", len(m.Myths))
+	}
+	for _, my := range m.Myths {
+		if my.Claim == "" || my.Explanation == "" {
+			t.Errorf("incomplete myth check: %+v", my)
+		}
+	}
+	for _, q := range m.Quotes {
+		if q.Text == "" || q.Speaker == "" || q.Source == "" {
+			t.Errorf("incomplete quote: %+v", q)
+		}
+	}
+}
+
+func checkStatsAndTheme(t *testing.T, m Monster) {
+	t.Helper()
+	if len(m.Powers) < 2 || len(m.Weaknesses) < 2 {
+		t.Error("want at least 2 powers and 2 weaknesses")
+	}
+	for name, s := range map[string]int{
+		"strength": m.Stats.Strength, "speed": m.Stats.Speed,
+		"cunning": m.Stats.Cunning, "dread": m.Stats.Dread,
+	} {
+		if s < 1 || s > 10 {
+			t.Errorf("stat %s = %d, want 1-10", name, s)
+		}
+	}
+	if !hexColor.MatchString(m.Theme.Primary) || !hexColor.MatchString(m.Theme.Accent) {
+		t.Errorf("theme colours must be #RRGGBB: %+v", m.Theme)
+	}
+}
+
+func checkFilm(t *testing.T, f *Film) {
+	t.Helper()
+	if f == nil {
+		return
+	}
+	if f.Title == "" || f.Year == 0 || f.Director == "" || f.Star == "" {
+		t.Errorf("incomplete film: %+v", f)
+	}
+	if f.ReleaseDate != "" && !isoDate.MatchString(f.ReleaseDate) {
+		t.Errorf("releaseDate %q must be YYYY-MM-DD", f.ReleaseDate)
 	}
 }
 

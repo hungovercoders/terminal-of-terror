@@ -27,7 +27,7 @@
 
 <div class="monster-body">
   <aside class="portrait-col">
-    {{if $d.Art}}<pre class="portrait" id="portrait" data-art="{{$d.Art}}" aria-label="ASCII portrait of {{$m.Name}}">{{$d.Art}}</pre>{{end}}
+    {{if $d.Art}}<pre class="portrait" id="portrait" data-art="{{$d.Art}}" role="img" aria-label="ASCII portrait of {{$m.Name}}">{{$d.Art}}</pre>{{end}}
     <dl class="dossier">
       <dt>Origin</dt><dd>{{$m.Origin}}</dd>
       <dt>First appeared</dt><dd>{{firstAppearance $m}}</dd>
@@ -91,7 +91,7 @@
     <section id="stats">
       <h2>🃏 Stat Card</h2>
       <dl class="statbars">
-        {{range $d.Stats}}<div class="statrow"><dt>{{.Name}}</dt><dd><span class="bar" style="--v:{{pct .Value}}%"><span class="fill"></span></span><span class="num">{{.Value}}</span></dd></div>{{end}}
+        {{range $d.Stats}}<div class="statrow"><dt>{{.Name}}</dt><dd><span class="bar v{{.Value}}"><span class="fill"></span></span><span class="num">{{.Value}}</span></dd></div>{{end}}
       </dl>
       <div class="split">
         <div><h3>⚡ Powers</h3><ul>{{range $m.Powers}}<li>{{.}}</li>{{end}}</ul></div>

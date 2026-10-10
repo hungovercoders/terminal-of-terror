@@ -38,7 +38,13 @@ func TestLoadUserPacks(t *testing.T) {
 	if len(errs) != 2 {
 		t.Fatalf("want 2 load errors (broken + nameless), got %v", errs)
 	}
-	errs = AddPacks(loaded)
+	checkClashes(t, AddPacks(loaded))
+	checkDefaults(t)
+	checkPackFilter(t)
+}
+
+func checkClashes(t *testing.T, errs []error) {
+	t.Helper()
 	if len(errs) != 2 {
 		t.Fatalf("want 2 clash errors (monster id, pack id), got %v", errs)
 	}
@@ -49,7 +55,10 @@ func TestLoadUserPacks(t *testing.T) {
 	if m := GetMonsterByName("the thing"); m != nil {
 		t.Error("a community pack with a built-in id must not load")
 	}
+}
 
+func checkDefaults(t *testing.T) {
+	t.Helper()
 	m := GetMonsterByName("bloody mary")
 	if m == nil {
 		t.Fatal("bloody-mary not loaded")
@@ -57,7 +66,10 @@ func TestLoadUserPacks(t *testing.T) {
 	if m.Pack != "urban-legends" || m.Emoji == "" || m.Stats.Strength != 5 || m.ASCII != " (o o)" || m.Debut.Era == "" {
 		t.Errorf("defaults not applied: %+v", m)
 	}
+}
 
+func checkPackFilter(t *testing.T) {
+	t.Helper()
 	if err := UsePacks([]string{"urban-legends"}); err != nil {
 		t.Fatal(err)
 	}

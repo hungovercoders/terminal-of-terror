@@ -1,6 +1,7 @@
 package main
 
 import (
+	"io/fs"
 	"os"
 	"path/filepath"
 	"regexp"
@@ -14,7 +15,7 @@ import (
 // and that no internal link points at a file that wasn't written.
 func TestBuild(t *testing.T) {
 	out := t.TempDir()
-	n, err := Build(Config{Out: out, BaseURL: "https://example.test/tot/", CourseDir: "../docs/course", AssetsDir: "../docs/assets"})
+	n, err := Build(Config{Out: out, BaseURL: "https://example.test/tot/", CourseDir: "../course", AssetsDir: "../docs/assets"})
 	if err != nil {
 		t.Fatal(err)
 	}
@@ -103,7 +104,7 @@ func checkLinks(t *testing.T, root, basePath, page string) {
 
 func TestMonsterPageContent(t *testing.T) {
 	out := t.TempDir()
-	if _, err := Build(Config{Out: out, BaseURL: "https://example.test/", CourseDir: "../docs/course", AssetsDir: "../docs/assets"}); err != nil {
+	if _, err := Build(Config{Out: out, BaseURL: "https://example.test/", CourseDir: "../course", AssetsDir: "../docs/assets"}); err != nil {
 		t.Fatal(err)
 	}
 	for _, m := range monsters.EveryMonster() {
@@ -128,7 +129,7 @@ func TestRewriteLink(t *testing.T) {
 		"night-02.md":            "night-02.html",
 		"README.md":              "index.html",
 		"README.md#before-night": "index.html#before-night",
-		"../../cmd/list.go":      repoURL + "/blob/main/cmd/list.go",
+		"../cmd/list.go":         repoURL + "/blob/main/cmd/list.go",
 		"https://go.dev/dl/":     "https://go.dev/dl/",
 		"#try-it":                "#try-it",
 	}
@@ -140,7 +141,7 @@ func TestRewriteLink(t *testing.T) {
 }
 
 func TestLessonLinksAreRewritten(t *testing.T) {
-	c, err := loadCourse("../docs/course")
+	c, err := loadCourse("../course")
 	if err != nil {
 		t.Fatal(err)
 	}
@@ -166,4 +167,85 @@ func TestLessonLinksAreRewritten(t *testing.T) {
 func htmlEscape(s string) string {
 	r := strings.NewReplacer("&", "&amp;", "<", "&lt;", ">", "&gt;", `"`, "&#34;", "'", "&#39;")
 	return r.Replace(s)
+}
+
+func TestThemeTextIsReadable(t *testing.T) {
+	bg, _ := parseHex(panelColor)
+	for _, m := range monsters.EveryMonster() {
+		text := readable(m.Theme.Primary)
+		c, ok := parseHex(text)
+		if !ok {
+			t.Fatalf("%s: readable(%q) = %q, not a colour", m.ID, m.Theme.Primary, text)
+		}
+		if r := contrast(c, bg); r < 4.5 {
+			t.Errorf("%s: %s is %.2f:1 on the panel, want at least 4.5:1", m.ID, text, r)
+		}
+	}
+	if got := readable("#FFFFFF"); got != "#FFFFFF" {
+		t.Errorf("a colour that already passes should not change, got %s", got)
+	}
+}
+
+func TestLLMsTxtLinksEverything(t *testing.T) {
+	out := t.TempDir()
+	if _, err := Build(Config{Out: out, BaseURL: "https://example.test/tot/", CourseDir: "../course", AssetsDir: "../docs/assets"}); err != nil {
+		t.Fatal(err)
+	}
+	raw, err := os.ReadFile(filepath.Join(out, "llms.txt"))
+	if err != nil {
+		t.Fatal(err)
+	}
+	text := string(raw)
+	if !strings.HasPrefix(text, "# Terminal of Terror\n\n> ") {
+		t.Errorf("llms.txt should open with an H1 and a summary, got %q", text[:min(len(text), 60)])
+	}
+	for _, m := range monsters.EveryMonster() {
+		if !strings.Contains(text, "(https://example.test/tot/monsters/"+m.ID+".html)") {
+			t.Errorf("llms.txt has no link to %s", m.ID)
+		}
+	}
+	if n := strings.Count(text, "(https://example.test/tot/night-school/night-"); n != 31 {
+		t.Errorf("llms.txt links %d lessons, want 31", n)
+	}
+}
+
+// TestContentSecurityPolicy keeps the <meta> CSP strict: GitHub Pages can't
+// send headers, so this test stands in for the DAST scan's CSP rules.
+func TestContentSecurityPolicy(t *testing.T) {
+	out := t.TempDir()
+	if _, err := Build(Config{Out: out, BaseURL: "https://example.test/tot/", CourseDir: "../course", AssetsDir: "../docs/assets"}); err != nil {
+		t.Fatal(err)
+	}
+	inlineStyle := regexp.MustCompile(`<style|\sstyle="|\son[a-z]+="`)
+	scriptTag := regexp.MustCompile(`<script[^>]*>`)
+	err := filepath.WalkDir(out, func(p string, d fs.DirEntry, err error) error {
+		if err != nil || d.IsDir() || filepath.Ext(p) != ".html" {
+			return err
+		}
+		raw, err := os.ReadFile(p)
+		if err != nil {
+			return err
+		}
+		page := string(raw)
+		if !strings.Contains(page, `http-equiv="Content-Security-Policy"`) {
+			t.Errorf("%s: no Content-Security-Policy", p)
+		}
+		for _, bad := range []string{"'unsafe-inline'", "'unsafe-eval'"} {
+			if strings.Contains(page, bad) {
+				t.Errorf("%s: the CSP allows %s", p, bad)
+			}
+		}
+		if m := inlineStyle.FindString(page); m != "" {
+			t.Errorf("%s: inline %q, which the CSP blocks; move it to static/", p, m)
+		}
+		for _, tag := range scriptTag.FindAllString(page, -1) {
+			if !strings.Contains(tag, "src=") && !strings.Contains(tag, `type="application/json"`) {
+				t.Errorf("%s: inline script %q, which the CSP blocks; move it to static/site.js", p, tag)
+			}
+		}
+		return nil
+	})
+	if err != nil {
+		t.Fatal(err)
+	}
 }

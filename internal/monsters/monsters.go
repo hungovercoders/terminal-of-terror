@@ -185,70 +185,92 @@ func packRank(id string) string {
 // loadPack reads one pack directory. Files that can't be read are
 // skipped and reported, so one bad monster doesn't sink the whole pack.
 func loadPack(fsys fs.FS, dir string) (Pack, []error) {
-	var p Pack
-	var errs []error
-	raw, err := fs.ReadFile(fsys, path.Join(dir, "pack.json"))
-	switch {
-	case errors.Is(err, fs.ErrNotExist):
-		p.Name = dir // pack.json is optional for community packs
-	case err != nil:
+	p, err := readPackMeta(fsys, dir)
+	if err != nil {
 		return p, []error{err}
-	default:
-		if err := json.Unmarshal(raw, &p); err != nil {
-			return p, []error{fmt.Errorf("pack.json: %w", err)}
-		}
 	}
-	if p.ID == "" {
-		p.ID = dir
-	}
-
 	files, err := fs.Glob(fsys, path.Join(dir, "*.json"))
 	if err != nil {
 		return p, []error{err}
 	}
+	var errs []error
 	byID := map[string]Monster{}
 	for _, f := range files {
 		if path.Base(f) == "pack.json" {
 			continue
 		}
-		raw, err := fs.ReadFile(fsys, f)
+		m, err := readMonster(fsys, dir, f)
 		if err != nil {
 			errs = append(errs, err)
 			continue
 		}
-		var m Monster
-		if err := json.Unmarshal(raw, &m); err != nil {
-			errs = append(errs, fmt.Errorf("%s: %w", path.Base(f), err))
-			continue
-		}
-		if m.ID == "" {
-			m.ID = strings.TrimSuffix(path.Base(f), ".json")
-		}
-		if art, err := fs.ReadFile(fsys, path.Join(dir, m.ID+".txt")); err == nil {
-			// Normalise Windows line endings; a stray \r would garble the layout.
-			text := strings.ReplaceAll(string(art), "\r\n", "\n")
-			m.ASCII = strings.TrimRight(strings.ReplaceAll(text, "\r", ""), "\n")
-		}
 		m.Pack = p.ID
 		byID[m.ID] = m
 	}
+	p.Monsters = ordered(p.Order, byID)
+	return p, errs
+}
 
-	// Listed monsters first, in the pack's chosen order, then any extras.
-	for _, id := range p.Order {
+// readPackMeta reads dir/pack.json, which is optional for community packs.
+func readPackMeta(fsys fs.FS, dir string) (Pack, error) {
+	var p Pack
+	raw, err := fs.ReadFile(fsys, path.Join(dir, "pack.json"))
+	switch {
+	case errors.Is(err, fs.ErrNotExist):
+		p.Name = dir
+	case err != nil:
+		return p, err
+	default:
+		if err := json.Unmarshal(raw, &p); err != nil {
+			return p, fmt.Errorf("pack.json: %w", err)
+		}
+	}
+	if p.ID == "" {
+		p.ID = dir
+	}
+	return p, nil
+}
+
+// readMonster reads one monster file and its ASCII art, if any.
+func readMonster(fsys fs.FS, dir, file string) (Monster, error) {
+	var m Monster
+	raw, err := fs.ReadFile(fsys, file)
+	if err != nil {
+		return m, err
+	}
+	if err := json.Unmarshal(raw, &m); err != nil {
+		return m, fmt.Errorf("%s: %w", path.Base(file), err)
+	}
+	if m.ID == "" {
+		m.ID = strings.TrimSuffix(path.Base(file), ".json")
+	}
+	if art, err := fs.ReadFile(fsys, path.Join(dir, m.ID+".txt")); err == nil {
+		// Normalise Windows line endings; a stray \r would garble the layout.
+		text := strings.ReplaceAll(string(art), "\r\n", "\n")
+		m.ASCII = strings.TrimRight(strings.ReplaceAll(text, "\r", ""), "\n")
+	}
+	return m, nil
+}
+
+// ordered lists the monsters named in order first, in that order, then any
+// extras sorted by id.
+func ordered(order []string, byID map[string]Monster) []Monster {
+	var out []Monster
+	for _, id := range order {
 		if m, ok := byID[id]; ok {
-			p.Monsters = append(p.Monsters, m)
+			out = append(out, m)
 			delete(byID, id)
 		}
 	}
-	var rest []string
+	rest := make([]string, 0, len(byID))
 	for id := range byID {
 		rest = append(rest, id)
 	}
 	sort.Strings(rest)
 	for _, id := range rest {
-		p.Monsters = append(p.Monsters, byID[id])
+		out = append(out, byID[id])
 	}
-	return p, errs
+	return out
 }
 
 // GetAllMonsters returns all available monsters

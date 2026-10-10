@@ -324,103 +324,127 @@ func (m model) artBox(mo monsters.Monster, p palette) string {
 }
 
 func (m model) tabContent(t tab, mo monsters.Monster, p palette, w int) string {
-	body := lipgloss.NewStyle().Foreground(p.body)
-	var b strings.Builder
-	heading := func(s string) { b.WriteString(headingStyle.Render(s) + "\n\n") }
-
+	tc := tabCtx{mo: mo, p: p, w: w, body: lipgloss.NewStyle().Foreground(p.body)}
 	switch t {
 	case tabFacts:
-		heading("Terrifying Facts")
-		for _, f := range mo.Facts {
-			b.WriteString(bullet(f, w, body) + "\n")
-		}
-		b.WriteString("\n" + metaStyle.Render(wrap("Origin: "+mo.Origin, w)))
-		b.WriteString("\n" + metaStyle.Render(wrap("First appearance: "+mo.FirstAppearance(), w)))
-
+		tc.facts()
 	case tabLegend:
-		heading("The Legend Behind the Monster")
-		b.WriteString(body.Render(wrap(mo.Legend, w)) + "\n\n")
-		b.WriteString(metaStyle.Render(wrap("Origin: "+mo.Origin, w)))
-
+		tc.legend()
 	case tabFilm:
-		f := mo.Film
-		heading(fmt.Sprintf("🎬 %s (%d)", f.Title, f.Year))
-		row := func(label, value string) {
-			if value != "" {
-				b.WriteString(metaStyle.Render(fmt.Sprintf("%-19s", label)) + body.Render(wrap(value, max(w-19, 10))) + "\n")
-			}
-		}
-		row("Studio", f.Studio)
-		row("Director", f.Director)
-		row("Monster played by", f.Star)
-		row("Makeup", f.Makeup)
-		row("Released", formatDate(f.ReleaseDate))
-		if f.Silent {
-			row("Format", "Silent picture")
-		}
-		if f.Note != "" {
-			b.WriteString("\n" + body.Render(wrap(f.Note, w)))
-		}
-
+		tc.film()
 	case tabMyths:
-		if mo.Film == nil {
-			heading("Myth or Fact?")
-		} else {
-			heading("Myth vs Movie")
-		}
-		if !m.revealed {
-			b.WriteString(hostStyle.Render(wrap("True or false? Make your guesses, then press r to reveal the verdicts.", w)) + "\n\n")
-		}
-		for i, my := range mo.Myths {
-			b.WriteString(body.Render(wrap(fmt.Sprintf("%d. %s", i+1, my.Claim), w)) + "\n")
-			switch {
-			case !m.revealed:
-				b.WriteString(helpStyle.Render("   ? ? ?") + "\n\n")
-			case my.True:
-				b.WriteString(verdict(trueStyle.Render("✔ TRUE"), my.Explanation, w) + "\n\n")
-			default:
-				b.WriteString(verdict(mythStyle.Render("✘ MYTH"), my.Explanation, w) + "\n\n")
-			}
-		}
-
+		tc.myths(m.revealed)
 	case tabQuotes:
-		heading("In Their Own Words")
-		quote := lipgloss.NewStyle().
-			Border(lipgloss.ThickBorder(), false, false, false, true).
-			BorderForeground(p.primary).
-			PaddingLeft(1)
-		for _, q := range mo.Quotes {
-			text := body.Italic(true).Render(wrap("“"+q.Text+"”", w-4)) + "\n" +
-				helpStyle.Render(wrap("— "+q.Speaker+", "+q.Source, w-4))
-			b.WriteString(quote.Render(text) + "\n\n")
-		}
-
+		tc.quotes()
 	case tabStats:
-		heading("Stat Card")
-		s := mo.Stats
-		for _, st := range []struct {
-			name string
-			v    int
-		}{{"Strength", s.Strength}, {"Speed", s.Speed}, {"Cunning", s.Cunning}, {"Dread", s.Dread}} {
-			b.WriteString(metaStyle.Render(fmt.Sprintf("%-9s", st.name)) + statBar(st.v, p) + "\n")
-		}
-		b.WriteString("\n" + headingStyle.Render("Powers") + "\n")
-		for _, pw := range mo.Powers {
-			b.WriteString(bullet(pw, w, body) + "\n")
-		}
-		b.WriteString("\n" + headingStyle.Render("Weaknesses") + "\n")
-		for _, wk := range mo.Weaknesses {
-			b.WriteString(bullet(wk, w, body) + "\n")
-		}
-		b.WriteString("\n" + helpStyle.Render("Stats are just for fun."))
-
+		tc.stats()
 	case tabLegacy:
-		heading("Sequels, Remakes & Legacy")
-		for _, l := range mo.Legacy {
-			b.WriteString(bullet(l, w, body) + "\n")
+		tc.heading("Sequels, Remakes & Legacy")
+		tc.bullets(mo.Legacy)
+	}
+	return strings.TrimRight(tc.b.String(), "\n")
+}
+
+// tabCtx renders one tab of a monster's page into b.
+type tabCtx struct {
+	mo   monsters.Monster
+	p    palette
+	w    int
+	body lipgloss.Style
+	b    strings.Builder
+}
+
+func (tc *tabCtx) heading(s string) { tc.b.WriteString(headingStyle.Render(s) + "\n\n") }
+
+func (tc *tabCtx) bullets(items []string) {
+	for _, it := range items {
+		tc.b.WriteString(bullet(it, tc.w, tc.body) + "\n")
+	}
+}
+
+func (tc *tabCtx) facts() {
+	tc.heading("Terrifying Facts")
+	tc.bullets(tc.mo.Facts)
+	tc.b.WriteString("\n" + metaStyle.Render(wrap("Origin: "+tc.mo.Origin, tc.w)))
+	tc.b.WriteString("\n" + metaStyle.Render(wrap("First appearance: "+tc.mo.FirstAppearance(), tc.w)))
+}
+
+func (tc *tabCtx) legend() {
+	tc.heading("The Legend Behind the Monster")
+	tc.b.WriteString(tc.body.Render(wrap(tc.mo.Legend, tc.w)) + "\n\n")
+	tc.b.WriteString(metaStyle.Render(wrap("Origin: "+tc.mo.Origin, tc.w)))
+}
+
+func (tc *tabCtx) film() {
+	f := tc.mo.Film
+	tc.heading(fmt.Sprintf("🎬 %s (%d)", f.Title, f.Year))
+	row := func(label, value string) {
+		if value != "" {
+			tc.b.WriteString(metaStyle.Render(fmt.Sprintf("%-19s", label)) + tc.body.Render(wrap(value, max(tc.w-19, 10))) + "\n")
 		}
 	}
-	return strings.TrimRight(b.String(), "\n")
+	row("Studio", f.Studio)
+	row("Director", f.Director)
+	row("Monster played by", f.Star)
+	row("Makeup", f.Makeup)
+	row("Released", formatDate(f.ReleaseDate))
+	if f.Silent {
+		row("Format", "Silent picture")
+	}
+	if f.Note != "" {
+		tc.b.WriteString("\n" + tc.body.Render(wrap(f.Note, tc.w)))
+	}
+}
+
+func (tc *tabCtx) myths(revealed bool) {
+	if tc.mo.Film == nil {
+		tc.heading("Myth or Fact?")
+	} else {
+		tc.heading("Myth vs Movie")
+	}
+	if !revealed {
+		tc.b.WriteString(hostStyle.Render(wrap("True or false? Make your guesses, then press r to reveal the verdicts.", tc.w)) + "\n\n")
+	}
+	for i, my := range tc.mo.Myths {
+		tc.b.WriteString(tc.body.Render(wrap(fmt.Sprintf("%d. %s", i+1, my.Claim), tc.w)) + "\n")
+		switch {
+		case !revealed:
+			tc.b.WriteString(helpStyle.Render("   ? ? ?") + "\n\n")
+		case my.True:
+			tc.b.WriteString(verdict(trueStyle.Render("✔ TRUE"), my.Explanation, tc.w) + "\n\n")
+		default:
+			tc.b.WriteString(verdict(mythStyle.Render("✘ MYTH"), my.Explanation, tc.w) + "\n\n")
+		}
+	}
+}
+
+func (tc *tabCtx) quotes() {
+	tc.heading("In Their Own Words")
+	quote := lipgloss.NewStyle().
+		Border(lipgloss.ThickBorder(), false, false, false, true).
+		BorderForeground(tc.p.primary).
+		PaddingLeft(1)
+	for _, q := range tc.mo.Quotes {
+		text := tc.body.Italic(true).Render(wrap("“"+q.Text+"”", tc.w-4)) + "\n" +
+			helpStyle.Render(wrap("— "+q.Speaker+", "+q.Source, tc.w-4))
+		tc.b.WriteString(quote.Render(text) + "\n\n")
+	}
+}
+
+func (tc *tabCtx) stats() {
+	tc.heading("Stat Card")
+	s := tc.mo.Stats
+	for _, st := range []struct {
+		name string
+		v    int
+	}{{"Strength", s.Strength}, {"Speed", s.Speed}, {"Cunning", s.Cunning}, {"Dread", s.Dread}} {
+		tc.b.WriteString(metaStyle.Render(fmt.Sprintf("%-9s", st.name)) + statBar(st.v, tc.p) + "\n")
+	}
+	tc.b.WriteString("\n" + headingStyle.Render("Powers") + "\n")
+	tc.bullets(tc.mo.Powers)
+	tc.b.WriteString("\n" + headingStyle.Render("Weaknesses") + "\n")
+	tc.bullets(tc.mo.Weaknesses)
+	tc.b.WriteString("\n" + helpStyle.Render("Stats are just for fun."))
 }
 
 // ---- search ----

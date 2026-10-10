@@ -4,7 +4,7 @@ The tutorial that used to live here has grown into a course: **Count Cathode's N
 
 📺 *"Thirty-one nights. Bring a blanket."*
 
-**Start here: [docs/course/README.md](docs/course/README.md)**
+**Start here: [course/README.md](course/README.md)**
 
 - Nights 1 to 14 are build-along: type the code, run it, see it work.
 - Nights 15 to 31 teach the ideas behind the finished program and point at the files in this repository.

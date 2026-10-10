@@ -19,7 +19,7 @@ import (
 
 // Course is Count Cathode's Night School: the index page and its lessons.
 type Course struct {
-	Intro   template.HTML // the index, rendered from docs/course/README.md
+	Intro   template.HTML // the index, rendered from course/README.md
 	Weeks   []Week
 	Lessons []Lesson
 }
@@ -50,7 +50,7 @@ var (
 	footerRe = regexp.MustCompile(`(?m)^(?:\[[^\]]*\]\((?:night-\d+|README)\.md\)(?: · )?)+\s*$`)
 )
 
-// loadCourse reads docs/course and renders every page to HTML.
+// loadCourse reads course/ and renders every page to HTML.
 func loadCourse(dir string) (*Course, error) {
 	raw, err := os.ReadFile(filepath.Join(dir, "README.md"))
 	if err != nil {
@@ -132,12 +132,15 @@ func renderMarkdown(src []byte) (template.HTML, error) {
 	if err := markdown.Convert(src, &buf); err != nil {
 		return "", err
 	}
-	return template.HTML(buf.String()), nil
+	// Code blocks scroll sideways on a phone, so keyboard users need to be
+	// able to focus them to scroll.
+	out := strings.ReplaceAll(buf.String(), "<pre><code", `<pre tabindex="0"><code`)
+	return template.HTML(out), nil
 }
 
 // linkRewriter points the lessons' links at the website instead of the
 // markdown files: night-02.md becomes night-02.html, README.md becomes
-// index.html, and ../../cmd/list.go goes to the file on GitHub.
+// index.html, and ../cmd/list.go goes to the file on GitHub.
 type linkRewriter struct{}
 
 func (linkRewriter) Transform(doc *ast.Document, _ text.Reader, _ parser.Context) {
@@ -165,8 +168,8 @@ func rewriteLink(dest string) string {
 		return dest
 	case target == "README.md":
 		return "index.html" + frag
-	case strings.HasPrefix(target, "../../"):
-		return repoURL + "/blob/main/" + strings.TrimPrefix(target, "../../") + frag
+	case strings.HasPrefix(target, "../"):
+		return repoURL + "/blob/main/" + strings.TrimPrefix(target, "../") + frag
 	case strings.HasSuffix(target, ".md"):
 		return strings.TrimSuffix(target, ".md") + ".html" + frag
 	}

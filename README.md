@@ -54,7 +54,7 @@ sudo mv terminal-of-terror /usr/local/bin/
 > [!NOTE]
 > On macOS, the binary isn't signed, so the first run may be blocked. Run `xattr -d com.apple.quarantine terminal-of-terror` to let it through.
 
-**Or install it with [Go 1.24+](https://go.dev/dl/):**
+**Or install it with [Go 1.25+](https://go.dev/dl/):**
 
 ```bash
 go install github.com/hungovercoders/terminal-of-terror@latest
@@ -403,17 +403,19 @@ Every command also takes `--pack`, and `terminal-of-terror [command] --help` has
 
 ## 📚 Night School
 
-Want to know how it's built, or build your own? [**Count Cathode's Night School**](docs/course/README.md) is a 31-night course that builds Terminal of Terror from an empty folder to a released Go CLI: Cobra commands, embedded monster data, a Bubble Tea explorer, games, saved progress, community packs, CI and a GoReleaser release. One lesson a night, each with an exercise and a terrifying Go fact.
+Want to know how it's built, or build your own? [**Count Cathode's Night School**](course/README.md) is a 31-night course that builds Terminal of Terror from an empty folder to a released Go CLI: Cobra commands, embedded monster data, a Bubble Tea explorer, games, saved progress, community packs, CI and a GoReleaser release. One lesson a night, each with an exercise and a terrifying Go fact.
 
 > 📺 *"Thirty-one nights. Bring a blanket."*
 
 ## 🌐 The website
 
-Everything above, plus a page for every monster and the whole Night School, is at [**hungovercoders.github.io/terminal-of-terror**](https://hungovercoders.github.io/terminal-of-terror/). It's generated from this repository by `go run ./site` (the monster pages come straight from the packs, the course from `docs/course`) and published by `.github/workflows/pages.yml` on every push to `main`.
+Everything above, plus a page for every monster and the whole Night School, is at [**hungovercoders.github.io/terminal-of-terror**](https://hungovercoders.github.io/terminal-of-terror/). It's generated from this repository by `go run ./site` (the monster pages come straight from the packs, the course from `course/`) and published by `.github/workflows/pages.yml` on every push to `main`.
 
 ## 🤝 Contributing
 
 New monsters, packs and fixes are all welcome. See [CONTRIBUTING.md](CONTRIBUTING.md). The demo GIFs and screenshots above are recorded with [VHS](https://github.com/charmbracelet/vhs), and you can re-record them with [`docs/demos/render.sh`](docs/demos/render.sh).
+
+For any task not covered above, read [`docs/README.md`](./docs/README.md) for the routing table for every doc in this repo.
 
 See [CHANGELOG.md](CHANGELOG.md) for what's changed, and [LICENSE](LICENSE) for the MIT licence.
 

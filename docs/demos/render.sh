@@ -126,6 +126,12 @@ for name in "${names[@]}"; do
       "$assets/$name.gif"
     echo "   → $assets/$name.gif ($(du -h "$assets/$name.gif" | cut -f1))"
   fi
+  if [ "$name" = hero ]; then
+    # The website paints this still first and swaps the GIF in once the
+    # page has loaded: frame 163, about 11 seconds in, is Dracula's page.
+    ffmpeg -loglevel error -y -i "$assets/hero.gif" -vf 'select=eq(n\,163)' -frames:v 1 "$assets/hero-poster.png"
+    echo "   → $assets/hero-poster.png"
+  fi
   rm -rf "$frames"
 done
 rm -rf "$demos/.frames"

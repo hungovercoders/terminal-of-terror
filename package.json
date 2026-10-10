@@ -1,0 +1,15 @@
+{
+  "name": "terminal-of-terror",
+  "private": true,
+  "description": "Tooling for slopstopper's browser checks against the generated website",
+  "scripts": {
+    "build": "go run ./site -out dist -base http://localhost:8080/"
+  },
+  "license": "MIT",
+  "devDependencies": {
+    "@axe-core/playwright": "^4.11.1",
+    "@lhci/cli": "^0.14.0",
+    "@playwright/test": "^1.40.0",
+    "markdownlint-cli": "^0.47.0"
+  }
+}

@@ -1,0 +1,79 @@
+# .slopstopper.yml: slopstopper's per-repo config.
+#
+# This is the starter install.sh seeds: the handful of keys most repos
+# actually set. Every other knob has a sensible default and is documented,
+# with its default, in the schema reference:
+#   https://github.com/hungovercoders/slopstopper/blob/main/.slopstopper.yml.example
+# Copy a block from there when you need it. Re-running install.sh never
+# overwrites this file.
+#
+# That link tracks main; .ss/.installed-from names the commit you installed
+# from (put it in place of `main` to see that version). A knob the CLI reads
+# takes effect once the slopstopper-cli pinned in mise.toml has it.
+
+# This repo's shape. ui (the default) is a site or app that serves HTML.
+# api has JSON/gRPC endpoints and no browser surface, so it drops the nine
+# browser checks. library deploys nothing and drops every URL-driven check.
+# `install.sh --profile api` writes this for you; re-run install.sh after
+# changing it so the workflow set follows.
+profile: ui
+
+# Where the deployed app lives. production is what the scheduled runs and
+# pushes to main audit; preview is the environment your PRs deploy to. The
+# browser checks build and serve the repo on PRs; preview is what the API
+# checks and DAST's API mode (api.openapi.spec) hit on a PR, and without it
+# they skip there. Leave it blank if you have no preview environment.
+urls:
+  production: https://hungovercoders.github.io/terminal-of-terror/
+  preview:
+
+# Paths each browser check audits, comma-separated. `/` is the default.
+# Ours are relative (no leading /) because production lives under
+# /terminal-of-terror/ on GitHub Pages, and a leading / would resolve to
+# the host root instead.
+# For a larger site, `reliability.coverage.*` in the schema reference
+# derives these from your sitemap or the PR's diff instead.
+pages:
+  smoke:         ./,monsters/index.html,monsters/dracula.html,night-school/index.html,night-school/night-01.html
+  e2e:           ./
+  accessibility: ./,monsters/index.html,monsters/dracula.html,night-school/index.html,night-school/night-01.html
+  seo:           ./,monsters/dracula.html,night-school/index.html
+  broken_links:  ./
+
+# The site-wide share image the smoke test asserts. '' skips the assertion.
+# GitHub Pages can't set the CORP header the og-image assertion needs; the
+# site's share card is assets/tonight.png.
+smoke:
+  og_image_path: ''
+
+# Your security-headers file, for the CSP-drift check. Common values:
+# public/_headers (Cloudflare Pages / Netlify) or worker/headers.json.
+# null skips the check.
+headers:
+  source: null
+
+# The README is the project's storefront (install, games, roster, command
+# reference), mirrored on the website's landing page, so it is deliberately
+# long. Agent context lives in AGENTS.md, which keeps the default budget.
+hygiene:
+  entry_files:
+    readme_max_tokens: 5500
+
+# If you serve an API, copy the `api:` block from the schema reference
+# above. The four API checks ship inert until api.health.path /
+# api.latency.paths / api.headers.paths / api.openapi.spec are set.
+
+# Any check you don't want, by workflow filename. A profile drops whole
+# sets; this is for one-offs. `enabled` takes a single check back from a
+# profile.
+workflows:
+  # No API here: these four ship with the ui profile but would only skip.
+  disabled:
+    - ss-hygiene-openapi-check.yml
+    - ss-reliability-api-health-check.yml
+    - ss-reliability-api-latency-check.yml
+    - ss-security-api-headers-check.yml
+    # The doc updater's prompt describes slopstopper itself (slopstopper#411).
+    - ss-hygiene-doc-updater.md
+    - ss-hygiene-doc-updater.lock.yml
+  enabled: []

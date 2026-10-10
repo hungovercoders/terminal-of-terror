@@ -9,6 +9,7 @@ on:
     paths:
       - "site/**"
       - "docs/**"
+      - "course/**"
       - "internal/monsters/**"
       - "internal/crypt/**"
       - "internal/host/**"

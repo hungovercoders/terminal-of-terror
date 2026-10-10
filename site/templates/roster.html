@@ -10,7 +10,7 @@
   <h2>{{.Name}} <code class="chip">--pack {{.ID}}</code></h2>
   <p>{{.Description}}</p>
   <ul class="cards big">
-    {{range .Monsters}}<li><a class="card{{if .IsSilent}} silent{{end}}" href="{{$root}}monsters/{{.ID}}.html" style="--m-primary:{{.Theme.Primary}};--m-accent:{{.Theme.Accent}}">
+    {{range .Monsters}}<li><a class="card m-{{.ID}}{{if .IsSilent}} silent{{end}}" href="{{$root}}monsters/{{.ID}}.html">
       <span class="card-emoji">{{.Emoji}}</span>
       <span class="card-name">{{.Name}}</span>
       <span class="card-meta">{{firstAppearance .}}</span>

@@ -1,258 +1,70 @@
-# AI Agent Optimization Guide
+# AGENTS.md
 
-This document provides guidance for AI agents working on the Terminal of Terror project.
+Terminal of Terror is a Go CLI that teaches people about classic Universal monsters, world folklore, cryptids,
+literary monsters, classical mythology and the silent screen through an interactive explorer, games and nightly
+rituals, all presented by a fictional late-night horror host, Count Cathode. It uses **Cobra** (commands),
+**Bubbletea** (interactive UI) and **Lipgloss** (styling). It also generates a static website and carries a
+31-night build-it-yourself course.
 
-## Project Overview
-
-Terminal of Terror is a Go CLI application that teaches people about classic Universal monsters, world folklore, cryptids, literary monsters, classical mythology and the silent screen through an interactive explorer, games and nightly rituals, all presented by a fictional late-night horror host, Count Cathode. It uses:
-- **Cobra** for CLI commands and structure
-- **Bubbletea** for interactive terminal UI
-- **Lipgloss** for terminal styling
-
-## Project Structure
+## Layout
 
 ```
-terminal-of-terror/
-├── cmd/                      # Cobra command definitions
-│   ├── root.go              # Root command, --pack flag, community pack loading
-│   ├── monster.go           # Interactive explorer (monster [name])
-│   ├── list.go / random.go  # Listing and random / daily facts
-│   ├── quiz.go / guess.go   # Games
-│   ├── mash.go / crypt.go   # Monster Mash and the Crypt (progress)
-│   ├── tonight.go           # Double-feature ticket
-│   ├── countdown.go         # Halloween countdown
-│   ├── packs.go             # List packs, scaffold community packs
-│   ├── progress.go          # Records game outcomes and announces unlocks
-│   └── output.go            # --json helper
-├── internal/
-│   ├── monsters/            # Monster types, pack loader, search
-│   │   └── packs/           # Built-in data: <pack>/pack.json, <id>.json, <id>.txt art
-│   ├── ui/                  # Bubbletea screens and Lipgloss rendering
-│   ├── host/                # Count Cathode, the horror host
-│   ├── quiz/                # Question generation from monster data
-│   ├── mash/                # Monster Mash fight simulation
-│   ├── crypt/               # Captures and badges
-│   ├── store/               # Progress saved as JSON in the config dir
-│   └── calendar/            # Moon phases, Halloween, anniversaries (offline)
-├── docs/
-│   ├── assets/              # README GIFs and screenshots (generated); the website uses them too
-│   ├── course/              # Count Cathode's Night School: the 31-night build-it-yourself course
-│   └── demos/               # VHS tapes, theme and render.sh that record them
-├── site/                     # The website generator (go run ./site): templates/, static/, writes site/dist
-├── .goreleaser.yaml          # Release builds (see "Releasing" in CONTRIBUTING.md)
-├── .github/workflows/       # ci.yml on every PR; release.yml on v* tags; pages.yml deploys the site
-├── main.go                  # Application entry point
-├── go.mod                   # Go module definition
-└── go.sum                   # Go module checksums
+cmd/                     Cobra commands: root.go (--pack, community packs), monster, list, random, quiz, guess,
+                         mash, crypt, tonight, countdown, packs, progress.go (unlocks), output.go (--json)
+internal/monsters/       Monster types, pack loader, search
+internal/monsters/packs/ Built-in data: <pack>/pack.json, <id>.json, <id>.txt art
+internal/ui/             Bubbletea screens and Lipgloss rendering
+internal/host/           Count Cathode, the horror host
+internal/quiz/ mash/     Quiz question generation, Monster Mash fight simulation
+internal/crypt/ store/   Captures and badges; progress saved as JSON in the config dir
+internal/calendar/       Moon phases, Halloween, anniversaries (offline)
+site/                    Website generator (go run ./site), writes site/dist
+course/                  Count Cathode's Night School, the 31-night course (also rendered on the website)
+docs/assets/ docs/demos/ README GIFs and screenshots, and the VHS tapes that record them
+.github/workflows/       ci.yml on every PR, release.yml on v* tags, pages.yml deploys the site, ss-*.yml slopstopper
 ```
 
-## Key Conventions
+## Rules
 
-### Code Style
-- Use standard Go formatting (`gofmt`)
-- Follow Go naming conventions
-- Keep functions focused and single-purpose
-- Use tabs for indentation (Go standard)
+- **Quotes must come from public-domain sources** (e.g. the 19th-century novels). Never add dialogue from
+  copyrighted films; describe famous scenes in your own words instead.
+- Avoid emoji that need a variation selector (⚰️, 🎞️): terminals disagree on their width and they break box
+  alignment. Prefer emoji that are wide by default (🦴, 🎬, 💀).
+- Never push a `v*` tag without the maintainer's go-ahead: it publishes a release. Keep versions below v2.0.0
+  unless the module path gains a `/v2` suffix.
+- Prefer the standard library; add a dependency only for core functionality.
+- Return errors from `RunE` in cobra commands, with messages a player can act on.
+- Comment exported functions and types; keep `gofmt` formatting and Go naming.
+- Keep keyboard navigation consistent (h/l, arrows, q) and colours from `internal/ui/styles.go` or each
+  monster's `theme`.
 
-### Monster Data Structure
-Monster types and the pack loader live in `internal/monsters/monsters.go`. The data itself lives in
-packs under `internal/monsters/packs/<pack-id>/`: a `pack.json`, one `<id>.json` per monster and an
-optional `<id>.txt` with ASCII art. Each monster has an `id`, `name`, `aliases`, `emoji`, `description`,
-`origin`, `debut`, optional `film`, `legend`, `myths` (claim/true/explanation), `quotes`, `powers`,
-`weaknesses`, `stats` (1-10), `legacy`, `facts` (5+), `hostIntro` and `theme` colours.
-See CONTRIBUTING.md for a full example.
+## Build and test
 
-**Quotes must come from public-domain sources** (e.g. the 19th-century novels). Never add dialogue
-from copyrighted films; describe famous scenes in your own words instead.
-
-### Adding New Commands
-1. Create a new file in `cmd/` directory
-2. Define a cobra.Command
-3. Register it with `rootCmd` in the `init()` function
-4. Update README.md with command documentation
-
-### UI Development
-- Use Lipgloss for consistent styling
-- Follow the color scheme in `internal/ui/styles.go`; per-monster colours come from each monster's `theme`
-- Maintain keyboard navigation patterns (h/l, arrows, q)
-
-## Building and Testing
-
-### Build
 ```bash
 go build -o terminal-of-terror
-```
-
-### Test Commands
-```bash
-./terminal-of-terror --help
-./terminal-of-terror list
-./terminal-of-terror random
-./terminal-of-terror monster
-./terminal-of-terror monster --all
-./terminal-of-terror quiz
-./terminal-of-terror guess
-./terminal-of-terror mash --fast
-./terminal-of-terror crypt
-./terminal-of-terror tonight
-./terminal-of-terror countdown --date 2026-10-31
-./terminal-of-terror packs
+go test ./...                       # the data tests validate every monster
+task ss:hygiene:test                # slopstopper's static checks (also the pre-push hook)
 ```
 
 Set `TERMINAL_OF_TERROR_HOME` to a scratch directory when testing so real progress isn't touched, and
-`TERMINAL_OF_TERROR_SEED` to a number to make every random choice repeatable.
+`TERMINAL_OF_TERROR_SEED` to a number to make every random choice repeatable. CI runs gofmt, go vet, a
+`go mod tidy` check, the tests (with `-race` on Linux) on Linux, macOS and Windows, and a smoke test of every
+command: add new commands to the smoke test.
 
-### Dependencies
-Install/update dependencies:
-```bash
-go mod download
-go mod tidy
-```
+## Common tasks
 
-## Common Tasks
+- **Adding a monster:** add `internal/monsters/packs/<pack>/<id>.json` (and `<id>.txt` art), add the id to
+  `order` in `internal/monsters/packs/<pack>/pack.json`, include every field with 5+ accurate facts, then run `go test ./...`.
+- **Adding a command:** new file in `cmd/`, a `cobra.Command` registered with `rootCmd` in `init()`, logic in
+  `RunE`, then document it in README.md and add it to the CI smoke test.
 
-### Adding a New Monster
-1. Add `internal/monsters/packs/<pack>/<id>.json` (and `<id>.txt` for ASCII art)
-2. Add the id to the pack's `order` list in `pack.json`
-3. Include all required fields (see CONTRIBUTING.md)
-4. Ensure facts are accurate and interesting
-5. Run `go test ./...` — the data tests validate every monster
+Before you add or edit a monster or pack, read [CONTRIBUTING.md](CONTRIBUTING.md) for every monster field with a full example.
+Before you cut a release, read [CONTRIBUTING.md](CONTRIBUTING.md) "Releasing" for the git-cliff changelog and tagging steps.
+Before you change the explorer or any screen in `internal/ui`, read [docs/ui.md](docs/ui.md) for the files, tests and demo re-recording.
+Before you change the website in `site/`, read [docs/website.md](docs/website.md) for the templates, link tests and landing-page copy.
+Before you edit a lesson in `course/` or change code a lesson quotes, read [docs/course-authoring.md](docs/course-authoring.md) for the lesson rules.
+For any task not covered above, read [docs/README.md](docs/README.md) for the routing table for every doc in this repo.
 
-### Changing the Website
-1. `site/main.go` builds the pages, `site/course.go` renders the Night School markdown with goldmark
-2. Templates are in `site/templates/` (Go html/template, one file per page kind plus `base.html`),
-   styles in `site/static/style.css`, behaviour in `site/static/site.js`
-3. Monster pages are generated from the packs and the course from `docs/course`, so content changes
-   belong there, not in the templates
-4. Run `go test ./site` (it builds the site and checks every internal link) and `go run ./site`, then
-   look at `site/dist` in a browser at desktop and phone widths
-5. The README's install, games and rituals copy is repeated on the landing page template: update both
+## Git
 
-### Cutting a Release
-Follow "Releasing" in CONTRIBUTING.md: update CHANGELOG.md with git-cliff, merge, then push a `v*` tag.
-Never push a tag without the maintainer's go-ahead: it publishes a release. Keep versions below v2.0.0
-unless the module path gains a `/v2` suffix.
-
-### Adding a New Command
-1. Create new file in `cmd/` directory (e.g., `cmd/newcmd.go`)
-2. Define command struct with cobra.Command
-3. Implement command logic in Run/RunE function
-4. Register with rootCmd in init()
-5. Update README.md documentation
-
-### Modifying UI
-1. `internal/ui/ui.go` holds the explorer model and key handling, `render.go` the views,
-   `intro.go` the Channel 13 opening and `cards.go` the non-interactive output
-2. Update the model struct if needed
-3. Modify Update() for new interactions
-4. Adjust the render functions for display changes
-5. Run `go test ./internal/ui` (it renders every page at several terminal sizes), and
-   `DUMP=1 go test ./internal/ui -run Dump -v` to see sample screens
-6. Test interactivity thoroughly in a real terminal
-7. If the change is visible in the README demos, re-record them with `docs/demos/render.sh`
-   (see "Recording the Demos" in CONTRIBUTING.md) and check the results
-8. Avoid emoji that need a variation selector (e.g. ⚰️, 🎞️): terminals disagree on their width
-   and they break box alignment. Prefer emoji that are wide by default (🦴, 🎬, 💀)
-
-## Documentation Standards
-
-### README.md
-- Keep installation instructions clear and up-to-date
-- Document all commands with examples
-- Include prerequisites
-- Show expected output when helpful
-
-### CONTRIBUTING.md
-- Maintain clear contribution guidelines
-- Update when processes change
-- Include examples for common tasks
-
-### The course (docs/course/)
-- `docs/course/README.md` is the index; `night-NN.md` is one lesson. Nights 1-14 are build-along and their code
-  must compile as written; nights 15-31 quote the repository's files, so update a lesson when you change code it shows.
-- Every lesson keeps the same sections (intro quote, "Tonight you'll learn", "Where we are", "Run it", "Try it",
-  "💀 Terrifying fact", "🕯️ Before dawn", sign-off quote, navigation links). TUTORIAL.md only points at the course.
-
-### Code Comments
-- Comment exported functions and types
-- Explain non-obvious logic
-- Keep comments concise and relevant
-
-## Dependencies
-
-### Core Dependencies
-- `github.com/spf13/cobra` - CLI framework
-- `github.com/charmbracelet/bubbletea` - TUI framework
-- `github.com/charmbracelet/lipgloss` - Terminal styling
-
-### When to Add Dependencies
-- Only when necessary for core functionality
-- Prefer standard library when possible
-- Consider package size and maintenance status
-- Update go.mod and go.sum appropriately
-
-## Error Handling
-
-- Use Go idiomatic error handling
-- Return errors from RunE in cobra commands
-- Provide helpful error messages to users
-- Log errors appropriately
-
-## Performance Considerations
-
-- Monster data is loaded once at startup
-- Keep UI updates minimal and efficient
-- Avoid unnecessary allocations in tight loops
-- Profile if performance issues arise
-
-## Testing Approach
-
-Run `go test ./...` first. The data tests in `internal/monsters` validate every monster.
-CI (`.github/workflows/ci.yml`) runs gofmt, go vet, a go mod tidy check, the tests (with `-race` on Linux)
-on Linux, macOS and Windows, and a smoke test of every command. Add new commands to the smoke test.
-Then test manually:
-1. Build the application
-2. Test each command
-3. Verify output format and content
-4. Test interactive UI navigation
-5. Ensure error cases are handled
-
-## Git Workflow
-
-### Commit Messages
-Follow conventional commits:
-- `feat:` for new features
-- `fix:` for bug fixes
-- `docs:` for documentation
-- `refactor:` for code refactoring
-- `chore:` for maintenance tasks
-
-### Branch Naming
-- `feature/description` for new features
-- `fix/description` for bug fixes
-- `docs/description` for documentation
-
-## AI-Specific Tips
-
-1. **Always build and test** after code changes
-2. **Check for unused imports** - Go compiler is strict
-3. **Maintain consistent styling** with existing code
-4. **Update documentation** when adding features
-5. **Test terminal UI changes** - they may not work as expected without testing
-6. **Consider terminal width/height** when modifying UI
-7. **Use go mod tidy** to clean up dependencies
-8. **Add to .gitignore** any new build artifacts
-
-## Future Considerations
-
-Potential areas for expansion:
-- Integration tests for CLI commands
-- More packs (Hammer Horror, kaiju, video-game monsters)
-- Localization/internationalization
-
-## Resources
-
-- [Cobra Documentation](https://github.com/spf13/cobra)
-- [Bubbletea Tutorial](https://github.com/charmbracelet/bubbletea/tree/master/tutorials)
-- [Lipgloss Documentation](https://github.com/charmbracelet/lipgloss)
-- [Effective Go](https://golang.org/doc/effective_go.html)
+Conventional commits (`feat:`, `fix:`, `docs:`, `refactor:`, `chore:`), branches `feature/…`, `fix/…`, `docs/…`.

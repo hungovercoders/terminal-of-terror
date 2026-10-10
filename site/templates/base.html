@@ -3,6 +3,7 @@
 <head>
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
+<meta http-equiv="Content-Security-Policy" content="default-src 'self'; script-src 'self' https://cdnjs.cloudflare.com; style-src 'self' https://cdnjs.cloudflare.com; font-src 'self'; img-src 'self' data:; connect-src https://api.github.com; base-uri 'self'; form-action 'self'; object-src 'none'">
 <title>{{if ne .Path "index.html"}}{{.Title}} · {{end}}{{.Site.Name}}</title>
 <meta name="description" content="{{.Description}}">
 <meta name="theme-color" content="#0d0a12">
@@ -14,15 +15,20 @@
 <meta property="og:url" content="{{.URL}}">
 <meta property="og:image" content="{{.Site.BaseURL}}assets/tonight.png">
 <meta name="twitter:card" content="summary_large_image">
+<meta name="twitter:title" content="{{.Title}}">
+<meta name="twitter:description" content="{{.Description}}">
+<meta name="twitter:image" content="{{.Site.BaseURL}}assets/tonight.png">
 <link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'%3E%3Ctext y='.9em' font-size='90'%3E📺%3C/text%3E%3C/svg%3E">
-<link rel="preconnect" href="https://fonts.googleapis.com">
-<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Bebas+Neue&family=IBM+Plex+Mono:ital,wght@0,400;0,600;1,400&family=IBM+Plex+Sans:ital,wght@0,400;0,600;1,400&family=Special+Elite&display=swap">
+<link rel="preload" href="{{.Root}}static/fonts/ibm-plex-sans-regular-latin.woff2" as="font" type="font/woff2" crossorigin>
+<link rel="preload" href="{{.Root}}static/fonts/bebas-neue-regular-latin.woff2" as="font" type="font/woff2" crossorigin>
+<link rel="preload" href="{{.Root}}static/fonts/special-elite-regular-latin.woff2" as="font" type="font/woff2" crossorigin>
+<link rel="preload" href="{{.Root}}static/fonts/ibm-plex-mono-regular-latin.woff2" as="font" type="font/woff2" crossorigin>
+<link rel="stylesheet" href="{{.Root}}static/fonts/fonts.css">
 <link rel="stylesheet" href="{{.Root}}static/style.css">
-{{if .Theme}}<style>:root{--m-primary:{{.Theme.Primary}};--m-accent:{{.Theme.Accent}}}</style>{{end}}
+<link rel="stylesheet" href="{{.Root}}static/themes.css">
 {{block "head" .}}{{end}}
 </head>
-<body class="section-{{.Section}}{{if .Theme}} themed{{end}}{{if and .Theme .Theme.Silent}} silent-era{{end}}" data-root="{{.Root}}">
+<body class="section-{{.Section}}{{if .Theme}} themed m-{{.Theme.ID}}{{end}}{{if and .Theme .Theme.Silent}} silent-era{{end}}">
 <div class="tuning" id="tuning" aria-hidden="true"><div class="tuning-label">CH 13 · TUNING IN</div></div>
 <div class="scanlines" aria-hidden="true"></div>
 <a class="skip" href="#main">Skip to content</a>
