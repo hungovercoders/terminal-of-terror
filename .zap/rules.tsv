@@ -24,8 +24,6 @@
 # be (a <meta> CSP in site/templates/base.html) and accepted where they cannot.
 10020	IGNORE	# Anti-clickjacking: X-Frame-Options and CSP frame-ancestors are
 #		# header-only. The site is static, with no sign-in or actions to hijack.
-90003	IGNORE	# SRI: Google Fonts CSS differs per browser, so it cannot carry a
-#		# hash. The cdnjs highlight.js files do carry SRI.
 10038	IGNORE	# CSP header: Pages cannot send it, so the policy is a <meta> tag in
 #		# base.html. TestContentSecurityPolicy in site/site_test.go guards it.
 10055	IGNORE	# CSP directives: frame-ancestors only works as a header. The same

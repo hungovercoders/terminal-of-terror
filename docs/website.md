@@ -17,6 +17,8 @@ Rules the tests enforce:
   `m-<id>` class; behaviour goes in `site.js`. `TestContentSecurityPolicy` fails on any inline style or script.
 - **Readable colours.** Small text uses `--m-text`, the theme colour lifted to 4.5:1 by `readable`.
 - **Third-party files carry SRI.** Pin a cdnjs `integrity` hash when you add or bump one.
+- **Fonts are self-hosted** in `static/fonts/` and the above-the-fold faces are preloaded, so text never
+  reflows when a font arrives (that reflow failed the CLS budget on Linux, whose fallback fonts are wider).
 - `sitemap.xml`, `robots.txt` and `llms.txt` are generated from the packs and course in `writeExtras`.
 - The hero shows `docs/assets/hero-poster.png` first and swaps in `hero.gif` after load; `docs/demos/render.sh`
   regenerates both.

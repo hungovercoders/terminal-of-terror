@@ -4,9 +4,6 @@
   "use strict";
 
   var reduceMotion = window.matchMedia && window.matchMedia("(prefers-reduced-motion: reduce)").matches;
-  // "" or a run of "../": anything else is not ours, so ignore it.
-  var root = document.body.getAttribute("data-root") || "";
-  if (!/^(\.\.\/)*$/.test(root)) root = "";
   var scrollMode = reduceMotion ? "auto" : "smooth";
 
   function $(sel, el) { return (el || document).querySelector(sel); }
@@ -182,11 +179,11 @@
       var x = seed;
       x = ((x >>> 16) ^ x) * 0x45d9f3b; x = ((x >>> 16) ^ x) * 0x45d9f3b; x = (x >>> 16) ^ x;
       var f = facts[Math.abs(x) % facts.length];
-      if (!/^[a-z0-9-]+$/.test(f.id)) return;
       $("#fact-text").textContent = f.emoji + " " + f.fact;
       var link = $("#fact-link");
       link.textContent = "More about " + f.name + " →";
-      link.href = root + "monsters/" + f.id + ".html";
+      // The tile is only on the home page, at the site's root.
+      link.href = "monsters/" + encodeURIComponent(f.id) + ".html";
       $("#fact-date").textContent = today.toLocaleDateString(undefined, { weekday: "long", day: "numeric", month: "long" });
     } catch (e) { /* leave the placeholder */ }
   }
