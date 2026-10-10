@@ -1,0 +1,112 @@
+# Runs slopstopper's checks against a deployed copy of the site: a branch's
+# Cloudflare preview, or terminalofterror.com for main. cloudflare-deployed.yml
+# dispatches it on the deployed branch when Workers Builds finishes, so the
+# results land on that commit (and its PR).
+#
+# slopstopper's own ss-* workflows only test a local build on PRs and pushes,
+# and only see deployments that raise GitHub deployment events, which Workers
+# Builds doesn't (hungovercoders/slopstopper#425). Its DAST can't target a
+# URL at all (hungovercoders/slopstopper#426). Delete this pair of workflows
+# once those land.
+name: Deployed site checks
+run-name: "Deployed site checks · ${{ inputs.url }}"
+
+on:
+  workflow_dispatch:
+    inputs:
+      url:
+        description: URL of the deployed site
+        required: true
+        type: string
+
+permissions:
+  contents: read
+
+concurrency:
+  group: deployed-site-checks-${{ github.ref }}
+  cancel-in-progress: true
+
+env:
+  URL: ${{ inputs.url }}
+
+jobs:
+  browser:
+    name: ${{ matrix.check }}
+    runs-on: ubuntu-latest
+    timeout-minutes: 20
+    strategy:
+      fail-fast: false
+      matrix:
+        include:
+          - { check: smoke, args: --ci, browsers: true }
+          - { check: e2e, args: --ci, browsers: true }
+          - { check: accessibility, args: --ci, browsers: true }
+          - { check: broken-links, args: --ci, browsers: true }
+          - { check: cwv, args: '', browsers: false }
+          - { check: seo, args: '', browsers: false }
+          - { check: llms-txt, args: --check-links, browsers: false }
+          - { check: robots-txt, args: --check-links, browsers: false }
+          - { check: sitemap, args: '', browsers: false }
+    steps:
+      - uses: actions/checkout@3d3c42e5aac5ba805825da76410c181273ba90b1 # v7.0.1
+      - uses: ./.github/actions/ss-setup
+      - run: npm ci
+      - name: Install Playwright browsers
+        if: matrix.browsers
+        timeout-minutes: 12
+        run: npx playwright install --with-deps chromium
+      - name: Check ${{ inputs.url }}
+        run: |
+          [[ "$URL" =~ ^https://[^[:space:][:cntrl:]]+$ ]] || { echo "::error::Not an https URL: $URL"; exit 1; }
+          args="${{ matrix.args }}"
+          # The production Lighthouse budget is stricter than a preview's.
+          if [ "${{ matrix.check }}" = cwv ] && [ "$URL" = "$(yq '.urls.production' .slopstopper.yml)" ]; then
+            args=--prod
+          fi
+          task "ss:reliability:${{ matrix.check }}" -- "$URL" $args
+      - uses: actions/upload-artifact@043fb46d1a93c77aae656e7c1c64a875d1fc6a0a # v7.0.1
+        if: always()
+        with:
+          name: report-${{ matrix.check }}
+          path: .ss/reports/
+          if-no-files-found: ignore
+
+  dast:
+    name: dast
+    runs-on: ubuntu-latest
+    timeout-minutes: 30
+    steps:
+      - uses: actions/checkout@3d3c42e5aac5ba805825da76410c181273ba90b1 # v7.0.1
+      - uses: ./.github/actions/ss-setup
+      - name: Scan ${{ inputs.url }}
+        run: |
+          [[ "$URL" =~ ^https://[^[:space:][:cntrl:]]+$ ]] || { echo "::error::Not an https URL: $URL"; exit 1; }
+          task ss:security:dast -- "$URL"
+      - uses: actions/upload-artifact@043fb46d1a93c77aae656e7c1c64a875d1fc6a0a # v7.0.1
+        if: always()
+        with:
+          name: report-dast
+          path: .ss/reports/
+          if-no-files-found: ignore
+
+  # A failure on main means the live site is broken, so it gets an issue
+  # (reused while open). Preview failures show on the PR instead.
+  report:
+    needs: [browser, dast]
+    if: failure() && github.ref_name == 'main'
+    runs-on: ubuntu-latest
+    permissions:
+      issues: write
+    steps:
+      - env:
+          GH_TOKEN: ${{ github.token }}
+          RUN_URL: ${{ github.server_url }}/${{ github.repository }}/actions/runs/${{ github.run_id }}
+        run: |
+          title="Live site checks failing on $URL"
+          body="A check against the live site failed after a deploy: $RUN_URL"
+          existing="$(gh issue list -R "$GITHUB_REPOSITORY" --state open --search "\"$title\" in:title" --json number -q '.[0].number')"
+          if [ -n "$existing" ]; then
+            gh issue comment "$existing" -R "$GITHUB_REPOSITORY" --body "$body"
+          else
+            gh issue create -R "$GITHUB_REPOSITORY" --title "$title" --body "$body"
+          fi
