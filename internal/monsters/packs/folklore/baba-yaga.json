@@ -10,7 +10,7 @@
   "myths": [
     {"claim": "Baba Yaga is always a villain.", "true": false, "explanation": "She's famously ambiguous. Heroes who are brave, clever or polite often leave with her help."},
     {"claim": "Baba Yaga flies on a broomstick.", "true": false, "explanation": "She flies in a mortar and steers with a pestle. The broom just sweeps away her tracks."},
-    {"claim": "Her hut stands on chicken legs.", "true": true, "explanation": "It can even turn to face visitors, if they know the right words."}
+    {"claim": "Baba Yaga's hut stands on chicken legs.", "true": true, "explanation": "It can even turn to face visitors, if they know the right words."}
   ],
   "quotes": [],
   "powers": ["Flight by mortar and pestle", "A hut that walks", "Ancient forest magic", "Knowledge of every path"],

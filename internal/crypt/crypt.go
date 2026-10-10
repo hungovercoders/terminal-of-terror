@@ -36,7 +36,18 @@ var Badges = []Badge{
 	{"silent-scholar", "🎬", "Silent Era Scholar", "Capture every silent-film monster"},
 	{"monster-kid", "📺", "Monster Kid", "Capture every Universal Classic"},
 	{"folklorist", "🌍", "Folklorist", "Capture 5 monsters from World Folklore"},
+	{"cryptozoologist", "🔭", "Cryptozoologist", "Capture every cryptid"},
+	{"bookworm", "📖", "Bookworm", "Capture every literary monster"},
+	{"hero-of-legend", "🏹", "Hero of Legend", "Capture every monster of classical mythology"},
 	{"master", "👑", "Master of the Crypt", "Capture every monster"},
+}
+
+// packBadges are awarded for capturing every monster in a pack, in the
+// order they are announced.
+var packBadges = []struct{ pack, badge string }{
+	{"cryptids", "cryptozoologist"},
+	{"literary", "bookworm"},
+	{"mythology", "hero-of-legend"},
 }
 
 // Outcome describes one session of play.
@@ -149,6 +160,11 @@ func Apply(p *store.Progress, all []monsters.Monster, o Outcome) Unlocks {
 	}
 	if folk >= 5 {
 		award("folklorist")
+	}
+	for _, pb := range packBadges {
+		if allWhere(all, func(m monsters.Monster) bool { return m.Pack == pb.pack }, captured) {
+			award(pb.badge)
+		}
 	}
 	if every(all, captured) {
 		award("master")

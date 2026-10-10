@@ -10,7 +10,7 @@
   "myths": [
     {"claim": "La Llorona's story is only told in Mexico.", "true": false, "explanation": "Versions are told across Latin America and in the southwestern United States."},
     {"claim": "Some trace her to a weeping woman in a 16th-century record of omens.", "true": true, "explanation": "The Florentine Codex describes a woman heard weeping at night among the omens before the conquest."},
-    {"claim": "The legend is often used to keep children away from rivers at night.", "true": true, "explanation": "Generations of parents have warned that La Llorona might mistake a wandering child for her own."}
+    {"claim": "The La Llorona legend is often used to keep children away from rivers at night.", "true": true, "explanation": "Generations of parents have warned that La Llorona might mistake a wandering child for her own."}
   ],
   "quotes": [],
   "powers": ["A wail that chills the blood", "Appearing wherever there is water", "Luring the lost"],

@@ -10,8 +10,8 @@
   "myths": [
     {"claim": "The Jabberwock is slain with a vorpal sword.", "true": true, "explanation": "The hero takes 'his vorpal sword in hand', and 'the vorpal blade went snicker-snack'. Nobody, Carroll included, ever said what vorpal means."},
     {"claim": "Jabberwocky is the name of the monster.", "true": false, "explanation": "The poem is 'Jabberwocky'; the creature is the Jabberwock. Carroll later explained the name as 'jabber' plus the Anglo-Saxon 'wocer', meaning offspring."},
-    {"claim": "The poem is pure nonsense that means nothing.", "true": false, "explanation": "The grammar is perfectly ordinary and the story is clear, as Alice says: somebody killed something. Humpty Dumpty even supplies definitions."},
-    {"claim": "The first stanza was written years before the rest.", "true": true, "explanation": "Carroll wrote it in 1855 for his family magazine Mischmasch as a parody of Anglo-Saxon verse, sixteen years before the novel."},
+    {"claim": "Jabberwocky is pure nonsense that means nothing.", "true": false, "explanation": "The grammar is perfectly ordinary and the story is clear, as Alice says: somebody killed something. Humpty Dumpty even supplies definitions."},
+    {"claim": "The first stanza of Jabberwocky was written years before the rest.", "true": true, "explanation": "Carroll wrote it in 1855 for his family magazine Mischmasch as a parody of Anglo-Saxon verse, sixteen years before the novel."},
     {"claim": "Tenniel's Jabberwock was the book's frontispiece.", "true": false, "explanation": "It was meant to be, but after Carroll asked around thirty mothers whether it was too frightening, the White Knight took its place and the Jabberwock moved inside."}
   ],
   "quotes": [

@@ -11,7 +11,7 @@
     {"claim": "Carmilla came after Dracula and copied it.", "true": false, "explanation": "Carmilla was published in 1872, 25 years before Dracula (1897). Stoker was the borrower."},
     {"claim": "Carmilla can take the form of a cat.", "true": true, "explanation": "Laura sees a huge, sooty-black cat creeping about her bedroom before the attacks, and the General's niece was visited by the same beast."},
     {"claim": "Le Fanu's vampire is destroyed by sunlight.", "true": false, "explanation": "Carmilla is up and about in the afternoons, just late and listless. She is finished the old-fashioned way: a stake, beheading and burning, with the ashes thrown into the river."},
-    {"claim": "The vampire's names are anagrams of each other.", "true": true, "explanation": "Mircalla, Millarca and Carmilla rearrange the same letters, which is the clue that unmasks her."},
+    {"claim": "Carmilla's names are anagrams of each other.", "true": true, "explanation": "Mircalla, Millarca and Carmilla rearrange the same letters, which is the clue that unmasks her."},
     {"claim": "Carmilla lies in a coffin full of blood.", "true": true, "explanation": "When her tomb is opened, the body is found immersed in seven inches of blood, with a faint heartbeat and open eyes."}
   ],
   "quotes": [
