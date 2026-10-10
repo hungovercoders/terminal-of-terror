@@ -1,0 +1,48 @@
+{
+  "id": "count-orlok",
+  "name": "Count Orlok",
+  "aliases": ["Orlok", "Nosferatu"],
+  "emoji": "🐀",
+  "description": "The rat-toothed vampire of the first great vampire film, Dracula in all but name",
+  "origin": "German Expressionist cinema",
+  "debut": {"medium": "film", "title": "Nosferatu, eine Symphonie des Grauens", "creator": "Prana-Film", "year": 1922},
+  "film": {
+    "title": "Nosferatu, eine Symphonie des Grauens",
+    "year": 1922,
+    "releaseDate": "1922-03-04",
+    "studio": "Prana-Film",
+    "director": "F. W. Murnau",
+    "star": "Max Schreck",
+    "silent": true,
+    "note": "Prana-Film's only picture. The studio went bankrupt rather than pay Florence Stoker's damages."
+  },
+  "legend": "Prana-Film was founded in 1921 by Enrico Dieckmann and Albin Grau, an artist and occultist who designed the film's sets, costumes and the Count's rat-like look. They never secured the rights to Bram Stoker's Dracula, so Henrik Galeen's screenplay changed the names and moved the story to the German port of Wisborg in 1838: Dracula became Orlok, Jonathan Harker became Hutter and Mina became Ellen. Stoker's widow, Florence, found out from a promotional flyer, sued, and in July 1925 a German court ordered every print and negative destroyed. Prana was already bankrupt, and prints had already gone abroad, which is the only reason the film exists today. Along the way Murnau gave vampires a weakness Stoker never did: Orlok is caught by the first light of dawn and fades away in a puff of smoke.",
+  "myths": [
+    {"claim": "Max Schreck was a real vampire.", "true": false, "explanation": "He was a working German stage and screen actor with a long career after Nosferatu. The 2000 film Shadow of the Vampire plays with the idea, with Willem Dafoe as a genuinely undead Schreck."},
+    {"claim": "A court ordered every copy of the film destroyed.", "true": true, "explanation": "After Florence Stoker's lawsuit, a German court ruled in 1925 that all prints and negatives be destroyed. Copies that had already reached other countries survived."},
+    {"claim": "Orlok turns into a bat.", "true": false, "explanation": "Nosferatu has no bats. Orlok is linked with rats and plague, which spread through Wisborg when his ship arrives."},
+    {"claim": "Nosferatu invented the idea that sunlight kills vampires.", "true": true, "explanation": "In Stoker's novel Dracula walks about in daylight, merely weakened. Orlok's death at dawn was the film's invention, and almost every vampire story since has borrowed it."},
+    {"claim": "The studio made a string of sequels.", "true": false, "explanation": "Nosferatu was Prana-Film's first and last picture: the lawsuit bankrupted the company."}
+  ],
+  "quotes": [],
+  "powers": ["Spreads plague with a shipload of rats", "Sleeps in a coffin of cursed earth", "Creeps up the stairs as a shadow", "Commands his servant Knock from afar"],
+  "weaknesses": ["The first light of dawn", "A pure-hearted woman who keeps him past cockcrow", "Lawyers", "A good flyer in the wrong hands"],
+  "stats": {"strength": 7, "speed": 4, "cunning": 7, "dread": 10},
+  "legacy": [
+    "Werner Herzog's Nosferatu the Vampyre (1979), with Klaus Kinski",
+    "Kurt Barlow in the 1979 television version of Salem's Lot, a bald, fanged Orlok lookalike",
+    "Shadow of the Vampire (2000), in which Willem Dafoe's Max Schreck really is a vampire",
+    "Robert Eggers' Nosferatu (2024), with Bill Skarsgård"
+  ],
+  "facts": [
+    "He is Dracula with the names changed: the studio never got the rights to Stoker's novel",
+    "Florence Stoker sued, and in 1925 a German court ordered every print destroyed",
+    "He was the first screen vampire to be destroyed by sunlight, a weakness Stoker never gave Dracula",
+    "He arrives in the German town of Wisborg aboard a ship whose whole crew is dead",
+    "He brings rats and plague with him rather than bats and wolves",
+    "Max Schreck, who played him, has a surname that is the German word for fright",
+    "The studio that made him, Prana-Film, never made another picture"
+  ],
+  "hostIntro": "Dim the lights, and I mean all of them. Tonight's guest is the vampire a court ordered burned, and he's still here. The judges are not.",
+  "theme": {"primary": "#C8C8C8", "accent": "#E8E8E8"}
+}

@@ -1,0 +1,13 @@
+{
+  "id": "silent",
+  "name": "Silent Screen",
+  "description": "The first monsters ever filmed, from Edison's studio to Weimar Germany, flickering in black and white.",
+  "order": [
+    "count-orlok",
+    "cesare",
+    "edison-monster",
+    "maschinenmensch",
+    "gwynplaine",
+    "man-in-the-beaver-hat"
+  ]
+}

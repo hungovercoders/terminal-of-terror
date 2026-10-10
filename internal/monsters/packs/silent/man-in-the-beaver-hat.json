@@ -1,0 +1,48 @@
+{
+  "id": "man-in-the-beaver-hat",
+  "name": "The Man in the Beaver Hat",
+  "aliases": ["Beaver Hat Vampire", "London After Midnight vampire"],
+  "emoji": "🎩",
+  "description": "The bug-eyed, needle-toothed vampire of cinema's most famous lost film",
+  "origin": "Hollywood's last silent years",
+  "debut": {"medium": "film", "title": "London After Midnight", "creator": "MGM", "year": 1927},
+  "film": {
+    "title": "London After Midnight",
+    "year": 1927,
+    "releaseDate": "1927-12-03",
+    "studio": "MGM",
+    "director": "Tod Browning",
+    "star": "Lon Chaney",
+    "makeup": "Lon Chaney",
+    "silent": true,
+    "note": "The last known print reportedly burned in the 1965 MGM vault fire. Only stills and the script survive."
+  },
+  "legend": "Tod Browning and Lon Chaney made ten films together, and this one, from Browning's own story The Hypnotist, is the one nobody alive has seen. A man is found shot dead in a London mansion and the death is ruled suicide; five years later the empty house is suddenly occupied by a stooping, bat-like figure in a tall beaver hat and a pale girl who may or may not be a vampire. Inspector Burke of Scotland Yard, also played by Chaney, investigates, and the twist is that the vampire is Burke himself in disguise, part of an elaborate hypnotic trap to make the real murderer confess. Chaney built the look himself: wire fittings worn like monocles that stretched his eyes wide, reportedly too painful to wear for long, and a set of sharpened false teeth. The film was a hit, but MGM's last known print was in Vault 7 when it burned, reportedly in 1965. In 2002 Rick Schmidlin reconstructed it for Turner Classic Movies from the script and around 200 stills, and Browning had already remade the story himself as Mark of the Vampire in 1935, with Bela Lugosi in the cloak.",
+  "myths": [
+    {"claim": "The man in the beaver hat is a real vampire.", "true": false, "explanation": "He is Inspector Burke of Scotland Yard in disguise, staging a haunting to frighten a murderer into confessing. Lon Chaney played both parts."},
+    {"claim": "No footage of the film survives.", "true": true, "explanation": "Only production stills, the script and promotional material are known to exist. Rumours of a surviving print surface every few years and have never come to anything."},
+    {"claim": "The last print was destroyed in a fire.", "true": true, "explanation": "MGM's last known copy was in a storage vault that burned, reportedly in 1965. The exact date was pinned down only recently from a local newspaper report."},
+    {"claim": "Bela Lugosi played the vampire.", "true": false, "explanation": "Lugosi played Count Mora in Mark of the Vampire, Tod Browning's 1935 remake. The 1927 original was Lon Chaney's."},
+    {"claim": "Lon Chaney's bulging eyes were done with wire.", "true": true, "explanation": "He wore wire fittings like monocles to hold his eyes wide open, along with sharpened false teeth, and could reportedly bear them only for short takes."}
+  ],
+  "quotes": [],
+  "powers": ["A stare that can hypnotise a murderer into confessing", "A ghostly bat girl for an assistant", "Turning up in a house everyone thought empty", "Being impossible to find"],
+  "weaknesses": ["Nitrate film", "Scotland Yard's budget for disguises", "A hat that needs constant adjusting", "The 1965 vault fire"],
+  "stats": {"strength": 5, "speed": 5, "cunning": 9, "dread": 8},
+  "legacy": [
+    "Mark of the Vampire (1935), Tod Browning's remake with Bela Lugosi",
+    "The Turner Classic Movies reconstruction (2002), from stills and the script",
+    "Every lost-film hunter's holy grail: rumoured prints surface every few years and never pan out"
+  ],
+  "facts": [
+    "He is the most famous lost-film monster: no footage of him is known to survive",
+    "The last known print of his film burned in an MGM vault fire, reportedly in 1965",
+    "Lon Chaney widened his eyes with wire fittings worn like monocles and wore sharpened false teeth",
+    "He turns out to be a Scotland Yard detective in disguise",
+    "Turner Classic Movies rebuilt his film from the script and around 200 stills in 2002",
+    "Tod Browning remade the story as Mark of the Vampire in 1935, with Bela Lugosi",
+    "He haunts a London mansion with a pale, bat-winged girl at his side"
+  ],
+  "hostIntro": "Tonight's guest is the one that got away. No film, no footage, just a hat, a grin and a few hundred photographs. Try not to blink, dear viewer, you might be the last person ever to see him.",
+  "theme": {"primary": "#C4C9CF", "accent": "#E3E7EB"}
+}
