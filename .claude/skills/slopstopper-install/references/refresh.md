@@ -8,6 +8,10 @@
 
 `install.sh` is idempotent but **not transactional**. Every workflow YAML in `GENERIC_WORKFLOWS`, `Taskfile.ss.yml`, and `.github/actions/ss-*/` is rewritten wholesale on every run, and the CLI is reinstalled at the **pinned** version in `mise.toml` (a refresh never bumps it, as "Move the CLI pin" below explains). A refresh of an older install also migrates a legacy `cli_version` from `.slopstopper.yml` into `mise.toml` and strips it, and strips a dead `node_version` key. A few classes of customization get wiped and need re-applying; a few classes of upstream change need manual catch-up because the installer doesn't drag everything across. Walk this section before the local-verify loop in Step 7.
 
+### Re-enable workflows GitHub switched off
+
+A repo quiet enough to need a refresh is often one GitHub has stopped running. It disables any workflow with a `schedule:` trigger after 60 days without repo activity, and a disabled workflow runs on no trigger, pull requests included, so those checks silently vanish from the PR's list. The post-install banner lists any `ss-*` workflow in that state with its `gh workflow enable <id>` command, and `slopstopper doctor` reports the same. Re-enable them (ask the user first; it changes repo settings) before the Step 7 loop, or the confirmation pass on CI will be missing checks.
+
 ### Diff installed workflows against upstream
 
 `install.sh` uses a hardcoded `GENERIC_WORKFLOWS` array, not a wildcard over slopstopper's `.github/workflows/ss-*.yml`. The two can drift when slopstopper ships a workflow that the installer hasn't been updated to include. Catch the gap:
@@ -43,6 +47,8 @@ bash install.sh --cli-version X.Y.Z  # pin to an exact version
 ```
 
 Either flag wraps `mise use` to rewrite the `"pipx:slopstopper-cli"` entry in `mise.toml`, install that version locally, and the change ships to CI (`jdx/mise-action`) once you commit. The post-install banner reports the PyPI latest version and points at `install.sh --upgrade-cli` when the pin is behind, so you always know an upgrade is available without it being forced. Before bumping, skim the slopstopper changelog for breaking changes, then run the Step 7 local-verify loop so the new version is green before you push the pin bump.
+
+**The shell that ran the installer may still run the old CLI.** `mise activate` puts the pinned version's install dir on `PATH` and only refreshes it when the prompt hook fires, so after the pin moves, a bare `slopstopper` in that same shell (or an agent's long-lived shell) can still be the previous version. The banner warns when this happens ("This shell still runs slopstopper X, not the pinned Y"). Before the Step 7 loop, confirm `slopstopper --version` matches the pin; if it doesn't, re-enter the directory, or prefix commands with `mise exec --` (`mise exec -- task ss:hygiene:test`), which always resolves the pin.
 
 ### Spot newly-shipped knobs in `.slopstopper.yml.example`
 
@@ -104,7 +110,7 @@ Adopter repos should hold exactly the **expected set** of slopstopper artefacts 
 
 - `<repo>/.claude/skills/<name>/` directories listed in `OBSOLETE_SKILLS`, currently `install-slopstopper` (single-skill legacy) and `slopstopper-update` (folded into `slopstopper-install`). The list lives in `install-skill.sh`, which `install.sh` runs.
 - `.ss/scripts/`, a pre-CLI artefact scrubbed wholesale on every install.
-- Byte-equal copies of `.ss/playwright.config.js`, `.ss/lighthouserc.json`, `.ss/lighthouserc.prod.json`, `.ss/tests/`, which moved into the slopstopper-cli wheel; byte-identical adopter copies are removed (the wheel's version wins via the templates resolver). Customised copies survive.
+- Byte-equal copies of `.ss/playwright.config.js`, `.ss/lighthouserc.json`, `.ss/lighthouserc.prod.json` and each `.ss/tests/*.spec.ts`, which moved into the slopstopper-cli wheel; byte-identical adopter copies are removed spec by spec (the wheel's version wins via the templates resolver). Customised copies survive. CLI 0.17 and earlier left such copies behind after any local smoke, e2e, accessibility or broken-links run; later releases stage them in the self-ignoring `.ss/.run/` instead, so a run never adds files to `.ss/`.
 - Workflows the adopter explicitly disabled via `.slopstopper.yml` `workflows.disabled`, removed on every install.
 - `.github/actions/<name>/` directories listed in `install.sh`'s `OBSOLETE_ACTIONS` (empty today). The shipped composite actions (`ss-setup`, `ss-resolve-url`) are replaced wholesale on every run.
 

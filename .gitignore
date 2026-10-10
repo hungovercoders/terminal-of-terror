@@ -49,6 +49,8 @@ node_modules/
 **/.ss/reports/
 .ss/scripts/**/__pycache__/
 .ss/tests/**/__pycache__/
+# Run-time copies of the Playwright config + specs (they also self-ignore).
+.ss/.run/
 playwright-report/
 test-results/
 .lighthouseci/
@@ -59,9 +61,3 @@ test-results/
 !.claude/skills/
 !.claude/skills/**
 # slopstopper end
-
-# slopstopper copies its bundled Playwright config and specs here to run
-# them; only the patched e2e spec (relative nav links) is ours.
-.ss/playwright.config.js
-.ss/tests/*
-!.ss/tests/e2e.spec.ts

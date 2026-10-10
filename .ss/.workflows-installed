@@ -21,9 +21,5 @@ ss-reliability-seo-check.yml
 ss-reliability-llms-txt-check.yml
 ss-reliability-robots-txt-check.yml
 ss-reliability-sitemap-check.yml
-ss-reliability-api-health-check.yml
-ss-reliability-api-latency-check.yml
-ss-security-api-headers-check.yml
-ss-hygiene-openapi-check.yml
 ss-hygiene-doc-updater.md
 ss-hygiene-doc-updater.lock.yml
