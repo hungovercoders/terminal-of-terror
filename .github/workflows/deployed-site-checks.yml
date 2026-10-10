@@ -30,7 +30,23 @@ env:
   URL: ${{ inputs.url }}
 
 jobs:
+  target:
+    runs-on: ubuntu-latest
+    outputs:
+      production: ${{ steps.check.outputs.production }}
+    steps:
+      - uses: actions/checkout@3d3c42e5aac5ba805825da76410c181273ba90b1 # v7.0.1
+      - id: check
+        run: |
+          [[ "$URL" =~ ^https://[^[:space:][:cntrl:]]+$ ]] || { echo "::error::Not an https URL: $URL"; exit 1; }
+          if [ "$URL" = "$(yq '.urls.production' .slopstopper.yml)" ]; then
+            echo "production=true" >> "$GITHUB_OUTPUT"
+          else
+            echo "production=false" >> "$GITHUB_OUTPUT"
+          fi
+
   browser:
+    needs: target
     name: ${{ matrix.check }}
     runs-on: ubuntu-latest
     timeout-minutes: 20
@@ -56,11 +72,12 @@ jobs:
         timeout-minutes: 12
         run: npx playwright install --with-deps chromium
       - name: Check ${{ inputs.url }}
+        env:
+          PRODUCTION: ${{ needs.target.outputs.production }}
         run: |
-          [[ "$URL" =~ ^https://[^[:space:][:cntrl:]]+$ ]] || { echo "::error::Not an https URL: $URL"; exit 1; }
           args="${{ matrix.args }}"
           # The production Lighthouse budget is stricter than a preview's.
-          if [ "${{ matrix.check }}" = cwv ] && [ "$URL" = "$(yq '.urls.production' .slopstopper.yml)" ]; then
+          if [ "${{ matrix.check }}" = cwv ] && [ "$PRODUCTION" = true ]; then
             args=--prod
           fi
           task "ss:reliability:${{ matrix.check }}" -- "$URL" $args
@@ -71,17 +88,20 @@ jobs:
           path: .ss/reports/
           if-no-files-found: ignore
 
+  # Production only: Cloudflare previews answer missing paths with a bare
+  # "Not found" that carries none of public/_headers, which ZAP's 404 probes
+  # always flag. Production serves the 404 page with every header.
   dast:
     name: dast
+    needs: target
+    if: needs.target.outputs.production == 'true'
     runs-on: ubuntu-latest
     timeout-minutes: 30
     steps:
       - uses: actions/checkout@3d3c42e5aac5ba805825da76410c181273ba90b1 # v7.0.1
       - uses: ./.github/actions/ss-setup
       - name: Scan ${{ inputs.url }}
-        run: |
-          [[ "$URL" =~ ^https://[^[:space:][:cntrl:]]+$ ]] || { echo "::error::Not an https URL: $URL"; exit 1; }
-          task ss:security:dast -- "$URL"
+        run: task ss:security:dast -- "$URL"
       - uses: actions/upload-artifact@043fb46d1a93c77aae656e7c1c64a875d1fc6a0a # v7.0.1
         if: always()
         with:
@@ -92,7 +112,7 @@ jobs:
   # A failure on main means the live site is broken, so it gets an issue
   # (reused while open). Preview failures show on the PR instead.
   report:
-    needs: [browser, dast]
+    needs: [target, browser, dast]
     if: failure() && github.ref_name == 'main'
     runs-on: ubuntu-latest
     permissions:
