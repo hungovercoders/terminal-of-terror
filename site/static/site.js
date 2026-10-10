@@ -4,7 +4,9 @@
   "use strict";
 
   var reduceMotion = window.matchMedia && window.matchMedia("(prefers-reduced-motion: reduce)").matches;
+  // "" or a run of "../": anything else is not ours, so ignore it.
   var root = document.body.getAttribute("data-root") || "";
+  if (!/^(\.\.\/)*$/.test(root)) root = "";
   var scrollMode = reduceMotion ? "auto" : "smooth";
 
   function $(sel, el) { return (el || document).querySelector(sel); }
@@ -55,14 +57,29 @@
     var tw = $(".typewriter");
     var line = tw && tw.getAttribute("data-type");
     if (!line || reduceMotion) return;
-    tw.innerHTML = '📺 <em>"<span class="typed"></span>"</em><span class="caret"></span>';
-    var typed = $(".typed", tw), i = 0;
+    // The whole line is laid out from the start, the untyped part hidden,
+    // so nothing moves as the typing reaches the end of a line.
+    var typed = document.createElement("span");
+    var caret = document.createElement("span");
+    caret.className = "caret";
+    var rest = document.createElement("span");
+    rest.className = "untyped";
+    rest.textContent = line;
+    var close = document.createElement("span");
+    close.className = "untyped";
+    close.textContent = '"';
+    var em = document.createElement("em");
+    em.append('"', typed, caret, rest, close);
+    tw.replaceChildren("📺 ", em);
+    var i = 0;
     var step = function () {
       if (i <= line.length) {
-        typed.textContent = line.slice(0, i++);
+        typed.textContent = line.slice(0, i);
+        rest.textContent = line.slice(i++);
         setTimeout(step, line[i - 2] === "." || line[i - 2] === "," ? 180 : 28);
       } else {
-        $(".caret", tw).remove();
+        caret.remove();
+        close.className = "";
       }
     };
     setTimeout(step, 1200);
@@ -165,6 +182,7 @@
       var x = seed;
       x = ((x >>> 16) ^ x) * 0x45d9f3b; x = ((x >>> 16) ^ x) * 0x45d9f3b; x = (x >>> 16) ^ x;
       var f = facts[Math.abs(x) % facts.length];
+      if (!/^[a-z0-9-]+$/.test(f.id)) return;
       $("#fact-text").textContent = f.emoji + " " + f.fact;
       var link = $("#fact-link");
       link.textContent = "More about " + f.name + " →";
