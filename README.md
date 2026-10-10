@@ -205,7 +205,7 @@ terminal-of-terror crypt reset   # release them all and start again
 <img src="docs/assets/crypt.png" alt="The Crypt: captured monsters, progress towards the rest, badges and records" width="720">
 
 <details>
-<summary><b>🏅 All 14 badges</b></summary>
+<summary><b>🏅 All 17 badges</b></summary>
 
 | Badge | How to earn it |
 |-------|----------------|
@@ -222,6 +222,9 @@ terminal-of-terror crypt reset   # release them all and start again
 | 🎬 Silent Era Scholar | Capture every silent-film monster |
 | 📺 Monster Kid | Capture every Universal Classic |
 | 🌍 Folklorist | Capture 5 monsters from World Folklore |
+| 🔭 Cryptozoologist | Capture every cryptid |
+| 📖 Bookworm | Capture every literary monster |
+| 🏹 Hero of Legend | Capture every monster of classical mythology |
 | 👑 Master of the Crypt | Capture every monster |
 
 </details>

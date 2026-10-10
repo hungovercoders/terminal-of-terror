@@ -11,7 +11,7 @@
     {"claim": "The wendigo has antlers and the skull of a deer.", "true": false, "explanation": "That look is a modern invention from films and games. Traditional tellings describe a gaunt, towering, famished figure, sometimes with a heart of ice."},
     {"claim": "A wendigo can never eat enough to be satisfied.", "true": true, "explanation": "In many tellings it grows in proportion to what it eats, so it is always starving. That is the point of the story."},
     {"claim": "The wendigo was invented by a horror writer.", "true": false, "explanation": "Algernon Blackwood's 1910 novella borrowed the name, but the stories are far older and belong to the Cree, Ojibwe and their neighbours."},
-    {"claim": "The legend is tied to real winters of famine.", "true": true, "explanation": "The wendigo is associated with the dead of winter, when food ran out in the northern forests, and it warns against the ultimate taboo."}
+    {"claim": "The wendigo legend is tied to real winters of famine.", "true": true, "explanation": "The wendigo is associated with the dead of winter, when food ran out in the northern forests, and it warns against the ultimate taboo."}
   ],
   "quotes": [
     {"text": "The Wendigo is simply the Call of the Wild personified, which some natures hear to their own destruction.", "speaker": "Dr Cathcart", "source": "Algernon Blackwood, The Wendigo (1910)"},
