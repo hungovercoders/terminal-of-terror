@@ -1,0 +1,48 @@
+{
+  "id": "cesare",
+  "name": "Cesare the Somnambulist",
+  "aliases": ["Cesare", "The Somnambulist"],
+  "emoji": "🛌",
+  "description": "A sleepwalking killer sent out at night by a sinister showman at the fair",
+  "origin": "German Expressionist cinema of Weimar Berlin",
+  "debut": {"medium": "film", "title": "Das Cabinet des Dr. Caligari", "creator": "Decla-Film", "year": 1920},
+  "film": {
+    "title": "Das Cabinet des Dr. Caligari",
+    "year": 1920,
+    "releaseDate": "1920-02-26",
+    "studio": "Decla-Film",
+    "director": "Robert Wiene",
+    "star": "Conrad Veidt",
+    "silent": true,
+    "note": "The sets were painted on canvas by Hermann Warm, Walter Reimann and Walter Röhrig, light and shadow included."
+  },
+  "legend": "Hans Janowitz and Carl Mayer, two young writers shaken by the First World War, wrote the story of a fairground showman, Dr. Caligari, who exhibits a sleepwalker in a cabinet and sends him out to kill by night. Producer Erich Pommer's Decla-Film had little money, so three painters built the town of Holstenwall out of canvas, with crooked streets, leaning houses and the shadows painted straight onto the walls, and the result became the signature of German Expressionist cinema. Conrad Veidt played the sleepwalker in a black bodysuit, sliding along walls like a shadow come loose. The finished film wraps the story in a frame: the narrator, Francis, turns out to be an inmate of an asylum, and Caligari its kindly director. The critic Siegfried Kracauer, who knew Janowitz, reported that the frame was added against the writers' wishes and turned an attack on authority into a madman's fantasy, though later historians have questioned how much of that account is true.",
+  "myths": [
+    {"claim": "Caligari's crooked streets were real buildings shot with trick lenses.", "true": false, "explanation": "They were painted on canvas flats, shadows and all, by Hermann Warm, Walter Reimann and Walter Röhrig. The actors moved through a painting."},
+    {"claim": "The showman claims Cesare has slept for 23 years.", "true": true, "explanation": "That is Caligari's patter at the Holstenwall fair: Cesare is 23 years old and has slept, night and day, for all of them."},
+    {"claim": "The writers of Caligari wanted the asylum twist at the end.", "true": false, "explanation": "According to Siegfried Kracauer, who had the story from Janowitz, the frame was added by the film-makers over the writers' objections. Historians have since questioned Kracauer's account, but nobody claims the writers loved it."},
+    {"claim": "Cesare kills Jane.", "true": false, "explanation": "He raises the knife, cannot bring himself to stab her, and carries her off across the rooftops instead. He sets her down when the chase is lost and collapses, dead of exhaustion."},
+    {"claim": "The actor who played Cesare later appeared in Casablanca.", "true": true, "explanation": "Conrad Veidt fled Nazi Germany, became a British citizen and played the Nazi Major Strasser in Casablanca in 1942."}
+  ],
+  "quotes": [],
+  "powers": ["Kills in his sleep and remembers nothing", "Tells your fortune, and it is always bad", "Carries a grown woman across the rooftops", "Slips through crooked streets like a shadow"],
+  "weaknesses": ["Exhaustion", "Daylight", "A pretty face: he could not bring himself to stab Jane", "Having no will of his own"],
+  "stats": {"strength": 6, "speed": 6, "cunning": 2, "dread": 8},
+  "legacy": [
+    "Siegfried Kracauer's From Caligari to Hitler (1947), which read the film as a warning",
+    "The Cabinet of Caligari (1962), a loose American remake",
+    "Edward Scissorhands (1990), whose pale, black-clad hero owes a visible debt to Cesare",
+    "Rob Zombie's Living Dead Girl video (1998), a shot-for-shot homage"
+  ],
+  "facts": [
+    "He is a sleepwalker, exhibited at the Holstenwall fair by a showman who claims he has slept for 23 years",
+    "He predicts that a young man named Alan will die by dawn, and Alan does",
+    "He cannot bring himself to stab Jane and carries her off across the rooftops instead",
+    "His world was painted on canvas, crooked streets, leaning houses and shadows included",
+    "The twist ending reveals the whole story as the delusion of an asylum inmate",
+    "Conrad Veidt, who played him, later played Major Strasser in Casablanca",
+    "His film's German title spells Cabinet with a C, an old-fashioned choice even in 1920"
+  ],
+  "hostIntro": "Don't ask tonight's guest how long you have to live, dear viewer. He'll tell you, and he's never been wrong. He's also never been awake.",
+  "theme": {"primary": "#B9B9C4", "accent": "#DCDCE4"}
+}

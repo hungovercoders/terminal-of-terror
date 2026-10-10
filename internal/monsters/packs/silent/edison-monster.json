@@ -1,0 +1,48 @@
+{
+  "id": "edison-monster",
+  "name": "The Edison Monster",
+  "aliases": ["Edison's Frankenstein", "Charles Ogle's Monster"],
+  "emoji": "⚡",
+  "description": "The first screen Frankenstein monster, brewed in a cauldron in 1910",
+  "origin": "The earliest years of American cinema, in a Bronx studio",
+  "debut": {"medium": "film", "title": "Edison's Frankenstein", "creator": "Edison Studios", "year": 1910},
+  "film": {
+    "title": "Edison's Frankenstein",
+    "year": 1910,
+    "releaseDate": "1910-03-18",
+    "studio": "Edison Studios",
+    "director": "J. Searle Dawley",
+    "star": "Charles Ogle",
+    "makeup": "Charles Ogle",
+    "silent": true,
+    "note": "One reel, around a quarter of an hour, and the first film made from Mary Shelley's novel."
+  },
+  "legend": "Thomas Edison's film company turned out short pictures by the dozen, and in 1910 J. Searle Dawley wrote and directed a one-reel Frankenstein that squeezed Mary Shelley's novel into about a quarter of an hour. The studio's own catalogue promised it had removed anything too repulsive, so the creature is not stitched together from corpses but brewed in a great cauldron: the crew burned a dummy and ran the footage backwards, so that a skeleton appears to gather flesh out of the flames. Charles Ogle, a stage actor who became one of Edison's regulars, designed his own makeup, all wild hair, hunched back and twisted hands. The ending is the film's own: the monster, jealous of his creator's bride, sees himself in a mirror and fades away, and when Frankenstein looks into the glass the lingering reflection becomes his own. The film was thought lost for most of the century and the American Film Institute listed it among the missing in 1980, but a Wisconsin collector, Alois Dettlaff, had reportedly bought a print in the 1950s and announced it in the 1970s. The Library of Congress bought his collection in 2014 and released a restoration in 2018.",
+  "myths": [
+    {"claim": "In Edison's 1910 Frankenstein, the monster is stitched together from corpses, as in the novel.", "true": false, "explanation": "In the 1910 film Frankenstein mixes chemicals in a cauldron and the creature forms in the flames. The studio reportedly wanted to avoid anything too gruesome."},
+    {"claim": "Edison's Frankenstein filmed the creation by burning a dummy and running the film backwards.", "true": true, "explanation": "Reversed, the burning dummy seems to grow flesh and limbs out of the fire, an effect the Edison catalogue was proud of."},
+    {"claim": "Edison's Frankenstein was lost for decades until a print turned up with a private collector.", "true": true, "explanation": "The American Film Institute listed it among the lost in 1980, not knowing that collector Alois Dettlaff had a print. The Library of Congress acquired it in 2014."},
+    {"claim": "Boris Karloff was the first actor to play Frankenstein's monster on screen.", "true": false, "explanation": "Charles Ogle got there 21 years earlier. A second, lost version, Life Without Soul, followed in 1915."},
+    {"claim": "Mary Shelley's novel ends with the monster vanishing in a mirror.", "true": false, "explanation": "The mirror is the film's invention. Shelley's novel ends in the Arctic, with the creature drifting away on the ice."}
+  ],
+  "quotes": [],
+  "powers": ["Born of fire and chemicals rather than a scalpel", "Monstrous strength", "Appears in mirrors when least wanted", "A quarter of an hour of pure menace"],
+  "weaknesses": ["His own reflection", "Love: he fades when his creator's heart turns to his bride", "Nitrate film stock", "Being forgotten for sixty years"],
+  "stats": {"strength": 8, "speed": 4, "cunning": 3, "dread": 6},
+  "legacy": [
+    "Life Without Soul (1915), the second Frankenstein film, now lost",
+    "Universal's Frankenstein (1931), with Boris Karloff",
+    "The Library of Congress restoration (2018), free to watch online"
+  ],
+  "facts": [
+    "He was the first Frankenstein monster on film, 21 years before Boris Karloff",
+    "He is created in a cauldron, not on an operating table",
+    "His creation scene was shot by burning a dummy and running the film backwards",
+    "Charles Ogle, who played him, designed his own wild-haired makeup",
+    "He vanishes after seeing himself in a mirror, an ending the novel never had",
+    "His film runs around a quarter of an hour, a single reel",
+    "The only known print belonged to a collector, Alois Dettlaff, and reached the Library of Congress in 2014"
+  ],
+  "hostIntro": "Before Karloff, before Universal, before sound, there was this fellow. Tonight's guest is over a hundred years old and spent most of them in a film can in Wisconsin.",
+  "theme": {"primary": "#D9D9D9", "accent": "#BFBFBF"}
+}

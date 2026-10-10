@@ -4,7 +4,7 @@ Output docs/demos/.frames/list/
 Set Shell bash
 Set FontSize 14
 Set Width 1200
-Set Height 980
+Set Height 1280
 Set Padding 24
 Set TypingSpeed 60ms
 Set Theme @theme.json

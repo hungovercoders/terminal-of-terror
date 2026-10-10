@@ -1,0 +1,50 @@
+{
+  "id": "gwynplaine",
+  "name": "Gwynplaine",
+  "aliases": ["The Man Who Laughs", "The Laughing Man"],
+  "emoji": "🃏",
+  "description": "A nobleman's son whose face was carved into a permanent grin as a child",
+  "origin": "Victor Hugo's novel of 17th-century England",
+  "debut": {"medium": "novel", "title": "L'Homme qui rit", "creator": "Victor Hugo", "year": 1869},
+  "film": {
+    "title": "The Man Who Laughs",
+    "year": 1928,
+    "releaseDate": "1928-04-27",
+    "studio": "Universal",
+    "director": "Paul Leni",
+    "star": "Conrad Veidt",
+    "makeup": "Jack Pierce",
+    "silent": true,
+    "note": "Released with a synchronised Movietone score and sound effects, but no spoken dialogue."
+  },
+  "legend": "In Hugo's 1869 novel, Gwynplaine is the son of a lord, sold as a child to the Comprachicos, child-buyers who carve his face into a permanent grin so he can be shown at fairs. Abandoned on a winter shore, he rescues a blind baby girl, Dea, from a snowstorm, and the two are raised by Ursus, a travelling philosopher and showman, and his wolf, Homo. Years later his birthright is restored and he takes his seat in the House of Lords, where the peers laugh in his face. Universal's Carl Laemmle, flush from The Hunchback of Notre Dame and The Phantom of the Opera, brought the German director Paul Leni and the star Conrad Veidt to Hollywood for it, and Mary Philbin, Christine from Phantom, played Dea. Jack Pierce, who would build Karloff's Frankenstein monster three years later, made the grin: a dental prosthesis with hooks that pulled the corners of Veidt's mouth back, which reportedly left him barely able to speak, so the film went out with a synchronised music-and-effects track rather than dialogue. In 1940 Bill Finger showed Bob Kane and Jerry Robinson a photograph of Veidt's grin, and Batman's Joker was born.",
+  "myths": [
+    {"claim": "Gwynplaine's grin was painted on with greasepaint.", "true": false, "explanation": "Jack Pierce fitted Conrad Veidt with a dental prosthesis whose hooks pulled his mouth into the grin, held in place for every take."},
+    {"claim": "The Joker was modelled on Conrad Veidt's Gwynplaine.", "true": true, "explanation": "Bob Kane, Bill Finger and Jerry Robinson all acknowledged that a photograph of Veidt in the film was the starting point for the Joker's face in 1940."},
+    {"claim": "The Man Who Laughs is a talkie.", "true": false, "explanation": "It came out in 1928 with a synchronised score and sound effects, but no spoken lines. Veidt's dental prosthesis reportedly made talking impossible."},
+    {"claim": "In Hugo's novel, Gwynplaine is the villain.", "true": false, "explanation": "He is the hero, gentle and loyal, in love with the blind girl Dea, who is the one person who cannot see his face."},
+    {"claim": "Conrad Veidt, who played Gwynplaine, also played Cesare in The Cabinet of Dr. Caligari.", "true": true, "explanation": "Conrad Veidt played the sleepwalker in 1920, Gwynplaine in 1928 and Major Strasser in Casablanca in 1942."}
+  ],
+  "quotes": [
+    {"text": "Ursus and Homo were fast friends.", "speaker": "Narrator", "source": "The Man Who Laughs (1869 English translation), preliminary chapter"}
+  ],
+  "powers": ["A smile that never fades, whatever he feels", "A showman's trade: his face fills every fairground tent", "The blood of a lord", "A wolf for a brother"],
+  "weaknesses": ["Being laughed at by the House of Lords", "The blind girl Dea, the only one who cannot see his face", "A set of dentures that stopped him talking", "Comic-book artists with a photograph"],
+  "stats": {"strength": 5, "speed": 5, "cunning": 6, "dread": 6},
+  "legacy": [
+    "The Joker, who debuted in Batman #1 (1940)",
+    "L'uomo che ride (1966) and L'Homme qui rit (2012), later film versions",
+    "Batman: The Man Who Laughs (2005), Ed Brubaker's comic named in tribute"
+  ],
+  "facts": [
+    "His face was carved into a permanent grin when he was a child, by traders called Comprachicos",
+    "He rescues a blind baby girl, Dea, from a snowstorm and grows up with her in a travelling show",
+    "Conrad Veidt's grin was held open by a dental prosthesis fitted with hooks",
+    "His makeup was built by Jack Pierce, who later made Boris Karloff's Frankenstein monster",
+    "Bill Finger showed Bob Kane a photograph of Veidt's grin, and the Joker was born",
+    "His film was released with a synchronised music and effects track, but no spoken lines",
+    "In Hugo's novel he turns out to be a lord and is laughed out of the House of Lords"
+  ],
+  "hostIntro": "Smile, dear viewer, you're on camera. Tonight's guest has been smiling since 1869 and hasn't enjoyed a second of it. You've seen his grin on a comic-book villain, but he had it first.",
+  "theme": {"primary": "#DADAD2", "accent": "#F0F0EA"}
+}

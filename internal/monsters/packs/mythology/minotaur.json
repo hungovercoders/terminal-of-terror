@@ -1,0 +1,42 @@
+{
+  "id": "minotaur",
+  "name": "The Minotaur",
+  "aliases": ["Minotaur", "Asterion"],
+  "emoji": "🐂",
+  "description": "The bull-headed man of Crete, fed on Athenian youths in the heart of the Labyrinth",
+  "origin": "Greek mythology (Crete)",
+  "debut": {"medium": "myth", "title": "Greek vase paintings of Theseus and the bull-headed man", "era": "from the 7th century BCE; told in full by Apollodorus, Plutarch and Ovid"},
+  "legend": "Minos, king of Crete, asked Poseidon for a bull from the sea to prove his right to the throne, then liked it too much to sacrifice it. Poseidon's revenge was to make Minos's queen, Pasiphae, fall in love with the animal; the craftsman Daedalus built her a wooden cow to hide in, and the child of that union was Asterion, called the Minotaur, 'the bull of Minos', with the head of a bull on the body of a man. Minos had Daedalus build the Labyrinth to hold him and fed him on tribute from Athens: seven young men and seven young women, a penalty imposed after Minos's son Androgeus was killed in Attica. Theseus, the Athenian prince, joined the third shipment. Minos's daughter Ariadne fell for him and gave him a ball of thread from Daedalus, which he tied to the door and unwound as he went in. Apollodorus says he killed the monster with his fists; the vase painters, who had been drawing the scene since the 7th century BCE, preferred a sword. Sailing home he forgot to change his black sail for a white one, and his father Aegeus, thinking him dead, threw himself into the sea that still bears his name. Plutarch reports a sceptical version in which 'the Minotaur' was Taurus, a brutal Cretan general. When Arthur Evans began excavating the palace of Knossos in 1900 he found bull frescoes and bull-horn symbols on every side, and a building so sprawling that it is easy to see where the Labyrinth came from. Dante stationed the Minotaur at the entrance to the seventh circle of Hell, and Picasso, in the 1930s, drew him again and again as a brutal, tender self-portrait.",
+  "myths": [
+    {"claim": "Theseus killed the Minotaur with a sword given to him by Ariadne.", "true": false, "explanation": "The sources disagree. Ariadne gave him a ball of thread, not a weapon; Apollodorus says Theseus beat the monster to death with his fists, while vase painters usually gave him a sword. The sword from Ariadne is a later blend of the two."},
+    {"claim": "The Minotaur had a bull's head on a man's body.", "true": true, "explanation": "That is how Apollodorus describes him and how Greek vases paint him. Medieval artists, working from Ovid's vaguer Latin, sometimes reversed it and drew a man's head on a bull's body."},
+    {"claim": "Archaeologists have found the Labyrinth at Knossos.", "true": false, "explanation": "Arthur Evans found a huge, many-roomed palace full of bull imagery, which may have inspired the story, but no maze and no monster. The Labyrinth is a myth, not a building."},
+    {"claim": "The Minotaur had a proper name of his own.", "true": true, "explanation": "Apollodorus calls him Asterius, or Asterion, 'starry one'. Minotaur simply means 'the bull of Minos'."},
+    {"claim": "Theseus forgot to change his sail and his father died because of it.", "true": true, "explanation": "He had promised to hoist a white sail if he lived. He forgot, Aegeus saw the black sail from the cliffs and threw himself into the sea, which was named the Aegean after him."}
+  ],
+  "quotes": [
+    {"text": "He had the face of a bull, but the rest of him was human; and Minos, in compliance with certain oracles, shut him up and guarded him in the Labyrinth.", "speaker": "Apollodorus", "source": "The Library, book 3, Sir James Frazer's 1921 translation"},
+    {"text": "And having found the Minotaur in the last part of the labyrinth, he killed him by smiting him with his fists; and drawing the clue after him made his way out again.", "speaker": "Apollodorus, on Theseus", "source": "The Library, Epitome 1, Sir James Frazer's 1921 translation"}
+  ],
+  "powers": ["The strength of a bull", "A maze that no one else can find the way out of", "Fourteen Athenian victims at every feeding", "A king for a stepfather and a god for a grandfather"],
+  "weaknesses": ["A ball of thread", "Bare fists, according to Apollodorus", "Daedalus, who cannot keep a secret", "A Labyrinth with only one door"],
+  "stats": {"strength": 9, "speed": 6, "cunning": 3, "dread": 7},
+  "legacy": [
+    "Dante's Inferno (c. 1320), where the Minotaur guards the circle of the violent",
+    "Picasso's Minotaur etchings and the print Minotauromachy (1935)",
+    "Jorge Luis Borges's story The House of Asterion (1947), told by the monster himself",
+    "Mary Renault's novel The King Must Die (1958)",
+    "Percy Jackson & the Olympians: The Lightning Thief (2010), where he is Percy's first fight"
+  ],
+  "facts": [
+    "His mother was Pasiphae, the queen of Crete, and his father the bull that Poseidon sent from the sea",
+    "His own name was Asterion; Minotaur simply means 'the bull of Minos'",
+    "Daedalus built the Labyrinth at Knossos to hold him",
+    "Athens had to send him seven young men and seven young women as tribute",
+    "Ariadne gave Theseus a ball of thread so he could find his way back out of the Labyrinth",
+    "Apollodorus says Theseus killed him with his bare fists, though vase painters gave the hero a sword",
+    "Arthur Evans, who excavated the palace of Knossos from 1900, found bull frescoes but no maze"
+  ],
+  "hostIntro": "Tonight's guest has never left home, and home is a maze with one way in. Hold on to your thread, and whatever you do, don't follow the sound of hooves.",
+  "theme": {"primary": "#D9A066", "accent": "#F5E6C8"}
+}

@@ -1,6 +1,6 @@
 # Night 27 · Open the Doors
 
-> 📺 *"Forty-three monsters is a start. But somewhere out there is someone who knows everything about Spring-heeled Jack, or the Beast of Bodmin Moor, or a creature from their grandmother's village that no film ever touched. Tonight we let them in. A folder in the config directory, a JSON file or two, and their monster is in the quiz by morning."*
+> 📺 *"Fifty-five monsters is a start. But somewhere out there is someone who knows everything about Spring-heeled Jack, or the Beast of Bodmin Moor, or a creature from their grandmother's village that no film ever touched. Tonight we let them in. A folder in the config directory, a JSON file or two, and their monster is in the quiz by morning."*
 
 **Tonight you'll learn**
 - Loading the same format from disk that you embed at build time

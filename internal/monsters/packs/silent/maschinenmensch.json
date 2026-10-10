@@ -1,0 +1,48 @@
+{
+  "id": "maschinenmensch",
+  "name": "The Maschinenmensch",
+  "aliases": ["Maria", "Robot Maria", "False Maria", "The Machine-Man"],
+  "emoji": "🤖",
+  "description": "The gleaming Art Deco robot built to wear a saint's face and wreck a city",
+  "origin": "Weimar German science fiction",
+  "debut": {"medium": "novel", "title": "Metropolis", "creator": "Thea von Harbou", "year": 1925},
+  "film": {
+    "title": "Metropolis",
+    "year": 1927,
+    "releaseDate": "1927-01-10",
+    "studio": "UFA",
+    "director": "Fritz Lang",
+    "star": "Brigitte Helm",
+    "silent": true,
+    "note": "The robot suit was sculpted by Walter Schulze-Mittendorff from a material called plastic wood, laid over a plaster cast of Brigitte Helm's body."
+  },
+  "legend": "Thea von Harbou, Fritz Lang's wife and screenwriter, published Metropolis as a novel in 1925 while the film was in production, and UFA poured more money into it than any German picture before. In the towering city of the future, the inventor Rotwang builds a Maschinenmensch, a machine-person, to replace the woman he lost, then at the ruler Joh Fredersen's bidding gives it the face of Maria, the preacher who keeps the workers' hopes alive. The false Maria dances the rich into a frenzy, talks the workers into smashing their own machines and floods their underground city, and is finally burned at the stake, where the flames strip away the borrowed skin to reveal the metal beneath. Brigitte Helm, in her first film, played both women; the sculptor Walter Schulze-Mittendorff made the suit from plastic wood over a plaster cast of her body, and she came out of it cut and bruised. The film premiered in Berlin on 10 January 1927 at about two and a half hours, was cut savagely for release, and a quarter of it was thought lost until 2008, when a near-complete 16mm print turned up in the Museo del Cine in Buenos Aires. The restored film was shown again in 2010.",
+  "myths": [
+    {"claim": "The Maschinenmensch costume in Metropolis was made of metal.", "true": false, "explanation": "Walter Schulze-Mittendorff wanted beaten copper but found it too heavy, so he sculpted the suit from plastic wood over a cast of Brigitte Helm's body and painted it to shine like metal."},
+    {"claim": "Brigitte Helm played both the robot and the real Maria.", "true": true, "explanation": "It was her first film. She played the saintly preacher and the wild-eyed machine that steals her face."},
+    {"claim": "C-3PO was modelled on the Maschinenmensch.", "true": true, "explanation": "Ralph McQuarrie, the concept artist for Star Wars, based his early designs for C-3PO on Schulze-Mittendorff's robot."},
+    {"claim": "The complete Metropolis was lost for decades.", "true": true, "explanation": "After the premiere the film was cut by about a quarter, and the missing footage was given up for lost until a 16mm print surfaced in Buenos Aires in 2008."},
+    {"claim": "Fritz Lang wrote the story alone.", "true": false, "explanation": "The story and script are by Thea von Harbou, Lang's wife, who published it as a novel in 1925."}
+  ],
+  "quotes": [],
+  "powers": ["Wears any face its maker chooses", "Dances a whole city into a frenzy", "Never tires, never sleeps, never doubts", "Talks the workers into drowning their own homes"],
+  "weaknesses": ["Fire, which strips the false skin away", "A mad inventor's grief", "Walking: the suit barely bent at the knees", "Being mistaken for the real Maria at the wrong moment"],
+  "stats": {"strength": 7, "speed": 5, "cunning": 8, "dread": 7},
+  "legacy": [
+    "C-3PO, whose look Ralph McQuarrie based on her",
+    "Giorgio Moroder's tinted, pop-scored Metropolis (1984)",
+    "Madonna's Express Yourself video (1989), a Metropolis homage",
+    "The 2010 restoration, with the footage found in Buenos Aires"
+  ],
+  "facts": [
+    "She was built by the inventor Rotwang and given the face of the workers' preacher, Maria",
+    "Her suit was sculpted from plastic wood over a plaster cast of Brigitte Helm's body",
+    "Brigitte Helm played both the robot and the real Maria, in her first film",
+    "She is burned at the stake, and the flames reveal the metal beneath her skin",
+    "Ralph McQuarrie based his first designs for C-3PO on her",
+    "A near-complete print of her film turned up in a Buenos Aires museum in 2008",
+    "Her film premiered in Berlin in January 1927 and was the most expensive German picture of its day"
+  ],
+  "hostIntro": "Tonight's guest has a heart of plastic wood and a face borrowed from a saint. She dances, she preaches, she floods the basement. Keep your hands where I can see them, and she will too.",
+  "theme": {"primary": "#CFCFD6", "accent": "#ECECF2"}
+}

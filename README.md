@@ -12,7 +12,7 @@
 [![CI](https://github.com/hungovercoders/terminal-of-terror/actions/workflows/ci.yml/badge.svg)](https://github.com/hungovercoders/terminal-of-terror/actions/workflows/ci.yml)
 [![Go version](https://img.shields.io/github/go-mod/go-version/hungovercoders/terminal-of-terror?color=ff7a1a)](go.mod)
 [![License: MIT](https://img.shields.io/badge/license-MIT-8b0000)](LICENSE)
-![Monsters](https://img.shields.io/badge/monsters-43-2a9d8f)
+![Monsters](https://img.shields.io/badge/monsters-55-2a9d8f)
 ![Viewer discretion](https://img.shields.io/badge/viewer%20discretion-advised-000000)
 
 <img src="docs/assets/hero.gif" alt="Terminal of Terror: the Channel 13 intro, Dracula's pages, a myth-vs-movie reveal, the silent-film Phantom and a search for 'silver'" width="820">
@@ -21,7 +21,7 @@
 
 > 📺 *"Good evening, creatures of the night, and welcome to the Channel 13 Creature Feature. I'm your host, Count Cathode, broadcasting from beyond the static."*
 
-**Terminal of Terror** brings the classic Universal monsters, creatures from world folklore, the cryptids people swear they have seen and the great literary monsters to your terminal. Meet 43 monsters in four packs, learn the real history behind them (who played them, who did the makeup, and which "facts" Hollywood simply made up), then prove what you know in the Midnight Quiz and fill your crypt.
+**Terminal of Terror** brings the classic Universal monsters, creatures from world folklore, the cryptids people swear they have seen, the great literary monsters, the beasts of Greek myth and the first monsters ever filmed to your terminal. Meet 55 monsters in six packs, learn the real history behind them (who played them, who did the makeup, and which "facts" Hollywood simply made up), then prove what you know in the Midnight Quiz and fill your crypt.
 
 > [!WARNING]
 > **Viewer discretion is advised.** Side effects may include knowing far too much about 1930s makeup artists, a sudden distrust of huts with chicken legs, and correcting your friends about silver bullets.
@@ -99,7 +99,7 @@ Count Cathode opens the broadcast through a wall of TV static, then hands you th
 | **Stat Card** | Strength, speed, cunning and dread, plus powers and weaknesses |
 | **Legacy** | Sequels, remakes and crossovers |
 
-🎞️ The silent-era monsters, the Phantom and the Hunchback, flicker in black and white with title cards and film grain, just as they did in 1923 and 1925.
+🎞️ The silent-era monsters, from the Phantom and the Hunchback to Count Orlok and the whole Silent Screen pack, flicker in black and white with title cards and film grain, just as they did in the silent era.
 
 Jump straight to a monster by name, nickname or even part of a name:
 
@@ -148,14 +148,14 @@ terminal-of-terror quiz dracula
 </td>
 <td width="50%" valign="top">
 
-<img src="docs/assets/quiz.gif" alt="The Midnight Quiz: a question about where the Kappa first appeared, a wrong answer with its explanation, and a final rank" width="100%">
+<img src="docs/assets/quiz.gif" alt="The Midnight Quiz: a true-or-false question, a wrong answer with its explanation, and a final rank" width="100%">
 
 </td>
 </tr>
 <tr>
 <td width="50%" valign="top">
 
-<img src="docs/assets/guess.gif" alt="Guess the Monster: the Sasquatch's portrait slowly clears from the fog as clues appear" width="100%">
+<img src="docs/assets/guess.gif" alt="Guess the Monster: the Yeti's portrait slowly clears from the fog as clues appear" width="100%">
 
 </td>
 <td width="50%" valign="top">
@@ -264,7 +264,7 @@ terminal-of-terror random --date 2026-11-21
 terminal-of-terror random                     # or just any old fact
 ```
 
-<img src="docs/assets/random.png" alt="The Fact of the Night card for 21 November: a Baba Yaga fact, and a note that Frankenstein opened 95 years ago tonight" width="620">
+<img src="docs/assets/random.png" alt="The Fact of the Night card for 21 November: a Dracula's Daughter fact, and a note that Frankenstein opened 95 years ago tonight" width="620">
 
 ## 📜 The roster
 
@@ -330,6 +330,28 @@ terminal-of-terror random                     # or just any old fact
 | 🎃 | **The Headless Horseman** | Washington Irving's story (1820) | *The Headless Horseman* (1922), a silent with Will Rogers as Ichabod |
 | 🦴 | **Grendel** | *Beowulf*, the Old English poem | |
 | 🐲 | **The Jabberwock** | Lewis Carroll's *Jabberwocky* (1871) | |
+
+### Classical Mythology · `--pack mythology`
+
+| | Monster | Where the myth is told |
+|-|---------|------------------------|
+| 🐍 | **Medusa** | Hesiod's *Theogony* (around 700 BCE), retold by Ovid |
+| 🐂 | **The Minotaur** | Greek vase painting, then Apollodorus, Plutarch and Ovid |
+| 🐕 | **Cerberus** | Hesiod's *Theogony*; the last labour of Heracles |
+| 🐉 | **The Hydra** | Hesiod's *Theogony*; the labour told in full by Apollodorus |
+| 🧿 | **Polyphemus the Cyclops** | Homer's *Odyssey*, book 9 |
+| 🦁 | **The Sphinx** | Named by Hesiod; her riddle in Sophocles' *Oedipus Rex* |
+
+### Silent Screen · `--pack silent`
+
+| | Monster | The film | Played by |
+|-|---------|----------|-----------|
+| 🐀 | **Count Orlok** | *Nosferatu* (1922) | Max Schreck |
+| 🛌 | **Cesare the Somnambulist** | *Das Cabinet des Dr. Caligari* (1920) | Conrad Veidt |
+| ⚡ | **The Edison Monster** | *Frankenstein* (1910) | Charles Ogle |
+| 🤖 | **The Maschinenmensch** | *Metropolis* (1927) | Brigitte Helm |
+| 🃏 | **Gwynplaine** | *The Man Who Laughs* (1928) | Conrad Veidt |
+| 🎩 | **The Man in the Beaver Hat** | *London After Midnight* (1927), the famous lost film | Lon Chaney |
 
 <img src="docs/assets/list.png" alt="terminal-of-terror list: every monster grouped by pack" width="820">
 

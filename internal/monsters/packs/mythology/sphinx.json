@@ -1,0 +1,42 @@
+{
+  "id": "sphinx",
+  "name": "The Sphinx",
+  "aliases": ["Sphinx", "Sphinx of Thebes"],
+  "emoji": "🦁",
+  "description": "The winged, lion-bodied riddler who devoured every traveller to Thebes who answered wrong",
+  "origin": "Greek mythology",
+  "debut": {"medium": "myth", "title": "Theogony", "creator": "Hesiod", "era": "around 700 BCE; her riddle reached the Athenian stage in Sophocles' Oedipus Rex by about 429 BCE"},
+  "legend": "The Greek Sphinx has the head of a woman, the body of a lion and the wings of a bird, and she is not the Sphinx of Giza: that is a male Egyptian statue carved around 2500 BCE, nearly two thousand years before her story was told, which the Greeks later named after her. Hesiod makes her a daughter of Echidna and sister of the Nemean lion, and calls her Phix. Sent by Hera to punish Thebes, she sat on a rock outside the city and put a riddle, learned from the Muses, to everyone who passed: what has one voice and goes on four feet, two feet and three? Those who could not answer were eaten, among them a son of Creon, the city's regent, who offered the throne and the hand of the widowed queen Jocasta to whoever could get rid of her. Oedipus, a stranger on the road, answered 'a human being', who crawls as a baby, walks upright as an adult and leans on a stick in old age, and the Sphinx threw herself from the rock. His prize was the city and a marriage to his own mother. Sophocles' Oedipus Rex, first staged around 429 BCE, refers to the riddle but never quotes it; the full wording survives in Apollodorus. Ingres painted the meeting in 1808 and Gustave Moreau in 1864, Freud named a complex after the winner, and she still asks riddles in Harry Potter's Triwizard maze and Percy Jackson's Labyrinth.",
+  "myths": [
+    {"claim": "The riddle of the Sphinx is quoted in full in Sophocles' Oedipus Rex.", "true": false, "explanation": "Sophocles' audience knew it already, so the play only refers to the 'riddling Sphinx' and Oedipus's cleverness. The full riddle survives in Apollodorus and in a few other late sources."},
+    {"claim": "The Greek Sphinx and the Great Sphinx of Giza are the same creature.", "true": false, "explanation": "The Giza statue is male, wingless and about two thousand years older than the Theban story. The Greeks borrowed the name for it; the myth of the riddling monster is their own."},
+    {"claim": "The Sphinx killed herself when Oedipus answered correctly.", "true": true, "explanation": "Apollodorus says she threw herself from the citadel, and vase paintings and later writers agree that the right answer was the end of her."},
+    {"claim": "The Greek Sphinx had wings.", "true": true, "explanation": "Apollodorus gives her a woman's face, a lion's breast, feet and tail, and the wings of a bird. Greek sculptors put winged sphinxes on top of columns and grave markers."},
+    {"claim": "The answer to the Sphinx's riddle is a human being.", "true": true, "explanation": "A baby crawls on four limbs, an adult walks on two legs and an old person leans on a stick as a third."}
+  ],
+  "quotes": [
+    {"text": "What is that which has one voice and yet becomes four-footed and two-footed and three-footed?", "speaker": "The Sphinx's riddle, as recorded by Apollodorus", "source": "The Library, book 3, Sir James Frazer's 1921 translation"},
+    {"text": "Oedipus found the solution, declaring that the riddle of the Sphinx referred to man; for as a babe he is four-footed, going on four limbs, as an adult he is two-footed, and as an old man he gets besides a third support in a staff.", "speaker": "Apollodorus", "source": "The Library, book 3, Sir James Frazer's 1921 translation"}
+  ],
+  "powers": ["A riddle learned from the Muses", "A lion's claws and a bird's wings", "A city held hostage from a single rock", "Patience: she can wait for the next traveller"],
+  "weaknesses": ["A correct answer", "A clever stranger with a limp", "Pride, which makes losing a riddle fatal", "Having only one riddle"],
+  "stats": {"strength": 7, "speed": 7, "cunning": 10, "dread": 7},
+  "legacy": [
+    "Sophocles' Oedipus Rex (c. 429 BCE), which Aristotle thought the model tragedy",
+    "Ingres's painting Oedipus and the Sphinx (1808) and Gustave Moreau's (1864)",
+    "Sigmund Freud's Oedipus complex, named after the man who beat her",
+    "The riddling Sphinx in the Triwizard maze in Harry Potter and the Goblet of Fire (2000)",
+    "The quiz-show Sphinx in Rick Riordan's The Battle of the Labyrinth (2008)"
+  ],
+  "facts": [
+    "The Greek Sphinx has a woman's head, a lion's body and the wings of a bird",
+    "Hesiod makes her a daughter of Echidna and a sister of the Nemean lion",
+    "She sat on a rock outside Thebes and killed everyone who could not answer her riddle",
+    "Her riddle asks what has one voice and goes on four feet, two feet and three; the answer is a human being",
+    "When Oedipus answered correctly, she threw herself from the rock",
+    "Sophocles' Oedipus Rex refers to the riddle but never quotes it; the full wording survives in Apollodorus",
+    "The Great Sphinx of Giza is a male Egyptian statue roughly two thousand years older than the Greek story"
+  ],
+  "hostIntro": "Tonight's guest has one question for you, and she has never had to ask a second. Think about babies, think about walking sticks, and think fast.",
+  "theme": {"primary": "#E9C46A", "accent": "#FBF0C4"}
+}

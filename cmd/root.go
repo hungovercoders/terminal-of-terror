@@ -16,8 +16,9 @@ var rootCmd = &cobra.Command{
 	Use:   "terminal-of-terror",
 	Short: "A terminal tool that terrifies you with universal monsters!",
 	Long: `Terminal of Terror brings classic Universal monsters, creatures of world
-folklore, cryptids and literary monsters to your terminal, presented by your
-late-night horror host, Count Cathode, live on Channel 13's Creature Feature.
+folklore, cryptids, literary monsters, the beasts of Greek myth and the first
+monsters ever filmed to your terminal, presented by your late-night horror
+host, Count Cathode, live on Channel 13's Creature Feature.
 
 Explore the real history behind Dracula, Frankenstein's Monster, the Wolf
 Man and more, then test yourself in the Midnight Quiz, capture monsters for

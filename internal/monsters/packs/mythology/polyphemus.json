@@ -1,0 +1,41 @@
+{
+  "id": "polyphemus",
+  "name": "Polyphemus the Cyclops",
+  "aliases": ["Polyphemus", "Cyclops", "The Cyclops"],
+  "emoji": "🧿",
+  "description": "The one-eyed, man-eating giant who trapped Odysseus in his cave",
+  "origin": "Greek mythology (Homer's Odyssey)",
+  "debut": {"medium": "myth", "title": "Odyssey", "creator": "Homer", "era": "around 700 BCE; the one-eyed giant of book 9"},
+  "legend": "In book 9 of the Odyssey, Odysseus and twelve of his men land on an island of one-eyed giants who keep sheep, know no laws and hold no assemblies, and wander into the cave of the biggest of them, Polyphemus, son of Poseidon. He rolls a boulder across the door and eats two of the Greeks for supper, two for breakfast and two more the next night. Odysseus cannot kill him, because no one else could move the stone, so he gets the giant drunk on strong wine from Ismarus, tells him his name is 'Nobody', and when Polyphemus passes out drives a sharpened, fire-hardened olive stake into his eye. The giant's neighbours come running to his screams, ask who is hurting him, hear 'Nobody' and go home. In the morning the Greeks ride out clinging to the bellies of his sheep. Safe on his ship, Odysseus cannot resist shouting his real name, and Polyphemus prays to his father to see that Odysseus never gets home, or gets there late, alone and in a stranger's ship, which is exactly what happens. These giants are not the three Cyclopes of Hesiod who forge Zeus's thunderbolts; Homer's are shepherds. Later poets softened him: in Theocritus and in Ovid's Metamorphoses he is a lovesick shepherd pining for the sea nymph Galatea, and Euripides' Cyclops, the only complete satyr play to survive, replays the blinding as comedy. Dwarf-elephant skulls found on Sicily and Crete, with one large nasal hole in the middle, may be where the Greeks got the idea of a one-eyed giant. Ray Harryhausen's horned Cyclops in The 7th Voyage of Sinbad (1958) fixed the look for the cinema.",
+  "myths": [
+    {"claim": "Odysseus blinded him with a burning stake and escaped by calling himself Nobody.", "true": true, "explanation": "Both tricks are in Homer. The stake is an olive trunk sharpened and heated in the fire, and the name means the other giants ignore his cries that 'Nobody' is hurting him."},
+    {"claim": "Polyphemus forged the thunderbolts of Zeus.", "true": false, "explanation": "Those were Hesiod's three Cyclopes, Brontes, Steropes and Arges, divine smiths. Homer's giants are lawless shepherds, and Polyphemus is the son of Poseidon."},
+    {"claim": "Odysseus killed Polyphemus.", "true": false, "explanation": "He only blinded him. Killing him would have left the Greeks trapped, since only the giant could move the boulder from the cave mouth."},
+    {"claim": "Odysseus and his men escaped Polyphemus's cave by hiding under his sheep.", "true": true, "explanation": "Odysseus tied the rams together in threes with a man under each middle one and clung to the fleece of the biggest ram himself, while the blind giant felt only their backs."},
+    {"claim": "Polyphemus was once in love.", "true": true, "explanation": "In Theocritus and in Ovid he sings badly to the sea nymph Galatea, who prefers the youth Acis. Handel set the story to music in 1718."}
+  ],
+  "quotes": [
+    {"text": "My name is Noman; this is what my father and mother and my friends have always called me.", "speaker": "Odysseus (Ulysses in Butler), to the Cyclops", "source": "The Odyssey, book 9, Samuel Butler's 1900 translation"}
+  ],
+  "powers": ["Strength to roll a boulder that twenty-two wagons could not move", "A sea god for a father", "An appetite for two men a sitting", "Throwing mountain tops at departing ships"],
+  "weaknesses": ["Strong wine from Ismarus", "A sharpened olive stake", "A riddle of a name", "Counting sheep by feel"],
+  "stats": {"strength": 10, "speed": 4, "cunning": 2, "dread": 7},
+  "legacy": [
+    "Turner's painting Ulysses Deriding Polyphemus (1829)",
+    "Ray Harryhausen's horned Cyclops in The 7th Voyage of Sinbad (1958)",
+    "Big Dan Teague, the one-eyed Bible salesman in O Brother, Where Art Thou? (2000)",
+    "Percy Jackson: Sea of Monsters (2013), where Polyphemus guards the Golden Fleece",
+    "The 'Cyclops' episode of James Joyce's Ulysses (1922)"
+  ],
+  "facts": [
+    "He is the son of Poseidon, which is why the sea god spends ten years punishing Odysseus",
+    "He ate six of Odysseus's twelve companions, two at a time",
+    "Odysseus told him his name was Nobody, so his neighbours thought no one was hurting him",
+    "Odysseus and his men blinded him with the sharpened trunk of an olive tree heated in the fire",
+    "The Greeks escaped by clinging to the bellies of his sheep",
+    "In Theocritus and Ovid he is a lovesick shepherd pining for the sea nymph Galatea",
+    "Euripides' Cyclops, which retells the story with a chorus of satyrs, is the only complete satyr play to survive"
+  ],
+  "hostIntro": "Tonight's guest keeps sheep, keeps no laws and keeps a very large rock across his front door. He's had a drink, so speak up, and if he asks your name, think carefully.",
+  "theme": {"primary": "#F4A261", "accent": "#FDE2CC"}
+}

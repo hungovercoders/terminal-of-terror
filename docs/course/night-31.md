@@ -1,6 +1,6 @@
 # Night 31 · Halloween: Sign Off
 
-> 📺 *"Halloween. The big night. Thirty nights ago you had an empty folder; tonight you have a program with forty-three monsters, three games, a crypt, a moon, a camera and a night watchman. One thing left: give it a number, write down what it does, and let it out. Then we sign off. Don't touch that dial."*
+> 📺 *"Halloween. The big night. Thirty nights ago you had an empty folder; tonight you have a program with fifty-five monsters, three games, a crypt, a moon, a camera and a night watchman. One thing left: give it a number, write down what it does, and let it out. Then we sign off. Don't touch that dial."*
 
 **Tonight you'll learn**
 - Semantic versioning, and the module-path rule for v2

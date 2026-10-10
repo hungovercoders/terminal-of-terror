@@ -1,0 +1,41 @@
+{
+  "id": "cerberus",
+  "name": "Cerberus",
+  "aliases": ["Kerberos", "Hound of Hades"],
+  "emoji": "🐕",
+  "description": "The many-headed hound who lets every soul into the underworld and none back out",
+  "origin": "Greek mythology",
+  "debut": {"medium": "myth", "title": "Theogony", "creator": "Hesiod", "era": "around 700 BCE; the dog's capture is the last of the twelve labours of Heracles"},
+  "legend": "Cerberus is the watchdog of Hades, child of the monsters Typhon and Echidna, and so a sibling of the Hydra and the Chimera. Hesiod, around 700 BCE, gives him fifty heads and a voice like bronze; Pindar raised that to a hundred; by the time Apollodorus wrote, in the first or second century CE, he had settled down to three dog heads, a serpent for a tail and a mane of snakes. His job is simple: he fawns on the dead as they enter and devours any who try to leave. Heroes got past him in three ways. Orpheus charmed him asleep with his lyre on the way down to fetch Eurydice. The Sibyl, guiding Aeneas in Virgil's Aeneid, threw him a honey cake laced with drugs, the original 'sop to Cerberus'. And Heracles, for the twelfth and last of his labours, was allowed by Hades to take the dog only if he used no weapons, so he wrestled him into submission wearing his lion skin, dragged him up into daylight and showed him to the terrified king Eurystheus, who, on a Greek vase of about 525 BCE, hides from him in a storage jar. Ovid adds that where the dog's foam fell on the ground, the poisonous plant aconite grew. Dante made him the guardian of the gluttons in the third circle of Hell, and his name lives on in Kerberos, the network authentication protocol that MIT built in the 1980s to guard the way in.",
+  "myths": [
+    {"claim": "Every ancient source gives Cerberus three heads.", "true": false, "explanation": "Hesiod, the earliest, gives him fifty, and Pindar a hundred. Three heads became standard later, and Apollodorus adds a serpent tail and snake heads along his back."},
+    {"claim": "Heracles captured Cerberus without using any weapons.", "true": true, "explanation": "Hades agreed to let the dog go if Heracles could master him unarmed, so the hero wrestled him in his lion skin, which the dog's teeth could not pierce."},
+    {"claim": "A musician once got past Cerberus.", "true": true, "explanation": "Orpheus charmed him to sleep with his lyre on the way down to fetch Eurydice. Fluffy, the three-headed dog in Harry Potter, falls asleep to music for the same reason."},
+    {"claim": "Heracles killed Cerberus.", "true": false, "explanation": "He borrowed him. After showing the dog to Eurystheus he took him back down to Hades, where he resumed his duties."},
+    {"claim": "The phrase 'a sop to Cerberus' comes from a drugged cake.", "true": true, "explanation": "In Virgil's Aeneid the Sibyl throws the dog a honey cake laced with drugs so that Aeneas can slip past, and the phrase has meant a bribe to keep trouble quiet ever since."}
+  ],
+  "quotes": [
+    {"text": "Cerberus who eats raw flesh, the brazen-voiced hound of Hades, fifty-headed, relentless and strong.", "speaker": "Hesiod", "source": "Theogony, Hugh G. Evelyn-White's 1914 translation"}
+  ],
+  "powers": ["Anywhere from three to a hundred heads", "A serpent's tail and a mane of snakes", "A bark like bronze that carries across the Styx", "Never needing to sleep, unless someone brings a lyre"],
+  "weaknesses": ["A honey cake laced with drugs", "A lyre played by Orpheus", "A hero in a lion skin who fights bare-handed", "Daylight, which he had never seen"],
+  "stats": {"strength": 9, "speed": 7, "cunning": 4, "dread": 8},
+  "legacy": [
+    "Dante's Inferno (c. 1320), where he mauls the gluttons in the third circle",
+    "Disney's Hercules (1997), where he is a three-headed pet in Hades' lobby",
+    "Fluffy, the three-headed dog guarding the Philosopher's Stone in Harry Potter (1997)",
+    "Rick Riordan's The Lightning Thief (2005), where Annabeth distracts him with a red rubber ball",
+    "Kerberos, the network authentication protocol that guards the door to many computer systems"
+  ],
+  "facts": [
+    "Hesiod gave him fifty heads and Pindar a hundred before three became the standard",
+    "He is the child of Typhon and Echidna, which makes him a brother of the Hydra and the Chimera",
+    "His job is to welcome the dead into the underworld and never let them leave",
+    "Bringing him up from Hades was the twelfth and last labour of Heracles, who had to do it without weapons",
+    "In Virgil's Aeneid the Sibyl puts him to sleep with a drugged honey cake, the original 'sop to Cerberus'",
+    "Orpheus charmed him with music on his way down to find Eurydice",
+    "In Ovid the poison plant aconite grew where his foam fell on the earth"
+  ],
+  "hostIntro": "Tonight's guest works the door at the most exclusive club in the cosmos: everyone gets in, nobody gets out. Bring a honey cake. Bring three.",
+  "theme": {"primary": "#F25C54", "accent": "#FFD6D1"}
+}
