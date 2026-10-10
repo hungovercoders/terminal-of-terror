@@ -1,0 +1,36 @@
+{
+  "id": "rakshasa",
+  "name": "The Rakshasa",
+  "aliases": ["Rakshasa", "Rakshasi"],
+  "emoji": "👹",
+  "description": "A shape-shifting being of Hindu epic, often man-eating and sometimes noble",
+  "origin": "Hindu mythology and the Sanskrit epics of India",
+  "debut": {"medium": "mythology", "title": "The Ramayana and the Mahabharata", "era": "first named in the Rigveda; the epics took shape between roughly 500 BCE and 400 CE"},
+  "legend": "Rakshasas (the feminine is rakshasi) appear in the Rigveda as disturbers of sacred rites, and by the time of the great Sanskrit epics they are a whole people with kings, cities and families. They can change shape at will, cast illusions and are strongest in the dark, and many tales have them devouring travellers or defiling rituals. But the epics refuse to make them simply evil. Ravana, the ten-headed king of Lanka who abducts Sita in the Ramayana, is also a scholar, a devotee of Shiva and a master of the veena, and his brother Vibhishana is so righteous that he sides with Rama and is crowned king in his place. In the Mahabharata, Bhima marries the rakshasi Hidimbi, and their son Ghatotkacha dies fighting bravely for the Pandavas. For Hindus today the rakshasa is less a monster than a character: Ravana's defeat is re-enacted every autumn at Dussehra, when his towering effigy goes up in flames.",
+  "myths": [
+    {"claim": "All rakshasas are evil.", "true": false, "explanation": "Vibhishana is a model of virtue and Ghatotkacha is a hero of the Mahabharata; the epics give rakshasas the same range as people."},
+    {"claim": "Rakshasas can change their shape.", "true": true, "explanation": "Shape-shifting and illusion are their signature powers, which is why so many travellers in the epics meet a beautiful stranger who is not what she seems."},
+    {"claim": "Ravana is a mindless brute.", "true": false, "explanation": "The Ramayana makes him learned, devout and a gifted musician, which is what makes his pride and downfall a tragedy."},
+    {"claim": "An effigy of Ravana is burned every year in India.", "true": true, "explanation": "At Dussehra, communities across northern India burn giant effigies of Ravana, often with his brother Kumbhakarna and son Meghnad alongside."}
+  ],
+  "quotes": [],
+  "powers": ["Changing shape at will", "Casting illusions (maya)", "Growing stronger after dark", "Sorcery learned through long devotion", "The strength of many warriors"],
+  "weaknesses": ["Divine weapons and the heroes who wield them", "Daylight, when their powers wane", "Pride, which undoes even Ravana", "Sacred fire and the chanting of hymns"],
+  "stats": {"strength": 8, "speed": 6, "cunning": 9, "dread": 7},
+  "legacy": [
+    "Ravana's effigy burned every year at the festival of Dussehra, with Ramlila plays re-enacting the Ramayana",
+    "Ralph T. H. Griffith's English verse translation of the Ramayana (1870–74)",
+    "The tiger-headed rakshasa of Dungeons & Dragons, introduced in the 1977 Monster Manual"
+  ],
+  "facts": [
+    "Rakshasas are shape-shifting beings from Hindu mythology and the Sanskrit epics",
+    "They are first mentioned in the Rigveda, among the oldest texts in the world",
+    "Ravana, the ten-headed king of Lanka in the Ramayana, is the most famous rakshasa",
+    "Ravana's brother Vibhishana is so virtuous that he sides with Rama and becomes king of Lanka",
+    "Ghatotkacha, son of Bhima and the rakshasi Hidimbi, fights and dies for the Pandavas in the Mahabharata",
+    "Giant effigies of Ravana are burned each autumn at the festival of Dussehra",
+    "Ravana's brother Kumbhakarna was cursed to sleep for six months at a time"
+  ],
+  "hostIntro": "Tonight's guest can look like anyone at all, so check the person sitting next to you. Ten heads, a kingdom, a veena and a terrible temper: give a warm Channel 13 welcome to the rakshasa.",
+  "theme": {"primary": "#FFB703", "accent": "#FFD60A"}
+}

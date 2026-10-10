@@ -1,0 +1,38 @@
+{
+  "id": "jersey-devil",
+  "name": "The Jersey Devil",
+  "aliases": ["Jersey Devil", "Leeds Devil"],
+  "emoji": "🐴",
+  "description": "A winged, hoofed, horse-headed fiend said to haunt the Pine Barrens of New Jersey",
+  "origin": "The Pine Barrens, a million acres of forest on the US east coast",
+  "debut": {"medium": "legend", "title": "The tale of Mother Leeds' thirteenth child", "era": "18th-century Pine Barrens lore; the great panic of January 1909"},
+  "legend": "The story goes that in 1735 a Pine Barrens woman called Mother Leeds, expecting her thirteenth child, cried that it might as well be the devil, and on a stormy night it was born with hooves, bat wings, a horse's head and a forked tail, and flew up the chimney. Historian Brian Regal traces the tale to a real family: Daniel Leeds, an almanac-maker whose astrology scandalised his Quaker neighbours, and whose son Titan put the family crest, with its dragon-like wyverns, on his almanac covers during a feud with Benjamin Franklin. The 'Leeds Devil' became the Jersey Devil during the panic of January 1909, when, over about a week, hundreds of people from Camden to Philadelphia reported strange tracks in the snow, screams in the night and glimpses of a flying thing. Schools and mills closed, posses went out, and the Philadelphia Zoo offered a reward. Publicist Norman Jeffries then exhibited a 'captured' Devil at Philadelphia's Arch Street Museum: a kangaroo with painted stripes and false wings, as he admitted twenty years later. Older stories claim Commodore Stephen Decatur fired a cannonball at it and that Joseph Bonaparte, Napoleon's brother, met it while hunting near Bordentown, though neither can be checked. Folklorists see a colonial feud that grew wings.",
+  "myths": [
+    {"claim": "The legend says the Devil was Mother Leeds' thirteenth child.", "true": true, "explanation": "She is said to have cursed the unborn child, and it arrived in 1735 with hooves, wings and a horse's head before flying up the chimney."},
+    {"claim": "The great Jersey Devil panic happened in 1909.", "true": true, "explanation": "For about a week in January 1909 sightings poured in from across the Delaware Valley, and some schools and mills closed."},
+    {"claim": "A real Jersey Devil was captured and put on show in Philadelphia in 1909.", "true": false, "explanation": "Publicist Norman Jeffries exhibited a kangaroo with painted stripes and false wings at the Arch Street Museum, and admitted the hoax in 1929."},
+    {"claim": "The creature was originally called the Leeds Devil.", "true": true, "explanation": "The older name points to the Leeds family of almanac-makers; 'Jersey Devil' took over around the time of the 1909 panic."},
+    {"claim": "New Jersey's NHL team is named after it.", "true": true, "explanation": "When the franchise moved to New Jersey in 1982, fans voted to call it the Devils."}
+  ],
+  "quotes": [],
+  "powers": ["Flight on leathery wings", "A scream that empties a town", "Leaving cloven tracks across rooftops and snow", "Surviving cannon fire, so the story goes"],
+  "weaknesses": ["Chimneys, apparently", "Publicists with a kangaroo", "Daylight", "Historians with old almanacs"],
+  "stats": {"strength": 6, "speed": 8, "cunning": 5, "dread": 8},
+  "legacy": [
+    "The NHL's New Jersey Devils, named by a fan vote in 1982",
+    "The X-Files episode 'The Jersey Devil' (1993)",
+    "The found-footage film The Last Broadcast (1998)",
+    "The Jersey Devil Coaster at Six Flags Great Adventure (2021)"
+  ],
+  "facts": [
+    "Legend says it was born to Mother Leeds in 1735 as her thirteenth child",
+    "It was first known as the Leeds Devil, after an almanac-making family of the Pine Barrens",
+    "Historian Brian Regal links the tale to the Leeds family crest, which shows dragon-like wyverns",
+    "In January 1909 hundreds of sightings across the Delaware Valley closed schools and mills",
+    "The Philadelphia Zoo offered a reward for its capture in 1909",
+    "A 'captured' Devil shown in Philadelphia in 1909 was a kangaroo with painted stripes and false wings",
+    "New Jersey's NHL team took its name from the creature after a fan vote in 1982"
+  ],
+  "hostIntro": "Tonight's guest was the thirteenth child, and you know how that goes. Hooves, wings, a horse's head: Mother Leeds really should have been more careful what she wished for.",
+  "theme": {"primary": "#3B936E", "accent": "#95D5B2"}
+}

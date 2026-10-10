@@ -4,7 +4,7 @@ This document provides guidance for AI agents working on the Terminal of Terror 
 
 ## Project Overview
 
-Terminal of Terror is a Go CLI application that teaches people about classic Universal monsters and world folklore through an interactive explorer, games and nightly rituals, all presented by a fictional late-night horror host, Count Cathode. It uses:
+Terminal of Terror is a Go CLI application that teaches people about classic Universal monsters, world folklore, cryptids and literary monsters through an interactive explorer, games and nightly rituals, all presented by a fictional late-night horror host, Count Cathode. It uses:
 - **Cobra** for CLI commands and structure
 - **Bubbletea** for interactive terminal UI
 - **Lipgloss** for terminal styling
@@ -247,7 +247,7 @@ Follow conventional commits:
 
 Potential areas for expansion:
 - Integration tests for CLI commands
-- More packs (Hammer Horror, literary monsters, cryptids)
+- More packs (Hammer Horror, kaiju, video-game monsters)
 - Localization/internationalization
 
 ## Resources

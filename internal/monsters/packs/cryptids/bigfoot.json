@@ -1,0 +1,38 @@
+{
+  "id": "bigfoot",
+  "name": "The Sasquatch",
+  "aliases": ["Bigfoot", "Sasquatch"],
+  "emoji": "🦶",
+  "description": "A tall, hairy wild man said to walk the forests of the Pacific Northwest",
+  "origin": "Indigenous traditions of the Pacific Northwest and 20th-century American folklore",
+  "debut": {"medium": "legend", "title": "Indigenous Sasquatch traditions and the 1958 Bluff Creek footprints", "era": "named in 1958 after the Bluff Creek footprints; far older in Indigenous tradition"},
+  "legend": "Long before anyone said 'Bigfoot', the peoples of the Pacific Northwest told of large, hair-covered beings in the mountains. The word Sasquatch comes from sásq'ets in Halkomelem, the language of the Stó:lō and other Coast Salish peoples, and was popularised in the 1920s by J. W. Burns, a schoolteacher on the Chehalis reserve in British Columbia. The modern craze began in August 1958, when road builder Jerry Crew cast a huge footprint at Bluff Creek, California, and the Humboldt Times called its maker 'Bigfoot'. After contractor Ray Wallace died in 2002, his family said he had made those tracks with carved wooden feet. The most famous evidence is the 16mm film shot by Roger Patterson and Bob Gimlin at Bluff Creek on 20 October 1967, which shows a large, dark figure striding across a sandbar and looking back at the camera. Scientists point out that no bones, bodies or clear DNA have ever turned up, and that most 'Bigfoot' hair samples prove to be bear, deer, cow or human. Folklorists are more interested in why the story endures: a wild cousin at the edge of the woods, always just out of reach.",
+  "myths": [
+    {"claim": "Bigfoot got its name from a 1958 newspaper story.", "true": true, "explanation": "The Humboldt Times reported Jerry Crew's plaster cast of a track at Bluff Creek, and the name it used for the track-maker stuck."},
+    {"claim": "The 1958 Bluff Creek tracks were genuine.", "true": false, "explanation": "After Ray Wallace died in 2002, his family showed reporters the carved wooden feet he had used to stamp them out."},
+    {"claim": "The Patterson–Gimlin film was shot in 1967.", "true": true, "explanation": "Roger Patterson and Bob Gimlin filmed it at Bluff Creek on 20 October 1967. People have argued about the figure in it ever since."},
+    {"claim": "Scientists have examined a Bigfoot skeleton.", "true": false, "explanation": "No bones or body have ever been produced. Hair samples sent for testing have turned out to be bear, deer, cow or human."},
+    {"claim": "Killing a Bigfoot is a crime in one Washington county.", "true": true, "explanation": "Skamania County passed an ordinance against it in 1969, half in jest, and amended it in 1984."}
+  ],
+  "quotes": [],
+  "powers": ["Great strength", "Moving silently through dense forest", "A stride that outpaces any hiker", "Staying just out of focus", "Wood-knocking and rock-throwing, enthusiasts say"],
+  "weaknesses": ["Clear photographs", "Plaster casts", "Trail cameras", "Family confessions", "A complete lack of bones"],
+  "stats": {"strength": 9, "speed": 6, "cunning": 5, "dread": 6},
+  "legacy": [
+    "The Six Million Dollar Man's Bigfoot episodes (1976), with André the Giant in the suit",
+    "Harry and the Hendersons (1987)",
+    "Animal Planet's Finding Bigfoot (2011–2018)",
+    "Willow Creek, California, which calls itself the Bigfoot capital of the world and holds Bigfoot Daze every September"
+  ],
+  "facts": [
+    "The word Sasquatch comes from sásq'ets in the Halkomelem language of the Coast Salish peoples",
+    "The name Bigfoot was coined in 1958 after plaster casts of huge tracks at Bluff Creek, California",
+    "Ray Wallace's family revealed in 2002 that he had faked the Bluff Creek tracks with carved wooden feet",
+    "Roger Patterson and Bob Gimlin shot their famous film at Bluff Creek on 20 October 1967",
+    "The figure in the Patterson–Gimlin film is nicknamed Patty",
+    "Skamania County, Washington made killing a Bigfoot a crime in 1969",
+    "Washington state reports more Bigfoot sightings than any other"
+  ],
+  "hostIntro": "Tonight's guest stands eight feet tall, weighs who knows what, and has never once stood still for a photograph. Keep your camera steady; he won't.",
+  "theme": {"primary": "#B27337", "accent": "#EAD7BB"}
+}

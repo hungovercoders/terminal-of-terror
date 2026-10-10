@@ -1,0 +1,39 @@
+{
+  "id": "yeti",
+  "name": "The Yeti",
+  "aliases": ["Abominable Snowman", "Yeti", "Meh-Teh"],
+  "emoji": "🧊",
+  "description": "The shaggy wild man of the high Himalaya, known to Sherpas long before anyone called it abominable",
+  "origin": "Sherpa and Tibetan folklore of the Himalaya",
+  "debut": {"medium": "folklore", "title": "Sherpa and Tibetan tales of a wild man of the snows", "era": "ancient in the Himalaya; the English nickname was coined by a journalist in 1921"},
+  "legend": "To the Sherpa people of Nepal and the Tibetan communities across the range, the yeti was a creature of the high rocks long before any Westerner went looking: part animal, part spirit, to be respected and avoided. The name probably comes from the Sherpa yeh-teh, loosely 'animal of the rocky place', and another name, meh-teh, means 'man-bear'. In 1921 Lieutenant-Colonel Charles Howard-Bury's Everest reconnaissance expedition found large footprints at about 21,000 feet; his porters called the maker metoh-kangmi, roughly 'man-bear snowman', which journalist Henry Newman in Calcutta rendered as 'Abominable Snowman', and the name stuck. Eric Shipton's 1951 photograph of a huge footprint beside an ice axe on the Menlung Glacier set off a decade of expeditions, including one sent by the Daily Mail in 1954. In 1960 Edmund Hillary borrowed the yeti 'scalp' kept at Khumjung monastery and took it to Chicago, Paris and London, where experts found it had been moulded from the hide of a serow, a Himalayan goat-antelope. A 2017 genetic study of nine supposed yeti relics found that eight were bears and one was a dog. In the villages, none of that has changed the stories much.",
+  "myths": [
+    {"claim": "The name 'Abominable Snowman' is a mistranslation.", "true": true, "explanation": "In 1921 journalist Henry Newman turned metoh-kangmi, roughly 'man-bear snowman', into 'Abominable Snowman', and later admitted he had chosen the word for effect."},
+    {"claim": "The scalp kept at Khumjung monastery is from a yeti.", "true": false, "explanation": "Edmund Hillary's 1960 expedition took it to laboratories in Chicago, Paris and London, which found it had been moulded from the hide of a serow, a goat-antelope."},
+    {"claim": "Eric Shipton photographed a yeti footprint in 1951.", "true": true, "explanation": "His picture of a huge print beside an ice axe on the Menlung Glacier is the most famous yeti image there is, though sceptics think it was a melted or overlapping track."},
+    {"claim": "DNA tests show most yeti relics are bears.", "true": true, "explanation": "A 2017 study of nine samples of 'yeti' bone, hair, skin and dung found eight bears and one dog."},
+    {"claim": "The yeti is a Western invention.", "true": false, "explanation": "Sherpa and Tibetan traditions of the yeti are far older than the 1921 expedition that gave it an English name."}
+  ],
+  "quotes": [],
+  "powers": ["Surviving above the clouds", "Vanishing into a blizzard", "Leaving footprints that melt into giants", "Great strength, by every account"],
+  "weaknesses": ["Zoologists with scalpels", "Warm weather", "DNA sequencing", "Bears taking the credit"],
+  "stats": {"strength": 9, "speed": 5, "cunning": 5, "dread": 6},
+  "legacy": [
+    "Hammer's The Abominable Snowman (1957), with Peter Cushing",
+    "The Bumble in Rudolph the Red-Nosed Reindeer (1964)",
+    "The Abominable Snowman of the Matterhorn Bobsleds at Disneyland, added in 1978",
+    "Expedition Everest at Disney's Animal Kingdom (2006)",
+    "Abominable (2019)"
+  ],
+  "facts": [
+    "The yeti has deep roots in Sherpa and Tibetan folklore",
+    "The name Abominable Snowman was a 1921 mistranslation of metoh-kangmi, roughly 'man-bear snowman'",
+    "Charles Howard-Bury's 1921 Everest expedition reported large footprints at about 21,000 feet",
+    "Eric Shipton photographed a famous footprint beside an ice axe on the Menlung Glacier in 1951",
+    "In 1960 Edmund Hillary took the Khumjung monastery's yeti scalp for examination and it proved to be serow hide",
+    "A 1959 US State Department memo set out rules for American yeti hunters in Nepal",
+    "A 2017 genetic study of nine yeti relics found eight bears and a dog"
+  ],
+  "hostIntro": "Tonight's guest lives above the clouds, leaves footprints the size of tea trays and is very tired of being called abominable. Wrap up warm.",
+  "theme": {"primary": "#5FA8D3", "accent": "#F0F8FF"}
+}

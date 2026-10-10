@@ -1,0 +1,42 @@
+{
+  "id": "headless-horseman",
+  "name": "The Headless Horseman",
+  "aliases": ["Headless Horseman", "The Galloping Hessian", "Horseman"],
+  "emoji": "🎃",
+  "description": "The headless Hessian who gallops the roads of Sleepy Hollow in search of what he lost",
+  "origin": "American folklore and the ghost stories of the Hudson Valley",
+  "debut": {"medium": "short story", "title": "The Legend of Sleepy Hollow", "creator": "Washington Irving", "year": 1820},
+  "legend": "Irving published the tale in 1820 in The Sketch Book of Geoffrey Crayon, Gent., the collection that also held 'Rip Van Winkle', and he wrote it while living in Birmingham, England, far from the Hudson. He set it in the Dutch-settled valley around Tarrytown, which he had known since a boyhood visit, and borrowed its ghost from German folk tales of headless riders and local talk of a Hessian soldier beheaded by a cannonball in the fighting of 1776. Ichabod Crane, a gangling Connecticut schoolmaster, courts the heiress Katrina Van Tassel, and after a night of ghost stories at her father's farm is chased through the dark by the Horseman, who hurls his head at him. Irving leaves it open whether the rider was the ghost or Ichabod's rival Brom Bones with a pumpkin. Irving is buried in Sleepy Hollow Cemetery, and in 1996 the village of North Tarrytown voted to rename itself Sleepy Hollow.",
+  "myths": [
+    {"claim": "The Horseman is the ghost of a Hessian soldier.", "true": true, "explanation": "Irving says he is 'the ghost of a Hessian trooper, whose head had been carried away by a cannon-ball, in some nameless battle during the Revolutionary War'."},
+    {"claim": "Irving tells us the Horseman killed Ichabod Crane.", "true": false, "explanation": "Ichabod simply vanishes. A shattered pumpkin is found beside his hat, Brom Bones looks exceedingly knowing whenever it is mentioned, and the old country wives decide the schoolmaster was spirited away."},
+    {"claim": "The Horseman carries a jack-o'-lantern for a head.", "true": false, "explanation": "In the story the head on the pommel of his saddle is never described as a pumpkin; the carved, glowing jack-o'-lantern is a screen invention. The pumpkin only appears in pieces the next morning."},
+    {"claim": "The Horseman cannot cross the church bridge.", "true": true, "explanation": "The Hollow's lore says he must return to the churchyard before daybreak and vanishes at the bridge, which is why Ichabod races for it, and why he is so surprised when the rider follows."},
+    {"claim": "Sleepy Hollow is a real place.", "true": true, "explanation": "The story is set near Tarrytown, New York. North Tarrytown adopted the name Sleepy Hollow in 1996, and Irving is buried in its cemetery."}
+  ],
+  "quotes": [
+    {"text": "The dominant spirit, however, that haunts this enchanted region, and seems to be commander-in-chief of all the powers of the air, is the apparition of a figure on horseback, without a head.", "speaker": "Narrator", "source": "The Legend of Sleepy Hollow (1820)"},
+    {"text": "It is said by some to be the ghost of a Hessian trooper, whose head had been carried away by a cannon-ball, in some nameless battle during the Revolutionary War.", "speaker": "Narrator", "source": "The Legend of Sleepy Hollow (1820)"}
+  ],
+  "powers": ["A black steed that outruns any horse in the Hollow", "Throwing his own head with deadly aim", "Materialising from the shadows of the churchyard", "The fear of every farmer in the valley"],
+  "weaknesses": ["The church bridge", "Daybreak, when he must be back in the churchyard", "Having to find his head before he can rest", "Being mistaken for Brom Bones with a pumpkin"],
+  "stats": {"strength": 8, "speed": 10, "cunning": 5, "dread": 9},
+  "legacy": [
+    "The Headless Horseman (1922), a silent with Will Rogers as Ichabod Crane",
+    "Disney's The Adventures of Ichabod and Mr. Toad (1949), narrated and sung by Bing Crosby",
+    "Tim Burton's Sleepy Hollow (1999), with Johnny Depp as Ichabod and Christopher Walken as the Horseman",
+    "Sleepy Hollow (2013-2017), the television series that woke Ichabod in the present day",
+    "The Great Jack O'Lantern Blaze and the cemetery tours that fill Sleepy Hollow every October"
+  ],
+  "facts": [
+    "Irving published the story in 1820 in The Sketch Book of Geoffrey Crayon, Gent., alongside Rip Van Winkle",
+    "The Horseman is said to be a Hessian trooper beheaded by a cannonball in the Revolutionary War",
+    "Ichabod Crane is a lanky schoolmaster from Connecticut with an enormous appetite",
+    "Ichabod rides a broken-down plough horse named Gunpowder",
+    "The morning after the chase, only Ichabod's hat and a shattered pumpkin are found",
+    "Irving wrote the story while living in Birmingham, England",
+    "North Tarrytown renamed itself Sleepy Hollow in 1996, and Irving is buried in its cemetery"
+  ],
+  "hostIntro": "Tonight's guest rides in from the Hudson Valley and, I'm told, has lost something on the way. If you find it, don't throw it back. He throws much harder.",
+  "theme": {"primary": "#E8761A", "accent": "#FFE3BF"}
+}

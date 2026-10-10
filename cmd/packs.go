@@ -58,13 +58,20 @@ var packIDPattern = regexp.MustCompile(`^[a-z0-9][a-z0-9-]*$`)
 var packsNewCmd = &cobra.Command{
 	Use:   "new <pack-id>",
 	Short: "Create a community pack with an example monster to edit",
-	Example: `  terminal-of-terror packs new cryptids
-  terminal-of-terror monster "my cryptids monster"`,
+	Example: `  terminal-of-terror packs new urban-legends
+  terminal-of-terror monster "my urban-legends monster"`,
 	Args: cobra.ExactArgs(1),
 	RunE: func(cmd *cobra.Command, args []string) error {
 		id := args[0]
 		if !packIDPattern.MatchString(id) {
-			return fmt.Errorf("pack ids use lowercase letters, numbers and dashes, e.g. 'cryptids'")
+			return fmt.Errorf("pack ids use lowercase letters, numbers and dashes, e.g. 'urban-legends'")
+		}
+		// A community pack can never share an id with a built-in one: the
+		// loader would reject it on every run.
+		for _, p := range monsters.AllPacks() {
+			if p.ID == id && p.Source == "built-in" {
+				return fmt.Errorf("%q is a built-in pack; choose another id", id)
+			}
 		}
 		dir, err := communityDir()
 		if err != nil {

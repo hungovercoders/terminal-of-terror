@@ -79,7 +79,7 @@ Set `TERMINAL_OF_TERROR_HOME` to a scratch directory while testing, so your real
 
 ### Adding New Monsters
 
-Monsters live in **packs** under `internal/monsters/packs/<pack-id>/`. The built-in packs are `universal` (Universal Classics) and `folklore` (World Folklore). Each pack has:
+Monsters live in **packs** under `internal/monsters/packs/<pack-id>/`. The built-in packs are `universal` (Universal Classics), `folklore` (World Folklore), `cryptids` (Cryptids) and `literary` (Literary Monsters). Each pack has:
 
 - `pack.json` — the pack's `id`, `name`, `description` and the display `order` of monster ids
 - `<monster-id>.json` — one file per monster

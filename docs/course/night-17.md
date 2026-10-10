@@ -1,6 +1,6 @@
 # Night 17 · The Gallery
 
-> 📺 *"Nineteen monsters, and so far you've met them one at a time, like a receiving line at a very strange wedding. Tonight we open the gallery: every portrait in one corridor, a cursor to walk it, and a preview of whoever you're standing in front of. Don't make eye contact with the Metaluna Mutant."*
+> 📺 *"Forty-three monsters, and so far you've met them one at a time, like a receiving line at a very strange wedding. Tonight we open the gallery: every portrait in one corridor, a cursor to walk it, and a preview of whoever you're standing in front of. Don't make eye contact with the Metaluna Mutant."*
 
 **Tonight you'll learn**
 - A list screen with a cursor

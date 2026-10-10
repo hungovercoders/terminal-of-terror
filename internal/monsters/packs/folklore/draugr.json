@@ -1,0 +1,36 @@
+{
+  "id": "draugr",
+  "name": "The Draugr",
+  "aliases": ["Draug", "Aptrgangr"],
+  "emoji": "🪦",
+  "description": "The walking dead of the Norse sagas, who guard their mounds and crush the living",
+  "origin": "Norse sagas, medieval Iceland",
+  "debut": {"medium": "folklore", "title": "The Icelandic sagas", "era": "written down in the 13th and 14th centuries from older tradition"},
+  "legend": "In the Icelandic sagas the dead do not always stay down. A draugr (the plural is draugar; the sagas also call them aptrgangr, 'again-walker') is a corpse that keeps its body, swells to monstrous size and strength, and walks after dark. Some, like Kárr the Old in Grettis saga, sit on their treasure inside the burial mound and fight anyone who digs in. Others roam: Glámr, a surly shepherd who dies at Christmas in Grettis saga, rides the roofs of the farm, kills cattle and drives folk mad until Grettir wrestles him, and Glámr's dying curse haunts the hero for the rest of his life. In Eyrbyggja saga the greedy farmer Þórólfr Twist-Foot kills men and beasts from his grave, is moved, walks again and is finally dug up and burned. Beheading and burning are the sure cures, and the sagas describe practical precautions too: carrying a corpse out through a hole in the wall so it cannot find the door back in. The draugr is the ancestor of every zombie that was once a neighbour.",
+  "myths": [
+    {"claim": "A draugr can be stopped with an ordinary burial.", "true": false, "explanation": "The sagas are clear: a restless corpse must be beheaded, burned to ash, or both. Reburying Þórólfr only moved the problem."},
+    {"claim": "Draugar swell to a huge size.", "true": true, "explanation": "Glámr's corpse is described as swollen and huge, and the dead in the sagas grow heavier and larger than they were in life."},
+    {"claim": "Draugar are just mist and shadow, like modern ghosts.", "true": false, "explanation": "They are solid flesh. They wrestle, crush and bite, and they leave a body behind to be burned."},
+    {"claim": "The word draugr is related to a word for a dead tree trunk.", "true": true, "explanation": "Scholars connect draugr to words for a dry log, which is a fair description of what one looks like."}
+  ],
+  "quotes": [],
+  "powers": ["Superhuman strength", "Swelling to a giant's size", "Driving the living mad with a look", "Shape-shifting into seals, bulls or cats, in some sagas", "Guarding its grave-goods for ever"],
+  "weaknesses": ["Beheading", "Fire, and scattering the ashes at sea", "The head placed by its buttocks after the fight", "A wall built across its grave", "Sunrise"],
+  "stats": {"strength": 10, "speed": 3, "cunning": 5, "dread": 8},
+  "legacy": [
+    "Grettis saga and Eyrbyggja saga, translated into English by William Morris and Eiríkr Magnússon in 1869 and 1892",
+    "The draugr enemies of the video game The Elder Scrolls V: Skyrim (2011) and the draugr of God of War (2018)",
+    "The Norwegian draug, a drowned sailor's ghost in a half-boat, is a sea-going cousin"
+  ],
+  "facts": [
+    "Draugar are the walking dead of the medieval Icelandic sagas",
+    "They guard their burial mounds and the treasure buried with them",
+    "A draugr can swell to a giant's size and has the strength to crush a grown man",
+    "The only sure ways to stop one are beheading and burning",
+    "Glámr, in Grettis saga, curses Grettir to fear the dark for the rest of his life",
+    "Þórólfr Twist-Foot, in Eyrbyggja saga, kills from his grave until his body is dug up and burned",
+    "The sagas call a restless corpse aptrgangr, an 'again-walker'"
+  ],
+  "hostIntro": "Tonight's guest has been dead for a thousand years and has not let it slow him down one bit. He is bigger than he was, meaner than he was, and he would like his gold back.",
+  "theme": {"primary": "#7D8597", "accent": "#B8C0FF"}
+}

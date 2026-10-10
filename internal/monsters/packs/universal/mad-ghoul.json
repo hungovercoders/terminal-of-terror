@@ -1,0 +1,45 @@
+{
+  "id": "mad-ghoul",
+  "name": "The Mad Ghoul",
+  "aliases": ["Ted Allison", "Ghoul"],
+  "emoji": "💀",
+  "description": "A medical student turned into a walking corpse by an ancient Mayan gas",
+  "origin": "1940s Universal sequel era",
+  "debut": {"medium": "film", "title": "The Mad Ghoul", "creator": "Universal", "year": 1943},
+  "film": {
+    "title": "The Mad Ghoul",
+    "year": 1943,
+    "releaseDate": "1943-11-12",
+    "studio": "Universal",
+    "director": "James P. Hogan",
+    "star": "David Bruce",
+    "makeup": "Jack Pierce",
+    "note": "George Zucco plays Dr Alfred Morris, the chemist behind the gas. Director James Hogan died shortly before the film was released."
+  },
+  "legend": "Universal shot The Mad Ghoul in the spring of 1943 and had it in cinemas that November, hard on the heels of Son of Dracula. George Zucco plays Dr Alfred Morris, a university chemist who has rediscovered a nerve gas the ancient Maya used in their rituals. He tests it on his assistant, medical student Ted Allison, who becomes a shrivelled, obedient ghoul that can only be revived with fluid from a freshly taken human heart, so the pair take to robbing graves. Morris wants Ted's sweetheart, a concert singer, for himself, and uses the ghoul to clear the field. Jack Pierce said later that his only instruction was to make David Bruce look like a fresh cadaver, so he tinted the actor's skin green and glued on false skin that was painful to remove. It's a small film, but the idea of a decent young man turned into a monster by someone he trusts gives it a nasty kick.",
+  "myths": [
+    {"claim": "The ghoul is a reanimated corpse dug up from a graveyard.", "true": false, "explanation": "Ted Allison is alive, or nearly. The Mayan gas puts him into a death-like state that Dr Morris can reverse, for a while, with heart fluid."},
+    {"claim": "The ghoul needs human hearts to keep going.", "true": true, "explanation": "Each revival needs fluid from a freshly taken heart, which is why Morris and the ghoul rob graves, and why the newspapers start writing about a 'mad ghoul'."},
+    {"claim": "Jack Pierce built the ghoul out of latex appliances and a wig.", "true": false, "explanation": "By Pierce's own account the brief was simply 'a fresh cadaver', so he tinted David Bruce green and stretched false skin over his face, which was reportedly agony to peel off."},
+    {"claim": "George Zucco plays the ghoul.", "true": false, "explanation": "Zucco is the villain, Dr Morris. David Bruce, usually a light leading man, plays the unfortunate Ted."}
+  ],
+  "quotes": [],
+  "powers": ["Feels no pain", "Obeys every order", "A strangling grip", "Remembers nothing when he wakes"],
+  "weaknesses": ["Needs fresh heart fluid to keep going", "A shortage of recent burials", "Police bullets", "His own master's greed"],
+  "stats": {"strength": 6, "speed": 3, "cunning": 2, "dread": 7},
+  "legacy": [
+    "No sequel followed, which makes the ghoul a one-night-only Universal monster",
+    "Its mindless, heart-hungry servant foreshadows the zombies of later decades"
+  ],
+  "facts": [
+    "Ted Allison is a medical student turned into a ghoul by his own professor",
+    "The gas was supposedly used by the ancient Maya in their rituals",
+    "Each time the ghoul fades, only fluid from a freshly taken human heart revives him",
+    "George Zucco's Dr Morris uses the ghoul to get rid of a rival for a singer's affections",
+    "Jack Pierce tinted David Bruce's skin green to make him look like a fresh cadaver",
+    "Director James Hogan died shortly before the film was released",
+    "Robert Armstrong, Carl Denham from King Kong, plays a reporter on the ghoul's trail"
+  ],
+  "hostIntro": "Tonight's guest was a promising medical student until his professor gassed him. Now he's a little grey, a little stiff, and he's got his eye on your heart. Literally.",
+  "theme": {"primary": "#70E000", "accent": "#CCFF33"}
+}

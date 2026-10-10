@@ -8,7 +8,7 @@
  █  ██▄ █▀▄ █▀▄ █▄█ █▀▄</h1>
     <p class="tagline">📺 {{$site.Tagline}}</p>
     <p class="host-line typewriter" data-type="{{.Data.Greeting}}">📺 <em>"{{.Data.Greeting}}"</em></p>
-    <p class="lede">Meet <strong>{{$site.MonsterCount}} monsters</strong> from the Universal classics and world folklore. Learn the real history behind them: who played them, who did the makeup, and which "facts" Hollywood simply made up. Then prove it in the Midnight Quiz and fill your crypt.</p>
+    <p class="lede">Meet <strong>{{$site.MonsterCount}} monsters</strong> in {{$site.PackCount}} packs: the Universal classics, world folklore, cryptids and literary monsters. Learn the real history behind them: who played them, who did the makeup, and which "facts" Hollywood simply made up. Then prove it in the Midnight Quiz and fill your crypt.</p>
     <p class="cta-row">
       <a class="btn primary" href="#summon">🔮 Summon it</a>
       <a class="btn" href="{{$root}}monsters/index.html">🧛 Meet the monsters</a>
@@ -219,11 +219,12 @@ terminal-of-terror random</code></pre>
   <p>Monsters come in packs. Use <code>--pack</code> with any command to choose which ones come out to play:</p>
   <pre class="term" data-copy><code>terminal-of-terror packs                       <span class="c"># every pack in the vault</span>
 terminal-of-terror quiz --pack folklore        <span class="c"># a folklore-only quiz</span>
-terminal-of-terror monster --pack universal,folklore</code></pre>
+terminal-of-terror guess --pack cryptids       <span class="c"># who lurks in the fog? probably Bigfoot</span>
+terminal-of-terror monster --pack universal,literary</code></pre>
   <h3>🧪 Make your own</h3>
   <p>Build your own monsters without writing any Go:</p>
-  <pre class="term" data-copy><code>terminal-of-terror packs new cryptids</code></pre>
-  <p>This creates <code>~/.config/terminal-of-terror/packs/cryptids/</code> (or your OS's equivalent) with an example monster to edit. Every pack there loads automatically, and its monsters join the explorer, the quiz, the guessing game, the Mash and everything else. Only <code>name</code>, <code>description</code> and <code>facts</code> are required. See <a href="{{$site.Repo}}/blob/main/CONTRIBUTING.md">CONTRIBUTING.md</a> for every field, and if your pack turns out frightfully good, send it our way.</p>
+  <pre class="term" data-copy><code>terminal-of-terror packs new urban-legends</code></pre>
+  <p>This creates <code>~/.config/terminal-of-terror/packs/urban-legends/</code> (or your OS's equivalent) with an example monster to edit. Every pack there loads automatically, and its monsters join the explorer, the quiz, the guessing game, the Mash and everything else. Only <code>name</code>, <code>description</code> and <code>facts</code> are required. See <a href="{{$site.Repo}}/blob/main/CONTRIBUTING.md">CONTRIBUTING.md</a> for every field, and if your pack turns out frightfully good, send it our way.</p>
 </section>
 
 <section id="reference">

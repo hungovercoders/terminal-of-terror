@@ -1,0 +1,53 @@
+{
+  "id": "mr-hyde",
+  "name": "Mr Hyde",
+  "aliases": ["Edward Hyde", "Hyde", "Dr Jekyll", "Jekyll", "Jekyll and Hyde"],
+  "emoji": "🧪",
+  "description": "The brutal second self a London doctor lets loose with a potion",
+  "origin": "Victorian Gothic fiction",
+  "debut": {"medium": "novella", "title": "Strange Case of Dr Jekyll and Mr Hyde", "creator": "Robert Louis Stevenson", "year": 1886},
+  "film": {
+    "title": "Dr. Jekyll and Mr. Hyde",
+    "year": 1931,
+    "releaseDate": "1931-12-31",
+    "studio": "Paramount",
+    "director": "Rouben Mamoulian",
+    "star": "Fredric March",
+    "makeup": "Wally Westmore",
+    "note": "The transformations were filmed in single takes using coloured make-up and matching filters, a trick the studio kept secret for decades."
+  },
+  "legend": "Stevenson wrote the story at Bournemouth in the autumn of 1885, reportedly after a nightmare, and had a draft in about three days. His wife Fanny thought he had written a mere shocker and missed its allegory, so he reportedly burned the manuscript and rewrote it in another three days. Longmans published it in January 1886 as a shilling paperback; it sold some 40,000 copies in Britain within six months, was quoted from pulpits, and Queen Victoria is said to have read it. Richard Mansfield's stage version was playing in London in the summer of 1888 when the Whitechapel murders began, and his transformation was so convincing that some letter-writers suggested the actor as a suspect. 'Jekyll and Hyde' became shorthand for a divided nature almost at once.",
+  "myths": [
+    {"claim": "In the book, Hyde is a hulking brute who towers over Jekyll.", "true": false, "explanation": "Stevenson's Hyde is small, 'pale and dwarfish', and younger-looking than Jekyll, because the evil side of the doctor had been so little exercised. The giant Hyde is a screen tradition."},
+    {"claim": "Jekyll invented his potion in order to become Hyde.", "true": false, "explanation": "He wanted to separate the good and evil in himself so that each could go its own way. Hyde was the unexpected result, and the potion only worked because of an impure batch of salt he could never replace."},
+    {"claim": "Hyde's first crime in the story is trampling a child.", "true": true, "explanation": "Enfield watches him walk calmly over a small girl in the street at three in the morning, then settle with her family using a cheque signed by Dr Jekyll."},
+    {"claim": "The book is called The Strange Case of Dr Jekyll and Mr Hyde.", "true": false, "explanation": "Stevenson left off the 'The': the title page reads Strange Case of Dr Jekyll and Mr Hyde. Publishers have been adding the article ever since."},
+    {"claim": "Hyde murders a Member of Parliament with a walking stick.", "true": true, "explanation": "Sir Danvers Carew, an MP, is clubbed to death in the street with a cane that Utterson recognises as one he gave Jekyll years before."}
+  ],
+  "quotes": [
+    {"text": "If he be Mr. Hyde, I shall be Mr. Seek.", "speaker": "Mr Utterson", "source": "Strange Case of Dr Jekyll and Mr Hyde (1886), chapter 2"},
+    {"text": "Man is not truly one, but truly two.", "speaker": "Dr Jekyll", "source": "Strange Case of Dr Jekyll and Mr Hyde (1886), chapter 10"},
+    {"text": "He is not easy to describe. There is something wrong with his appearance; something displeasing, something down-right detestable. I never saw a man I so disliked, and yet I scarce know why.", "speaker": "Richard Enfield", "source": "Strange Case of Dr Jekyll and Mr Hyde (1886), chapter 1"}
+  ],
+  "powers": ["Freedom from every scrap of conscience", "A doctor's chemistry at his disposal", "A bank account and a will in his own name", "Ape-like fury", "A key to Jekyll's back door"],
+  "weaknesses": ["The last of the impure salt", "Waking up as Jekyll", "A nosy lawyer named Utterson", "Daylight and decent company"],
+  "stats": {"strength": 6, "speed": 7, "cunning": 7, "dread": 7},
+  "legacy": [
+    "Richard Mansfield's stage version (1887), which was playing in London during the Jack the Ripper murders",
+    "Dr. Jekyll and Mr. Hyde (1920), with John Barrymore contorting his face for the change",
+    "Dr. Jekyll and Mr. Hyde (1941), MGM's remake with Spencer Tracy and Ingrid Bergman",
+    "Hammer's The Two Faces of Dr. Jekyll (1960) and Dr. Jekyll and Sister Hyde (1971)",
+    "The Nutty Professor (1963), Jerry Lewis's comic version"
+  ],
+  "facts": [
+    "Stevenson wrote the story in Bournemouth in 1885 and reportedly burned the first draft after his wife's criticism",
+    "Hyde is smaller and younger-looking than Jekyll, not a giant",
+    "Jekyll explains that the potion worked only because his first batch of salt was impure",
+    "Hyde murders Sir Danvers Carew, an MP, with a walking stick",
+    "Stevenson said the doctor's name should be pronounced 'Jee-kill'",
+    "The book sold about 40,000 copies in Britain in its first six months",
+    "Fredric March won the Best Actor Oscar for the 1931 film, in a tie with Wallace Beery"
+  ],
+  "hostIntro": "Tonight's guest is a respectable doctor. Or he was, until he mixed a little something in the laboratory and let the other fellow out. Keep an eye on the back door.",
+  "theme": {"primary": "#6A994E", "accent": "#E9F5DB"}
+}

@@ -1,6 +1,6 @@
 # Night 27 · Open the Doors
 
-> 📺 *"Nineteen monsters is a start. But somewhere out there is someone who knows everything about the Jersey Devil, or the Mothman, or a creature from their grandmother's village that no film ever touched. Tonight we let them in. A folder in the config directory, a JSON file or two, and their monster is in the quiz by morning."*
+> 📺 *"Forty-three monsters is a start. But somewhere out there is someone who knows everything about Spring-heeled Jack, or the Beast of Bodmin Moor, or a creature from their grandmother's village that no film ever touched. Tonight we let them in. A folder in the config directory, a JSON file or two, and their monster is in the quiz by morning."*
 
 **Tonight you'll learn**
 - Loading the same format from disk that you embed at build time
@@ -39,7 +39,7 @@ func LoadUserPacks(dir string) ([]Pack, []error) {
 		...
 ```
 
-`os.DirFS(dir)` wraps a directory as an `fs.FS`, and the same `loadPack` that reads `packs/universal` out of the binary reads `~/.config/terminal-of-terror/packs/cryptids` off the disk. The format is identical: a `pack.json`, one JSON per monster, an optional `.txt` portrait. The user's monster gets everything the built-in ones get, because it *is* one, as far as the rest of the program can tell. Design the built-in data as if it were user data and the door is already half open.
+`os.DirFS(dir)` wraps a directory as an `fs.FS`, and the same `loadPack` that reads `packs/universal` out of the binary reads `~/.config/terminal-of-terror/packs/urban-legends` off the disk. The format is identical: a `pack.json`, one JSON per monster, an optional `.txt` portrait. The user's monster gets everything the built-in ones get, because it *is* one, as far as the rest of the program can tell. Design the built-in data as if it were user data and the door is already half open.
 
 A missing directory is not an error; it's a user without community packs, which is nearly everyone. The `errors.Is` pattern from Night 21.
 
@@ -172,7 +172,7 @@ Nobody should have to read the docs to make their first pack. `packs new <id>` i
 		}
 ```
 
-`map[string]any` is JSON's shape in Go without declaring a type: string keys, any values, nested as needed. `exampleMonster` fills every field with a placeholder that *explains itself*: `"description": "A one-line description of your monster"`, `"hostIntro": "What Count Cathode says to introduce your monster."`. The user opens the file and the file is the documentation. The example monster's id is derived from the pack id (`cryptids-monster`) so two scaffolded packs never collide with each other.
+`map[string]any` is JSON's shape in Go without declaring a type: string keys, any values, nested as needed. `exampleMonster` fills every field with a placeholder that *explains itself*: `"description": "A one-line description of your monster"`, `"hostIntro": "What Count Cathode says to introduce your monster."`. The user opens the file and the file is the documentation. The example monster's id is derived from the pack id (`urban-legends-monster`) so two scaffolded packs never collide with each other.
 
 The command also validates the pack id against `^[a-z0-9][a-z0-9-]*$`, refuses to overwrite an existing directory, and ends by printing the exact next commands to run. A scaffolding command's job is to get the user to their first success in one minute.
 
@@ -180,17 +180,17 @@ The command also validates the pack id against `^[a-z0-9][a-z0-9-]*$`, refuses t
 
 ```bash
 export TERMINAL_OF_TERROR_HOME=/tmp/tot-scratch
-go run . packs new cryptids
+go run . packs new urban-legends
 go run . packs
-go run . monster "my cryptids monster"
-go run . quiz --pack cryptids
+go run . monster "my urban-legends monster"
+go run . quiz --pack urban-legends
 ```
 
-Then edit `/tmp/tot-scratch/packs/cryptids/cryptids-monster.json`: rename it Mothman, write three facts, save. `monster mothman` finds it by Night 8's search, `quiz` asks about it by Night 18's generator, `guess` fogs its portrait if you draw one. Now break it: delete the `name` line. The next run warns `pack "cryptids": skipping "cryptids-monster": needs a name` and everything else still works.
+Then edit `/tmp/tot-scratch/packs/urban-legends/urban-legends-monster.json`: rename it Bloody Mary, write three facts, save. `monster "bloody mary"` finds it by Night 8's search, `quiz` asks about it by Night 18's generator, `guess` fogs its portrait if you draw one. Now break it: delete the `name` line. The next run warns `pack "urban-legends": skipping "urban-legends-monster": needs a name` and everything else still works.
 
 ## Try it
 
-- `packs new Cryptids` with a capital. Read the error. Now try `packs new cryptids` twice.
+- `packs new Urban-Legends` with a capital. Read the error. Now try `packs new urban-legends` twice. Then try `packs new cryptids`: that id belongs to a built-in pack, so the command refuses it rather than scaffold a pack the loader would always reject.
 - Make a pack with a monster whose id is `dracula`. Who wins?
 - Give a community monster `"quotes"` with a `source`. It shows on the Quotes page; but the rules say public-domain only. Should `Validate` check anything about that? (It can't. Some rules are for people.)
 

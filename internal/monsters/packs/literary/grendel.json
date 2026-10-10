@@ -1,0 +1,41 @@
+{
+  "id": "grendel",
+  "name": "Grendel",
+  "aliases": ["Monster of Heorot", "Kin of Cain"],
+  "emoji": "🦴",
+  "description": "The night-stalking monster of the fens who devoured the Danes in their own hall",
+  "origin": "Anglo-Saxon epic poetry, drawing on Scandinavian legend",
+  "debut": {"medium": "poem", "title": "Beowulf", "creator": "Unknown Anglo-Saxon poet", "era": "composed between the 8th and 11th centuries"},
+  "legend": "Beowulf survives in a single manuscript, written down around the year 1000 and kept for centuries in the library of Sir Robert Cotton, where it was shelved beneath a bust of the emperor Vitellius. In 1731 a fire at Ashburnham House scorched the volume, and its brittle edges have been crumbling ever since, taking words with them. The poem itself is older: scholars still argue whether it was composed in the 700s or nearer the date of the manuscript. Grendel, a descendant of Cain, is maddened by the music and feasting in Heorot, the great hall of Hrothgar, king of the Danes, and raids it by night for twelve years until the Geatish hero Beowulf arrives, refuses to use a sword and tears Grendel's arm off at the shoulder. The poem was first printed in 1815, and J. R. R. Tolkien's 1936 lecture 'Beowulf: The Monsters and the Critics' persuaded scholars to read it as a poem rather than a historical scrapbook, monsters and all.",
+  "myths": [
+    {"claim": "The poem describes Grendel in detail.", "true": false, "explanation": "The poet never says what Grendel looks like beyond hints: he is huge, has claws, an ugly light shines from his eyes, and he carries a glove or pouch. Every picture of him is an artist's guess."},
+    {"claim": "No sword can harm Grendel.", "true": true, "explanation": "The poem says he has laid a spell on weapons so that no blade can bite him, which is why Beowulf fights him bare-handed."},
+    {"claim": "Grendel is a dragon.", "true": false, "explanation": "The dragon is a different monster, fought by an aged Beowulf fifty years later. Grendel walks on two legs, like a monstrous man."},
+    {"claim": "Grendel is descended from Cain.", "true": true, "explanation": "The poet says Grendel is of the kin of Cain, the first murderer, from whom sprang the giants, elves and evil spirits that God banished."},
+    {"claim": "Beowulf kills Grendel with a sword.", "true": false, "explanation": "He tears off Grendel's arm in a wrestling match, and the monster crawls home to the mere to die. The arm is hung up under Heorot's roof as a trophy."}
+  ],
+  "quotes": [
+    {"text": "Grendel this monster grim was called, march-riever mighty, in moorland living, in fen and fastness.", "speaker": "Narrator", "source": "Beowulf, Francis Gummere's 1910 translation, section I"},
+    {"text": "Then from the moorland, by misty crags, with God's wrath laden, Grendel came.", "speaker": "Narrator", "source": "Beowulf, Francis Gummere's 1910 translation, section XI"}
+  ],
+  "powers": ["Strength enough to carry off thirty warriors in a night", "A spell that blunts every sword", "Silent night-stalking through the mist", "A mother who will avenge him"],
+  "weaknesses": ["Bare hands and a very firm grip", "Music, feasting and joy, which he cannot bear", "A shoulder socket", "Daylight"],
+  "stats": {"strength": 10, "speed": 5, "cunning": 3, "dread": 9},
+  "legacy": [
+    "Grendel (1971), John Gardner's novel that tells the story from the monster's side",
+    "Seamus Heaney's translation (1999), which won the Whitbread Book of the Year",
+    "Beowulf & Grendel (2005), filmed in Iceland with Gerard Butler",
+    "Beowulf (2007), Robert Zemeckis's motion-capture film with Crispin Glover as Grendel"
+  ],
+  "facts": [
+    "Beowulf survives in a single manuscript, scorched in the Ashburnham House fire of 1731",
+    "Grendel attacks Heorot, the mead hall of Hrothgar, king of the Danes",
+    "He raids the hall for twelve years before Beowulf arrives",
+    "On his first raid he carries off thirty warriors",
+    "Beowulf fights him bare-handed and tears off his arm",
+    "The poem calls Grendel a descendant of Cain",
+    "The poem runs to 3,182 lines and was first printed in 1815"
+  ],
+  "hostIntro": "Tonight's guest doesn't care for singing, feasting or lights left on after dark, so keep the applause brief. He's come a long way from the fens, and he's hungry.",
+  "theme": {"primary": "#638999", "accent": "#DCE6EC"}
+}

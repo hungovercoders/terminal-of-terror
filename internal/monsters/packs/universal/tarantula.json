@@ -1,0 +1,45 @@
+{
+  "id": "tarantula",
+  "name": "The Tarantula",
+  "aliases": ["Tarantula", "Giant spider"],
+  "emoji": "🦂",
+  "description": "A laboratory tarantula grown to the size of a house by a miracle nutrient",
+  "origin": "1950s atomic-age science fiction",
+  "debut": {"medium": "film", "title": "Tarantula", "creator": "Universal-International", "year": 1955},
+  "film": {
+    "title": "Tarantula",
+    "year": 1955,
+    "studio": "Universal-International",
+    "director": "Jack Arnold",
+    "star": "A real tarantula, steered across miniature sets with jets of air",
+    "makeup": "Bud Westmore",
+    "note": "Leo G. Carroll plays Professor Deemer. The spider is a real tarantula, filmed on miniature sets and combined with the live action by Clifford Stine's effects team."
+  },
+  "legend": "Jack Arnold had already made It Came from Outer Space and Creature from the Black Lagoon when he turned to the desert for Tarantula. Professor Gerald Deemer, played by Leo G. Carroll, is working on a nutrient to feed a world that is running out of food. It makes his test animals enormous, and it gives the humans who inject it a runaway form of acromegaly that disfigures them in days. A struggle in the lab frees a tarantula the size of a dog, and by the time the town doctor, John Agar, works out why cattle are being stripped to the bone, it is the size of a house and heading for Desert Rock, Arizona. Instead of a puppet, Arnold filmed a real tarantula crawling over miniature landscapes, which is why it moves so convincingly. The idea came from 'No Food for Thought', an episode of the television series Science Fiction Theatre that Arnold directed earlier in 1955.",
+  "myths": [
+    {"claim": "The giant spider was a mechanical puppet.", "true": false, "explanation": "It's a real tarantula, photographed on miniature sets and matted into the live action by Clifford Stine's effects team."},
+    {"claim": "Clint Eastwood is in the film.", "true": true, "explanation": "A 25-year-old Eastwood, uncredited and mostly hidden behind an oxygen mask, leads the jet squadron that destroys the spider with napalm."},
+    {"claim": "The tarantula was created by atomic radiation.", "true": false, "explanation": "Unlike the ants of Them! (1954), this spider is the product of a nutrient serum. The 1950s blamed the bomb for most giant bugs, but not this one."},
+    {"claim": "The nutrient also deforms the people who take it.", "true": true, "explanation": "Deemer and his assistants develop acromegaly, a real gland disorder that enlarges the bones of the face and hands, speeded up to days rather than years."}
+  ],
+  "quotes": [],
+  "powers": ["Eight legs the size of tree trunks", "Venom enough to kill a herd", "Climbing a mountain in minutes", "Shrugging off rifles and dynamite"],
+  "weaknesses": ["Napalm", "An appetite that leaves a trail", "Headlights", "Having to crawl everywhere"],
+  "stats": {"strength": 9, "speed": 6, "cunning": 2, "dread": 8},
+  "legacy": [
+    "Jack Arnold's The Incredible Shrinking Man (1957) pitted its hero against an ordinary spider that seemed just as big",
+    "Earth vs. the Spider (1958) and a wave of giant-bug pictures followed",
+    "The Rocky Horror Picture Show's opening song name-checks the film and its star Leo G. Carroll among the B-movies it salutes"
+  ],
+  "facts": [
+    "The spider grows huge because of a nutrient meant to solve world hunger, not because of radiation",
+    "The nutrient gives humans a fast-acting form of acromegaly that swells their bones",
+    "It's a real tarantula, filmed on miniature sets and matted into the live action",
+    "Clint Eastwood, uncredited, plays the jet pilot who leads the napalm attack that kills it",
+    "Director Jack Arnold also made Creature from the Black Lagoon and The Incredible Shrinking Man",
+    "The story grew out of a 1955 Science Fiction Theatre episode called 'No Food for Thought'",
+    "The spider's rampage is set around Desert Rock, Arizona, though the film was shot in California"
+  ],
+  "hostIntro": "Arachnophobes, look away now. Tonight's guest is big, hairy and hungry, and she's been fed something she really shouldn't have. Your host will be watching from under the sofa.",
+  "theme": {"primary": "#E326C8", "accent": "#F72585"}
+}

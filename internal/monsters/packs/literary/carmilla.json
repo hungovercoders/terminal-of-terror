@@ -1,0 +1,42 @@
+{
+  "id": "carmilla",
+  "name": "Carmilla",
+  "aliases": ["Countess Mircalla Karnstein", "Mircalla", "Millarca"],
+  "emoji": "🐈",
+  "description": "The languid vampire of Styria who loved her victims before she drained them",
+  "origin": "Irish Gothic fiction",
+  "debut": {"medium": "novella", "title": "Carmilla", "creator": "Sheridan Le Fanu", "year": 1872},
+  "legend": "Le Fanu, a Dublin journalist and novelist, serialised Carmilla in the magazine The Dark Blue from December 1871 to March 1872 and collected it that year in In a Glass Darkly, framed as a case from the papers of the occult doctor Martin Hesselius. Laura, a lonely girl in a castle in Styria, takes in the survivor of a carriage accident, who turns out to be the long-dead Countess Mircalla Karnstein with her name reshuffled. It came out 25 years before Dracula, and Bram Stoker read it closely: his early notes placed Dracula's castle in Styria, and the deleted opening later published as 'Dracula's Guest' features a vampire countess from Gratz. Le Fanu's vampire is a woman who preys on women, and that has kept the story in print, on screen and in argument ever since.",
+  "myths": [
+    {"claim": "Carmilla came after Dracula and copied it.", "true": false, "explanation": "Carmilla was published in 1872, 25 years before Dracula (1897). Stoker was the borrower."},
+    {"claim": "Carmilla can take the form of a cat.", "true": true, "explanation": "Laura sees a huge, sooty-black cat creeping about her bedroom before the attacks, and the General's niece was visited by the same beast."},
+    {"claim": "Le Fanu's vampire is destroyed by sunlight.", "true": false, "explanation": "Carmilla is up and about in the afternoons, just late and listless. She is finished the old-fashioned way: a stake, beheading and burning, with the ashes thrown into the river."},
+    {"claim": "The vampire's names are anagrams of each other.", "true": true, "explanation": "Mircalla, Millarca and Carmilla rearrange the same letters, which is the clue that unmasks her."},
+    {"claim": "Carmilla lies in a coffin full of blood.", "true": true, "explanation": "When her tomb is opened, the body is found immersed in seven inches of blood, with a faint heartbeat and open eyes."}
+  ],
+  "quotes": [
+    {"text": "You are mine, you shall be mine, you and I are one for ever.", "speaker": "Carmilla", "source": "Carmilla (1872), chapter 4"},
+    {"text": "I live in your warm life, and you shall die—die, sweetly die—into mine.", "speaker": "Carmilla", "source": "Carmilla (1872), chapter 4"}
+  ],
+  "powers": ["Passing through locked doors", "Taking the shape of a great black cat", "A deathless beauty that disarms suspicion", "Turning her victims' affection into surrender"],
+  "weaknesses": ["Hymns and funerals, which make her ill", "A lie-in that stretches past noon", "A stake, an axe and a fire", "Anagrams"],
+  "stats": {"strength": 6, "speed": 6, "cunning": 8, "dread": 7},
+  "legacy": [
+    "Vampyr (1932), Carl Theodor Dreyer's dreamlike film loosely drawn from In a Glass Darkly",
+    "Blood and Roses (1960), Roger Vadim's modern-dress version",
+    "Hammer's The Vampire Lovers (1970), with Ingrid Pitt as Carmilla",
+    "Lust for a Vampire (1971) and Twins of Evil (1971), the rest of Hammer's Karnstein trilogy",
+    "Carmilla (2014), the web series that gave the story a new fandom"
+  ],
+  "facts": [
+    "Carmilla was published 25 years before Dracula",
+    "The story is narrated by Laura, the vampire's victim and friend",
+    "It is set in Styria, in Austria, where Stoker's early plans put Dracula's castle too",
+    "Carmilla, Mircalla and Millarca are all anagrams of the same name",
+    "She can take the form of a huge black cat",
+    "Her tomb is opened and the body found lying in blood, with a faint heartbeat",
+    "The story was serialised in the magazine The Dark Blue and collected in In a Glass Darkly in 1872"
+  ],
+  "hostIntro": "Tonight's guest arrived by carriage, rather suddenly, and would love to stay a while. She's a little tired in the mornings, so do keep your voice down, and your collar up.",
+  "theme": {"primary": "#EA4378", "accent": "#F7C6CF"}
+}

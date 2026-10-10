@@ -126,7 +126,7 @@ const pumpkin = `         )
 
 Backticks make a **raw string**: no escapes, so backslashes and quotes are literal and the art can be pasted as-is. Any multi-line text in Go code wants backticks.
 
-In October the screen adds the 31 Nights of Fright: night N features monster `(N-1) % len(all)`, with fact `(N-1) / len(all) % len(facts)`, so after a lap of the vault the second lap shows each monster's second fact. Arithmetic on a date turns nineteen monsters into thirty-one different nights.
+In October the screen adds the 31 Nights of Fright: night N features monster `(N-1) % len(all)`, with fact `(N-1) / len(all) % len(facts)`: a vault bigger than 31 gives every night its own monster, and a smaller one laps round and shows each monster's second fact. Arithmetic on a date turns a vault of any size into thirty-one different nights.
 
 ## Run it
 

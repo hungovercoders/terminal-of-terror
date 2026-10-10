@@ -68,8 +68,9 @@ func TestAnniversariesAndNotes(t *testing.T) {
 		t.Errorf("notes missing anniversary:\n%s", notes)
 	}
 
+	// Son of Dracula (5 November 1943) comes before The Invisible Man (13 November 1933).
 	next, when, ok := NextAnniversary(utc(2026, time.September, 23, 20), all)
-	if !ok || next.Monster.ID != "invisible-man" || when.Day() != 13 {
+	if !ok || next.Monster.ID != "son-of-dracula" || when.Day() != 5 {
 		t.Errorf("next anniversary after 23 Sep: %s on %s", next.Monster.ID, when)
 	}
 

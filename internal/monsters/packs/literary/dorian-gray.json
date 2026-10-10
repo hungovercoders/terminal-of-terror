@@ -1,0 +1,52 @@
+{
+  "id": "dorian-gray",
+  "name": "Dorian Gray",
+  "aliases": ["Dorian", "The Picture of Dorian Gray", "Prince Charming"],
+  "emoji": "🎨",
+  "description": "A beautiful young man whose portrait ages and rots in his place",
+  "origin": "Victorian Gothic fiction",
+  "debut": {"medium": "novel", "title": "The Picture of Dorian Gray", "creator": "Oscar Wilde", "year": 1890},
+  "film": {
+    "title": "The Picture of Dorian Gray",
+    "year": 1945,
+    "studio": "MGM",
+    "director": "Albert Lewin",
+    "star": "Hurd Hatfield",
+    "note": "Shot in black and white, with the portrait shown in sudden Technicolor inserts; Ivan Albright's painting of the ruined Dorian now hangs in the Art Institute of Chicago."
+  },
+  "legend": "Wilde's only novel first appeared in the July 1890 issue of Lippincott's Monthly Magazine. Its editor, J. M. Stoddart, had already cut about five hundred words he thought indecent without telling Wilde, and the press still attacked it: the Daily Chronicle called it a tale 'spawned from the leprous literature of the French Décadents', and W. H. Smith pulled the issue from its bookstalls. For the 1891 book edition Wilde added a preface of aphorisms defending art for art's sake and six new chapters, toning down some passages and giving the story James Vane's revenge plot. In 1895, when Wilde sued the Marquess of Queensberry for libel, Queensberry's counsel Edward Carson read passages from the novel aloud in court as evidence of its author's character. The case collapsed, and Wilde was later sentenced to two years' hard labour for gross indecency.",
+  "myths": [
+    {"claim": "Wilde describes exactly how the portrait changes as it decays.", "true": false, "explanation": "Wilde keeps it vague: a cruel line at the mouth, blood on the hands, a face grown hideous. Readers' imaginations do the work, which is why film-makers have struggled to paint it."},
+    {"claim": "Dorian dies when he stabs the painting.", "true": true, "explanation": "He slashes the canvas with the knife he used on Basil Hallward. The servants find a withered old man with a knife in his heart beneath a portrait of a beautiful youth."},
+    {"claim": "The novel was used as evidence against Wilde in court.", "true": true, "explanation": "During the 1895 libel case, Edward Carson read passages aloud and pressed Wilde on whether the feelings in the book were natural."},
+    {"claim": "The Picture of Dorian Gray was first published as a book.", "true": false, "explanation": "It first appeared in Lippincott's Monthly Magazine in July 1890. The expanded book edition, with its preface and six extra chapters, followed in 1891."},
+    {"claim": "The mysterious 'yellow book' that corrupts Dorian is based on a real novel.", "true": true, "explanation": "Wilde never names it, but admitted at the Queensberry trial that he had Huysmans's À rebours (1884) in mind."}
+  ],
+  "quotes": [
+    {"text": "The only way to get rid of a temptation is to yield to it.", "speaker": "Lord Henry Wotton", "source": "The Picture of Dorian Gray (1891), chapter 2"},
+    {"text": "There is only one thing in the world worse than being talked about, and that is not being talked about.", "speaker": "Lord Henry Wotton", "source": "The Picture of Dorian Gray (1891), chapter 1"},
+    {"text": "If it were I who was to be always young, and the picture that was to grow old! For that—for that—I would give everything! Yes, there is nothing in the whole world I would not give! I would give my soul for that!", "speaker": "Dorian Gray", "source": "The Picture of Dorian Gray (1891), chapter 2"},
+    {"text": "All art is quite useless.", "speaker": "Oscar Wilde", "source": "The Picture of Dorian Gray (1891), preface"}
+  ],
+  "powers": ["Eternal youth and beauty", "A face no one can suspect", "Charm that opens every door in London", "A portrait that takes every sin on his behalf"],
+  "weaknesses": ["A locked schoolroom in the attic", "His own curiosity about the canvas", "Sibyl Vane's brother", "A knife turned on the painting", "Lord Henry's epigrams"],
+  "stats": {"strength": 4, "speed": 5, "cunning": 8, "dread": 6},
+  "legacy": [
+    "The Picture of Dorian Gray (1945), with Hurd Hatfield, George Sanders and Angela Lansbury, which won an Oscar for its cinematography",
+    "Dorian Gray (1970), with Helmut Berger",
+    "The League of Extraordinary Gentlemen (2003), with Stuart Townsend as Dorian",
+    "Dorian Gray (2009), with Ben Barnes and Colin Firth",
+    "Penny Dreadful (2014-2016), with Reeve Carney"
+  ],
+  "facts": [
+    "The novel first appeared in Lippincott's Monthly Magazine in July 1890, before the expanded 1891 book",
+    "The 1891 edition added a preface of aphorisms and six new chapters",
+    "Basil Hallward paints the portrait; Lord Henry Wotton supplies the temptation",
+    "Dorian murders Basil in the old schoolroom where the portrait is hidden",
+    "The 'yellow book' that poisons Dorian was partly inspired by Huysmans's À rebours",
+    "Passages from the novel were read aloud at Wilde's 1895 libel trial",
+    "In the 1945 film the portrait, painted by Ivan Albright, appears in colour while the rest is black and white"
+  ],
+  "hostIntro": "Tonight's guest hasn't aged a day, and he'd rather you didn't ask what's upstairs. Smile for the camera, Dorian; it's the only thing that won't tell.",
+  "theme": {"primary": "#C9A227", "accent": "#FBF1D3"}
+}

@@ -1,0 +1,37 @@
+{
+  "id": "nuckelavee",
+  "name": "The Nuckelavee",
+  "aliases": ["Nuckelavee"],
+  "emoji": "🐎",
+  "description": "A skinless horse and rider from the sea whose breath withers crops and sickens cattle",
+  "origin": "Orkney folklore, Scotland",
+  "debut": {"medium": "folklore", "title": "Orkney legend", "era": "Orcadian oral tradition, written down by Walter Traill Dennison in 1891"},
+  "legend": "Orkney's islanders feared the nuckelavee more than any other creature in their waters. It is a horse with a rider growing out of its back, and neither has any skin: Walter Traill Dennison, the Orkney farmer and folklorist who wrote the stories down in 1891, described black blood pulsing through yellow veins and a single eye that burned like a red flame. Its breath blighted crops, killed cattle and brought the plagues the islanders called mortasheen, and when they burned seaweed for kelp it raged at the smell and sent disease in revenge. The nuckelavee hated fresh water, so a running stream was the surest escape, and for the summer months it was kept locked away by the Mither o' the Sea, the kindly spirit who calms the Orkney waters. Dennison's one first-hand account came from an islander named Tammas, who reportedly had to be talked into telling it.",
+  "myths": [
+    {"claim": "The nuckelavee can be escaped by crossing fresh water.", "true": true, "explanation": "In Tammas's tale he splashes through a stream and the creature cannot follow, roaring on the far bank."},
+    {"claim": "It roams Orkney all year round.", "true": false, "explanation": "The Mither o' the Sea confines it through the summer, which is why it is a creature of the dark months."},
+    {"claim": "The nuckelavee has no skin.", "true": true, "explanation": "Dennison's account describes raw flesh with the muscles and black blood plainly visible, which is the detail nobody forgets."},
+    {"claim": "The nuckelavee is a figure from the Scottish Highlands.", "true": false, "explanation": "It belongs to Orkney, where the folklore has Norse rather than Gaelic roots: its name is related to the nuggle and the Norse nykur, water horses of the north."}
+  ],
+  "quotes": [
+    {"text": "Nuckelavee was a monster of unmixed malignity, never willingly resting from doing evil to mankind.", "speaker": "Walter Traill Dennison", "source": "Orkney Folk-Lore: Sea Myths, The Scottish Antiquary (1891)"}
+  ],
+  "powers": ["Breath that withers crops and sickens cattle", "The strength of a horse and a rider in one", "Raising plagues from the sea", "A single burning red eye"],
+  "weaknesses": ["Fresh water", "The Mither o' the Sea, who confines it in summer", "The smell of burning seaweed, which drives it to fury", "Having no skin whatsoever"],
+  "stats": {"strength": 9, "speed": 8, "cunning": 4, "dread": 9},
+  "legacy": [
+    "Collected in George Douglas's Scottish Fairy and Folk Tales (1901)",
+    "A monster of choice for modern illustrators and games, including an outsize horse-and-rider Grimm in the animated series RWBY"
+  ],
+  "facts": [
+    "The nuckelavee comes from the Orkney Islands, off the north coast of Scotland",
+    "It is a horse and a rider fused together, and neither has any skin",
+    "Its breath was blamed for withered crops and a cattle plague called mortasheen",
+    "It cannot bear fresh water, so crossing a stream is the surest escape",
+    "The Mither o' the Sea keeps it confined through the summer months",
+    "Walter Traill Dennison wrote the legend down in 1891 from an islander named Tammas",
+    "Islanders believed it hated the smell of burning seaweed, which they burned to make kelp"
+  ],
+  "hostIntro": "Tonight's guest has come up from the Orkney sea without a stitch of skin on, and that is the nicest thing I can say about it. Stand next to the stream, dear viewer. Stand very close to the stream.",
+  "theme": {"primary": "#6487B5", "accent": "#98C1D9"}
+}
