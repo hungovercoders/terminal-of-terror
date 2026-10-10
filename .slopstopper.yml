@@ -28,14 +28,17 @@ urls:
   preview:
 
 # Paths each browser check audits, comma-separated. `/` is the default.
+# Ours are relative (no leading /) because production lives under
+# /terminal-of-terror/ on GitHub Pages, and a leading / would resolve to
+# the host root instead.
 # For a larger site, `reliability.coverage.*` in the schema reference
 # derives these from your sitemap or the PR's diff instead.
 pages:
-  smoke:         /,/monsters/index.html,/monsters/dracula.html,/night-school/index.html,/night-school/night-01.html
-  e2e:           /
-  accessibility: /,/monsters/index.html,/monsters/dracula.html,/night-school/index.html,/night-school/night-01.html
-  seo:           /,/monsters/dracula.html,/night-school/index.html
-  broken_links:  /
+  smoke:         ./,monsters/index.html,monsters/dracula.html,night-school/index.html,night-school/night-01.html
+  e2e:           ./
+  accessibility: ./,monsters/index.html,monsters/dracula.html,night-school/index.html,night-school/night-01.html
+  seo:           ./,monsters/dracula.html,night-school/index.html
+  broken_links:  ./
 
 # The site-wide share image the smoke test asserts. '' skips the assertion.
 # GitHub Pages can't set the CORP header the og-image assertion needs; the

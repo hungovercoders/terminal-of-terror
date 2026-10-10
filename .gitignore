@@ -59,3 +59,9 @@ test-results/
 !.claude/skills/
 !.claude/skills/**
 # slopstopper end
+
+# slopstopper copies its bundled Playwright config and specs here to run
+# them; only the patched e2e spec (relative nav links) is ours.
+.ss/playwright.config.js
+.ss/tests/*
+!.ss/tests/e2e.spec.ts
