@@ -148,14 +148,14 @@ terminal-of-terror quiz dracula
 </td>
 <td width="50%" valign="top">
 
-<img src="docs/assets/quiz.gif" alt="The Midnight Quiz: a question about where the Kappa first appeared, a wrong answer with its explanation, and a final rank" width="100%">
+<img src="docs/assets/quiz.gif" alt="The Midnight Quiz: a true-or-false question, a wrong answer with its explanation, and a final rank" width="100%">
 
 </td>
 </tr>
 <tr>
 <td width="50%" valign="top">
 
-<img src="docs/assets/guess.gif" alt="Guess the Monster: the Sasquatch's portrait slowly clears from the fog as clues appear" width="100%">
+<img src="docs/assets/guess.gif" alt="Guess the Monster: the Yeti's portrait slowly clears from the fog as clues appear" width="100%">
 
 </td>
 <td width="50%" valign="top">
@@ -264,7 +264,7 @@ terminal-of-terror random --date 2026-11-21
 terminal-of-terror random                     # or just any old fact
 ```
 
-<img src="docs/assets/random.png" alt="The Fact of the Night card for 21 November: a Baba Yaga fact, and a note that Frankenstein opened 95 years ago tonight" width="620">
+<img src="docs/assets/random.png" alt="The Fact of the Night card for 21 November: a Dracula's Daughter fact, and a note that Frankenstein opened 95 years ago tonight" width="620">
 
 ## 📜 The roster
 
@@ -330,6 +330,28 @@ terminal-of-terror random                     # or just any old fact
 | 🎃 | **The Headless Horseman** | Washington Irving's story (1820) | *The Headless Horseman* (1922), a silent with Will Rogers as Ichabod |
 | 🦴 | **Grendel** | *Beowulf*, the Old English poem | |
 | 🐲 | **The Jabberwock** | Lewis Carroll's *Jabberwocky* (1871) | |
+
+### Classical Mythology · `--pack mythology`
+
+| | Monster | Where the myth is told |
+|-|---------|------------------------|
+| 🐍 | **Medusa** | Hesiod's *Theogony* (around 700 BCE), retold by Ovid |
+| 🐂 | **The Minotaur** | Greek vase painting, then Apollodorus, Plutarch and Ovid |
+| 🐕 | **Cerberus** | Hesiod's *Theogony*; the last labour of Heracles |
+| 🐉 | **The Hydra** | Hesiod's *Theogony*; the labour told in full by Apollodorus |
+| 🧿 | **Polyphemus the Cyclops** | Homer's *Odyssey*, book 9 |
+| 🦁 | **The Sphinx** | Named by Hesiod; her riddle in Sophocles' *Oedipus Rex* |
+
+### Silent Screen · `--pack silent`
+
+| | Monster | The film | Played by |
+|-|---------|----------|-----------|
+| 🐀 | **Count Orlok** | *Nosferatu* (1922) | Max Schreck |
+| 🛌 | **Cesare the Somnambulist** | *Das Cabinet des Dr. Caligari* (1920) | Conrad Veidt |
+| ⚡ | **The Edison Monster** | *Frankenstein* (1910) | Charles Ogle |
+| 🤖 | **The Maschinenmensch** | *Metropolis* (1927) | Brigitte Helm |
+| 🃏 | **Gwynplaine** | *The Man Who Laughs* (1928) | Conrad Veidt |
+| 🎩 | **The Man in the Beaver Hat** | *London After Midnight* (1927), the famous lost film | Lon Chaney |
 
 <img src="docs/assets/list.png" alt="terminal-of-terror list: every monster grouped by pack" width="820">
 
