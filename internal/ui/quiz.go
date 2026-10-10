@@ -119,7 +119,6 @@ func (m *quizModel) answer(n int) {
 	m.quip = host.Quip(m.rng)
 }
 
-// optionKey maps 1-4 and a-d to an option index, or -1.
 // isQuitKey reports whether k leaves a game.
 func isQuitKey(k string) bool { return k == "ctrl+c" || k == "q" || k == "esc" }
 
@@ -144,6 +143,7 @@ func pickOption(k string, cursor *int, n int) (int, bool) {
 	return 0, false
 }
 
+// optionKey maps 1-4 and a-d to an option index, or -1.
 func optionKey(k string) int {
 	if len(k) != 1 {
 		return -1
