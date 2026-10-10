@@ -15,7 +15,7 @@ Type "terminal-of-terror quiz -n 3"
 Sleep 300ms
 Enter
 Sleep 2.5s
-Type "1"
+Type "3"
 Sleep 3s
 Enter
 Sleep 2.5s
