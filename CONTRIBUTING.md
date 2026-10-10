@@ -23,7 +23,7 @@ New to the codebase, or to Go? [Count Cathode's Night School](course/README.md) 
 
 ### Prerequisites
 
-- Go 1.24 or higher
+- Go 1.25 or higher
 - Git
 
 ### Building the Project

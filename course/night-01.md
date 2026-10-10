@@ -25,7 +25,7 @@ Download the installer for your system from [go.dev/dl](https://go.dev/dl/) and 
 go version
 ```
 
-You should see `go version go1.24.x` or newer. If the command isn't found, the installer didn't put Go on your `PATH`; the [install page](https://go.dev/doc/install) has the fix for each system.
+You should see `go version go1.25.x` or newer. If the command isn't found, the installer didn't put Go on your `PATH`; the [install page](https://go.dev/doc/install) has the fix for each system.
 
 ## A place for the monsters
 
@@ -47,7 +47,7 @@ This creates `go.mod`:
 ```
 module github.com/hungovercoders/terminal-of-terror
 
-go 1.24
+go 1.25
 ```
 
 The module name looks like a web address because Go modules are usually published on sites like GitHub, and the name is where other people would fetch them from. Nothing is being published tonight. Using this exact name means every `import` in the course matches your code; on Night 31 you'll see how to rename it.

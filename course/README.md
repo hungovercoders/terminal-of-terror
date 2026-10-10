@@ -71,7 +71,7 @@ You'll need:
 
 - A terminal. On macOS or Linux, the one you have. On Windows, [Windows Terminal](https://aka.ms/terminal) with PowerShell works well.
 - A text editor. [VS Code](https://code.visualstudio.com) with the Go extension is a fine choice.
-- [Go 1.24 or newer](https://go.dev/dl/). Night 1 walks you through installing it.
+- [Go 1.25 or newer](https://go.dev/dl/). Night 1 walks you through installing it.
 - [Git](https://git-scm.com), so you can save your progress and look at the finished code.
 
 The finished program is in this repository. Whenever a lesson says "the full file in the repo", it means the file at the same path here, for example [`cmd/list.go`](../cmd/list.go). Reading ahead is allowed. Copying is encouraged. Understanding is the point.

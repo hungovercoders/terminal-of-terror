@@ -54,7 +54,7 @@ sudo mv terminal-of-terror /usr/local/bin/
 > [!NOTE]
 > On macOS, the binary isn't signed, so the first run may be blocked. Run `xattr -d com.apple.quarantine terminal-of-terror` to let it through.
 
-**Or install it with [Go 1.24+](https://go.dev/dl/):**
+**Or install it with [Go 1.25+](https://go.dev/dl/):**
 
 ```bash
 go install github.com/hungovercoders/terminal-of-terror@latest
