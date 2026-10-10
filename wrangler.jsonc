@@ -17,5 +17,9 @@
   // Non-production branches deploy with `wrangler preview`, which needs this
   // block even when it is empty.
   "previews": {},
+  // Production is served only on the custom domain; branch previews get
+  // workers.dev URLs, which the deployed-site checks read off the PR.
+  "workers_dev": false,
+  "preview_urls": true,
   "observability": { "enabled": true }
 }

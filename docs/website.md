@@ -33,6 +33,9 @@ other branches get a preview URL on their commit check.
 - **URLs:** `html_handling` is off so `.html` links aren't redirected. The generated `_redirects` serves each section's
   `index.html` at its directory URL instead (`indexRewrites`).
 - **Local preview of exactly what Cloudflare serves:** `go run ./site -out dist && npx wrangler dev`.
+- **Checks on what was deployed:** when Workers Builds succeeds, `cloudflare-deployed.yml` runs `deployed-site-checks.yml`
+  against the result: a branch's preview URL (its results show on the PR) or the live site for `main` (a failure opens
+  an issue). slopstopper's own `ss-*` workflows only test a local build.
 
 `npm run build` writes the site to `dist/` with a localhost base URL, which is what slopstopper's browser checks
 serve on port 8080 (`slopstopper serve`).

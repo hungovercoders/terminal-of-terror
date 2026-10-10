@@ -1,0 +1,70 @@
+# When Cloudflare Workers Builds finishes deploying a commit, run the
+# deployed-site checks against what it deployed: terminalofterror.com for
+# main, or the branch's preview URL, which Cloudflare's bot posts on the PR.
+# The checks run as a dispatch on the deployed branch so their results land
+# on that commit. See deployed-site-checks.yml for why this exists.
+name: Cloudflare deployed
+
+on:
+  check_run:
+    types: [completed]
+
+permissions:
+  contents: read
+
+jobs:
+  dispatch:
+    if: >-
+      github.event.check_run.app.slug == 'cloudflare-workers-and-pages' &&
+      github.event.check_run.conclusion == 'success'
+    runs-on: ubuntu-latest
+    permissions:
+      actions: write
+      contents: read
+      pull-requests: read
+    steps:
+      - uses: actions/checkout@3d3c42e5aac5ba805825da76410c181273ba90b1 # v7.0.1
+      - name: Work out what was deployed and where
+        id: target
+        env:
+          GH_TOKEN: ${{ github.token }}
+          BRANCH: ${{ github.event.check_run.check_suite.head_branch }}
+          SHA: ${{ github.event.check_run.head_sha }}
+          DEFAULT_BRANCH: ${{ github.event.repository.default_branch }}
+        run: |
+          if [ "$BRANCH" = "$DEFAULT_BRANCH" ]; then
+            url="$(yq '.urls.production' .slopstopper.yml)"
+          else
+            pr="$(gh pr list -R "$GITHUB_REPOSITORY" --head "$BRANCH" --state open --json number -q '.[0].number')"
+            [ -n "$pr" ] || { echo "::notice::$BRANCH has no open PR, so there is no preview to check"; exit 0; }
+            # The bot's comment is a table with one row per deployed commit:
+            # take the workers.dev link from the row for this commit. It can
+            # land a little after the check completes, so retry briefly.
+            for attempt in 1 2 3 4 5 6; do
+              url="$(gh api "repos/$GITHUB_REPOSITORY/issues/$pr/comments" --paginate \
+                --jq '.[] | select(.user.login == "cloudflare-workers-and-pages[bot]") | .body' |
+                python3 -c '
+          import re, sys
+          sha = sys.argv[1][:7]
+          for row in re.findall(r"<tr>.*?</tr>", sys.stdin.read(), re.S):
+              if sha in row:
+                  m = re.search(r"https://[a-z0-9-]+\.[a-z0-9-]+\.workers\.dev", row)
+                  if m:
+                      print(m.group(0) + "/")
+                      break
+          ' "$SHA")"
+              [ -n "$url" ] && break
+              sleep 20
+            done
+            [ -n "$url" ] || { echo "::error::No preview URL for ${SHA:0:7} in Cloudflare's comment on #$pr"; exit 1; }
+          fi
+          echo "Deployed ${SHA:0:7} on $BRANCH to $url"
+          echo "url=$url" >> "$GITHUB_OUTPUT"
+          echo "branch=$BRANCH" >> "$GITHUB_OUTPUT"
+      - name: Run the deployed-site checks
+        if: steps.target.outputs.url != ''
+        env:
+          GH_TOKEN: ${{ github.token }}
+          BRANCH: ${{ steps.target.outputs.branch }}
+          URL: ${{ steps.target.outputs.url }}
+        run: gh workflow run deployed-site-checks.yml -R "$GITHUB_REPOSITORY" --ref "$BRANCH" -f url="$URL"
