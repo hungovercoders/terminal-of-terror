@@ -99,7 +99,7 @@ Count Cathode opens the broadcast through a wall of TV static, then hands you th
 | **Stat Card** | Strength, speed, cunning and dread, plus powers and weaknesses |
 | **Legacy** | Sequels, remakes and crossovers |
 
-🎞️ The silent-era monsters, from the Phantom and the Hunchback to Count Orlok and the whole Silent Screen pack, flicker in black and white with title cards and film grain, just as they did in the 1920s.
+🎞️ The silent-era monsters, from the Phantom and the Hunchback to Count Orlok and the whole Silent Screen pack, flicker in black and white with title cards and film grain, just as they did in the silent era.
 
 Jump straight to a monster by name, nickname or even part of a name:
 
