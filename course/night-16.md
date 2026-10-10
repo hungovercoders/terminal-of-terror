@@ -23,7 +23,7 @@ Two of the vault's films are silent. Their JSON says so, in the `film` block:
     ...
 ```
 
-and `Monster` has a method for it, in [`monsters.go`](../../internal/monsters/monsters.go):
+and `Monster` has a method for it, in [`monsters.go`](../internal/monsters/monsters.go):
 
 ```go
 // IsSilent reports whether the monster's classic film is a silent picture.
@@ -36,7 +36,7 @@ The `m.Film != nil &&` guard matters: `m.Film.Silent` on a folklore monster with
 
 ## The palette goes monochrome
 
-Night 10's `paletteFor` started from defaults and applied the monster's theme. It now has a first branch, in [`styles.go`](../../internal/ui/styles.go):
+Night 10's `paletteFor` started from defaults and applied the monster's theme. It now has a first branch, in [`styles.go`](../internal/ui/styles.go):
 
 ```go
 // palette is the set of colours used to draw one monster.
@@ -87,7 +87,7 @@ func intertitle(text string, width int, p palette, ornaments bool) string {
 }
 ```
 
-`Align(lipgloss.Center)` with a `Width` centres each wrapped line. The `❦` (a *fleuron*, the printer's ornament) goes above and below unless the terminal is short, in which case `detailHeader` in [`render.go`](../../internal/ui/render.go) passes `ornaments = false` to save two lines. The same function adds a `▶ SILENT PICTURE · 1925` badge after the name when `p.silent` is set, and reads the year from `mo.Film.Year`, which is safe because `silent` implies a film.
+`Align(lipgloss.Center)` with a `Width` centres each wrapped line. The `❦` (a *fleuron*, the printer's ornament) goes above and below unless the terminal is short, in which case `detailHeader` in [`render.go`](../internal/ui/render.go) passes `ornaments = false` to save two lines. The same function adds a `▶ SILENT PICTURE · 1925` badge after the name when `p.silent` is set, and reads the year from `mo.Film.Year`, which is safe because `silent` implies a film.
 
 ## Grain
 
@@ -116,7 +116,7 @@ and the tick handler regenerates `m.grain` each frame on a silent page:
 
 Here's the design question of the night. The intro ticks every 70ms. If the explorer kept ticking at that rate forever, an idle terminal would redraw fourteen times a second doing nothing, warming a laptop for no reason. And a page that isn't silent has nothing to animate at all.
 
-So the model tracks whether a tick is in flight and whether one is *needed*, in [`ui.go`](../../internal/ui/ui.go):
+So the model tracks whether a tick is in flight and whether one is *needed*, in [`ui.go`](../internal/ui/ui.go):
 
 ```go
 // needsTick reports whether anything on screen is animated.

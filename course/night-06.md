@@ -48,11 +48,11 @@ Then one file per monster. `dracula.json` is last night's Dracula object on its 
 
 Do the same for `frankenstein.json` and `wolf-man.json`. The file name, without `.json`, becomes the monster's **id**: a short, lowercase, dash-separated name that we'll use in commands and to find the art file.
 
-Finally, the art. Copy [`dracula.txt`](../../internal/monsters/packs/universal/dracula.txt), [`frankenstein.txt`](../../internal/monsters/packs/universal/frankenstein.txt) and [`wolf-man.txt`](../../internal/monsters/packs/universal/wolf-man.txt) from this repository into the same folder, or draw your own. Plain text, one line per row.
+Finally, the art. Copy [`dracula.txt`](../internal/monsters/packs/universal/dracula.txt), [`frankenstein.txt`](../internal/monsters/packs/universal/frankenstein.txt) and [`wolf-man.txt`](../internal/monsters/packs/universal/wolf-man.txt) from this repository into the same folder, or draw your own. Plain text, one line per row.
 
 ## The loader
 
-Replace `internal/monsters/monsters.go`. It's long, so it's broken into pieces here; the whole file is [in the repository](../../internal/monsters/monsters.go) if you'd rather copy it (the repo version has more fields and features, which later nights add).
+Replace `internal/monsters/monsters.go`. It's long, so it's broken into pieces here; the whole file is [in the repository](../internal/monsters/monsters.go) if you'd rather copy it (the repo version has more fields and features, which later nights add).
 
 ### Types and the embedded folder
 
@@ -264,7 +264,7 @@ Same three monsters as before, in the order `pack.json` asked for. Nothing visib
 
 ## 🕯️ Before dawn
 
-Make `list` group monsters by pack, with the pack's name as a heading, using `GetPacks()`. Then print each pack's description under its heading. The finished version is in [`internal/ui/cards.go`](../../internal/ui/cards.go), `RenderList`, styled with tomorrow-week's colours.
+Make `list` group monsters by pack, with the pack's name as a heading, using `GetPacks()`. Then print each pack's description under its heading. The finished version is in [`internal/ui/cards.go`](../internal/ui/cards.go), `RenderList`, styled with tomorrow-week's colours.
 
 > 📺 *"A crypt, properly organised. The undead are filed alphabetically, which would upset them if they knew. Tomorrow night, we make sure nothing is missing. Check under the bed."*
 

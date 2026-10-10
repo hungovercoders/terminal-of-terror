@@ -14,7 +14,7 @@
 
 ## The host package
 
-Count Cathode has lines: greetings, sign-offs, reactions to a fact, an introduction for each monster. None of that belongs in the UI code, which should know how to *draw* a quote, not what it says. So there's a tiny package, [`internal/host/host.go`](../../internal/host/host.go):
+Count Cathode has lines: greetings, sign-offs, reactions to a fact, an introduction for each monster. None of that belongs in the UI code, which should know how to *draw* a quote, not what it says. So there's a tiny package, [`internal/host/host.go`](../internal/host/host.go):
 
 ```go
 // Package host gives a voice to Count Cathode, Terminal of Terror's
@@ -54,7 +54,7 @@ func pick(r *rand.Rand, lines []string) string {
 
 Sixty lines, and a whole character. Two habits to notice. **`const`** for the things that never change: a constant can't be reassigned, and the compiler can inline it. And every random choice takes a `*rand.Rand` (Night 4's lesson): the intro test can pass a seeded one and get the same greeting every run.
 
-`Intro` uses the `hostIntro` field you copied into the JSON on Night 13, with a fallback for monsters that don't have one. Every monster page now shows it under the description, in `hostStyle`, a new dim italic in [`styles.go`](../../internal/ui/styles.go).
+`Intro` uses the `hostIntro` field you copied into the JSON on Night 13, with a fallback for monsters that don't have one. Every monster page now shows it under the description, in `hostStyle`, a new dim italic in [`styles.go`](../internal/ui/styles.go).
 
 ## Time is a message
 
@@ -98,7 +98,7 @@ Each tick schedules one more, until `ensureTick` decides the screen no longer ne
 
 ## The timeline
 
-The intro in [`internal/ui/intro.go`](../../internal/ui/intro.go) is a schedule in frames:
+The intro in [`internal/ui/intro.go`](../internal/ui/intro.go) is a schedule in frames:
 
 ```go
 // Intro timeline, in ticks.
@@ -194,7 +194,7 @@ Then `viewIntro` centres everything with `lipgloss.NewStyle().Width(w).Align(lip
 		}
 ```
 
-That's [`ui.go`](../../internal/ui/ui.go), which now has a `screen` field (`screenIntro`, `screenGallery`, `screenDetail`, an `iota` enum like the tabs) and dispatches at the top of `Update` on which screen is showing, the way Night 14's `searching` flag did.
+That's [`ui.go`](../internal/ui/ui.go), which now has a `screen` field (`screenIntro`, `screenGallery`, `screenDetail`, an `iota` enum like the tabs) and dispatches at the top of `Update` on which screen is showing, the way Night 14's `searching` flag did.
 
 ## Options, not arguments
 
@@ -211,7 +211,7 @@ type Options struct {
 }
 ```
 
-Callers name what they set, `ui.RunUI(ui.Options{StartID: m.ID, NoIntro: noIntro})`, and everything else is its zero value, which is always the sensible default. That's why the fields are phrased as `NoIntro` rather than `Intro`: `false` has to mean "the normal thing". The `monster` command gained `--all` and `--no-intro` flags that map straight onto them ([`cmd/monster.go`](../../cmd/monster.go)). And when a monster is named on the command line, the intro is skipped without being asked: you know what you want.
+Callers name what they set, `ui.RunUI(ui.Options{StartID: m.ID, NoIntro: noIntro})`, and everything else is its zero value, which is always the sensible default. That's why the fields are phrased as `NoIntro` rather than `Intro`: `false` has to mean "the normal thing". The `monster` command gained `--all` and `--no-intro` flags that map straight onto them ([`cmd/monster.go`](../cmd/monster.go)). And when a monster is named on the command line, the intro is skipped without being asked: you know what you want.
 
 ## Sign-off
 
@@ -238,7 +238,7 @@ Static, the Channel 13 label, a flash, the title, and Count Cathode typing. Pres
 
 ## Testing time
 
-The intro tests in [`ui_test.go`](../../internal/ui/ui_test.go) never wait 70 milliseconds for anything:
+The intro tests in [`ui_test.go`](../internal/ui/ui_test.go) never wait 70 milliseconds for anything:
 
 ```go
 func TestIntroSkipsThenEnters(t *testing.T) {

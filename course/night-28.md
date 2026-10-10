@@ -40,7 +40,7 @@ Three kinds of test carry most of the weight, and you've written all three:
 
 ## Testing a Bubble Tea model, properly
 
-The explorer tests in [`ui_test.go`](../../internal/ui/ui_test.go) grew two helpers that every test uses:
+The explorer tests in [`ui_test.go`](../internal/ui/ui_test.go) grew two helpers that every test uses:
 
 ```go
 func send(m model, msgs ...tea.Msg) model {

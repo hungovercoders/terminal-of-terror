@@ -13,7 +13,7 @@
 
 ## Tapes
 
-[VHS](https://github.com/charmbracelet/vhs), from the same people as Bubble Tea, records a terminal from a *tape*: a text file of settings and keystrokes. [`docs/demos/quiz.tape`](../../docs/demos/quiz.tape):
+[VHS](https://github.com/charmbracelet/vhs), from the same people as Bubble Tea, records a terminal from a *tape*: a text file of settings and keystrokes. [`docs/demos/quiz.tape`](../docs/demos/quiz.tape):
 
 ```
 Output docs/demos/.frames/quiz/
@@ -41,7 +41,7 @@ A tape is a test script for humans: it types a command, waits for the screen, pr
 
 ## The tape presses `1`. Is `1` right?
 
-Here's the problem with recording a game: the quiz tape answers question one with `1`, and the recording wants that to be *correct*, then a wrong answer, then the results. If the questions were random, the tape would be right by luck. Night 26's seed is the answer. [`render.sh`](../../docs/demos/render.sh) sets it for every recording:
+Here's the problem with recording a game: the quiz tape answers question one with `1`, and the recording wants that to be *correct*, then a wrong answer, then the results. If the questions were random, the tape would be right by luck. Night 26's seed is the answer. [`render.sh`](../docs/demos/render.sh) sets it for every recording:
 
 ```bash
 # Recordings use a fixed TERMINAL_OF_TERROR_SEED (DEMO_SEED, default 13), so
@@ -94,11 +94,11 @@ Nobody remembers an ffmpeg filter chain; that's what the script is for.
 
 ## The theme lives once
 
-Every tape has `Set Theme @theme.json`, and VHS doesn't support that line. The script replaces it with the contents of [`theme.json`](../../docs/demos/theme.json) as one line of JSON before recording, so the colour scheme is in one file, not nine. When a tool doesn't support the shape you want, a two-line `awk` in the wrapper often does.
+Every tape has `Set Theme @theme.json`, and VHS doesn't support that line. The script replaces it with the contents of [`theme.json`](../docs/demos/theme.json) as one line of JSON before recording, so the colour scheme is in one file, not nine. When a tool doesn't support the shape you want, a two-line `awk` in the wrapper often does.
 
 ## The README
 
-With pictures to hand, [`README.md`](../../README.md) was rewritten as a *programme*: a listing table at the top ("9:00 PM Summon it, 9:05 PM Your first night..."), the hero GIF, then sections in the order a new viewer meets things: install, five commands to try, the explorer, the games, the crypt, the rituals, the roster, packs, and the command reference last. Each game section has its GIF; each ritual its still.
+With pictures to hand, [`README.md`](../README.md) was rewritten as a *programme*: a listing table at the top ("9:00 PM Summon it, 9:05 PM Your first night..."), the hero GIF, then sections in the order a new viewer meets things: install, five commands to try, the explorer, the games, the crypt, the rituals, the roster, packs, and the command reference last. Each game section has its GIF; each ritual its still.
 
 Some habits from that rewrite that apply to any README:
 

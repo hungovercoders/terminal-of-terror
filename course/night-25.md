@@ -14,7 +14,7 @@
 
 ## The Fact of the Night
 
-`random` has been in the program since Night 4. It now has `--daily`, in [`cmd/random.go`](../../cmd/random.go):
+`random` has been in the program since Night 4. It now has `--daily`, in [`cmd/random.go`](../cmd/random.go):
 
 ```go
 		s := seed()
@@ -53,7 +53,7 @@ The README suggests `terminal-of-terror random --daily` in a shell startup file,
 
 ## The ticket
 
-`tonight` picks two monsters for the evening's double bill, in [`cmd/tonight.go`](../../cmd/tonight.go):
+`tonight` picks two monsters for the evening's double bill, in [`cmd/tonight.go`](../cmd/tonight.go):
 
 ```go
 		s := calendar.DailySeed(now) * 13
@@ -67,7 +67,7 @@ The README suggests `terminal-of-terror random --daily` in a shell startup file,
 
 `DailySeed * 13` so the bill isn't just the Fact of the Night's monster again: the same date, a different seed, a different draw. `r.Perm` guarantees two *different* monsters, where two `Intn` calls would sometimes pick the same one.
 
-`RenderTicket` in [`internal/ui/rituals.go`](../../internal/ui/rituals.go) is worth reading as a composition exercise. Each feature line is a closure that puts a fixed-width time column beside a title and credit:
+`RenderTicket` in [`internal/ui/rituals.go`](../internal/ui/rituals.go) is worth reading as a composition exercise. Each feature line is a closure that puts a fixed-width time column beside a title and credit:
 
 ```go
 	feature := func(at string, m monsters.Monster) string {

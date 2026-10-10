@@ -1,7 +1,6 @@
 // Command site builds the Terminal of Terror website: a static site with a
 // landing page, one page per monster (from the built-in packs) and Count
-// Cathode's Night School (from docs/course). Run it from the repository
-// root:
+// Cathode's Night School (from course/). Run it from the repository root:
 //
 //	go run ./site                 # writes site/dist
 //	go run ./site -out /tmp/www   # somewhere else
@@ -39,7 +38,7 @@ const (
 func main() {
 	out := flag.String("out", "site/dist", "directory to write the site into")
 	base := flag.String("base", defaultBase, "public URL of the site, for the sitemap and social cards")
-	course := flag.String("course", "docs/course", "directory holding the Night School lessons")
+	course := flag.String("course", "course", "directory holding the Night School lessons")
 	assets := flag.String("assets", "docs/assets", "directory holding the README GIFs and screenshots")
 	flag.Parse()
 

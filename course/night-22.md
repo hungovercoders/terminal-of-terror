@@ -24,7 +24,7 @@ Because the rules are a pure function from an outcome to a change in `Progress`,
 
 ## One outcome type
 
-Every game ends in the same call, `record(crypt.Outcome{...})`, with the fields that apply filled in, from [`internal/crypt/crypt.go`](../../internal/crypt/crypt.go):
+Every game ends in the same call, `record(crypt.Outcome{...})`, with the fields that apply filled in, from [`internal/crypt/crypt.go`](../internal/crypt/crypt.go):
 
 ```go
 // Outcome describes one session of play.
@@ -197,7 +197,7 @@ Only *new* things are announced, because `award` and the capture loop only add t
 
 ## The crypt and its reset
 
-[`cmd/crypt.go`](../../cmd/crypt.go) renders the collection. It also has a **subcommand**, `crypt reset`, which is a `cobra.Command` added to `cryptCmd` instead of `rootCmd`:
+[`cmd/crypt.go`](../cmd/crypt.go) renders the collection. It also has a **subcommand**, `crypt reset`, which is a `cobra.Command` added to `cryptCmd` instead of `rootCmd`:
 
 ```go
 var cryptResetCmd = &cobra.Command{
@@ -242,7 +242,7 @@ Get three right and Dracula is captured, with Grave Robber and First Fright. `cr
 
 ## Testing the rules
 
-[`crypt_test.go`](../../internal/crypt/crypt_test.go) never touches a file: `store.New()` gives an empty progress in memory.
+[`crypt_test.go`](../internal/crypt/crypt_test.go) never touches a file: `store.New()` gives an empty progress in memory.
 
 ```go
 func TestCaptureAfterEnoughCorrectAnswers(t *testing.T) {

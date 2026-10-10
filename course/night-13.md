@@ -121,7 +121,7 @@ Dracula's becomes `Dracula by Bram Stoker (1897 novel)`. Anywhere that wants a f
 
 ### The data
 
-Now the JSON. The three files need a lot of new fields, and typing them out by hand is a night's work in itself, so copy the finished ones: [`dracula.json`](../../internal/monsters/packs/universal/dracula.json), [`frankenstein.json`](../../internal/monsters/packs/universal/frankenstein.json) and [`wolf-man.json`](../../internal/monsters/packs/universal/wolf-man.json) over your own. Read one as you go: `debut`, `film`, `legend`, five `myths` each with a verdict, `powers`, `weaknesses`, `stats`, `legacy`, seven `facts`, a `hostIntro` for Night 15. Every field maps to a struct field by its tag.
+Now the JSON. The three files need a lot of new fields, and typing them out by hand is a night's work in itself, so copy the finished ones: [`dracula.json`](../internal/monsters/packs/universal/dracula.json), [`frankenstein.json`](../internal/monsters/packs/universal/frankenstein.json) and [`wolf-man.json`](../internal/monsters/packs/universal/wolf-man.json) over your own. Read one as you go: `debut`, `film`, `legend`, five `myths` each with a verdict, `powers`, `weaknesses`, `stats`, `legacy`, seven `facts`, a `hostIntro` for Night 15. Every field maps to a struct field by its tag.
 
 Run `go test ./...` before touching the UI. The data test still passes, because the fields it checks are all still there. That's the pleasure of a loader that tolerates extra keys: the data can grow ahead of the code.
 
@@ -491,7 +491,7 @@ go vet ./... && go test ./...
 
 ## Try it
 
-- Add a `tabQuotes` page between Film and Myths, showing each quote in italics with its speaker and source under it. `tabsFor` should only include it when there are quotes. Watch the number keys renumber themselves. The finished project has this, and a Legacy page: [`render.go`](../../internal/ui/render.go).
+- Add a `tabQuotes` page between Film and Myths, showing each quote in italics with its speaker and source under it. `tabsFor` should only include it when there are quotes. Watch the number keys renumber themselves. The finished project has this, and a Legacy page: [`render.go`](../internal/ui/render.go).
 - Folklore monsters have no film, so "Myth vs Movie" is the wrong name for them. The project's `tabBar` calls it "Myth or Fact" when `m.Film == nil`. Try it.
 - Press `r` on the Facts page. Nothing visible happens, but `revealed` flips, so the next visit to Myths is already revealed. Is that a bug? Decide, and fix it if you think so.
 

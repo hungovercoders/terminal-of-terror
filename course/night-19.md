@@ -14,7 +14,7 @@
 
 ## A program of its own
 
-The explorer is one Bubble Tea program. The quiz is *another*, with its own model, in [`internal/ui/quiz.go`](../../internal/ui/quiz.go). They share the package and the styles, nothing else. Bolting the quiz onto the explorer's model as a fourth screen would have meant every explorer key handler checking "unless we're in a quiz". Separate programs for separate activities keeps each one small.
+The explorer is one Bubble Tea program. The quiz is *another*, with its own model, in [`internal/ui/quiz.go`](../internal/ui/quiz.go). They share the package and the styles, nothing else. Bolting the quiz onto the explorer's model as a fourth screen would have meant every explorer key handler checking "unless we're in a quiz". Separate programs for separate activities keeps each one small.
 
 ```go
 type quizModel struct {
@@ -181,7 +181,7 @@ That comment records a real bug from a code review: "The answer is Lon Chaney Jr
 
 ## The command
 
-[`cmd/quiz.go`](../../cmd/quiz.go):
+[`cmd/quiz.go`](../cmd/quiz.go):
 
 ```go
 var quizCmd = &cobra.Command{
@@ -239,7 +239,7 @@ Choose with `1`-`4` or arrows and enter. Read the explanation, press enter, repe
 
 ## Playing in a test
 
-Games are the easiest programs to test, because the whole thing is "keys in, score out". [`games_test.go`](../../internal/ui/games_test.go):
+Games are the easiest programs to test, because the whole thing is "keys in, score out". [`games_test.go`](../internal/ui/games_test.go):
 
 ```go
 func step(m tea.Model, keys ...string) tea.Model {

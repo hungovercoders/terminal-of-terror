@@ -14,7 +14,7 @@
 
 ## Stats plus dice
 
-Each monster has Strength, Speed, Cunning and Dread from 1 to 10. A round picks one stat, adds a die roll to each side, and the higher total wins. Three rounds, three different stats. [`internal/mash/mash.go`](../../internal/mash/mash.go):
+Each monster has Strength, Speed, Cunning and Dread from 1 to 10. A round picks one stat, adds a die roll to each side, and the higher total wins. Three rounds, three different stats. [`internal/mash/mash.go`](../internal/mash/mash.go):
 
 ```go
 type contest struct {
@@ -116,7 +116,7 @@ type Bout struct {
 
 ## Drama, but only for people
 
-[`cmd/mash.go`](../../cmd/mash.go):
+[`cmd/mash.go`](../cmd/mash.go):
 
 ```go
 		bout := mash.Fight(r, fighters[0], fighters[1])

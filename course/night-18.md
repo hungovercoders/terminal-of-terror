@@ -24,7 +24,7 @@ Every monster has facts, quotes, a debut, myths and film credits. Each of those 
 | a myth | "True or false?" |
 | the film | who played it, who directed it, what year |
 
-That's the entire design of [`internal/quiz/quiz.go`](../../internal/quiz/quiz.go). Add a monster on Night 27 and the quiz has a dozen new questions about it, without anyone writing one.
+That's the entire design of [`internal/quiz/quiz.go`](../internal/quiz/quiz.go). Add a monster on Night 27 and the quiz has a dozen new questions about it, without anyone writing one.
 
 ```go
 // Question is one multiple-choice question.
@@ -168,7 +168,7 @@ A bare `switch` with descending thresholds is the idiom for banding a number. Th
 
 ## Fifty seeds
 
-The test, in [`quiz_test.go`](../../internal/quiz/quiz_test.go), doesn't check any specific question. It checks *properties* that every question must have, across fifty different random seeds:
+The test, in [`quiz_test.go`](../internal/quiz/quiz_test.go), doesn't check any specific question. It checks *properties* that every question must have, across fifty different random seeds:
 
 ```go
 func TestGeneratedQuestionsAreWellFormed(t *testing.T) {

@@ -14,7 +14,7 @@
 
 ## One printer
 
-Every command with data to offer has a `--json` flag, and they all end up in one place, [`cmd/output.go`](../../cmd/output.go):
+Every command with data to offer has a `--json` flag, and they all end up in one place, [`cmd/output.go`](../cmd/output.go):
 
 ```go
 // printJSON writes v to stdout as indented JSON.
@@ -56,7 +56,7 @@ type factJSON struct {
 
 ## A flag on every command
 
-`--pack` limits any command to some packs: `quiz --pack folklore`, `mash --pack universal`. Adding it to eleven commands would be eleven copies, so it's a **persistent flag** on the root, inherited by every subcommand, in [`cmd/root.go`](../../cmd/root.go):
+`--pack` limits any command to some packs: `quiz --pack folklore`, `mash --pack universal`. Adding it to eleven commands would be eleven copies, so it's a **persistent flag** on the root, inherited by every subcommand, in [`cmd/root.go`](../cmd/root.go):
 
 ```go
 var rootCmd = &cobra.Command{

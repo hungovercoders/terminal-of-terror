@@ -22,7 +22,7 @@ Until that first message arrives, the model doesn't know the size, so we assume 
 
 The page has three parts: a **header** (title, name, description) that must always be visible, a **body** (portrait and facts) that might be taller than the screen, and a **footer** (help). The body scrolls; the other two don't. On a wide terminal the portrait sits beside the facts; on a narrow one it goes underneath; on a very narrow one it's dropped.
 
-Replace `internal/ui/ui.go`. The whole file is [in the repository's history](../../internal/ui/ui.go) in a bigger form; here it is in pieces.
+Replace `internal/ui/ui.go`. The whole file is [in the repository's history](../internal/ui/ui.go) in a bigger form; here it is in pieces.
 
 ### The model, with a size and a scroll position
 

@@ -14,7 +14,7 @@ import (
 // and that no internal link points at a file that wasn't written.
 func TestBuild(t *testing.T) {
 	out := t.TempDir()
-	n, err := Build(Config{Out: out, BaseURL: "https://example.test/tot/", CourseDir: "../docs/course", AssetsDir: "../docs/assets"})
+	n, err := Build(Config{Out: out, BaseURL: "https://example.test/tot/", CourseDir: "../course", AssetsDir: "../docs/assets"})
 	if err != nil {
 		t.Fatal(err)
 	}
@@ -103,7 +103,7 @@ func checkLinks(t *testing.T, root, basePath, page string) {
 
 func TestMonsterPageContent(t *testing.T) {
 	out := t.TempDir()
-	if _, err := Build(Config{Out: out, BaseURL: "https://example.test/", CourseDir: "../docs/course", AssetsDir: "../docs/assets"}); err != nil {
+	if _, err := Build(Config{Out: out, BaseURL: "https://example.test/", CourseDir: "../course", AssetsDir: "../docs/assets"}); err != nil {
 		t.Fatal(err)
 	}
 	for _, m := range monsters.EveryMonster() {
@@ -128,7 +128,7 @@ func TestRewriteLink(t *testing.T) {
 		"night-02.md":            "night-02.html",
 		"README.md":              "index.html",
 		"README.md#before-night": "index.html#before-night",
-		"../../cmd/list.go":      repoURL + "/blob/main/cmd/list.go",
+		"../cmd/list.go":         repoURL + "/blob/main/cmd/list.go",
 		"https://go.dev/dl/":     "https://go.dev/dl/",
 		"#try-it":                "#try-it",
 	}
@@ -140,7 +140,7 @@ func TestRewriteLink(t *testing.T) {
 }
 
 func TestLessonLinksAreRewritten(t *testing.T) {
-	c, err := loadCourse("../docs/course")
+	c, err := loadCourse("../course")
 	if err != nil {
 		t.Fatal(err)
 	}

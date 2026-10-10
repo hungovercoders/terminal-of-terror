@@ -16,7 +16,7 @@
 
 Every project has the moment where a change that works for its author breaks for someone else: a different OS, a missing `go mod tidy`, a file that was never committed. **Continuous integration** is running the checks on a clean machine, automatically, for every change, so that moment happens in a pull request and not in a release.
 
-GitHub Actions is the CI built into GitHub. A **workflow** is a YAML file in `.github/workflows/`; GitHub runs it on the events it names. The project's is [`ci.yml`](../../.github/workflows/ci.yml).
+GitHub Actions is the CI built into GitHub. A **workflow** is a YAML file in `.github/workflows/`; GitHub runs it on the events it names. The project's is [`ci.yml`](../.github/workflows/ci.yml).
 
 ## Triggers and permissions
 

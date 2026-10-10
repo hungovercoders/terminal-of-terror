@@ -74,6 +74,6 @@ You'll need:
 - [Go 1.24 or newer](https://go.dev/dl/). Night 1 walks you through installing it.
 - [Git](https://git-scm.com), so you can save your progress and look at the finished code.
 
-The finished program is in this repository. Whenever a lesson says "the full file in the repo", it means the file at the same path here, for example [`cmd/list.go`](../../cmd/list.go). Reading ahead is allowed. Copying is encouraged. Understanding is the point.
+The finished program is in this repository. Whenever a lesson says "the full file in the repo", it means the file at the same path here, for example [`cmd/list.go`](../cmd/list.go). Reading ahead is allowed. Copying is encouraged. Understanding is the point.
 
 📺 *"Channel 13 will now begin its broadcast. Night 1 is [this way](night-01.md)."*

@@ -13,7 +13,7 @@
 
 ## The third screen
 
-Night 15 added `screen` to the model. The gallery is `screenGallery`, reached by `g` or `esc` from a monster's page, or straight away with `monster --all`. It has its own key handler, in [`ui.go`](../../internal/ui/ui.go):
+Night 15 added `screen` to the model. The gallery is `screenGallery`, reached by `g` or `esc` from a monster's page, or straight away with `monster --all`. It has its own key handler, in [`ui.go`](../internal/ui/ui.go):
 
 ```go
 func (m model) updateGallery(msg tea.KeyMsg) (tea.Model, tea.Cmd) {
@@ -46,7 +46,7 @@ Small courtesy, and it's the kind that makes an interface feel solid: screens re
 
 ## Drawing the list
 
-`galleryLines` in [`render.go`](../../internal/ui/render.go) builds the whole list as lines, two per monster plus a heading per pack, and reports which line the cursor is on:
+`galleryLines` in [`render.go`](../internal/ui/render.go) builds the whole list as lines, two per monster plus a heading per pack, and reports which line the cursor is on:
 
 ```go
 func (m model) galleryLines(width int) ([]string, int) {
@@ -134,7 +134,7 @@ Walk the list with `j`/`k`. Watch the preview change and the list scroll when th
 
 ## Testing at tiny heights
 
-That last claim has a test, in [`ui_test.go`](../../internal/ui/ui_test.go):
+That last claim has a test, in [`ui_test.go`](../internal/ui/ui_test.go):
 
 ```go
 // TestGallerySelectionVisibleOnTinyScreens covers the smallest gallery viewport.

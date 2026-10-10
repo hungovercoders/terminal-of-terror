@@ -20,7 +20,7 @@ Go adds a rule of its own: a module at v2 or later must have `/v2` at the end of
 
 ## Where the number lives
 
-There are three ways the program can learn its own version, and [`cmd/version.go`](../../cmd/version.go) tries them in order:
+There are three ways the program can learn its own version, and [`cmd/version.go`](../cmd/version.go) tries them in order:
 
 ```go
 // version is set at release time by GoReleaser:
@@ -51,13 +51,13 @@ Three sources, one function, and the comment explains which build gets which. Ve
 
 ## The changelog
 
-[`CHANGELOG.md`](../../CHANGELOG.md) follows [Keep a Changelog](https://keepachangelog.com): a section per version, newest first, headed `## [1.0.0] - 2026-09-24`, with what changed grouped for the *reader*, not the committer. The 1.0.0 section is grouped as The Creature Feature, Games and Nightly rituals, with a quote from the host, because that's how a player thinks of the program. `git cliff` can draft a section from the conventional commit messages you've been writing since Night 1 (`feat:`, `fix:`, `docs:`); then you edit it until it reads well. A generated changelog is a starting point, not a changelog.
+[`CHANGELOG.md`](../CHANGELOG.md) follows [Keep a Changelog](https://keepachangelog.com): a section per version, newest first, headed `## [1.0.0] - 2026-09-24`, with what changed grouped for the *reader*, not the committer. The 1.0.0 section is grouped as The Creature Feature, Games and Nightly rituals, with a quote from the host, because that's how a player thinks of the program. `git cliff` can draft a section from the conventional commit messages you've been writing since Night 1 (`feat:`, `fix:`, `docs:`); then you edit it until it reads well. A generated changelog is a starting point, not a changelog.
 
 The changelog is also *enforced*: the release workflow reads the section for the tag and refuses to publish without one.
 
 ## GoReleaser
 
-Building for Linux, macOS and Windows, on Intel and ARM, is six `go build` invocations with the right `GOOS` and `GOARCH`, six archives, a checksum file and a GitHub release with the archives attached. [GoReleaser](https://goreleaser.com) does it from one file, [`.goreleaser.yaml`](../../.goreleaser.yaml):
+Building for Linux, macOS and Windows, on Intel and ARM, is six `go build` invocations with the right `GOOS` and `GOARCH`, six archives, a checksum file and a GitHub release with the archives attached. [GoReleaser](https://goreleaser.com) does it from one file, [`.goreleaser.yaml`](../.goreleaser.yaml):
 
 ```yaml
 builds:
@@ -96,7 +96,7 @@ Tarballs, except a zip for Windows, named so a user can find theirs, with the RE
 
 ## The release workflow
 
-[`release.yml`](../../.github/workflows/release.yml) runs on a tag push:
+[`release.yml`](../.github/workflows/release.yml) runs on a tag push:
 
 ```yaml
 on:

@@ -218,7 +218,7 @@ Both exit with status 1. Because of Night 2's `SilenceUsage`, that one line is a
 ## Try it
 
 - `go run . monster` with no name. Cobra's `ExactArgs` complains for you.
-- Write a test for `Find` in `monsters_test.go`: a table of queries and the id you expect, looped with `t.Run`. Include one ambiguous query and check it returns two candidates. The repo's version is `TestFind` in [`monsters_test.go`](../../internal/monsters/monsters_test.go).
+- Write a test for `Find` in `monsters_test.go`: a table of queries and the id you expect, looped with `t.Run`. Include one ambiguous query and check it returns two candidates. The repo's version is `TestFind` in [`monsters_test.go`](../internal/monsters/monsters_test.go).
 - What does `normalize("Dr. Jekyll & Mr. Hyde")` return? Work it out, then check with a test.
 
 ## 💀 Terrifying fact

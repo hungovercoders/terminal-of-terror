@@ -14,7 +14,7 @@
 
 ## Art as data
 
-Every monster has a portrait, twenty or so lines of text. For the game, that's a grid of characters, some of which are shown and some hidden. [`internal/ui/guess.go`](../../internal/ui/guess.go):
+Every monster has a portrait, twenty or so lines of text. For the game, that's a grid of characters, some of which are shown and some hidden. [`internal/ui/guess.go`](../internal/ui/guess.go):
 
 ```go
 // portraitCells lays the art out as a padded grid of runes.
@@ -152,11 +152,11 @@ The portrait sits left, the options right, if they fit. But "if they fit" is sub
 	sideBySide := sideW >= max(need, 24)
 ```
 
-It renders the longest status line and every option *in its widest state* just to measure them. Rendering something you'll throw away, to measure it, is normal in terminal layout; strings are cheap. `TestGuessLayoutFits` in [`games_test.go`](../../internal/ui/games_test.go) plays rounds at several widths and checks no line overflows, the same idea as Night 12's test.
+It renders the longest status line and every option *in its widest state* just to measure them. Rendering something you'll throw away, to measure it, is normal in terminal layout; strings are cheap. `TestGuessLayoutFits` in [`games_test.go`](../internal/ui/games_test.go) plays rounds at several widths and checks no line overflows, the same idea as Night 12's test.
 
 ## The command
 
-[`cmd/guess.go`](../../cmd/guess.go) is the quiz command's twin: a `--rounds`/`-n` flag, a sanity check, `NewGuessRounds`, `RunGuess`, and `record(...)` with the outcome, including `EagleEye`. It returns early if no round was played, so quitting on the first portrait doesn't count as a game.
+[`cmd/guess.go`](../cmd/guess.go) is the quiz command's twin: a `--rounds`/`-n` flag, a sanity check, `NewGuessRounds`, `RunGuess`, and `record(...)` with the outcome, including `EagleEye`. It returns early if no round was played, so quitting on the first portrait doesn't count as a game.
 
 ## Run it
 

@@ -14,7 +14,7 @@
 
 ## Functions of time
 
-Everything in [`internal/calendar/calendar.go`](../../internal/calendar/calendar.go) takes a `time.Time` and returns an answer. Nothing calls `time.Now()` inside the package. That one rule makes every function testable with a fixed date, lets `countdown --date 2026-10-31` pretend it's Halloween, and lets the demo recordings on Night 30 show the same screen every time.
+Everything in [`internal/calendar/calendar.go`](../internal/calendar/calendar.go) takes a `time.Time` and returns an answer. Nothing calls `time.Now()` inside the package. That one rule makes every function testable with a fixed date, lets `countdown --date 2026-10-31` pretend it's Halloween, and lets the demo recordings on Night 30 show the same screen every time.
 
 ## The moon in ten lines
 

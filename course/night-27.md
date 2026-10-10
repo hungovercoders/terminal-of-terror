@@ -58,7 +58,7 @@ A missing directory is not an error; it's a user without community packs, which 
 		}
 ```
 
-and `loadCommunityPacks` in [`cmd/root.go`](../../cmd/root.go) prints each one to stderr with a ⚠️ and carries on. The program starts; the message says exactly which pack, which monster, and what's wrong.
+and `loadCommunityPacks` in [`cmd/root.go`](../cmd/root.go) prints each one to stderr with a ⚠️ and carries on. The program starts; the message says exactly which pack, which monster, and what's wrong.
 
 ## Validate and default
 
@@ -150,7 +150,7 @@ A community pack called `universal` or a monster with id `dracula` would collide
 
 ## Scaffolding
 
-Nobody should have to read the docs to make their first pack. `packs new <id>` in [`cmd/packs.go`](../../cmd/packs.go) writes a working example to edit:
+Nobody should have to read the docs to make their first pack. `packs new <id>` in [`cmd/packs.go`](../cmd/packs.go) writes a working example to edit:
 
 ```go
 		monsterID := id + "-monster"
@@ -200,7 +200,7 @@ Then edit `/tmp/tot-scratch/packs/urban-legends/urban-legends-monster.json`: ren
 
 ## 🕯️ Before dawn
 
-Make a real pack. Three monsters from your own country's folklore, with a portrait each, the legend, and a myth or two. Play the quiz on it. If it's good, the project would like it: see [CONTRIBUTING.md](../../CONTRIBUTING.md) for how packs get in.
+Make a real pack. Three monsters from your own country's folklore, with a portrait each, the legend, and a myth or two. Play the quiz on it. If it's good, the project would like it: see [CONTRIBUTING.md](../CONTRIBUTING.md) for how packs get in.
 
 > 📺 *"The doors are open. Whatever's in your grandmother's stories can be in the quiz by morning. Tomorrow night we test everything, including the things that only break in a real terminal."*
 

@@ -14,7 +14,7 @@
 
 ## Where files live
 
-A program should not scatter files around the home directory. Every operating system has a place for an application's configuration: `~/.config/<app>` on Linux, `~/Library/Application Support/<app>` on a Mac, `%AppData%\<app>` on Windows. Go knows all three, in [`internal/store/store.go`](../../internal/store/store.go):
+A program should not scatter files around the home directory. Every operating system has a place for an application's configuration: `~/.config/<app>` on Linux, `~/Library/Application Support/<app>` on a Mac, `%AppData%\<app>` on Windows. Go knows all three, in [`internal/store/store.go`](../internal/store/store.go):
 
 ```go
 // EnvHome overrides where progress and community packs are kept.
@@ -130,7 +130,7 @@ Every failure path removes the temp file. It's four lines of cleanup, and it's t
 
 ## The stub becomes real
 
-`record` in [`cmd/progress.go`](../../cmd/progress.go) is what the game commands call:
+`record` in [`cmd/progress.go`](../cmd/progress.go) is what the game commands call:
 
 ```go
 // record saves an outcome to the player's progress and announces anything
@@ -167,7 +167,7 @@ Play three questions and there's the file: `knowledge`, `quizzesPlayed`, `bestQu
 
 ## Testing with a scratch directory
 
-[`store_test.go`](../../internal/store/store_test.go):
+[`store_test.go`](../internal/store/store_test.go):
 
 ```go
 func TestLoadSaveRoundTrip(t *testing.T) {
