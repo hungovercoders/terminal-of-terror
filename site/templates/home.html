@@ -8,7 +8,7 @@
  █  ██▄ █▀▄ █▀▄ █▄█ █▀▄</h1>
     <p class="tagline">📺 {{$site.Tagline}}</p>
     <p class="host-line typewriter" data-type="{{.Data.Greeting}}">📺 <em>"{{.Data.Greeting}}"</em></p>
-    <p class="lede">Meet <strong>{{$site.MonsterCount}} monsters</strong> in {{$site.PackCount}} packs: the Universal classics, world folklore, cryptids and literary monsters. Learn the real history behind them: who played them, who did the makeup, and which "facts" Hollywood simply made up. Then prove it in the Midnight Quiz and fill your crypt.</p>
+    <p class="lede">Meet <strong>{{$site.MonsterCount}} monsters</strong> in {{$site.PackCount}} packs: the Universal classics, world folklore, cryptids, literary monsters, classical mythology and the silent screen. Learn the real history behind them: who played them, who did the makeup, and which "facts" Hollywood simply made up. Then prove it in the Midnight Quiz and fill your crypt.</p>
     <p class="cta-row">
       <a class="btn primary" href="#summon">🔮 Summon it</a>
       <a class="btn" href="{{$root}}monsters/index.html">🧛 Meet the monsters</a>
@@ -101,7 +101,7 @@ terminal-of-terror random --daily    <span class="c"># the Fact of the Night</sp
       <tbody>{{range .Data.Sections}}<tr><th>{{.Name}}</th><td>{{.Learn}}</td></tr>{{end}}</tbody>
     </table>
     <div>
-      <p>🎞️ The silent-era monsters, the Phantom and the Hunchback, flicker in black and white with title cards and film grain, just as they did in 1923 and 1925.</p>
+      <p>🎞️ The silent-era monsters, from the Phantom and the Hunchback to Count Orlok and the whole Silent Screen pack, flicker in black and white with title cards and film grain, just as they did in the 1920s.</p>
       <p>Jump straight to a monster by name, nickname or even part of a name:</p>
       <pre class="term" data-copy><code>terminal-of-terror monster dracula
 terminal-of-terror monster wolfman

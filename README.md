@@ -12,7 +12,7 @@
 [![CI](https://github.com/hungovercoders/terminal-of-terror/actions/workflows/ci.yml/badge.svg)](https://github.com/hungovercoders/terminal-of-terror/actions/workflows/ci.yml)
 [![Go version](https://img.shields.io/github/go-mod/go-version/hungovercoders/terminal-of-terror?color=ff7a1a)](go.mod)
 [![License: MIT](https://img.shields.io/badge/license-MIT-8b0000)](LICENSE)
-![Monsters](https://img.shields.io/badge/monsters-43-2a9d8f)
+![Monsters](https://img.shields.io/badge/monsters-55-2a9d8f)
 ![Viewer discretion](https://img.shields.io/badge/viewer%20discretion-advised-000000)
 
 <img src="docs/assets/hero.gif" alt="Terminal of Terror: the Channel 13 intro, Dracula's pages, a myth-vs-movie reveal, the silent-film Phantom and a search for 'silver'" width="820">
@@ -21,7 +21,7 @@
 
 > 📺 *"Good evening, creatures of the night, and welcome to the Channel 13 Creature Feature. I'm your host, Count Cathode, broadcasting from beyond the static."*
 
-**Terminal of Terror** brings the classic Universal monsters, creatures from world folklore, the cryptids people swear they have seen and the great literary monsters to your terminal. Meet 43 monsters in four packs, learn the real history behind them (who played them, who did the makeup, and which "facts" Hollywood simply made up), then prove what you know in the Midnight Quiz and fill your crypt.
+**Terminal of Terror** brings the classic Universal monsters, creatures from world folklore, the cryptids people swear they have seen, the great literary monsters, the beasts of Greek myth and the first monsters ever filmed to your terminal. Meet 55 monsters in six packs, learn the real history behind them (who played them, who did the makeup, and which "facts" Hollywood simply made up), then prove what you know in the Midnight Quiz and fill your crypt.
 
 > [!WARNING]
 > **Viewer discretion is advised.** Side effects may include knowing far too much about 1930s makeup artists, a sudden distrust of huts with chicken legs, and correcting your friends about silver bullets.
@@ -99,7 +99,7 @@ Count Cathode opens the broadcast through a wall of TV static, then hands you th
 | **Stat Card** | Strength, speed, cunning and dread, plus powers and weaknesses |
 | **Legacy** | Sequels, remakes and crossovers |
 
-🎞️ The silent-era monsters, the Phantom and the Hunchback, flicker in black and white with title cards and film grain, just as they did in 1923 and 1925.
+🎞️ The silent-era monsters, from the Phantom and the Hunchback to Count Orlok and the whole Silent Screen pack, flicker in black and white with title cards and film grain, just as they did in the 1920s.
 
 Jump straight to a monster by name, nickname or even part of a name:
 
