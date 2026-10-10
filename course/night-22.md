@@ -5,7 +5,7 @@
 **Tonight you'll learn**
 - Separating the *rules* of progress from the storage and the screens
 - One `Outcome` type for every kind of play
-- Badges as data, and a closure that awards them
+- Badges as data, and a small type that awards them
 - Small predicate helpers: `every` and `allWhere`
 - Functions as values: `monsters.Monster.IsSilent` as an argument
 - A subcommand with a confirmation prompt
@@ -68,60 +68,86 @@ The crypt screen lists these in order, locked or earned, with no code per badge.
 
 ## Apply
 
-`Apply` takes the progress, the full monster list and an outcome, changes the progress, and returns what was *newly* earned so the command can announce it:
+`Apply` takes the progress, the full monster list and an outcome, changes the progress, and returns what was *newly* earned so the command can announce it. It reads as a table of contents:
 
 ```go
 func Apply(p *store.Progress, all []monsters.Monster, o Outcome) Unlocks {
 	if o.Now.IsZero() {
 		o.Now = time.Now()
 	}
-	var u Unlocks
-	award := func(id string) {
-		if _, ok := p.Badges[id]; ok {
-			return
-		}
-		for _, b := range Badges {
-			if b.ID == id {
-				p.Badges[id] = o.Now
-				u.Badges = append(u.Badges, b)
-			}
-		}
+	a := &awarder{p: p, now: o.Now}
+	a.recordGame(o)
+	if o.Kind == "quiz" || o.Kind == "guess" || o.Kind == "mash" {
+		a.calendarBadges()
 	}
+	a.recordKnowledge(all, o)
+	a.collectionBadges(all)
+	return a.u
+}
 ```
 
-`award` is a closure over `p`, `u` and `o.Now`. It's idempotent: awarding a badge you already have does nothing, so `Apply` can be careless about calling it and the rules below read as a plain list. Then the rules:
+The work happens on an `awarder`, a small struct holding the progress, the time and the unlocks collected so far:
 
 ```go
+type awarder struct {
+	p   *store.Progress
+	now time.Time
+	u   Unlocks
+}
+
+// award gives badge id unless it was already won.
+func (a *awarder) award(id string) {
+	if _, ok := a.p.Badges[id]; ok {
+		return
+	}
+	for _, b := range Badges {
+		if b.ID == id {
+			a.p.Badges[id] = a.now
+			a.u.Badges = append(a.u.Badges, b)
+		}
+	}
+}
+
+// awardIf gives badge id when cond holds.
+func (a *awarder) awardIf(cond bool, id string) {
+	if cond {
+		a.award(id)
+	}
+}
+```
+
+`award` is idempotent: awarding a badge you already have does nothing, so the rules can be careless about calling it and read as a plain list. The methods have *pointer* receivers, `*awarder`, because they change it: each one appends to the same `a.u`. Then the rules:
+
+```go
+func (a *awarder) recordGame(o Outcome) {
+	p := a.p
+	finished := o.Completed && o.Total > 0
 	switch o.Kind {
 	case "quiz":
-		if o.Completed && o.Total > 0 {
+		if finished {
 			p.QuizzesPlayed++
 			p.BestQuizScore = max(p.BestQuizScore, o.Score)
-			award("first-fright")
-			if o.Score == 100 && o.Total >= 5 {
-				award("flawless")
-			}
+			a.award("first-fright")
+			a.awardIf(o.Score == 100 && o.Total >= 5, "flawless")
 		}
 	case "guess":
 		...
 	case "mash":
 		p.MashesPlayed++
-		award("promoter")
+		a.award("promoter")
 	}
-	if played := o.Kind == "quiz" || o.Kind == "guess" || o.Kind == "mash"; played {
-		if o.Now.Hour() < 4 {
-			award("night-owl")
-		}
-		if calendar.IsFullMoon(o.Now) {
-			award("full-moon")
-		}
-		...
-	}
+}
+
+func (a *awarder) calendarBadges() {
+	a.awardIf(a.now.Hour() < 4, "night-owl")
+	a.awardIf(calendar.IsFullMoon(a.now), "full-moon")
+	...
+}
 ```
 
-Every rule is a line or two, and each maps to one line of `Badges`. `Flawless Fiend` needs five questions, because a 100% on a one-question quiz isn't flawless, it's lucky; `TestShortQuizIsNotFlawless` pins that. The calendar badges call into Night 24's package, so `crypt` knows nothing about moon maths either.
+Every rule is a line, and each maps to one line of `Badges`. `Flawless Fiend` needs five questions, because a 100% on a one-question quiz isn't flawless, it's lucky; `TestShortQuizIsNotFlawless` pins that. The calendar badges call into Night 24's package, so `crypt` knows nothing about moon maths either.
 
-Then the captures:
+Then the captures, in `recordKnowledge`:
 
 ```go
 	for id, n := range o.Correct {
@@ -129,29 +155,29 @@ Then the captures:
 	}
 	for _, m := range all {
 		if _, done := p.Captured[m.ID]; !done && p.Knowledge[m.ID] >= CaptureAt {
-			p.Captured[m.ID] = o.Now
-			u.Captured = append(u.Captured, m)
+			p.Captured[m.ID] = a.now
+			a.u.Captured = append(a.u.Captured, m)
 		}
 	}
 ```
 
 Knowledge accumulates across sessions; three right answers about Dracula, tonight or over a month, capture him. `CaptureAt` is a named constant, used by the crypt screen for its `●●○` progress pips too, so changing the rule to four is one edit.
 
+Splitting `Apply` this way isn't decoration. The first version was one long function with an `award` closure, and it grew a branch for every badge until it was the most tangled function in the project. Each method now does one job and fits on a screen, and the order they're called in is the order badges are announced.
+
 ## Small predicates
 
-The collection badges ask questions like "is every silent-film monster captured?" and "is every Universal monster captured?". Rather than four loops:
+The collection badges ask questions like "is every silent-film monster captured?" and "is every Universal monster captured?". Rather than a loop each, `collectionBadges` asks them with predicates:
 
 ```go
 	captured := func(m monsters.Monster) bool { _, ok := p.Captured[m.ID]; return ok }
-	if allWhere(all, monsters.Monster.IsSilent, captured) {
-		award("silent-scholar")
+	inPack := func(pack string) func(monsters.Monster) bool {
+		return func(m monsters.Monster) bool { return m.Pack == pack }
 	}
-	if allWhere(all, func(m monsters.Monster) bool { return m.Pack == "universal" }, captured) {
-		award("monster-kid")
-	}
-	if every(all, captured) {
-		award("master")
-	}
+	a.awardIf(allWhere(all, monsters.Monster.IsSilent, captured), "silent-scholar")
+	a.awardIf(allWhere(all, inPack("universal"), captured), "monster-kid")
+	...
+	a.awardIf(every(all, captured), "master")
 ```
 
 with two helpers:
@@ -179,7 +205,7 @@ func allWhere(all []monsters.Monster, where, ok func(monsters.Monster) bool) boo
 }
 ```
 
-**Functions are values.** `allWhere` takes two functions as arguments. `captured` is a closure; the pack test is an anonymous function written inline; and `monsters.Monster.IsSilent` is a *method expression*: the `IsSilent` method, detached from any particular monster, as a function that takes the monster as its first argument. All three have the type `func(monsters.Monster) bool`, so all three fit.
+**Functions are values.** `allWhere` takes two functions as arguments. `captured` is a closure; `inPack("universal")` calls a function that *returns* one, a different one per pack; and `monsters.Monster.IsSilent` is a *method expression*: the `IsSilent` method, detached from any particular monster, as a function that takes the monster as its first argument. All three have the type `func(monsters.Monster) bool`, so all three fit.
 
 The `n > 0` at the end is the subtle bit: "every silent monster is captured" must be *false* when there are no silent monsters, or a `--pack folklore` player would earn Silent Era Scholar for free. "All of nothing" is a classic bug in rule engines; the comment names it.
 
@@ -193,7 +219,7 @@ The `n > 0` at the end is the subtle bit: "every silent monster is captured" mus
 See your collection: terminal-of-terror crypt
 ```
 
-Only *new* things are announced, because `award` and the capture loop only add to `u` when something changed. That's why `Apply` returns unlocks instead of the command comparing before and after.
+Only *new* things are announced, because `award` and the capture loop only add to `a.u` when something changed. That's why `Apply` returns unlocks instead of the command comparing before and after.
 
 ## The crypt and its reset
 
@@ -271,7 +297,7 @@ Two sessions, 2 + 1 answers, a capture on the second and no *repeat* of First Fr
 
 ## Try it
 
-- Add a badge: "Regular", for playing ten quizzes. One line in `Badges`, one `if` in `Apply`, one case in a test.
+- Add a badge: "Regular", for playing ten quizzes. One line in `Badges`, one `awardIf` in `recordGame`, one case in a test.
 - `Knowledge` never goes down. Should a wrong answer cost a point? Try it and see how it changes the feel of the quiz.
 - Run `go run . crypt --json` and read the same data the screen draws.
 

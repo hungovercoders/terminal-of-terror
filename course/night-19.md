@@ -73,47 +73,68 @@ No `WithAltScreen` this time: the quiz is short and it's nice to be able to scro
 
 ## Two phases
 
-A question has two states: *choosing*, where arrows and number keys pick an option, and *answered*, where the right answer is marked and any of enter/space/n moves on. `Update` handles them in order:
+A question has two states: *choosing*, where arrows and number keys pick an option, and *answered*, where the right answer is marked and any of enter/space/n moves on. `Update` passes every key to `updateKey`, which handles them in order:
 
 ```go
-	case tea.KeyMsg:
-		k := msg.String()
-		if k == "ctrl+c" || k == "q" || k == "esc" {
-			return m, tea.Quit
+func (m quizModel) updateKey(k string) (tea.Model, tea.Cmd) {
+	if isQuitKey(k) || m.finished {
+		return m, tea.Quit
+	}
+	if m.answered {
+		if isNextKey(k) {
+			m.next()
 		}
-		if m.finished {
-			return m, tea.Quit
-		}
-		q := m.res.Questions[m.i]
-		if m.answered {
-			if k == "enter" || k == " " || k == "n" || k == "right" {
-				m.i++
-				m.answered, m.cursor = false, 0
-				if m.i == len(m.res.Questions) {
-					m.i--
-					m.finished = true
-					m.res.Completed = true
-				}
-			}
-			return m, nil
-		}
-		switch k {
-		case "up", "k":
-			m.cursor = (m.cursor - 1 + len(q.Options)) % len(q.Options)
-		case "down", "j":
-			m.cursor = (m.cursor + 1) % len(q.Options)
-		case "enter", " ":
-			m.answer(m.cursor)
-		default:
-			if n := optionKey(k); n >= 0 && n < len(q.Options) {
-				m.answer(n)
-			}
-		}
+		return m, nil
+	}
+	if k == " " {
+		k = "enter"
+	}
+	if n, ok := pickOption(k, &m.cursor, len(m.res.Questions[m.i].Options)); ok {
+		m.answer(n)
+	}
+	return m, nil
+}
 ```
 
 The guards at the top are ordered from "always" to "sometimes": quit keys work anywhere; on the results screen any key leaves; while showing feedback only the continue keys do anything; otherwise we're choosing. Each phase returns before the next is considered, so no phase has to know about the others. When you find a screen with several states, this is the shape: a ladder of `if ... return`.
 
-Notice `m.i--` when the last question is passed: the results screen still wants to show "Question 10 of 10" and `m.i` must stay a valid index. Off-by-one at the end of a list is where most crashes in this kind of code live; a comment or a test on the boundary is cheap.
+Moving on is its own method:
+
+```go
+// next moves on to the following question, or finishes after the last.
+func (m *quizModel) next() {
+	m.answered, m.cursor = false, 0
+	if m.i == len(m.res.Questions)-1 {
+		m.finished, m.res.Completed = true, true
+		return
+	}
+	m.i++
+}
+```
+
+Notice it never steps *past* the last question: the results screen still wants to show "Question 10 of 10" and `m.i` must stay a valid index. Off-by-one at the end of a list is where most crashes in this kind of code live; a comment or a test on the boundary is cheap.
+
+Choosing is shared with Night 20's guessing game, so it lives in a helper that takes the cursor by pointer:
+
+```go
+// pickOption moves the cursor for up and down keys, and reports the option
+// chosen by enter or by its number or letter.
+func pickOption(k string, cursor *int, n int) (int, bool) {
+	switch k {
+	case "up", "k":
+		*cursor = (*cursor - 1 + n) % n
+	case "down", "j":
+		*cursor = (*cursor + 1) % n
+	case "enter":
+		return *cursor, true
+	default:
+		if i := optionKey(k); i >= 0 && i < n {
+			return i, true
+		}
+	}
+	return 0, false
+}
+```
 
 ```go
 // optionKey maps 1-4 and a-d to an option index, or -1.

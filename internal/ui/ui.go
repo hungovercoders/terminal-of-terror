@@ -155,52 +155,64 @@ func (m model) Update(msg tea.Msg) (tea.Model, tea.Cmd) {
 		m.width, m.height = msg.Width, msg.Height
 		m.clampScroll()
 		return m, nil
-
 	case tickMsg:
-		m.ticking = false
-		m.frame++
-		if m.screen == screenIntro && m.frame < staticFrames {
-			m.noise = noise(m.rng, min(max(m.contentWidth()-4, 20), 70), 9)
-		}
-		if m.screen == screenDetail && m.current().IsSilent() {
-			m.grain = noise(m.rng, artWidth(m.current().ASCII)+4, 1)
-		}
-		return m, m.ensureTick()
-
+		return m.onTick()
 	case tea.KeyMsg:
-		if msg.String() == "ctrl+c" {
-			return m.quit()
-		}
-		if m.screen == screenIntro {
-			if msg.String() == "q" {
-				return m.quit()
-			}
-			if !m.introDone() {
-				m.frame = introDoneFrame(m.greeting)
-				return m, nil
-			}
-			m.enter(m.next)
-			return m, m.ensureTick()
-		}
-		if m.searching {
-			return m.updateSearch(msg)
-		}
-		switch msg.String() {
-		case "q":
-			return m.quit()
-		case "?":
-			m.showHelp = !m.showHelp
-			return m, nil
-		case "/":
-			m.searching, m.query, m.hits, m.hitCursor = true, "", nil, 0
-			return m, nil
-		}
-		if m.screen == screenGallery {
-			return m.updateGallery(msg)
-		}
-		return m.updateDetail(msg)
+		return m.updateKey(msg)
 	}
 	return m, nil
+}
+
+// onTick advances the animation: intro static and silent-film grain.
+func (m model) onTick() (tea.Model, tea.Cmd) {
+	m.ticking = false
+	m.frame++
+	if m.screen == screenIntro && m.frame < staticFrames {
+		m.noise = noise(m.rng, min(max(m.contentWidth()-4, 20), 70), 9)
+	}
+	if m.screen == screenDetail && m.current().IsSilent() {
+		m.grain = noise(m.rng, artWidth(m.current().ASCII)+4, 1)
+	}
+	return m, m.ensureTick()
+}
+
+func (m model) updateKey(msg tea.KeyMsg) (tea.Model, tea.Cmd) {
+	if msg.String() == "ctrl+c" {
+		return m.quit()
+	}
+	if m.screen == screenIntro {
+		return m.updateIntro(msg)
+	}
+	if m.searching {
+		return m.updateSearch(msg)
+	}
+	switch msg.String() {
+	case "q":
+		return m.quit()
+	case "?":
+		m.showHelp = !m.showHelp
+		return m, nil
+	case "/":
+		m.searching, m.query, m.hits, m.hitCursor = true, "", nil, 0
+		return m, nil
+	}
+	if m.screen == screenGallery {
+		return m.updateGallery(msg)
+	}
+	return m.updateDetail(msg)
+}
+
+// updateIntro skips the intro: the first key finishes it, the next enters.
+func (m model) updateIntro(msg tea.KeyMsg) (tea.Model, tea.Cmd) {
+	if msg.String() == "q" {
+		return m.quit()
+	}
+	if !m.introDone() {
+		m.frame = introDoneFrame(m.greeting)
+		return m, nil
+	}
+	m.enter(m.next)
+	return m, m.ensureTick()
 }
 
 func (m model) quit() (tea.Model, tea.Cmd) {
@@ -228,7 +240,12 @@ func (m model) updateGallery(msg tea.KeyMsg) (tea.Model, tea.Cmd) {
 
 func (m model) updateDetail(msg tea.KeyMsg) (tea.Model, tea.Cmd) {
 	tabs := tabsFor(m.current())
-	switch key := msg.String(); key {
+	key := msg.String()
+	if m.scrollKey(key) {
+		m.clampScroll()
+		return m, nil
+	}
+	switch key {
 	case "right", "l", "n":
 		m.open((m.index + 1) % len(m.monsters))
 		return m, m.ensureTick()
@@ -239,18 +256,6 @@ func (m model) updateDetail(msg tea.KeyMsg) (tea.Model, tea.Cmd) {
 		m.setTab((m.tab + 1) % len(tabs))
 	case "shift+tab":
 		m.setTab((m.tab - 1 + len(tabs)) % len(tabs))
-	case "down", "j":
-		m.scroll++
-	case "up", "k":
-		m.scroll--
-	case "pgdown", " ":
-		m.scroll += max(m.bodyHeight()-2, 1)
-	case "pgup":
-		m.scroll -= max(m.bodyHeight()-2, 1)
-	case "home":
-		m.scroll = 0
-	case "end":
-		m.scroll = 1 << 30
 	case "r":
 		m.revealed = !m.revealed
 	case "g", "esc", "backspace":
@@ -264,6 +269,29 @@ func (m model) updateDetail(msg tea.KeyMsg) (tea.Model, tea.Cmd) {
 	}
 	m.clampScroll()
 	return m, nil
+}
+
+// scrollKey scrolls the detail page for a movement key, reporting whether
+// key was one.
+func (m *model) scrollKey(key string) bool {
+	page := max(m.bodyHeight()-2, 1)
+	switch key {
+	case "down", "j":
+		m.scroll++
+	case "up", "k":
+		m.scroll--
+	case "pgdown", " ":
+		m.scroll += page
+	case "pgup":
+		m.scroll -= page
+	case "home":
+		m.scroll = 0
+	case "end":
+		m.scroll = 1 << 30
+	default:
+		return false
+	}
+	return true
 }
 
 func (m model) updateSearch(msg tea.KeyMsg) (tea.Model, tea.Cmd) {

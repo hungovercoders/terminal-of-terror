@@ -197,38 +197,39 @@ func (m guessModel) Update(msg tea.Msg) (tea.Model, tea.Cmd) {
 	case tea.WindowSizeMsg:
 		m.width = msg.Width
 	case tea.KeyMsg:
-		k := msg.String()
-		if k == "ctrl+c" || k == "q" || k == "esc" || m.finished {
-			return m, tea.Quit
-		}
-		g := &m.res.Rounds[m.i]
-		if m.answered {
-			if k == "enter" || k == " " || k == "n" || k == "right" {
-				if m.i == len(m.res.Rounds)-1 {
-					m.finished, m.res.Completed = true, true
-					return m, nil
-				}
-				m.i++
-				m.stage, m.cursor, m.answered = 0, 0, false
-			}
-			return m, nil
-		}
-		switch k {
-		case " ", "f":
-			m.stage = min(m.stage+1, len(fogReveal)-1)
-		case "up", "k":
-			m.cursor = (m.cursor - 1 + len(g.Options)) % len(g.Options)
-		case "down", "j":
-			m.cursor = (m.cursor + 1) % len(g.Options)
-		case "enter":
-			m.choose(m.cursor)
-		default:
-			if n := optionKey(k); n >= 0 && n < len(g.Options) {
-				m.choose(n)
-			}
-		}
+		return m.updateKey(msg.String())
 	}
 	return m, nil
+}
+
+func (m guessModel) updateKey(k string) (tea.Model, tea.Cmd) {
+	if isQuitKey(k) || m.finished {
+		return m, tea.Quit
+	}
+	if m.answered {
+		if isNextKey(k) {
+			m.next()
+		}
+		return m, nil
+	}
+	if k == " " || k == "f" {
+		m.stage = min(m.stage+1, len(fogReveal)-1)
+		return m, nil
+	}
+	if n, ok := pickOption(k, &m.cursor, len(m.res.Rounds[m.i].Options)); ok {
+		m.choose(n)
+	}
+	return m, nil
+}
+
+// next moves on to the following round, or finishes after the last.
+func (m *guessModel) next() {
+	if m.i == len(m.res.Rounds)-1 {
+		m.finished, m.res.Completed = true, true
+		return
+	}
+	m.i++
+	m.stage, m.cursor, m.answered = 0, 0, false
 }
 
 func (m *guessModel) choose(n int) {

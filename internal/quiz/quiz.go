@@ -6,6 +6,7 @@ import (
 	"fmt"
 	"math/rand"
 	"regexp"
+	"slices"
 	"sort"
 	"strings"
 
@@ -77,20 +78,37 @@ func Generate(r *rand.Rand, all []monsters.Monster, n int, focus string) []Quest
 	return out
 }
 
-// questionsAbout builds every question we can ask about m.
+// questionsAbout builds every question we can ask about m. The order is
+// fixed so a seeded random source always asks the same questions.
 func questionsAbout(r *rand.Rand, m monsters.Monster, all []monsters.Monster) []Question {
-	var qs []Question
-	names := func(except string) []string {
-		var out []string
-		for _, o := range all {
-			if o.ID != except {
-				out = append(out, o.Name)
-			}
-		}
-		return out
+	others := otherNames(m.ID, all)
+	qs := factQuestions(r, m, others)
+	qs = append(qs, quoteQuestions(r, m, others)...)
+	if q, ok := debutQuestion(m); ok {
+		qs = append(qs, q)
 	}
+	qs = append(qs, mythQuestions(m)...)
+	qs = append(qs, filmQuestions(r, m, all)...)
+	// No "which is its weakness?" questions: weaknesses written for different
+	// monsters overlap in meaning ("Sunlight", "The coming of dawn"), so a
+	// wrong option could be just as right as the answer.
+	return qs
+}
 
-	// Which monster is this fact about?
+// otherNames lists the names of every monster except the one with id.
+func otherNames(id string, all []monsters.Monster) []string {
+	var out []string
+	for _, o := range all {
+		if o.ID != id {
+			out = append(out, o.Name)
+		}
+	}
+	return out
+}
+
+// factQuestions asks which monster each fact is about.
+func factQuestions(r *rand.Rand, m monsters.Monster, others []string) []Question {
+	var qs []Question
 	for _, f := range m.Facts {
 		if q, ok := choiceOK(r, Question{
 			Kind:        "fact",
@@ -98,12 +116,16 @@ func questionsAbout(r *rand.Rand, m monsters.Monster, all []monsters.Monster) []
 			Clue:        mask(f, m),
 			Explanation: m.Name + ": " + f,
 			MonsterID:   m.ID,
-		}, m.Name, names(m.ID)); ok {
+		}, m.Name, others); ok {
 			qs = append(qs, q)
 		}
 	}
+	return qs
+}
 
-	// Whose story does this line come from?
+// quoteQuestions asks whose story each long enough quote comes from.
+func quoteQuestions(r *rand.Rand, m monsters.Monster, others []string) []Question {
+	var qs []Question
 	for _, q := range m.Quotes {
 		if len(q.Text) < 25 {
 			continue
@@ -114,29 +136,33 @@ func questionsAbout(r *rand.Rand, m monsters.Monster, all []monsters.Monster) []
 			Clue:        "“" + mask(q.Text, m) + "”",
 			Explanation: "— " + q.Speaker + ", " + q.Source,
 			MonsterID:   m.ID,
-		}, m.Name, names(m.ID)); ok {
+		}, m.Name, others); ok {
 			qs = append(qs, qq)
 		}
 	}
+	return qs
+}
 
-	// Book, film or folklore?
-	if medium := debutKind(m.Debut.Medium); medium != "" {
-		q := Question{
-			Kind:        "debut",
-			Prompt:      fmt.Sprintf("Where did %s first appear?", m.Name),
-			Options:     []string{"A book", "A film", "Folklore and legend"},
-			Explanation: "First appearance: " + m.FirstAppearance(),
-			MonsterID:   m.ID,
-		}
-		for i, o := range q.Options {
-			if o == medium {
-				q.Answer = i
-			}
-		}
-		qs = append(qs, q)
+// debutQuestion asks whether m began in a book, a film or folklore.
+func debutQuestion(m monsters.Monster) (Question, bool) {
+	medium := debutKind(m.Debut.Medium)
+	if medium == "" {
+		return Question{}, false
 	}
+	q := Question{
+		Kind:        "debut",
+		Prompt:      fmt.Sprintf("Where did %s first appear?", m.Name),
+		Options:     []string{"A book", "A film", "Folklore and legend"},
+		Explanation: "First appearance: " + m.FirstAppearance(),
+		MonsterID:   m.ID,
+	}
+	q.Answer = slices.Index(q.Options, medium)
+	return q, true
+}
 
-	// True or false?
+// mythQuestions turns each myth into a true-or-false question.
+func mythQuestions(m monsters.Monster) []Question {
+	var qs []Question
 	for _, my := range m.Myths {
 		q := Question{
 			Kind:        "myth",
@@ -151,45 +177,46 @@ func questionsAbout(r *rand.Rand, m monsters.Monster, all []monsters.Monster) []
 		}
 		qs = append(qs, q)
 	}
-
-	// Film credits.
-	if f := m.Film; f != nil {
-		var stars, directors []string
-		for _, o := range all {
-			if o.Film != nil && o.ID != m.ID {
-				stars = append(stars, o.Film.Star)
-				directors = append(directors, o.Film.Director)
-			}
-		}
-		title := fmt.Sprintf("%s (%d)", f.Title, f.Year)
-		if q, ok := choiceOK(r, Question{
-			Kind:        "film",
-			Prompt:      fmt.Sprintf("Who played the monster in %s?", title),
-			Explanation: f.Star + " played the monster in " + title + ".",
-			MonsterID:   m.ID,
-		}, f.Star, stars); ok {
-			qs = append(qs, q)
-		}
-		if q, ok := choiceOK(r, Question{
-			Kind:        "film",
-			Prompt:      fmt.Sprintf("Who directed %s?", title),
-			Explanation: f.Director + " directed " + title + ".",
-			MonsterID:   m.ID,
-		}, f.Director, directors); ok {
-			qs = append(qs, q)
-		}
-		qs = append(qs, choice(r, Question{
-			Kind:        "year",
-			Prompt:      fmt.Sprintf("In what year was %s released?", f.Title),
-			Explanation: fmt.Sprintf("%s came out in %d.", f.Title, f.Year),
-			MonsterID:   m.ID,
-		}, fmt.Sprint(f.Year), nearbyYears(r, f.Year)))
-	}
-
-	// No "which is its weakness?" questions: weaknesses written for different
-	// monsters overlap in meaning ("Sunlight", "The coming of dawn"), so a
-	// wrong option could be just as right as the answer.
 	return qs
+}
+
+// filmQuestions asks about m's film credits and release year.
+func filmQuestions(r *rand.Rand, m monsters.Monster, all []monsters.Monster) []Question {
+	f := m.Film
+	if f == nil {
+		return nil
+	}
+	var qs []Question
+	var stars, directors []string
+	for _, o := range all {
+		if o.Film != nil && o.ID != m.ID {
+			stars = append(stars, o.Film.Star)
+			directors = append(directors, o.Film.Director)
+		}
+	}
+	title := fmt.Sprintf("%s (%d)", f.Title, f.Year)
+	if q, ok := choiceOK(r, Question{
+		Kind:        "film",
+		Prompt:      fmt.Sprintf("Who played the monster in %s?", title),
+		Explanation: f.Star + " played the monster in " + title + ".",
+		MonsterID:   m.ID,
+	}, f.Star, stars); ok {
+		qs = append(qs, q)
+	}
+	if q, ok := choiceOK(r, Question{
+		Kind:        "film",
+		Prompt:      fmt.Sprintf("Who directed %s?", title),
+		Explanation: f.Director + " directed " + title + ".",
+		MonsterID:   m.ID,
+	}, f.Director, directors); ok {
+		qs = append(qs, q)
+	}
+	return append(qs, choice(r, Question{
+		Kind:        "year",
+		Prompt:      fmt.Sprintf("In what year was %s released?", f.Title),
+		Explanation: fmt.Sprintf("%s came out in %d.", f.Title, f.Year),
+		MonsterID:   m.ID,
+	}, fmt.Sprint(f.Year), nearbyYears(r, f.Year)))
 }
 
 // choice fills in four shuffled options: the answer and three distractors.

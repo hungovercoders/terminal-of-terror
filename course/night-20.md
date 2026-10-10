@@ -134,7 +134,7 @@ func (g GuessRound) Points() int {
 
 ## Same keys, same lines
 
-The quiz's `optionKey` and `optionLine` are reused unchanged, so `1`-`4` and arrows work the same in both games, and a marked-up answer looks the same. Two games that behave alike are easier to learn than two that are each clever. Space, which the quiz used for "choose", here means "clear fog", because that's the move a player makes most.
+The quiz's `pickOption`, `optionKey` and `optionLine` are reused unchanged, so `1`-`4` and arrows work the same in both games, and a marked-up answer looks the same. Two games that behave alike are easier to learn than two that are each clever. Space, which the quiz used for "choose", here means "clear fog", because that's the move a player makes most.
 
 ## Deciding the layout once
 

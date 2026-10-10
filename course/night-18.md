@@ -26,6 +26,8 @@ Every monster has facts, quotes, a debut, myths and film credits. Each of those 
 
 That's the entire design of [`internal/quiz/quiz.go`](../internal/quiz/quiz.go). Add a monster on Night 27 and the quiz has a dozen new questions about it, without anyone writing one.
 
+`questionsAbout` builds them with one small function per row, `factQuestions`, `quoteQuestions`, `debutQuestion`, `mythQuestions` and `filmQuestions`, always called in that order. The order matters more than it looks: every builder draws from the same random source, so a fixed order is what makes a seeded quiz ask the same questions every time.
+
 ```go
 // Question is one multiple-choice question.
 type Question struct {

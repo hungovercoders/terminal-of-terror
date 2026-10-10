@@ -104,12 +104,12 @@ func (m model) artBox(mo monsters.Monster, p palette) string {
 	...
 ```
 
-and the tick handler regenerates `m.grain` each frame on a silent page:
+and `onTick` regenerates `m.grain` each frame on a silent page:
 
 ```go
-		if m.screen == screenDetail && m.current().IsSilent() {
-			m.grain = noise(m.rng, artWidth(m.current().ASCII)+4, 1)
-		}
+	if m.screen == screenDetail && m.current().IsSilent() {
+		m.grain = noise(m.rng, artWidth(m.current().ASCII)+4, 1)
+	}
 ```
 
 ## Animate only what moves

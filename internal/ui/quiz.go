@@ -78,40 +78,38 @@ func (m quizModel) Update(msg tea.Msg) (tea.Model, tea.Cmd) {
 	case tea.WindowSizeMsg:
 		m.width = msg.Width
 	case tea.KeyMsg:
-		k := msg.String()
-		if k == "ctrl+c" || k == "q" || k == "esc" {
-			return m, tea.Quit
-		}
-		if m.finished {
-			return m, tea.Quit
-		}
-		q := m.res.Questions[m.i]
-		if m.answered {
-			if k == "enter" || k == " " || k == "n" || k == "right" {
-				m.i++
-				m.answered, m.cursor = false, 0
-				if m.i == len(m.res.Questions) {
-					m.i--
-					m.finished = true
-					m.res.Completed = true
-				}
-			}
-			return m, nil
-		}
-		switch k {
-		case "up", "k":
-			m.cursor = (m.cursor - 1 + len(q.Options)) % len(q.Options)
-		case "down", "j":
-			m.cursor = (m.cursor + 1) % len(q.Options)
-		case "enter", " ":
-			m.answer(m.cursor)
-		default:
-			if n := optionKey(k); n >= 0 && n < len(q.Options) {
-				m.answer(n)
-			}
-		}
+		return m.updateKey(msg.String())
 	}
 	return m, nil
+}
+
+func (m quizModel) updateKey(k string) (tea.Model, tea.Cmd) {
+	if isQuitKey(k) || m.finished {
+		return m, tea.Quit
+	}
+	if m.answered {
+		if isNextKey(k) {
+			m.next()
+		}
+		return m, nil
+	}
+	if k == " " {
+		k = "enter"
+	}
+	if n, ok := pickOption(k, &m.cursor, len(m.res.Questions[m.i].Options)); ok {
+		m.answer(n)
+	}
+	return m, nil
+}
+
+// next moves on to the following question, or finishes after the last.
+func (m *quizModel) next() {
+	m.answered, m.cursor = false, 0
+	if m.i == len(m.res.Questions)-1 {
+		m.finished, m.res.Completed = true, true
+		return
+	}
+	m.i++
 }
 
 func (m *quizModel) answer(n int) {
@@ -122,6 +120,30 @@ func (m *quizModel) answer(n int) {
 }
 
 // optionKey maps 1-4 and a-d to an option index, or -1.
+// isQuitKey reports whether k leaves a game.
+func isQuitKey(k string) bool { return k == "ctrl+c" || k == "q" || k == "esc" }
+
+// isNextKey reports whether k moves on after an answer.
+func isNextKey(k string) bool { return k == "enter" || k == " " || k == "n" || k == "right" }
+
+// pickOption moves the cursor for up and down keys, and reports the option
+// chosen by enter or by its number or letter.
+func pickOption(k string, cursor *int, n int) (int, bool) {
+	switch k {
+	case "up", "k":
+		*cursor = (*cursor - 1 + n) % n
+	case "down", "j":
+		*cursor = (*cursor + 1) % n
+	case "enter":
+		return *cursor, true
+	default:
+		if i := optionKey(k); i >= 0 && i < n {
+			return i, true
+		}
+	}
+	return 0, false
+}
+
 func optionKey(k string) int {
 	if len(k) != 1 {
 		return -1

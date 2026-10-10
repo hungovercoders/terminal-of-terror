@@ -70,17 +70,23 @@ func tick(d time.Duration) tea.Cmd {
 
 `tea.Tick(d, f)` waits `d`, then calls `f` with the time and delivers what it returns. `tickMsg` is our own type (`type tickMsg time.Time`) so the type switch in `Update` can recognise it. A `time.Duration` is a number of nanoseconds with a type, and `70 * time.Millisecond` reads as what it is.
 
-One tick is one frame. To animate, `Update` handles `tickMsg` by advancing a counter and asking for the *next* tick:
+One tick is one frame. To animate, `Update` hands `tickMsg` to `onTick`, which advances a counter and asks for the *next* tick:
 
 ```go
 	case tickMsg:
-		m.ticking = false
-		m.frame++
-		if m.screen == screenIntro && m.frame < staticFrames {
-			m.noise = noise(m.rng, min(max(m.contentWidth()-4, 20), 70), 9)
-		}
-		...
-		return m, m.ensureTick()
+		return m.onTick()
+```
+
+```go
+func (m model) onTick() (tea.Model, tea.Cmd) {
+	m.ticking = false
+	m.frame++
+	if m.screen == screenIntro && m.frame < staticFrames {
+		m.noise = noise(m.rng, min(max(m.contentWidth()-4, 20), 70), 9)
+	}
+	...
+	return m, m.ensureTick()
+}
 ```
 
 and `Init`, which was `nil` until now, returns the first one:
@@ -181,20 +187,20 @@ Frame number in, prefix of the greeting out, with a block cursor while it's stil
 Then `viewIntro` centres everything with `lipgloss.NewStyle().Width(w).Align(lipgloss.Center)`, and once `introDone()` says the typing is over, adds "Press any key to enter the vault...". Any key during the typing skips to the end; any key after it enters:
 
 ```go
-		if m.screen == screenIntro {
-			if msg.String() == "q" {
-				return m.quit()
-			}
-			if !m.introDone() {
-				m.frame = introDoneFrame(m.greeting)
-				return m, nil
-			}
-			m.enter(m.next)
-			return m, m.ensureTick()
-		}
+func (m model) updateIntro(msg tea.KeyMsg) (tea.Model, tea.Cmd) {
+	if msg.String() == "q" {
+		return m.quit()
+	}
+	if !m.introDone() {
+		m.frame = introDoneFrame(m.greeting)
+		return m, nil
+	}
+	m.enter(m.next)
+	return m, m.ensureTick()
+}
 ```
 
-That's [`ui.go`](../internal/ui/ui.go), which now has a `screen` field (`screenIntro`, `screenGallery`, `screenDetail`, an `iota` enum like the tabs) and dispatches at the top of `Update` on which screen is showing, the way Night 14's `searching` flag did.
+That's [`ui.go`](../internal/ui/ui.go), which now has a `screen` field (`screenIntro`, `screenGallery`, `screenDetail`, an `iota` enum like the tabs) and dispatches key presses on which screen is showing (`updateIntro`, `updateGallery`, `updateDetail`), the way Night 14's `searching` flag did.
 
 ## Options, not arguments
 

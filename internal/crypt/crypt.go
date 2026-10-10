@@ -76,56 +76,79 @@ func Apply(p *store.Progress, all []monsters.Monster, o Outcome) Unlocks {
 	if o.Now.IsZero() {
 		o.Now = time.Now()
 	}
-	var u Unlocks
-	award := func(id string) {
-		if _, ok := p.Badges[id]; ok {
-			return
-		}
-		for _, b := range Badges {
-			if b.ID == id {
-				p.Badges[id] = o.Now
-				u.Badges = append(u.Badges, b)
-			}
+	a := &awarder{p: p, now: o.Now}
+	a.recordGame(o)
+	if o.Kind == "quiz" || o.Kind == "guess" || o.Kind == "mash" {
+		a.calendarBadges()
+	}
+	a.recordKnowledge(all, o)
+	a.collectionBadges(all)
+	return a.u
+}
+
+// awarder applies one outcome to progress, collecting what it unlocks.
+type awarder struct {
+	p   *store.Progress
+	now time.Time
+	u   Unlocks
+}
+
+// award gives badge id unless it was already won.
+func (a *awarder) award(id string) {
+	if _, ok := a.p.Badges[id]; ok {
+		return
+	}
+	for _, b := range Badges {
+		if b.ID == id {
+			a.p.Badges[id] = a.now
+			a.u.Badges = append(a.u.Badges, b)
 		}
 	}
+}
 
+// awardIf gives badge id when cond holds.
+func (a *awarder) awardIf(cond bool, id string) {
+	if cond {
+		a.award(id)
+	}
+}
+
+// recordGame updates the per-game counters and badges.
+func (a *awarder) recordGame(o Outcome) {
+	p := a.p
+	finished := o.Completed && o.Total > 0
 	switch o.Kind {
 	case "quiz":
-		if o.Completed && o.Total > 0 {
+		if finished {
 			p.QuizzesPlayed++
 			p.BestQuizScore = max(p.BestQuizScore, o.Score)
-			award("first-fright")
-			if o.Score == 100 && o.Total >= 5 {
-				award("flawless")
-			}
+			a.award("first-fright")
+			a.awardIf(o.Score == 100 && o.Total >= 5, "flawless")
 		}
 	case "guess":
-		if o.Completed && o.Total > 0 {
+		if finished {
 			p.GuessesPlayed++
 			p.BestGuessScore = max(p.BestGuessScore, o.Score)
 		}
-		if o.EagleEye {
-			award("eagle-eye")
-		}
+		a.awardIf(o.EagleEye, "eagle-eye")
 	case "mash":
 		p.MashesPlayed++
-		award("promoter")
+		a.award("promoter")
 	}
-	if played := o.Kind == "quiz" || o.Kind == "guess" || o.Kind == "mash"; played {
-		if o.Now.Hour() < 4 {
-			award("night-owl")
-		}
-		if calendar.IsFullMoon(o.Now) {
-			award("full-moon")
-		}
-		if calendar.IsFriday13(o.Now) {
-			award("friday-13")
-		}
-		if calendar.IsHalloween(o.Now) {
-			award("halloween")
-		}
-	}
+}
 
+// calendarBadges rewards playing at a memorable time.
+func (a *awarder) calendarBadges() {
+	a.awardIf(a.now.Hour() < 4, "night-owl")
+	a.awardIf(calendar.IsFullMoon(a.now), "full-moon")
+	a.awardIf(calendar.IsFriday13(a.now), "friday-13")
+	a.awardIf(calendar.IsHalloween(a.now), "halloween")
+}
+
+// recordKnowledge adds pages seen and correct answers, capturing any
+// monster that reaches CaptureAt.
+func (a *awarder) recordKnowledge(all []monsters.Monster, o Outcome) {
+	p := a.p
 	for _, id := range o.Seen {
 		p.Seen[id] = true
 	}
@@ -134,42 +157,39 @@ func Apply(p *store.Progress, all []monsters.Monster, o Outcome) Unlocks {
 	}
 	for _, m := range all {
 		if _, done := p.Captured[m.ID]; !done && p.Knowledge[m.ID] >= CaptureAt {
-			p.Captured[m.ID] = o.Now
-			u.Captured = append(u.Captured, m)
+			p.Captured[m.ID] = a.now
+			a.u.Captured = append(a.u.Captured, m)
 		}
 	}
+}
 
-	if len(p.Captured) > 0 {
-		award("grave-robber")
-	}
-	if every(all, func(m monsters.Monster) bool { return p.Seen[m.ID] }) {
-		award("scholar")
-	}
+// collectionBadges rewards what the crypt holds and what has been read.
+func (a *awarder) collectionBadges(all []monsters.Monster) {
+	p := a.p
 	captured := func(m monsters.Monster) bool { _, ok := p.Captured[m.ID]; return ok }
-	if allWhere(all, monsters.Monster.IsSilent, captured) {
-		award("silent-scholar")
+	inPack := func(pack string) func(monsters.Monster) bool {
+		return func(m monsters.Monster) bool { return m.Pack == pack }
 	}
-	if allWhere(all, func(m monsters.Monster) bool { return m.Pack == "universal" }, captured) {
-		award("monster-kid")
-	}
-	folk := 0
-	for _, m := range all {
-		if m.Pack == "folklore" && captured(m) {
-			folk++
-		}
-	}
-	if folk >= 5 {
-		award("folklorist")
-	}
+	a.awardIf(len(p.Captured) > 0, "grave-robber")
+	a.awardIf(every(all, func(m monsters.Monster) bool { return p.Seen[m.ID] }), "scholar")
+	a.awardIf(allWhere(all, monsters.Monster.IsSilent, captured), "silent-scholar")
+	a.awardIf(allWhere(all, inPack("universal"), captured), "monster-kid")
+	a.awardIf(countWhere(all, inPack("folklore"), captured) >= 5, "folklorist")
 	for _, pb := range packBadges {
-		if allWhere(all, func(m monsters.Monster) bool { return m.Pack == pb.pack }, captured) {
-			award(pb.badge)
+		a.awardIf(allWhere(all, inPack(pb.pack), captured), pb.badge)
+	}
+	a.awardIf(every(all, captured), "master")
+}
+
+// countWhere counts the monsters matching where that satisfy ok.
+func countWhere(all []monsters.Monster, where, ok func(monsters.Monster) bool) int {
+	n := 0
+	for _, m := range all {
+		if where(m) && ok(m) {
+			n++
 		}
 	}
-	if every(all, captured) {
-		award("master")
-	}
-	return u
+	return n
 }
 
 // every reports whether every monster satisfies ok (false for none).
