@@ -24,28 +24,37 @@ profile: ui
 # checks and DAST's API mode (api.openapi.spec) hit on a PR, and without it
 # they skip there. Leave it blank if you have no preview environment.
 urls:
-  production:
+  production: https://hungovercoders.github.io/terminal-of-terror/
   preview:
 
 # Paths each browser check audits, comma-separated. `/` is the default.
 # For a larger site, `reliability.coverage.*` in the schema reference
 # derives these from your sitemap or the PR's diff instead.
 pages:
-  smoke:         /
+  smoke:         /,/monsters/index.html,/monsters/dracula.html,/night-school/index.html,/night-school/night-01.html
   e2e:           /
-  accessibility: /
-  seo:           /
+  accessibility: /,/monsters/index.html,/monsters/dracula.html,/night-school/index.html,/night-school/night-01.html
+  seo:           /,/monsters/dracula.html,/night-school/index.html
   broken_links:  /
 
 # The site-wide share image the smoke test asserts. '' skips the assertion.
+# GitHub Pages can't set the CORP header the og-image assertion needs; the
+# site's share card is assets/tonight.png.
 smoke:
-  og_image_path: /og-image.png
+  og_image_path: ''
 
 # Your security-headers file, for the CSP-drift check. Common values:
 # public/_headers (Cloudflare Pages / Netlify) or worker/headers.json.
 # null skips the check.
 headers:
   source: null
+
+# The README is the project's storefront (install, games, roster, command
+# reference), mirrored on the website's landing page, so it is deliberately
+# long. Agent context lives in AGENTS.md, which keeps the default budget.
+hygiene:
+  entry_files:
+    readme_max_tokens: 5500
 
 # If you serve an API, copy the `api:` block from the schema reference
 # above. The four API checks ship inert until api.health.path /
