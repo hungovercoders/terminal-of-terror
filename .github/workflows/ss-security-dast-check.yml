@@ -1,0 +1,136 @@
+name: SlopStopper · DAST Analysis
+
+# Runs OWASP ZAP baseline scan against a running app and gates on
+# alerts not declared in docs/security/CSP_EXCEPTIONS.md. Triggers:
+# PR, push to main. Emits a rolling PR comment (with the
+# swallowed-CSP preamble inline) and a main-branch tracking issue on
+# real findings.
+# Docs: docs/security/README.md.
+
+on:
+  pull_request:
+    branches: [ main ]
+  push:
+    branches: [ main ]
+  workflow_dispatch:
+
+permissions:
+  contents: read
+  pull-requests: write
+  issues: write
+
+jobs:
+  dast:
+    name: Dynamic Application Security Testing with OWASP ZAP
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Checkout code
+        uses: actions/checkout@3d3c42e5aac5ba805825da76410c181273ba90b1 # v7.0.1
+
+      - name: Set up slopstopper
+        # Python, the mise-pinned toolchain (task, node, slopstopper-cli) and,
+        # in the slopstopper repo only, the CLI from source. One local
+        # composite action; install.sh copies it in next to the workflows.
+        uses: ./.github/actions/ss-setup
+
+      - name: Decide scan mode
+        id: mode
+        # The scan takes one of two paths. With `api.openapi.spec` set the
+        # target is a deployed API and ZAP reads the spec. There is nothing to
+        # build or serve, and guessing an API's start command would be worse
+        # than not guessing. Without a spec this is the original site path,
+        # which builds the site, serves it on :8080 and spiders it.
+        run: |
+          SPEC="$(slopstopper config get api.openapi.spec)"
+          if [ -z "$SPEC" ]; then
+            echo "mode=site" >> "$GITHUB_OUTPUT"
+            echo "url=http://localhost:8080" >> "$GITHUB_OUTPUT"
+            exit 0
+          fi
+
+          # CUSTOMISE FOR YOUR APP: point urls.preview at the environment your
+          # PRs deploy to. With no preview environment the PR run skips and the
+          # deployed-main / scheduled runs carry the coverage.
+          case "${{ github.event_name }}" in
+            pull_request) URL="$(slopstopper config get urls.preview)" ;;
+            *)            URL="$(slopstopper config get urls.production)" ;;
+          esac
+
+          if [ -z "$URL" ]; then
+            echo "::notice::api.openapi.spec is set but no URL resolved for this event. Set urls.preview / urls.production to enable the API scan here."
+            echo "mode=skip" >> "$GITHUB_OUTPUT"
+          else
+            if [[ ! "$URL" =~ ^https?://[^[:space:][:cntrl:]]+$ ]]; then
+              echo "::error::Invalid URL format: $URL" >&2
+              exit 1
+            fi
+            echo "mode=api" >> "$GITHUB_OUTPUT"
+            echo "url=$URL" >> "$GITHUB_OUTPUT"
+          fi
+
+      - name: Install dependencies
+        if: steps.mode.outputs.mode == 'site'
+        run: npm ci
+
+      - name: Start local server
+        if: steps.mode.outputs.mode == 'site'
+        run: |
+          npm run build
+          slopstopper serve &
+          echo "SERVER_PID=$!" >> $GITHUB_ENV
+          for i in $(seq 1 10); do
+            if curl -s http://localhost:8080 > /dev/null; then
+              echo "✅ Server ready"
+              break
+            fi
+            sleep 1
+          done
+
+      - name: Run DAST analysis + gate
+        id: dast
+        if: steps.mode.outputs.mode != 'skip'
+        continue-on-error: true
+        # The spec itself comes from .slopstopper.yml, so the same command
+        # covers both modes and the check picks the ZAP entry point.
+        run: task ss:security:dast -- ${{ steps.mode.outputs.url }}
+
+      - name: Stop local server
+        if: steps.mode.outputs.mode == 'site' && always()
+        run: kill $SERVER_PID || true
+
+      - name: Upload DAST reports
+        if: always()
+        uses: actions/upload-artifact@043fb46d1a93c77aae656e7c1c64a875d1fc6a0a # v7.0.1
+        with:
+          name: dast-reports
+          path: |
+            .ss/reports/dast/dast-report.md
+            .ss/reports/dast/dast-report.json
+            .ss/reports/dast/dast-gate.json
+          retention-days: 30
+          if-no-files-found: warn
+
+      - name: Emit PR comment
+        if: github.event_name == 'pull_request' && steps.mode.outputs.mode != 'skip' && always()
+        env:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+        run: slopstopper emit security:dast --target pr-comment --status ${{ steps.dast.outcome == 'success' && 'pass' || 'fail' }} --on-pass=delete
+
+      - name: Emit issue on main (if blocking alerts)
+        if: github.event_name == 'push' && github.ref == 'refs/heads/main' && steps.dast.outcome == 'failure'
+        env:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+        run: slopstopper emit security:dast --target issue
+
+      - name: Close issue on main when clean
+        if: github.event_name == 'push' && github.ref == 'refs/heads/main' && steps.dast.outcome == 'success'
+        env:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+        run: slopstopper emit security:dast --target issue --on-pass=close
+
+      - name: Fail job if gate found blocking alerts
+        if: steps.dast.outcome == 'failure'
+        run: |
+          echo "::error::DAST gate found blocking alerts. See .ss/reports/dast/dast-report.md."
+          exit 1
