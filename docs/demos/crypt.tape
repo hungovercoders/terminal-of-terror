@@ -4,7 +4,7 @@ Output docs/demos/.frames/crypt/
 Set Shell bash
 Set FontSize 14
 Set Width 1000
-Set Height 760
+Set Height 900
 Set Padding 24
 Set TypingSpeed 60ms
 Set Theme @theme.json

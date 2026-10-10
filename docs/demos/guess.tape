@@ -19,7 +19,7 @@ Space
 Sleep 1.5s
 Space
 Sleep 2.5s
-Type "1"
+Type "4"
 Sleep 3.5s
 Enter
 Sleep 2.5s

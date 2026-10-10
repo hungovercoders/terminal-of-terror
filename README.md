@@ -148,14 +148,14 @@ terminal-of-terror quiz dracula
 </td>
 <td width="50%" valign="top">
 
-<img src="docs/assets/quiz.gif" alt="The Midnight Quiz: a true-or-false question, a wrong answer with its explanation, and a final rank" width="100%">
+<img src="docs/assets/quiz.gif" alt="The Midnight Quiz: a question about where the Kappa first appeared, a wrong answer with its explanation, and a final rank" width="100%">
 
 </td>
 </tr>
 <tr>
 <td width="50%" valign="top">
 
-<img src="docs/assets/guess.gif" alt="Guess the Monster: a portrait slowly clears from the fog as clues appear" width="100%">
+<img src="docs/assets/guess.gif" alt="Guess the Monster: the Sasquatch's portrait slowly clears from the fog as clues appear" width="100%">
 
 </td>
 <td width="50%" valign="top">
@@ -242,7 +242,7 @@ terminal-of-terror tonight --shuffle          # a different bill
 terminal-of-terror tonight --date 2026-10-31  # what's on for Halloween?
 ```
 
-<img src="docs/assets/tonight.png" alt="A double-feature ticket for Halloween night: Dracula's Daughter (1936) and Krampus" width="620">
+<img src="docs/assets/tonight.png" alt="A double-feature ticket for Halloween night: The Picture of Dorian Gray (1945) and El Chupacabra" width="620">
 
 ### 🎃 The Halloween Countdown
 
@@ -252,7 +252,7 @@ The nights until Halloween, tonight's moon and the next film anniversary. During
 terminal-of-terror countdown
 ```
 
-<img src="docs/assets/countdown.png" alt="A jack-o'-lantern beside '18 nights until Halloween', with Night 13 of the 31 Nights of Fright featuring the Golem" width="620">
+<img src="docs/assets/countdown.png" alt="A jack-o'-lantern beside '18 nights until Halloween', with Night 13 of the 31 Nights of Fright featuring Son of Dracula" width="620">
 
 ### ✨ The Fact of the Night
 
@@ -264,7 +264,7 @@ terminal-of-terror random --date 2026-11-21
 terminal-of-terror random                     # or just any old fact
 ```
 
-<img src="docs/assets/random.png" alt="The Fact of the Night card for 21 November, marking Frankenstein's 95th anniversary" width="620">
+<img src="docs/assets/random.png" alt="The Fact of the Night card for 21 November: a Baba Yaga fact, and a note that Frankenstein opened 95 years ago tonight" width="620">
 
 ## 📜 The roster
 
@@ -306,7 +306,7 @@ terminal-of-terror random                     # or just any old fact
 | 🐎 | **The Nuckelavee** | Orkney folklore, Scotland |
 | 👹 | **The Rakshasa** | Hindu mythology and the Sanskrit epics |
 | 🌺 | **The Pontianak** | Malay and Indonesian folklore |
-| 🪦 | **The Draugr** | The Icelandic sagas |
+| 👣 | **The Draugr** | The Icelandic sagas |
 | 🐊 | **The Bunyip** | Aboriginal Australian traditions of the south-east |
 
 ### Cryptids · `--pack cryptids`
