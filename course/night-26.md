@@ -64,6 +64,7 @@ type factJSON struct {
 var rootCmd = &cobra.Command{
 	...
 	PersistentPreRunE: func(cmd *cobra.Command, args []string) error {
+		ui.SetPlain(noColor || os.Getenv("NO_COLOR") != "" || !isTerminal(os.Stdout))
 		loadCommunityPacks()
 		if len(packFilter) > 0 {
 			if err := monsters.UsePacks(packFilter); err != nil {

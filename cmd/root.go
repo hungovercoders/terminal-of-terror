@@ -7,10 +7,14 @@ import (
 
 	"github.com/hungovercoders/terminal-of-terror/internal/monsters"
 	"github.com/hungovercoders/terminal-of-terror/internal/store"
+	"github.com/hungovercoders/terminal-of-terror/internal/ui"
 	"github.com/spf13/cobra"
 )
 
-var packFilter []string
+var (
+	packFilter []string
+	noColor    bool
+)
 
 var rootCmd = &cobra.Command{
 	Use:   "terminal-of-terror",
@@ -27,6 +31,9 @@ your crypt, and check tonight's double feature.
 Start here:  terminal-of-terror monster`,
 	Version: appVersion(),
 	PersistentPreRunE: func(cmd *cobra.Command, args []string) error {
+		// Plain output for a pipe, a log, or anyone who asked: --no-color,
+		// NO_COLOR (https://no-color.org) or stdout not being a terminal.
+		ui.SetPlain(noColor || os.Getenv("NO_COLOR") != "" || !isTerminal(os.Stdout))
 		loadCommunityPacks()
 		if len(packFilter) > 0 {
 			if err := monsters.UsePacks(packFilter); err != nil {
@@ -77,4 +84,5 @@ func init() {
 	})
 	rootCmd.PersistentFlags().StringSliceVar(&packFilter, "pack", nil, "Only use monsters from these packs, e.g. --pack folklore")
 	rootCmd.PersistentFlags().BoolVar(&jsonOut, "json", false, "Print the command's data as JSON instead of drawing it (errors become a JSON object on stderr)")
+	rootCmd.PersistentFlags().BoolVar(&noColor, "no-color", false, "Plain output: no colour, ASCII borders, no emoji (also set by NO_COLOR, or by piping)")
 }

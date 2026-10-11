@@ -130,6 +130,17 @@ Unit tests exercise packages. Nothing so far runs the *binary*, and a binary can
           $bin countdown --date 2026-10-13 --json > /dev/null
           $bin crypt > /dev/null
           $bin crypt --json > /dev/null
+          # Off a terminal the output is plain: no colour codes, no emoji; NO_COLOR and --no-color ask for the same.
+          if $bin list | grep -q $'\x1b'; then
+            echo "expected no colour codes in a pipe"
+            exit 1
+          fi
+          if $bin list | grep -q '🎃'; then
+            echo "expected no emoji in a pipe"
+            exit 1
+          fi
+          $bin random --date 2026-10-31 --no-color > /dev/null
+          NO_COLOR=1 $bin countdown --date 2026-10-13 > /dev/null
           # Under --json an error is one object on stderr with a stable code.
           # (Captured first: with pipefail, the binary's exit 1 would fail the pipeline before grep could pass.)
           err=$($bin monster zombie-accountant --json 2>&1 || true)

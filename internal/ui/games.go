@@ -21,7 +21,7 @@ func RenderCrypt(p *store.Progress, all []monsters.Monster, width int) string {
 			captured++
 		}
 	}
-	b.WriteString(titleStyle.Render("💀 THE CRYPT") + "\n\n")
+	b.WriteString(titleStyle.Render(glyph("💀")+"THE CRYPT") + "\n\n")
 	b.WriteString(headingStyle.Render(fmt.Sprintf("%d of %d monsters captured · %d of %d badges", captured, len(all), len(p.Badges), len(crypt.Badges))) + "\n")
 	b.WriteString(helpStyle.Render(fmt.Sprintf("Answer %d questions about a monster correctly, in quizzes or Guess the Monster, to capture it.", crypt.CaptureAt)) + "\n")
 
@@ -33,20 +33,20 @@ func RenderCrypt(p *store.Progress, all []monsters.Monster, width int) string {
 		}
 		if at, ok := p.Captured[m.ID]; ok {
 			name := lipgloss.NewStyle().Bold(true).Foreground(paletteFor(m).primary).Render(m.Name)
-			b.WriteString(fmt.Sprintf("  %s %s  %s\n", m.Emoji, name, trueStyle.Render("✔ captured "+at.Format("2 Jan 2006"))))
+			b.WriteString(fmt.Sprintf("  %s  %s\n", label(m.Emoji, name), trueStyle.Render("✔ captured "+at.Format("2 Jan 2006"))))
 			continue
 		}
 		k := min(p.Knowledge[m.ID], crypt.CaptureAt)
 		pips := strings.Repeat("●", k) + strings.Repeat("○", crypt.CaptureAt-k)
-		b.WriteString(fmt.Sprintf("  🔒 %s  %s\n", helpStyle.Render(m.Name), metaStyle.Render(pips)))
+		b.WriteString(fmt.Sprintf("  %s%s  %s\n", glyph("🔒"), helpStyle.Render(m.Name), metaStyle.Render(pips)))
 	}
 
 	b.WriteString("\n" + headingStyle.Render("── Badges ──") + "\n")
 	for _, bd := range crypt.Badges {
 		if at, ok := crypt.Earned(p, bd.ID); ok {
-			b.WriteString(fmt.Sprintf("  %s %s  %s\n", bd.Emoji, lipgloss.NewStyle().Bold(true).Foreground(colorGold).Render(bd.Name), hostStyle.Render(bd.Description+" · "+at.Format("2 Jan 2006"))))
+			b.WriteString(fmt.Sprintf("  %s  %s\n", label(bd.Emoji, lipgloss.NewStyle().Bold(true).Foreground(colorGold).Render(bd.Name)), hostStyle.Render(bd.Description+" · "+at.Format("2 Jan 2006"))))
 		} else {
-			b.WriteString(fmt.Sprintf("  🔒 %s  %s\n", helpStyle.Render(bd.Name), helpStyle.Render(bd.Description)))
+			b.WriteString(fmt.Sprintf("  %s%s  %s\n", glyph("🔒"), helpStyle.Render(bd.Name), helpStyle.Render(bd.Description)))
 		}
 	}
 
@@ -75,10 +75,10 @@ func RenderUnlocks(u crypt.Unlocks) string {
 	}
 	var b strings.Builder
 	for _, m := range u.Captured {
-		b.WriteString(trueStyle.Render("💀 CAPTURED: ") + lipgloss.NewStyle().Bold(true).Foreground(paletteFor(m).primary).Render(m.Emoji+" "+m.Name) + helpStyle.Render(" has joined your crypt") + "\n")
+		b.WriteString(trueStyle.Render(glyph("💀")+"CAPTURED: ") + lipgloss.NewStyle().Bold(true).Foreground(paletteFor(m).primary).Render(label(m.Emoji, m.Name)) + helpStyle.Render(" has joined your crypt") + "\n")
 	}
 	for _, bd := range u.Badges {
-		b.WriteString(lipgloss.NewStyle().Bold(true).Foreground(colorGold).Render("🏅 BADGE: "+bd.Emoji+" "+bd.Name) + helpStyle.Render(" · "+bd.Description) + "\n")
+		b.WriteString(lipgloss.NewStyle().Bold(true).Foreground(colorGold).Render(glyph("🏅")+"BADGE: "+label(bd.Emoji, bd.Name)) + helpStyle.Render(" · "+bd.Description) + "\n")
 	}
 	b.WriteString(helpStyle.Render("See your collection: terminal-of-terror crypt") + "\n")
 	return b.String()
@@ -89,7 +89,7 @@ func StatCard(m monsters.Monster) string {
 	p := paletteFor(m)
 	s := m.Stats
 	lines := []string{
-		lipgloss.NewStyle().Bold(true).Foreground(p.primary).Render(m.Emoji + " " + m.Name),
+		lipgloss.NewStyle().Bold(true).Foreground(p.primary).Render(label(m.Emoji, m.Name)),
 		"",
 	}
 	for _, st := range []struct {
@@ -99,7 +99,7 @@ func StatCard(m monsters.Monster) string {
 		lines = append(lines, metaStyle.Render(fmt.Sprintf("%-9s", st.name))+statBar(st.v, p))
 	}
 	return lipgloss.NewStyle().
-		Border(lipgloss.RoundedBorder()).
+		Border(border(lipgloss.RoundedBorder())).
 		BorderForeground(p.accent).
 		Padding(0, 1).
 		Width(34).
@@ -108,7 +108,7 @@ func StatCard(m monsters.Monster) string {
 
 // MashHeader shows the two fighters' cards side by side.
 func MashHeader(a, b monsters.Monster, width int) string {
-	title := titleStyle.Render("🥊 MONSTER MASH")
+	title := titleStyle.Render(glyph("🥊") + "MONSTER MASH")
 	ca, cb := StatCard(a), StatCard(b)
 	vs := lipgloss.NewStyle().Bold(true).Foreground(colorBlood).Padding(2, 2).Render("VS")
 	var cards string
@@ -117,7 +117,7 @@ func MashHeader(a, b monsters.Monster, width int) string {
 	} else {
 		cards = lipgloss.JoinVertical(lipgloss.Center, ca, vs, cb)
 	}
-	intro := hostStyle.Render(wrap(fmt.Sprintf("📺 %s: “In this corner, %s! And in the other, %s! Three rounds, no rules, no refunds.”", host.Name, mash.MidSentence(a.Name), mash.MidSentence(b.Name)), textWidth(width)))
+	intro := hostStyle.Render(wrap(fmt.Sprintf("%s%s: “In this corner, %s! And in the other, %s! Three rounds, no rules, no refunds.”", glyph("📺"), host.Name, mash.MidSentence(a.Name), mash.MidSentence(b.Name)), textWidth(width)))
 	return title + "\n\n" + cards + "\n\n" + intro + "\n"
 }
 
@@ -142,7 +142,7 @@ func MashResult(bout mash.Bout, width int) string {
 	winner := bout.WinnerMonster()
 	score := fmt.Sprintf("%d-%d", max(wa, wb), min(wa, wb))
 	banner := lipgloss.NewStyle().Bold(true).Foreground(colorBlack).Background(colorGold).Padding(0, 1).
-		Render(fmt.Sprintf("🏆 WINNER: %s %s (%s)", winner.Emoji, strings.ToUpper(winner.Name), score))
+		Render(fmt.Sprintf("%sWINNER: %s (%s)", glyph("🏆"), label(winner.Emoji, strings.ToUpper(winner.Name)), score))
 	return banner + "\n" + hostStyle.Render(wrap(bout.Finale, w)) + "\n"
 }
 

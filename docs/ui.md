@@ -11,3 +11,9 @@
 
 Styling comes from `internal/ui/styles.go`; per-monster colours come from each monster's `theme`. Avoid emoji
 that need a variation selector (⚰️, 🎞️), because they break box alignment.
+
+The non-interactive output (`cards.go`, `games.go`, `rituals.go`) has a plain mode for pipes, logs and
+`--no-color`/`NO_COLOR`, set once by the root command through `ui.SetPlain`: no colour, ASCII borders and no
+emoji. Write a decorative emoji as `glyph("🎃") + "TITLE"`, an emoji before a name as `label(m.Emoji, m.Name)`,
+a title with emoji at both ends through `pick(fancy, plain)`, and a border through `border(lipgloss.RoundedBorder())`
+(`plain.go`). The Bubble Tea screens need a terminal and are left as they are.
