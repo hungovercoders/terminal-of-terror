@@ -14,6 +14,7 @@ var listCmd = &cobra.Command{
 	Use:   "list",
 	Short: "List all available monsters",
 	Long:  `Display a list of all the monsters lurking in the Terminal of Terror, grouped by pack.`,
+	Args:  cobra.NoArgs,
 	RunE: func(cmd *cobra.Command, args []string) error {
 		all := monsters.GetAllMonsters()
 		if listJSON {

@@ -8,6 +8,7 @@ import (
 	"os"
 	"path/filepath"
 	"regexp"
+	"strings"
 
 	"github.com/hungovercoders/terminal-of-terror/internal/monsters"
 	"github.com/hungovercoders/terminal-of-terror/internal/store"
@@ -29,10 +30,10 @@ type packJSON struct {
 var packsCmd = &cobra.Command{
 	Use:   "packs",
 	Short: "List monster packs, or create your own",
-	Long: `Monsters come in packs. Terminal of Terror ships with Universal Classics
-and World Folklore, and you can add community packs by dropping them into
-your config directory. Use --pack with any command to pick packs,
-e.g. 'terminal-of-terror quiz --pack folklore'.`,
+	Long: `Monsters come in packs. Terminal of Terror ships with:
+  ` + builtinPackNames() + `
+You can add community packs by dropping them into your config directory.
+Use --pack with any command to pick packs, e.g. 'terminal-of-terror quiz --pack folklore'.`,
 	Args: cobra.NoArgs,
 	RunE: func(cmd *cobra.Command, args []string) error {
 		all := monsters.AllPacks()
@@ -115,6 +116,25 @@ var packsNewCmd = &cobra.Command{
 		fmt.Println("Only name, description and facts are required. See CONTRIBUTING.md for every field.")
 		return nil
 	},
+}
+
+// builtinPackNames lists the packs compiled in, for the help text, so the
+// text cannot fall behind the data: "Universal Classics, World Folklore and
+// Cryptids".
+func builtinPackNames() string {
+	var names []string
+	for _, p := range monsters.AllPacks() {
+		if p.Source == "built-in" {
+			names = append(names, p.Name)
+		}
+	}
+	switch len(names) {
+	case 0:
+		return "no packs"
+	case 1:
+		return names[0]
+	}
+	return strings.Join(names[:len(names)-1], ", ") + " and " + names[len(names)-1]
 }
 
 func communityDir() (string, error) {

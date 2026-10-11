@@ -413,7 +413,7 @@ func Validate(m Monster) []string {
 	}
 	for _, v := range []int{m.Stats.Strength, m.Stats.Speed, m.Stats.Cunning, m.Stats.Dread} {
 		if v < 0 || v > 10 {
-			problems = append(problems, "stats must be between 1 and 10")
+			problems = append(problems, "stats must be between 0 and 10")
 			break
 		}
 	}
@@ -506,6 +506,9 @@ func UsePacks(ids []string) error {
 			var names []string
 			for _, p := range allPacks {
 				names = append(names, p.ID)
+			}
+			if guess := DidYouMean(closest(id, names)); guess != "" {
+				return fmt.Errorf("no pack called %q. %s (choose from: %s)", id, guess, strings.Join(names, ", "))
 			}
 			return fmt.Errorf("no pack called %q; choose from: %s", id, strings.Join(names, ", "))
 		}

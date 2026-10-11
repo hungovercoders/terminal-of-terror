@@ -65,6 +65,9 @@ func resolveMonster(query string) (*monsters.Monster, error) {
 		}
 		return nil, fmt.Errorf("%q could be any of: %s", query, strings.Join(names, ", "))
 	}
+	if guess := monsters.DidYouMean(monsters.Suggest(query)); guess != "" {
+		return nil, fmt.Errorf("no monster called %q lurks here. %s (try 'terminal-of-terror list' for the roster)", query, guess)
+	}
 	return nil, fmt.Errorf("no monster called %q lurks here; try 'terminal-of-terror list'", query)
 }
 
