@@ -326,7 +326,7 @@ func (b *builder) llmsTxt(packs []monsters.Pack, course *Course) string {
 	var sb strings.Builder
 	base := b.site.BaseURL
 	fmt.Fprintf(&sb, "# %s\n\n> %s\n\n", b.site.Name, siteDescription)
-	fmt.Fprintf(&sb, "Install it with `go install github.com/hungovercoders/terminal-of-terror@latest`. Source: %s\n", b.site.Repo)
+	fmt.Fprintf(&sb, "Install it with `brew install hungovercoders/tap/terminal-of-terror` or `go install github.com/hungovercoders/terminal-of-terror@latest`, or download a release from %s/releases. Source: %s\n", b.site.Repo, b.site.Repo)
 	for _, p := range packs {
 		fmt.Fprintf(&sb, "\n## %s\n\n", p.Name)
 		for _, m := range p.Monsters {

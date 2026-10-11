@@ -30,7 +30,7 @@
 
 | Time | Feature |
 |------|---------|
-| 9:00 PM | [🔮 Summon it](#-summon-it): download or install |
+| 9:00 PM | [🔮 Summon it](#-summon-it): Homebrew, download or install |
 | 9:05 PM | [🌙 Your first night](#-your-first-night): five commands to try |
 | 9:15 PM | [🧛 The Creature Feature](#-the-creature-feature): the interactive explorer |
 | 10:00 PM | [🧠 Games](#-games): the Midnight Quiz, Guess the Monster and the Monster Mash |
@@ -43,7 +43,13 @@
 
 ## 🔮 Summon it
 
-**Download it:** grab the archive for your system from the [latest release](https://github.com/hungovercoders/terminal-of-terror/releases/latest). There are builds for Linux, macOS and Windows, for both Intel and ARM. Unpack it and put `terminal-of-terror` somewhere on your `PATH`.
+**Install it with [Homebrew](https://brew.sh)** on macOS or Linux:
+
+```bash
+brew install hungovercoders/tap/terminal-of-terror
+```
+
+**Or download it:** grab the archive for your system from the [latest release](https://github.com/hungovercoders/terminal-of-terror/releases/latest). There are builds for Linux, macOS and Windows, for both Intel and ARM. Unpack it and put `terminal-of-terror` somewhere on your `PATH`.
 
 ```bash
 # e.g. Linux on Intel/AMD, version 1.0.0
@@ -52,7 +58,7 @@ sudo mv terminal-of-terror /usr/local/bin/
 ```
 
 > [!NOTE]
-> On macOS, the binary isn't signed, so the first run may be blocked. Run `xattr -d com.apple.quarantine terminal-of-terror` to let it through.
+> On macOS, the binary isn't signed, so the first run may be blocked. Run `xattr -d com.apple.quarantine terminal-of-terror` to let it through, or install with Homebrew, which does that for you.
 
 **Or install it with [Go 1.25+](https://go.dev/dl/):**
 

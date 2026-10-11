@@ -173,7 +173,9 @@ go run ./site -out dist && npx wrangler dev   # then open http://localhost:8787
 
 ## Releasing
 
-Releases are built by [GoReleaser](https://goreleaser.com) from `.goreleaser.yaml` whenever a `v*` tag is pushed. `.github/workflows/release.yml` runs the tests, builds archives for Linux, macOS and Windows (amd64 and arm64), and publishes a GitHub release. The release notes are the tag's section of CHANGELOG.md.
+Releases are built by [GoReleaser](https://goreleaser.com) from `.goreleaser.yaml` whenever a `v*` tag is pushed. `.github/workflows/release.yml` runs the tests, builds archives for Linux, macOS and Windows (amd64 and arm64), publishes a GitHub release, and writes the Homebrew cask to [hungovercoders/homebrew-tap](https://github.com/hungovercoders/homebrew-tap) (prereleases such as `v1.1.0-rc1` skip the tap). The release notes are the tag's section of CHANGELOG.md.
+
+Pushing the cask needs the `HOMEBREW_TAP_GITHUB_TOKEN` repository secret: a fine-grained personal access token with contents read and write on `hungovercoders/homebrew-tap` and nothing else. The workflow fails before building anything if it's missing.
 
 1. **Pick the version.** Follow [semantic versioning](https://semver.org): new features bump the minor version (1.1.0), fixes bump the patch (1.0.1). Stay below 2.0.0 unless you also change the module path to `github.com/hungovercoders/terminal-of-terror/v2`, which Go requires for v2 and later; otherwise `go install ...@latest` would ignore the release.
 2. **Update CHANGELOG.md.** [git-cliff](https://git-cliff.org) turns the conventional commits since the last tag into a new section:
@@ -189,7 +191,7 @@ Releases are built by [GoReleaser](https://goreleaser.com) from `.goreleaser.yam
    ```
    The workflow refuses to publish if CHANGELOG.md has no `## [1.1.0]` section.
 
-To try a release locally without publishing anything, run `goreleaser release --snapshot --clean` and look in `dist/`. CI runs `goreleaser check` on every pull request to catch config mistakes.
+To try a release locally without publishing anything, run `goreleaser release --snapshot --clean` and look in `.goreleaser/dist/`, where the rendered cask is `homebrew/Casks/terminal-of-terror.rb`. CI runs `goreleaser check` on every pull request to catch config mistakes.
 
 The version shown by `--version` comes from the tag: GoReleaser sets it at build time, and `go install ...@v1.1.0` reads it from Go's build info.
 
