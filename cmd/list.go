@@ -8,8 +8,6 @@ import (
 	"github.com/spf13/cobra"
 )
 
-var listJSON bool
-
 var listCmd = &cobra.Command{
 	Use:   "list",
 	Short: "List all available monsters",
@@ -17,7 +15,7 @@ var listCmd = &cobra.Command{
 	Args:  cobra.NoArgs,
 	RunE: func(cmd *cobra.Command, args []string) error {
 		all := monsters.GetAllMonsters()
-		if listJSON {
+		if jsonOut {
 			return printJSON(all)
 		}
 		fmt.Print(ui.RenderList(all, ui.TerminalWidth()))
@@ -27,5 +25,4 @@ var listCmd = &cobra.Command{
 
 func init() {
 	rootCmd.AddCommand(listCmd)
-	listCmd.Flags().BoolVar(&listJSON, "json", false, "Output the full monster data as JSON")
 }

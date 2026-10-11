@@ -1,8 +1,6 @@
 package cmd
 
 import (
-	"fmt"
-
 	"github.com/hungovercoders/terminal-of-terror/internal/crypt"
 	"github.com/hungovercoders/terminal-of-terror/internal/monsters"
 	"github.com/hungovercoders/terminal-of-terror/internal/ui"
@@ -10,6 +8,15 @@ import (
 )
 
 var guessRounds int
+
+// guessJSON is a round of Guess the Monster as --json prints it: the
+// answer included, the way quiz --json gives the questions with theirs.
+type guessJSON struct {
+	Monster string   `json:"monster"`
+	Name    string   `json:"name"`
+	Options []string `json:"options"`
+	Answer  int      `json:"answer"`
+}
 
 var guessCmd = &cobra.Command{
 	Use:   "guess",
@@ -21,12 +28,19 @@ Correct guesses count towards capturing monsters for your crypt.`,
 	Args: cobra.NoArgs,
 	RunE: func(cmd *cobra.Command, args []string) error {
 		if guessRounds < 1 {
-			return fmt.Errorf("--rounds must be at least 1")
+			return fail(codeBadFlag, "", "--rounds must be at least 1")
 		}
 		r := newRand()
 		rounds := ui.NewGuessRounds(r, monsters.GetAllMonsters(), guessRounds)
 		if len(rounds) == 0 {
-			return fmt.Errorf("Guess the Monster needs at least 3 different monsters, including one with a portrait; try a different --pack")
+			return fail(codeUsage, "try a different --pack", "Guess the Monster needs at least 3 different monsters, including one with a portrait")
+		}
+		if jsonOut {
+			out := make([]guessJSON, 0, len(rounds))
+			for _, g := range rounds {
+				out = append(out, guessJSON{Monster: g.Monster.ID, Name: g.Monster.Name, Options: g.Options, Answer: g.Answer})
+			}
+			return printJSON(out)
 		}
 		if err := requireTerminal("Guess the Monster", "play it from a shell"); err != nil {
 			return err

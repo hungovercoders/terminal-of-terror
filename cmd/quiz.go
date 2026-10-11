@@ -10,10 +10,7 @@ import (
 	"github.com/spf13/cobra"
 )
 
-var (
-	quizQuestions int
-	quizJSON      bool
-)
+var quizQuestions int
 
 var quizCmd = &cobra.Command{
 	Use:   "quiz [monster]",
@@ -28,7 +25,7 @@ crypt. Name a monster to be quizzed only about that one.`,
 	Args: cobra.MaximumNArgs(1),
 	RunE: func(cmd *cobra.Command, args []string) error {
 		if quizQuestions < 1 {
-			return fmt.Errorf("--questions must be at least 1")
+			return fail(codeBadFlag, "", "--questions must be at least 1")
 		}
 		focus := ""
 		if len(args) == 1 {
@@ -43,7 +40,7 @@ crypt. Name a monster to be quizzed only about that one.`,
 		if len(qs) == 0 {
 			return fmt.Errorf("couldn't find any questions to ask")
 		}
-		if quizJSON {
+		if jsonOut {
 			return printJSON(qs)
 		}
 		if err := requireTerminal("the Midnight Quiz", "use --json for the questions and answers, or play from a shell"); err != nil {
@@ -71,5 +68,4 @@ crypt. Name a monster to be quizzed only about that one.`,
 func init() {
 	rootCmd.AddCommand(quizCmd)
 	quizCmd.Flags().IntVarP(&quizQuestions, "questions", "n", 10, "Number of questions")
-	quizCmd.Flags().BoolVar(&quizJSON, "json", false, "Print the questions and answers as JSON instead of playing")
 }

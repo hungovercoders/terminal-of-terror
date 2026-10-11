@@ -16,8 +16,6 @@ import (
 	"github.com/spf13/cobra"
 )
 
-var packsJSON bool
-
 // packJSON is the machine-readable shape of a pack listing.
 type packJSON struct {
 	ID          string   `json:"id"`
@@ -37,7 +35,7 @@ Use --pack with any command to pick packs, e.g. 'terminal-of-terror quiz --pack 
 	Args: cobra.NoArgs,
 	RunE: func(cmd *cobra.Command, args []string) error {
 		all := monsters.AllPacks()
-		if packsJSON {
+		if jsonOut {
 			var out []packJSON
 			for _, p := range all {
 				pj := packJSON{ID: p.ID, Name: p.Name, Description: p.Description, Source: p.Source}
@@ -173,5 +171,4 @@ func exampleMonster(id, name string) map[string]any {
 func init() {
 	rootCmd.AddCommand(packsCmd)
 	packsCmd.AddCommand(packsNewCmd)
-	packsCmd.Flags().BoolVar(&packsJSON, "json", false, "Output the packs as JSON")
 }

@@ -6,6 +6,8 @@ import (
 	"os"
 	"strconv"
 	"time"
+
+	"github.com/hungovercoders/terminal-of-terror/internal/calendar"
 )
 
 // envSeed fixes every random choice (questions, portraits, fights, host
@@ -27,4 +29,14 @@ func seed() int64 {
 // newRand returns a random source seeded by seed().
 func newRand() *rand.Rand {
 	return rand.New(rand.NewSource(seed()))
+}
+
+// parseDate reads a --date flag, giving a bad one the code a script
+// expects.
+func parseDate(s string) (time.Time, error) {
+	t, err := calendar.Date(s)
+	if err != nil {
+		return t, fail(codeBadDate, "", "%v", err)
+	}
+	return t, nil
 }
