@@ -76,9 +76,15 @@ jobs:
           PRODUCTION: ${{ needs.target.outputs.production }}
         run: |
           args="${{ matrix.args }}"
-          # The production Lighthouse budget is stricter than a preview's.
-          if [ "${{ matrix.check }}" = cwv ] && [ "$PRODUCTION" = true ]; then
-            args=--prod
+          # Production gets slopstopper's stricter Lighthouse budget. Previews
+          # get its dev budget minus the is-crawlable audit: Cloudflare sends
+          # X-Robots-Tag: noindex on preview URLs, which caps SEO at 0.61.
+          if [ "${{ matrix.check }}" = cwv ]; then
+            if [ "$PRODUCTION" = true ]; then
+              args=--prod
+            else
+              args="--config .github/lighthouserc.preview.json"
+            fi
           fi
           task "ss:reliability:${{ matrix.check }}" -- "$URL" $args
       - uses: actions/upload-artifact@043fb46d1a93c77aae656e7c1c64a875d1fc6a0a # v7.0.1
