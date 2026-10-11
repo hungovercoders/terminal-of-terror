@@ -399,16 +399,18 @@ This creates `~/.config/terminal-of-terror/packs/urban-legends/` (or your OS's e
 
 | Command | What it does |
 |---------|--------------|
-| `monster [name]` | The interactive explorer (`--all`, `--no-intro`, `--json`) |
-| `list` | Every monster, grouped by pack (`--json`) |
-| `random` | A random fact (`--daily`, `--date YYYY-MM-DD`, `--json`) |
-| `quiz [monster]` | The Midnight Quiz (`-n`, `--json`) |
+| `monster [name]` | The interactive explorer (`--all`, `--no-intro`) |
+| `list` | Every monster, grouped by pack |
+| `random` | A random fact (`--daily`, `--date YYYY-MM-DD`) |
+| `quiz [monster]` | The Midnight Quiz (`-n`) |
 | `guess` | Guess the Monster (`--rounds`) |
 | `mash [monster] [monster]` | The Monster Mash (`--fast`) |
-| `crypt` | Your captured monsters, badges and records (`--json`); `crypt reset` starts again |
+| `crypt` | Your captured monsters, badges and records; `crypt reset` starts again (`-y`) |
 | `tonight` | Tonight's double feature (`--shuffle`, `--date`) |
 | `countdown` | Nights until Halloween (`--date`) |
-| `packs` | List packs (`--json`); `packs new <id>` makes one |
+| `packs` | List packs; `packs new <id>` makes one |
+
+Every command takes `--json` and prints its data instead of drawing it: the monsters, the questions and answers, the rounds of a game, tonight's bill, the countdown, your crypt, the packs. Under `--json` an error is one object on stderr, `{"error": {"code": "unknown-monster", "message": "...", "hint": "..."}}`, with a stable code to branch on: `unknown-monster`, `ambiguous-monster`, `bad-pack`, `bad-date`, `bad-flag`, `no-terminal`, `store` or `usage`. `--pack <id>` narrows every command to one or more packs.
 
 Every command also takes `--pack`, and `terminal-of-terror [command] --help` has the details.
 

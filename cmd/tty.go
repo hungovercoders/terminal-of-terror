@@ -1,7 +1,6 @@
 package cmd
 
 import (
-	"fmt"
 	"os"
 
 	"github.com/charmbracelet/x/term"
@@ -16,7 +15,7 @@ func requireTerminal(what, alternative string) error {
 	if isTerminal(os.Stdout) && isTerminal(os.Stdin) {
 		return nil
 	}
-	return fmt.Errorf("%s needs a terminal to play on (stdout or stdin is not one); %s", what, alternative)
+	return fail(codeNoTerminal, alternative, "%s needs a terminal to play on (stdout or stdin is not one)", what)
 }
 
 // isTerminal reports whether f is attached to a terminal.

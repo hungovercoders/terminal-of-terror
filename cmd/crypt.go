@@ -12,10 +12,7 @@ import (
 	"github.com/spf13/cobra"
 )
 
-var (
-	cryptJSON bool
-	resetYes  bool
-)
+var resetYes bool
 
 var cryptCmd = &cobra.Command{
 	Use:   "crypt",
@@ -26,9 +23,9 @@ it in the quiz or Guess the Monster, plus your badges and records.`,
 	RunE: func(cmd *cobra.Command, args []string) error {
 		p, err := store.Load()
 		if err != nil {
-			return err
+			return fail(codeStore, "", "%v", err)
 		}
-		if cryptJSON {
+		if jsonOut {
 			return printJSON(p)
 		}
 		fmt.Print(ui.RenderCrypt(p, monsters.GetAllMonsters(), ui.TerminalWidth()))
@@ -47,7 +44,7 @@ var cryptResetCmd = &cobra.Command{
 	RunE: func(cmd *cobra.Command, args []string) error {
 		if !resetYes {
 			if !isTerminal(os.Stdin) {
-				return fmt.Errorf("refusing to reset the crypt without a terminal to confirm on; pass -y to reset without asking")
+				return fail(codeNoTerminal, "pass -y to reset without asking", "refusing to reset the crypt without a terminal to confirm on")
 			}
 			fmt.Print("This releases every captured monster and forgets all your badges. Type 'yes' to confirm: ")
 			line, _ := bufio.NewReader(os.Stdin).ReadString('\n')
@@ -57,7 +54,7 @@ var cryptResetCmd = &cobra.Command{
 			}
 		}
 		if err := store.Reset(); err != nil {
-			return err
+			return fail(codeStore, "", "%v", err)
 		}
 		fmt.Println("The crypt doors swing open... every monster has escaped. Your progress has been reset.")
 		return nil
@@ -67,6 +64,5 @@ var cryptResetCmd = &cobra.Command{
 func init() {
 	rootCmd.AddCommand(cryptCmd)
 	cryptCmd.AddCommand(cryptResetCmd)
-	cryptCmd.Flags().BoolVar(&cryptJSON, "json", false, "Output your progress as JSON")
 	cryptResetCmd.Flags().BoolVarP(&resetYes, "yes", "y", false, "Don't ask for confirmation")
 }

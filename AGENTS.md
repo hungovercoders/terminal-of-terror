@@ -9,8 +9,9 @@ rituals, all presented by a fictional late-night horror host, Count Cathode. It 
 ## Layout
 
 ```
-cmd/                     Cobra commands: root.go (--pack, community packs), monster, list, random, quiz, guess,
-                         mash, crypt, tonight, countdown, packs, progress.go (unlocks), output.go (--json)
+cmd/                     Cobra commands: root.go (--pack, --json, community packs), monster, list, random, quiz, guess,
+                         mash, crypt, tonight, countdown, packs, progress.go (unlocks), output.go (printJSON, the
+                         error codes and the --json error object), tty.go (the terminal guard)
 internal/monsters/       Monster types, pack loader, search
 internal/monsters/packs/ Built-in data: <pack>/pack.json, <id>.json, <id>.txt art
 internal/ui/             Bubbletea screens and Lipgloss rendering

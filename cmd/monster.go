@@ -1,7 +1,6 @@
 package cmd
 
 import (
-	"fmt"
 	"strings"
 
 	"github.com/hungovercoders/terminal-of-terror/internal/crypt"
@@ -11,9 +10,8 @@ import (
 )
 
 var (
-	showAll     bool
-	noIntro     bool
-	monsterJSON bool
+	showAll bool
+	noIntro bool
 )
 
 var monsterCmd = &cobra.Command{
@@ -35,11 +33,11 @@ work too, e.g. "dracula", "wolfman", "gill-man" or "quasimodo".`,
 			if err != nil {
 				return err
 			}
-			if monsterJSON {
+			if jsonOut {
 				return printJSON(m)
 			}
 			startID = m.ID
-		} else if monsterJSON {
+		} else if jsonOut {
 			return printJSON(monsters.GetAllMonsters())
 		}
 		if err := requireTerminal("the Creature Feature", "use --json for the data, or tune in from a shell"); err != nil {
@@ -66,17 +64,16 @@ func resolveMonster(query string) (*monsters.Monster, error) {
 		for i, c := range candidates {
 			names[i] = c.Name
 		}
-		return nil, fmt.Errorf("%q could be any of: %s", query, strings.Join(names, ", "))
+		return nil, fail(codeAmbiguousMonster, "", "%q could be any of: %s", query, strings.Join(names, ", "))
 	}
 	if guess := monsters.DidYouMean(monsters.Suggest(query)); guess != "" {
-		return nil, fmt.Errorf("no monster called %q lurks here. %s (try 'terminal-of-terror list' for the roster)", query, guess)
+		return nil, fail(codeUnknownMonster, "try 'terminal-of-terror list' for the roster", "no monster called %q lurks here. %s", query, guess)
 	}
-	return nil, fmt.Errorf("no monster called %q lurks here; try 'terminal-of-terror list'", query)
+	return nil, fail(codeUnknownMonster, "try 'terminal-of-terror list'", "no monster called %q lurks here", query)
 }
 
 func init() {
 	rootCmd.AddCommand(monsterCmd)
 	monsterCmd.Flags().BoolVarP(&showAll, "all", "a", false, "Open on the gallery of every monster")
 	monsterCmd.Flags().BoolVar(&noIntro, "no-intro", false, "Skip the Channel 13 opening")
-	monsterCmd.Flags().BoolVar(&monsterJSON, "json", false, "Print the monster's data as JSON instead of opening the explorer")
 }

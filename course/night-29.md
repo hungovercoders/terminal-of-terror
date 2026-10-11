@@ -124,8 +124,17 @@ Unit tests exercise packages. Nothing so far runs the *binary*, and a binary can
           $bin countdown --date 2026-10-13 > /dev/null
           $bin tonight --date 2026-10-31 > /dev/null
           $bin mash dracula mummy --fast > /dev/null
-          $bin guess --help > /dev/null
+          $bin mash dracula mummy --json > /dev/null
+          $bin guess -n 2 --json > /dev/null
+          $bin tonight --date 2026-10-31 --json > /dev/null
+          $bin countdown --date 2026-10-13 --json > /dev/null
           $bin crypt > /dev/null
+          $bin crypt --json > /dev/null
+          # Under --json an error is one object on stderr with a stable code.
+          if $bin monster zombie-accountant --json 2>&1 | grep -q '"code":"unknown-monster"'; then :; else
+            echo "expected a JSON error with code unknown-monster"
+            exit 1
+          fi
           $bin packs new ci-pack > /dev/null
           $bin list --pack ci-pack > /dev/null
           $bin packs > /dev/null

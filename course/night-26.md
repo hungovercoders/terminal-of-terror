@@ -14,7 +14,7 @@
 
 ## One printer
 
-Every command with data to offer has a `--json` flag, and they all end up in one place, [`cmd/output.go`](../cmd/output.go):
+`--json` is a persistent flag on the root command, so every command takes it, and they all end up in one place, [`cmd/output.go`](../cmd/output.go):
 
 ```go
 // printJSON writes v to stdout as indented JSON.
@@ -28,13 +28,15 @@ func printJSON(v any) error {
 
 `any` is Go's "anything" type (an alias for `interface{}`). `json.NewEncoder` writes straight to a stream, where `json.Marshal` returns bytes for you to print; for output the encoder is the natural fit and adds the trailing newline. **`SetEscapeHTML(false)`** matters: by default Go's JSON escapes `<`, `>` and `&` as `<` and friends, for safety when JSON is embedded in HTML. In a terminal that turns "Abbott & Costello" into "Abbott & Costello", which is correct JSON and ugly. Nothing here goes into HTML, so it's off.
 
-The command side is a two-line early return, in `list`, `monster`, `random`, `quiz`, `crypt`, `packs`:
+The command side is a two-line early return, in `list`, `monster`, `random`, `quiz`, `guess`, `mash`, `crypt`, `tonight`, `countdown` and `packs`:
 
 ```go
-		if listJSON {
+		if jsonOut {
 			return printJSON(all)
 		}
 ```
+
+Errors go the same way: under `--json`, `Execute` prints one object on stderr, `{"error": {"code": "unknown-monster", "message": "...", "hint": "..."}}`, instead of Cobra's `Error:` line, and the code is what a script branches on. `fail(code, hint, format, ...)` in `output.go` builds such an error; the codes are listed there.
 
 ## Shapes for machines
 
@@ -64,7 +66,9 @@ var rootCmd = &cobra.Command{
 	PersistentPreRunE: func(cmd *cobra.Command, args []string) error {
 		loadCommunityPacks()
 		if len(packFilter) > 0 {
-			return monsters.UsePacks(packFilter)
+			if err := monsters.UsePacks(packFilter); err != nil {
+				return fail(codeBadPack, "", "%v", err)
+			}
 		}
 		return nil
 	},

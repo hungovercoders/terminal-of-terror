@@ -12,7 +12,6 @@ import (
 )
 
 var (
-	randomJSON  bool
 	randomDaily bool
 	randomDate  string
 )
@@ -38,7 +37,7 @@ and a new one tomorrow. It's perfect for your shell's startup file.`,
   echo 'terminal-of-terror random --daily' >> ~/.bashrc`,
 	Args: cobra.NoArgs,
 	RunE: func(cmd *cobra.Command, args []string) error {
-		now, err := calendar.Date(randomDate)
+		now, err := parseDate(randomDate)
 		if err != nil {
 			return err
 		}
@@ -51,7 +50,7 @@ and a new one tomorrow. It's perfect for your shell's startup file.`,
 		r := rand.New(rand.NewSource(s))
 		m, fact := monsters.RandomFact(r)
 		notes := calendar.Notes(now, monsters.GetAllMonsters())
-		if randomJSON {
+		if jsonOut {
 			return printJSON(factJSON{ID: m.ID, Monster: m.Name, Fact: fact, Notes: notes})
 		}
 		card := ui.FactCard{Title: title, Monster: m, Fact: fact, Host: host.Quip(r), Extras: notes}
@@ -62,7 +61,6 @@ and a new one tomorrow. It's perfect for your shell's startup file.`,
 
 func init() {
 	rootCmd.AddCommand(randomCmd)
-	randomCmd.Flags().BoolVar(&randomJSON, "json", false, "Output the fact as JSON")
 	randomCmd.Flags().BoolVarP(&randomDaily, "daily", "d", false, "Show the Fact of the Night (the same all day)")
 	randomCmd.Flags().StringVar(&randomDate, "date", "", "Show the Fact of the Night for another date (YYYY-MM-DD)")
 }

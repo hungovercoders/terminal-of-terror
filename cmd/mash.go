@@ -15,6 +15,21 @@ import (
 
 var mashFast bool
 
+// mashJSON is a bout as --json prints it: who fought, round by round,
+// and who won.
+type mashJSON struct {
+	A      fighterJSON  `json:"a"`
+	B      fighterJSON  `json:"b"`
+	Rounds []mash.Round `json:"rounds"`
+	Winner string       `json:"winner"` // the winner's id
+	Finale string       `json:"finale"`
+}
+
+type fighterJSON struct {
+	ID   string `json:"id"`
+	Name string `json:"name"`
+}
+
 var mashCmd = &cobra.Command{
 	Use:   "mash [monster] [monster]",
 	Short: "Pit two monsters against each other in the Monster Mash",
@@ -36,7 +51,7 @@ the dice. Leave out one or both names for random contenders.`,
 			fighters = append(fighters, *m)
 		}
 		if len(fighters) == 2 && fighters[0].ID == fighters[1].ID {
-			return fmt.Errorf("%s can't fight itself... pick two different monsters", fighters[0].Name)
+			return fail(codeUsage, "pick two different monsters", "%s can't fight itself...", fighters[0].Name)
 		}
 		// Fill empty corners from monsters not already fighting. Picking from
 		// this pool (not retrying at random) can't loop forever.
@@ -48,12 +63,19 @@ the dice. Leave out one or both names for random contenders.`,
 				}
 			}
 			if len(pool) == 0 {
-				return fmt.Errorf("the Monster Mash needs at least two different monsters")
+				return fail(codeUsage, "try a different --pack", "the Monster Mash needs at least two different monsters")
 			}
 			fighters = append(fighters, pool[r.Intn(len(pool))])
 		}
 
 		bout := mash.Fight(r, fighters[0], fighters[1])
+		if jsonOut {
+			win := bout.WinnerMonster()
+			return printJSON(mashJSON{
+				A: fighterJSON{bout.A.ID, bout.A.Name}, B: fighterJSON{bout.B.ID, bout.B.Name},
+				Rounds: bout.Rounds, Winner: win.ID, Finale: bout.Finale,
+			})
+		}
 		w := ui.TerminalWidth()
 		pause := func(d time.Duration) {
 			if !mashFast && term.IsTerminal(os.Stdout.Fd()) {

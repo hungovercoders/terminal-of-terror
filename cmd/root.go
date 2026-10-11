@@ -29,7 +29,9 @@ Start here:  terminal-of-terror monster`,
 	PersistentPreRunE: func(cmd *cobra.Command, args []string) error {
 		loadCommunityPacks()
 		if len(packFilter) > 0 {
-			return monsters.UsePacks(packFilter)
+			if err := monsters.UsePacks(packFilter); err != nil {
+				return fail(codeBadPack, "", "%v", err)
+			}
 		}
 		return nil
 	},
@@ -49,9 +51,17 @@ func loadCommunityPacks() {
 	}
 }
 
+// Execute runs the command line. An error exits 1; under --json it is
+// one JSON object on stderr rather than Cobra's "Error: ..." line.
 func Execute() {
+	if wantsJSON(os.Args[1:]) {
+		rootCmd.SilenceErrors = true
+	}
 	err := rootCmd.Execute()
 	if err != nil {
+		if wantsJSON(os.Args[1:]) {
+			writeErrorJSON(os.Stderr, err)
+		}
 		os.Exit(1)
 	}
 }
@@ -61,5 +71,10 @@ func init() {
 	// Runtime errors (like an unknown monster) are explained in the error
 	// itself, so don't bury them under the usage text.
 	rootCmd.SilenceUsage = true
+	// A bad flag is Cobra's error; give it the code a script expects.
+	rootCmd.SetFlagErrorFunc(func(_ *cobra.Command, err error) error {
+		return fail(codeBadFlag, "", "%v", err)
+	})
 	rootCmd.PersistentFlags().StringSliceVar(&packFilter, "pack", nil, "Only use monsters from these packs, e.g. --pack folklore")
+	rootCmd.PersistentFlags().BoolVar(&jsonOut, "json", false, "Print the command's data as JSON instead of drawing it (errors become a JSON object on stderr)")
 }
