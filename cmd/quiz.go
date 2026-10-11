@@ -46,6 +46,9 @@ crypt. Name a monster to be quizzed only about that one.`,
 		if quizJSON {
 			return printJSON(qs)
 		}
+		if err := requireTerminal("the Midnight Quiz", "use --json for the questions and answers, or play from a shell"); err != nil {
+			return err
+		}
 		res, err := ui.RunQuiz(qs, r)
 		if err != nil {
 			return err
