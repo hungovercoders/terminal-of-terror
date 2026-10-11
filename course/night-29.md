@@ -124,6 +124,7 @@ Unit tests exercise packages. Nothing so far runs the *binary*, and a binary can
           $bin countdown --date 2026-10-13 > /dev/null
           $bin tonight --date 2026-10-31 > /dev/null
           $bin mash dracula mummy --fast > /dev/null
+          $bin guess --help > /dev/null
           $bin crypt > /dev/null
           $bin packs new ci-pack > /dev/null
           $bin list --pack ci-pack > /dev/null

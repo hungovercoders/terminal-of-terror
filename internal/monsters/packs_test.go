@@ -121,3 +121,11 @@ func TestCRLFArtIsNormalised(t *testing.T) {
 		t.Errorf("art = %q, want CRLF stripped", art)
 	}
 }
+
+func TestUsePacksSuggestsAPack(t *testing.T) {
+	restorePacks(t)
+	err := UsePacks([]string{"folklor"})
+	if err == nil || !strings.Contains(err.Error(), "Did you mean folklore?") {
+		t.Errorf("UsePacks(folklor) = %v, want a folklore suggestion", err)
+	}
+}

@@ -19,7 +19,7 @@ func seed() int64 {
 		if n, err := strconv.ParseInt(s, 10, 64); err == nil {
 			return n
 		}
-		fmt.Fprintf(os.Stderr, "⚠️  ignoring %s=%q: it should be a whole number\n", envSeed, s)
+		fmt.Fprintf(os.Stderr, "warning: ignoring %s=%q: it should be a whole number\n", envSeed, s)
 	}
 	return time.Now().UnixNano()
 }

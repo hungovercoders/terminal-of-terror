@@ -90,3 +90,10 @@ func TestDailySeedIsStable(t *testing.T) {
 		t.Error("different days, different seeds")
 	}
 }
+
+func TestDateErrorIsReadable(t *testing.T) {
+	_, err := Date("31/10")
+	if err == nil || err.Error() != `dates look like 2026-10-31, not "31/10"` {
+		t.Errorf("Date(31/10) = %v", err)
+	}
+}

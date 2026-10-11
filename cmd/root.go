@@ -14,7 +14,7 @@ var packFilter []string
 
 var rootCmd = &cobra.Command{
 	Use:   "terminal-of-terror",
-	Short: "A terminal tool that terrifies you with universal monsters!",
+	Short: "Channel 13's Creature Feature: classic monsters, folklore, cryptids and myth in your terminal",
 	Long: `Terminal of Terror brings classic Universal monsters, creatures of world
 folklore, cryptids, literary monsters, the beasts of Greek myth and the first
 monsters ever filmed to your terminal, presented by your late-night horror
@@ -45,7 +45,7 @@ func loadCommunityPacks() {
 	loaded, errs := monsters.LoadUserPacks(filepath.Join(dir, "packs"))
 	errs = append(errs, monsters.AddPacks(loaded)...)
 	for _, e := range errs {
-		fmt.Fprintln(os.Stderr, "⚠️  community pack:", e)
+		fmt.Fprintln(os.Stderr, "warning: community pack:", e)
 	}
 }
 

@@ -186,7 +186,7 @@ func Date(s string) (time.Time, error) {
 	}
 	d, err := time.ParseInLocation("2006-01-02", s, time.Local)
 	if err != nil {
-		return time.Time{}, fmt.Errorf("dates look like 2026-10-31: %w", err)
+		return time.Time{}, fmt.Errorf("dates look like 2026-10-31, not %q", s)
 	}
 	return d.Add(21 * time.Hour), nil
 }
