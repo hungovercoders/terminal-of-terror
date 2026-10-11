@@ -74,4 +74,4 @@ release:
   name_template: "Terminal of Terror {{ .Version }}"
   footer: |
     ---
-    📺 Install with `brew install hungovercoders/tap/terminal-of-terror` or `go install github.com/hungovercoders/terminal-of-terror@v{{ .Version }}`, or download the archive for your system below.
+    📺 On macOS or Linux, install with `brew install hungovercoders/tap/terminal-of-terror`. Otherwise download the archive for your system below, or run `go install github.com/hungovercoders/terminal-of-terror@v{{ .Version }}`.

@@ -43,13 +43,13 @@
 
 ## 🔮 Summon it
 
-**Install it with [Homebrew](https://brew.sh)** on macOS or Linux:
+**On macOS or Linux, install it with [Homebrew](https://brew.sh)** (`brew upgrade` picks up new releases):
 
 ```bash
 brew install hungovercoders/tap/terminal-of-terror
 ```
 
-**Or download it:** grab the archive for your system from the [latest release](https://github.com/hungovercoders/terminal-of-terror/releases/latest). There are builds for Linux, macOS and Windows, for both Intel and ARM. Unpack it and put `terminal-of-terror` somewhere on your `PATH`.
+**On Windows, or without Homebrew, download it** from the [latest release](https://github.com/hungovercoders/terminal-of-terror/releases/latest): there are builds for Linux, macOS and Windows, on Intel and ARM. Unpack it and put `terminal-of-terror` somewhere on your `PATH`.
 
 ```bash
 # e.g. Linux on Intel/AMD, version 1.0.0
@@ -57,10 +57,15 @@ tar xzf terminal-of-terror_1.0.0_linux_amd64.tar.gz
 sudo mv terminal-of-terror /usr/local/bin/
 ```
 
-> [!NOTE]
-> On macOS, the binary isn't signed, so the first run may be blocked. Run `xattr -d com.apple.quarantine terminal-of-terror` to let it through, or install with Homebrew, which does that for you.
+```powershell
+# e.g. Windows on Intel/AMD: unpack, then add the folder to your PATH
+Expand-Archive terminal-of-terror_1.0.0_windows_amd64.zip "$env:LOCALAPPDATA\terminal-of-terror"
+```
 
-**Or install it with [Go 1.25+](https://go.dev/dl/):**
+> [!NOTE]
+> On macOS, the downloaded binary isn't signed, so the first run may be blocked. Run `xattr -d com.apple.quarantine terminal-of-terror` to let it through. Homebrew does this for you.
+
+**Or, with [Go 1.25+](https://go.dev/dl/),** install it into `$(go env GOPATH)/bin`, which needs to be on your `PATH`:
 
 ```bash
 go install github.com/hungovercoders/terminal-of-terror@latest
@@ -73,6 +78,8 @@ git clone https://github.com/hungovercoders/terminal-of-terror.git
 cd terminal-of-terror
 go build -o terminal-of-terror
 ```
+
+Check it worked with `terminal-of-terror --version`.
 
 ## 🌙 Your first night
 
