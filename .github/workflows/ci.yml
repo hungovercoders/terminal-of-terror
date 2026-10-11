@@ -81,6 +81,11 @@ jobs:
           [ "$RUNNER_OS" = "Windows" ] && bin=./terminal-of-terror.exe
           $bin --help > /dev/null
           $bin --version
+          $bin completion bash > /dev/null
+          $bin __complete monster drac | grep -q '^dracula'
+          $bin __complete quiz --pack folk | grep -q '^folklore'
+          go run ./scripts/shelldocs -out "$RUNNER_TEMP/shelldocs"
+          test -s "$RUNNER_TEMP/shelldocs/man/terminal-of-terror.1"
           $bin list > /dev/null
           $bin list --json > /dev/null
           $bin random > /dev/null

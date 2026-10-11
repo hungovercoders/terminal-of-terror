@@ -37,6 +37,9 @@ docs/demos/.frames/
 
 # GoReleaser output (.goreleaser/dist) and the generated website (dist)
 dist/
+# Man pages and shell completions, written by scripts/shelldocs for the release archives
+/man/
+/completions/
 node_modules/
 .wrangler/
 

@@ -25,7 +25,8 @@ work too, e.g. "dracula", "wolfman", "gill-man" or "quasimodo".`,
 	Example: `  terminal-of-terror monster
   terminal-of-terror monster dracula
   terminal-of-terror monster "the mummy"`,
-	Args: cobra.MaximumNArgs(1),
+	Args:              cobra.MaximumNArgs(1),
+	ValidArgsFunction: completeMonsters,
 	RunE: func(cmd *cobra.Command, args []string) error {
 		startID := ""
 		if len(args) == 1 {

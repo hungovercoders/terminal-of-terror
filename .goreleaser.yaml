@@ -8,6 +8,13 @@ project_name: terminal-of-terror
 # Not the default dist/, which is where the website is built.
 dist: .goreleaser/dist
 
+# The man pages and shell completions the archives and the cask carry, from
+# the command tree (scripts/shelldocs). The cask lists the pages one by one
+# below; a test fails when a command is added without its line.
+before:
+  hooks:
+    - go run ./scripts/shelldocs -out .
+
 builds:
   - main: .
     binary: terminal-of-terror
@@ -31,6 +38,8 @@ archives:
       - README.md
       - LICENSE
       - CHANGELOG.md
+      - man/*
+      - completions/*
 
 checksum:
   name_template: checksums.txt
@@ -61,6 +70,24 @@ homebrew_casks:
     # Prereleases (v1.1.0-rc1) go to GitHub but not to the tap.
     skip_upload: auto
     binaries: [terminal-of-terror]
+    manpages:
+      - man/terminal-of-terror-countdown.1
+      - man/terminal-of-terror-crypt-reset.1
+      - man/terminal-of-terror-crypt.1
+      - man/terminal-of-terror-guess.1
+      - man/terminal-of-terror-list.1
+      - man/terminal-of-terror-mash.1
+      - man/terminal-of-terror-monster.1
+      - man/terminal-of-terror-packs-new.1
+      - man/terminal-of-terror-packs.1
+      - man/terminal-of-terror-quiz.1
+      - man/terminal-of-terror-random.1
+      - man/terminal-of-terror-tonight.1
+      - man/terminal-of-terror.1
+    completions:
+      bash: completions/terminal-of-terror.bash
+      zsh: completions/terminal-of-terror.zsh
+      fish: completions/terminal-of-terror.fish
     # The binaries aren't notarised, so macOS quarantines what Homebrew
     # downloaded and refuses to run it. The guard makes this a no-op on Linux.
     hooks:

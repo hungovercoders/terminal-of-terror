@@ -22,7 +22,8 @@ crypt. Name a monster to be quizzed only about that one.`,
 	Example: `  terminal-of-terror quiz
   terminal-of-terror quiz --questions 5
   terminal-of-terror quiz dracula`,
-	Args: cobra.MaximumNArgs(1),
+	Args:              cobra.MaximumNArgs(1),
+	ValidArgsFunction: completeMonsters,
 	RunE: func(cmd *cobra.Command, args []string) error {
 		if quizQuestions < 1 {
 			return fail(codeBadFlag, "", "--questions must be at least 1")
