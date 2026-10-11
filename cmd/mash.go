@@ -39,7 +39,8 @@ the dice. Leave out one or both names for random contenders.`,
 	Example: `  terminal-of-terror mash
   terminal-of-terror mash dracula
   terminal-of-terror mash "wolf man" mummy`,
-	Args: cobra.MaximumNArgs(2),
+	Args:              cobra.MaximumNArgs(2),
+	ValidArgsFunction: completeMonsters,
 	RunE: func(cmd *cobra.Command, args []string) error {
 		r := newRand()
 		var fighters []monsters.Monster

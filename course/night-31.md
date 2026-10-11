@@ -87,12 +87,14 @@ archives:
       - README.md
       - LICENSE
       - CHANGELOG.md
+      - man/*
+      - completions/*
 
 changelog:
   disable: true
 ```
 
-Tarballs, except a zip for Windows, named so a user can find theirs, with the README, licence and changelog inside. GoReleaser's own changelog is disabled because the notes come from CHANGELOG.md. Night 29's fourth CI check is `goreleaser check`, which validates this file on every pull request, so a typo here is found before release day.
+Tarballs, except a zip for Windows, named so a user can find theirs, with the README, licence and changelog inside, plus a man page per command and shell completions for bash, zsh, fish and PowerShell. Those are generated, not committed: a `before.hooks` entry runs [`scripts/shelldocs`](../scripts/shelldocs/main.go), which writes them from the command tree, so a new command cannot ship without its page (the Homebrew cask lists the pages one by one, and a test checks the list). GoReleaser's own changelog is disabled because the notes come from CHANGELOG.md. Night 29's fourth CI check is `goreleaser check`, which validates this file on every pull request, so a typo here is found before release day.
 
 ## The release workflow
 

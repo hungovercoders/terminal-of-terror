@@ -4,6 +4,7 @@ import (
 	"fmt"
 	"os"
 	"path/filepath"
+	"sync"
 
 	"github.com/hungovercoders/terminal-of-terror/internal/monsters"
 	"github.com/hungovercoders/terminal-of-terror/internal/store"
@@ -34,7 +35,7 @@ Start here:  terminal-of-terror monster`,
 		// Plain output for a pipe, a log, or anyone who asked: --no-color,
 		// NO_COLOR (https://no-color.org) or stdout not being a terminal.
 		ui.SetPlain(noColor || os.Getenv("NO_COLOR") != "" || !isTerminal(os.Stdout))
-		loadCommunityPacks()
+		ensureCommunityPacks()
 		if len(packFilter) > 0 {
 			if err := monsters.UsePacks(packFilter); err != nil {
 				return fail(codeBadPack, "", "%v", err)
@@ -43,6 +44,15 @@ Start here:  terminal-of-terror monster`,
 		return nil
 	},
 }
+
+var communityOnce sync.Once
+
+// ensureCommunityPacks loads the community packs once, whether the first
+// to ask is a command or a shell completion.
+func ensureCommunityPacks() { communityOnce.Do(loadCommunityPacks) }
+
+// Root is the command tree, for the generators in scripts/.
+func Root() *cobra.Command { return rootCmd }
 
 // loadCommunityPacks adds any packs from the user's config directory,
 // warning about (but skipping) anything broken.
@@ -74,7 +84,6 @@ func Execute() {
 }
 
 func init() {
-	rootCmd.CompletionOptions.DisableDefaultCmd = true
 	// Runtime errors (like an unknown monster) are explained in the error
 	// itself, so don't bury them under the usage text.
 	rootCmd.SilenceUsage = true
@@ -85,4 +94,5 @@ func init() {
 	rootCmd.PersistentFlags().StringSliceVar(&packFilter, "pack", nil, "Only use monsters from these packs, e.g. --pack folklore")
 	rootCmd.PersistentFlags().BoolVar(&jsonOut, "json", false, "Print the command's data as JSON instead of drawing it (errors become a JSON object on stderr)")
 	rootCmd.PersistentFlags().BoolVar(&noColor, "no-color", false, "Plain output: no colour, ASCII borders, no emoji (also set by NO_COLOR, or by piping)")
+	_ = rootCmd.RegisterFlagCompletionFunc("pack", completePacks)
 }

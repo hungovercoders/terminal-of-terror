@@ -81,6 +81,15 @@ go build -o terminal-of-terror
 
 Check it worked with `terminal-of-terror --version`.
 
+**Tab completion and man pages.** Homebrew installs both. Otherwise, completion for monster names, pack ids and every flag comes from the binary:
+
+```bash
+source <(terminal-of-terror completion bash)        # or: terminal-of-terror completion zsh|fish|powershell
+terminal-of-terror monster dra<TAB>                 # dracula  Dracula
+```
+
+Put that line in your shell's startup file to keep it, and `terminal-of-terror completion --help` has the per-shell details. The release archives carry the same scripts under `completions/` and a man page per command under `man/` (`man -l man/terminal-of-terror.1`).
+
 ## 🌙 Your first night
 
 ```bash
@@ -409,6 +418,7 @@ This creates `~/.config/terminal-of-terror/packs/urban-legends/` (or your OS's e
 | `tonight` | Tonight's double feature (`--shuffle`, `--date`) |
 | `countdown` | Nights until Halloween (`--date`) |
 | `packs` | List packs; `packs new <id>` makes one |
+| `completion <shell>` | Tab completion for bash, zsh, fish or PowerShell |
 
 Every command takes `--json` and prints its data instead of drawing it: the monsters, the questions and answers, the rounds of a game, tonight's bill, the countdown, your crypt, the packs. Under `--json` an error is one object on stderr, `{"error": {"code": "unknown-monster", "message": "...", "hint": "..."}}`, with a stable code to branch on: `unknown-monster`, `ambiguous-monster`, `bad-pack`, `bad-date`, `bad-flag`, `no-terminal`, `store` or `usage`. `--pack <id>` narrows every command to one or more packs. Piped into a file or another program, the output is plain: no colour codes, ASCII borders, no emoji, so `list | grep` sees names; `--no-color` or `NO_COLOR=1` asks for the same on a terminal.
 

@@ -116,6 +116,8 @@ Unit tests exercise packages. Nothing so far runs the *binary*, and a binary can
           [ "$RUNNER_OS" = "Windows" ] && bin=./terminal-of-terror.exe
           $bin --help > /dev/null
           $bin --version
+          $bin completion bash > /dev/null
+          $bin __complete monster drac | grep -q '^dracula'
           $bin list > /dev/null
           $bin list --json > /dev/null
           $bin random --daily --date 2026-10-31 > /dev/null
