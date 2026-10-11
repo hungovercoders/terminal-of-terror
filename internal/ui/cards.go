@@ -23,7 +23,7 @@ func TerminalWidth() int {
 // RenderList draws every monster, grouped by pack.
 func RenderList(list []monsters.Monster, width int) string {
 	var b strings.Builder
-	b.WriteString(titleStyle.Render("🎃 TERMINAL OF TERROR · The Vault 🎃") + "\n")
+	b.WriteString(titleStyle.Render(pick("🎃 TERMINAL OF TERROR · The Vault 🎃", "TERMINAL OF TERROR · The Vault")) + "\n")
 
 	nameW := 0
 	for _, m := range list {
@@ -45,7 +45,7 @@ func RenderList(list []monsters.Monster, width int) string {
 		num := helpStyle.Render(fmt.Sprintf("%3d.", i+1))
 		name := lipgloss.NewStyle().Foreground(p.primary).Bold(true).Render(fmt.Sprintf("%-*s", nameW, m.Name))
 		year := helpStyle.Render(fmt.Sprintf("%-5s", shortYear(m)))
-		line := fmt.Sprintf("%s %s %s %s ", num, m.Emoji, name, year)
+		line := fmt.Sprintf("%s %s %s ", num, label(m.Emoji, name), year)
 		desc := m.Description
 		if width > 0 {
 			desc = truncate(desc, width-lipgloss.Width(line))
@@ -80,19 +80,19 @@ func (c FactCard) Render(width int) string {
 	p := paletteFor(c.Monster)
 
 	parts := []string{
-		headingStyle.Render("🎃 " + c.Title),
+		headingStyle.Render(glyph("🎃") + c.Title),
 		"",
-		lipgloss.NewStyle().Bold(true).Foreground(p.primary).Render(c.Monster.Emoji + " " + c.Monster.Name),
+		lipgloss.NewStyle().Bold(true).Foreground(p.primary).Render(label(c.Monster.Emoji, c.Monster.Name)),
 		lipgloss.NewStyle().Foreground(p.body).Render(wrap(c.Fact, inner)),
 	}
 	for _, e := range c.Extras {
-		parts = append(parts, "", metaStyle.Render(wrap(e, inner)))
+		parts = append(parts, "", metaStyle.Render(wrap(unglyph(e), inner)))
 	}
 	if c.Host != "" {
-		parts = append(parts, "", hostStyle.Render(wrap("📺 "+host.Name+": “"+c.Host+"”", inner)))
+		parts = append(parts, "", hostStyle.Render(wrap(glyph("📺")+host.Name+": “"+c.Host+"”", inner)))
 	}
 	return lipgloss.NewStyle().
-		Border(lipgloss.RoundedBorder()).
+		Border(border(lipgloss.RoundedBorder())).
 		BorderForeground(p.accent).
 		Padding(0, 1).
 		Render(strings.Join(parts, "\n")) + "\n"
@@ -101,7 +101,7 @@ func (c FactCard) Render(width int) string {
 // RenderPacks lists every pack and where community packs live.
 func RenderPacks(packs []monsters.Pack, communityDir string, width int) string {
 	var b strings.Builder
-	b.WriteString(titleStyle.Render("📦 MONSTER PACKS") + "\n")
+	b.WriteString(titleStyle.Render(glyph("📦")+"MONSTER PACKS") + "\n")
 	for _, p := range packs {
 		b.WriteString("\n" + headingStyle.Render(fmt.Sprintf("%s (%s) · %s", p.Name, p.ID, countOf(len(p.Monsters), "monster"))) + "\n")
 		if p.Description != "" {
@@ -109,7 +109,7 @@ func RenderPacks(packs []monsters.Pack, communityDir string, width int) string {
 		}
 		var names []string
 		for _, m := range p.Monsters {
-			names = append(names, m.Emoji+" "+m.Name)
+			names = append(names, label(m.Emoji, m.Name))
 		}
 		b.WriteString(factStyle.Render(joinFit(names, " · ", textWidth(width))) + "\n")
 		if p.Source != "built-in" && p.Source != "" {

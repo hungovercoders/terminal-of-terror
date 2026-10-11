@@ -410,7 +410,7 @@ This creates `~/.config/terminal-of-terror/packs/urban-legends/` (or your OS's e
 | `countdown` | Nights until Halloween (`--date`) |
 | `packs` | List packs; `packs new <id>` makes one |
 
-Every command takes `--json` and prints its data instead of drawing it: the monsters, the questions and answers, the rounds of a game, tonight's bill, the countdown, your crypt, the packs. Under `--json` an error is one object on stderr, `{"error": {"code": "unknown-monster", "message": "...", "hint": "..."}}`, with a stable code to branch on: `unknown-monster`, `ambiguous-monster`, `bad-pack`, `bad-date`, `bad-flag`, `no-terminal`, `store` or `usage`. `--pack <id>` narrows every command to one or more packs.
+Every command takes `--json` and prints its data instead of drawing it: the monsters, the questions and answers, the rounds of a game, tonight's bill, the countdown, your crypt, the packs. Under `--json` an error is one object on stderr, `{"error": {"code": "unknown-monster", "message": "...", "hint": "..."}}`, with a stable code to branch on: `unknown-monster`, `ambiguous-monster`, `bad-pack`, `bad-date`, `bad-flag`, `no-terminal`, `store` or `usage`. `--pack <id>` narrows every command to one or more packs. Piped into a file or another program, the output is plain: no colour codes, ASCII borders, no emoji, so `list | grep` sees names; `--no-color` or `NO_COLOR=1` asks for the same on a terminal.
 
 Every command also takes `--pack`, and `terminal-of-terror [command] --help` has the details.
 

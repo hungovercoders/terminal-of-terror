@@ -60,19 +60,19 @@ func RenderCountdown(now time.Time, all []monsters.Monster, width int) string {
 		parts = append(parts,
 			orange.Render(pumpkin),
 			"",
-			titleStyle.Render("🎃 HAPPY HALLOWEEN! 🎃"),
+			titleStyle.Render(pick("🎃 HAPPY HALLOWEEN! 🎃", "HAPPY HALLOWEEN!")),
 			"",
-			hostStyle.Render(wrap("📺 "+host.Name+": “It's the big night, fiends! Every monster in the vault is out tonight. Lock the doors, light the lantern and don't answer the door to anyone in a cape.”", w)),
+			hostStyle.Render(wrap(glyph("📺")+host.Name+": “It's the big night, fiends! Every monster in the vault is out tonight. Lock the doors, light the lantern and don't answer the door to anyone in a cape.”", w)),
 		)
 	} else {
 		n := calendar.NightsUntilHalloween(now)
-		label := "NIGHTS UNTIL HALLOWEEN"
+		caption := "NIGHTS UNTIL HALLOWEEN"
 		if n == 1 {
-			label = "NIGHT UNTIL HALLOWEEN"
+			caption = "NIGHT UNTIL HALLOWEEN"
 		}
 		parts = append(parts,
 			lipgloss.JoinHorizontal(lipgloss.Center, orange.Render(pumpkin), "    ",
-				lipgloss.JoinVertical(lipgloss.Left, orange.Render(bigNumber(n)), "", headingStyle.Render(label))),
+				lipgloss.JoinVertical(lipgloss.Left, orange.Render(bigNumber(n)), "", headingStyle.Render(caption))),
 			"",
 		)
 		if night, ok := calendar.NightOfFright(now); ok {
@@ -81,18 +81,18 @@ func RenderCountdown(now time.Time, all []monsters.Monster, width int) string {
 			parts = append(parts,
 				titleStyle.Render(fmt.Sprintf("31 NIGHTS OF FRIGHT · NIGHT %d", night)),
 				"",
-				lipgloss.NewStyle().Bold(true).Foreground(paletteFor(m).primary).Render("Tonight's monster: "+m.Emoji+" "+m.Name),
+				lipgloss.NewStyle().Bold(true).Foreground(paletteFor(m).primary).Render("Tonight's monster: "+label(m.Emoji, m.Name)),
 				factStyle.Render(wrap(fact, w)),
 			)
 		} else {
-			parts = append(parts, hostStyle.Render(wrap(fmt.Sprintf("📺 %s: “The 31 Nights of Fright begin on 1 October. A different monster every night until Halloween. Don't miss it!”", host.Name), w)))
+			parts = append(parts, hostStyle.Render(wrap(fmt.Sprintf("%s%s: “The 31 Nights of Fright begin on 1 October. A different monster every night until Halloween. Don't miss it!”", glyph("📺"), host.Name), w)))
 		}
 	}
 
 	moon := calendar.Moon(now)
-	parts = append(parts, "", metaStyle.Render(fmt.Sprintf("%s Tonight's moon: %s (%.0f%% lit)", moon.Emoji, moon.Name, moon.Illumination*100)))
+	parts = append(parts, "", metaStyle.Render(fmt.Sprintf("%sTonight's moon: %s (%.0f%% lit)", glyph(moon.Emoji), moon.Name, moon.Illumination*100)))
 	if a, when, ok := calendar.NextAnniversary(now, all); ok {
-		parts = append(parts, metaStyle.Render(fmt.Sprintf("🎬 Next anniversary: %s turns %d on %s", a.Monster.Film.Title, a.Years, when.Format("2 January"))))
+		parts = append(parts, metaStyle.Render(fmt.Sprintf("%sNext anniversary: %s turns %d on %s", glyph("🎬"), a.Monster.Film.Title, a.Years, when.Format("2 January"))))
 	}
 	return strings.Join(parts, "\n") + "\n"
 }
@@ -116,7 +116,7 @@ func RenderTicket(now time.Time, first, second monsters.Monster, width int) stri
 		}
 		timeCol := lipgloss.NewStyle().Width(10).Foreground(colorOrange).Bold(true).Render(at)
 		text := lipgloss.JoinVertical(lipgloss.Left,
-			lipgloss.NewStyle().Bold(true).Foreground(p.primary).Render(m.Emoji+" "+title),
+			lipgloss.NewStyle().Bold(true).Foreground(p.primary).Render(label(m.Emoji, title)),
 			helpStyle.Render(wrap(credit, inner-12)),
 		)
 		return lipgloss.JoinHorizontal(lipgloss.Top, timeCol, text)
@@ -124,9 +124,9 @@ func RenderTicket(now time.Time, first, second monsters.Monster, width int) stri
 
 	perforation := helpStyle.Render(strings.Repeat("- ", inner/2))
 	body := strings.Join([]string{
-		gold.Render("📺 " + strings.ToUpper(host.Channel) + " PRESENTS"),
+		gold.Render(glyph("📺") + strings.ToUpper(host.Channel) + " PRESENTS"),
 		titleStyle.Render("TONIGHT'S DOUBLE FEATURE"),
-		metaStyle.Render(fmt.Sprintf("%s · %s %s", now.Format("Monday 2 January 2006"), moon.Emoji, moon.Name)),
+		metaStyle.Render(fmt.Sprintf("%s · %s", now.Format("Monday 2 January 2006"), label(moon.Emoji, moon.Name))),
 		perforation,
 		feature("9:00 PM", first),
 		"",
@@ -136,7 +136,7 @@ func RenderTicket(now time.Time, first, second monsters.Monster, width int) stri
 	}, "\n")
 
 	ticket := lipgloss.NewStyle().
-		Border(lipgloss.DoubleBorder()).
+		Border(border(lipgloss.DoubleBorder())).
 		BorderForeground(colorOrange).
 		Padding(0, 2).
 		Width(inner + 4).
