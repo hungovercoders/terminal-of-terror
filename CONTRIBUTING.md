@@ -175,7 +175,7 @@ go run ./site -out dist && npx wrangler dev   # then open http://localhost:8787
 
 Releases are built by [GoReleaser](https://goreleaser.com) from `.goreleaser.yaml` whenever a `v*` tag is pushed. `.github/workflows/release.yml` runs the tests, builds archives for Linux, macOS and Windows (amd64 and arm64), publishes a GitHub release, and writes the Homebrew cask to [hungovercoders/homebrew-tap](https://github.com/hungovercoders/homebrew-tap) (prereleases such as `v1.1.0-rc1` skip the tap). The release notes are the tag's section of CHANGELOG.md.
 
-Pushing the cask needs the `HOMEBREW_TAP_GITHUB_TOKEN` repository secret: a fine-grained personal access token with contents read and write on `hungovercoders/homebrew-tap` and nothing else. The workflow fails before building anything if it's missing.
+Pushing the cask needs the `HOMEBREW_TAP_GITHUB_TOKEN` secret, shared from the hungovercoders organisation: a fine-grained personal access token with contents read and write on `hungovercoders/homebrew-tap` and nothing else. The workflow fails before building anything if it's missing.
 
 1. **Pick the version.** Follow [semantic versioning](https://semver.org): new features bump the minor version (1.1.0), fixes bump the patch (1.0.1). Stay below 2.0.0 unless you also change the module path to `github.com/hungovercoders/terminal-of-terror/v2`, which Go requires for v2 and later; otherwise `go install ...@latest` would ignore the release.
 2. **Update CHANGELOG.md.** [git-cliff](https://git-cliff.org) turns the conventional commits since the last tag into a new section:
