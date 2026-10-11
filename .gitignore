@@ -35,7 +35,7 @@ go.work.sum
 # Demo recording scratch space (docs/demos/render.sh)
 docs/demos/.frames/
 
-# GoReleaser output, and the generated website in site/dist
+# GoReleaser output (.goreleaser/dist) and the generated website (dist)
 dist/
 node_modules/
 .wrangler/

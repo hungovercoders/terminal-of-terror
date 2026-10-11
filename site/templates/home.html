@@ -33,7 +33,7 @@
   <h2><span class="h-emoji">📅</span> Tonight's Programme</h2>
   <table class="schedule">
     <tbody>
-      <tr><td class="time">9:00 PM</td><td><a href="#summon">🔮 Summon it</a> · download or install</td></tr>
+      <tr><td class="time">9:00 PM</td><td><a href="#summon">🔮 Summon it</a> · Homebrew, download or install</td></tr>
       <tr><td class="time">9:05 PM</td><td><a href="#first-night">🌙 Your first night</a> · five commands to try</td></tr>
       <tr><td class="time">9:15 PM</td><td><a href="#explorer">🧛 The Creature Feature</a> · the interactive explorer</td></tr>
       <tr><td class="time">10:00 PM</td><td><a href="#games">🧠 Games</a> · the Midnight Quiz, Guess the Monster and the Monster Mash</td></tr>
@@ -51,12 +51,18 @@
   <h2><span class="h-emoji">🔮</span> Summon it</h2>
   <div class="tabs" data-tabs>
     <div class="tab-list" role="tablist">
-      <button role="tab" aria-selected="true" data-tab="download">Download</button>
+      <button role="tab" aria-selected="true" data-tab="brew">Homebrew</button>
+      <button role="tab" aria-selected="false" data-tab="download">Download</button>
       <button role="tab" aria-selected="false" data-tab="go">go install</button>
       <button role="tab" aria-selected="false" data-tab="source">From source</button>
     </div>
-    <div class="tab-panel" data-panel="download">
-      <p>Grab the archive for your system from the <a href="{{$site.Repo}}/releases/latest">latest release</a>. There are builds for Linux, macOS and Windows, for both Intel and ARM. Unpack it and put <code>terminal-of-terror</code> somewhere on your <code>PATH</code>.</p>
+    <div class="tab-panel" data-panel="brew">
+      <p>On macOS or Linux, install it with <a href="https://brew.sh">Homebrew</a>:</p>
+      <pre class="term" data-copy><code>brew install hungovercoders/tap/terminal-of-terror</code></pre>
+      <p class="small"><code>brew upgrade terminal-of-terror</code> picks up each new release.</p>
+    </div>
+    <div class="tab-panel" data-panel="download" hidden>
+      <p>On Windows, or without Homebrew, grab the archive for your system from the <a href="{{$site.Repo}}/releases/latest">latest release</a>. There are builds for Linux, macOS and Windows, for both Intel and ARM. Unpack it and put <code>terminal-of-terror</code> somewhere on your <code>PATH</code>.</p>
       <div class="downloads" id="downloads" data-repo="hungovercoders/terminal-of-terror">
         <a class="dl" href="{{$site.Repo}}/releases/latest" data-asset="linux_amd64">🐧 Linux <small>x86-64</small></a>
         <a class="dl" href="{{$site.Repo}}/releases/latest" data-asset="linux_arm64">🐧 Linux <small>ARM</small></a>
@@ -68,11 +74,14 @@
       <p class="small" id="release-note">Latest release: <a href="{{$site.Repo}}/releases/latest" id="release-version">see GitHub</a></p>
       <pre class="term" data-copy id="tar-example"><code><span class="c"># e.g. Linux on Intel/AMD, version 1.0.0</span>
 tar xzf terminal-of-terror_1.0.0_linux_amd64.tar.gz
-sudo mv terminal-of-terror /usr/local/bin/</code></pre>
-      <p class="note">📝 On macOS, the binary isn't signed, so the first run may be blocked. Run <code>xattr -d com.apple.quarantine terminal-of-terror</code> to let it through.</p>
+sudo mv terminal-of-terror /usr/local/bin/
+
+<span class="c"># e.g. Windows on Intel/AMD (PowerShell): unpack, then add the folder to your PATH</span>
+Expand-Archive terminal-of-terror_1.0.0_windows_amd64.zip "$env:LOCALAPPDATA\terminal-of-terror"</code></pre>
+      <p class="note">📝 On macOS, the downloaded binary isn't signed, so the first run may be blocked. Run <code>xattr -d com.apple.quarantine terminal-of-terror</code> to let it through. Homebrew does this for you.</p>
     </div>
     <div class="tab-panel" data-panel="go" hidden>
-      <p>With <a href="https://go.dev/dl/">Go 1.25 or newer</a> installed:</p>
+      <p>With <a href="https://go.dev/dl/">Go 1.25 or newer</a> installed. The binary lands in <code>$(go env GOPATH)/bin</code>, which needs to be on your <code>PATH</code>:</p>
       <pre class="term" data-copy><code>go install github.com/hungovercoders/terminal-of-terror@latest</code></pre>
     </div>
     <div class="tab-panel" data-panel="source" hidden>
@@ -81,6 +90,7 @@ cd terminal-of-terror
 go build -o terminal-of-terror</code></pre>
     </div>
   </div>
+  <p class="small">Check it worked with <code>terminal-of-terror --version</code>.</p>
 </section>
 
 <section id="first-night">

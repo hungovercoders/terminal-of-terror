@@ -5,6 +5,9 @@ version: 2
 
 project_name: terminal-of-terror
 
+# Not the default dist/, which is where the website is built.
+dist: .goreleaser/dist
+
 builds:
   - main: .
     binary: terminal-of-terror
@@ -36,8 +39,39 @@ checksum:
 changelog:
   disable: true
 
+# Writes Casks/terminal-of-terror.rb to hungovercoders/homebrew-tap. Pushing
+# there needs the HOMEBREW_TAP_GITHUB_TOKEN secret, a fine-grained PAT with
+# contents write on the tap only; release.yml checks for it first. A snapshot
+# renders the cask into .goreleaser/dist/homebrew/Casks/ and never pushes.
+# goreleaser accepts the token only as a bare {{ .Env.VAR }}.
+homebrew_casks:
+  - name: terminal-of-terror
+    repository:
+      owner: hungovercoders
+      name: homebrew-tap
+      branch: main
+      token: "{{ .Env.HOMEBREW_TAP_GITHUB_TOKEN }}"
+    directory: Casks
+    commit_author:
+      name: goreleaser
+      email: bot@goreleaser.com
+    commit_msg_template: "terminal-of-terror {{ .Tag }}"
+    homepage: https://terminalofterror.com/
+    description: Channel 13's Creature Feature, live in your terminal
+    # Prereleases (v1.1.0-rc1) go to GitHub but not to the tap.
+    skip_upload: auto
+    binaries: [terminal-of-terror]
+    # The binaries aren't notarised, so macOS quarantines what Homebrew
+    # downloaded and refuses to run it. The guard makes this a no-op on Linux.
+    hooks:
+      post:
+        install: |
+          if system_command("/usr/bin/xattr", args: ["-h"]).exit_status == 0
+            system_command "/usr/bin/xattr", args: ["-dr", "com.apple.quarantine", "#{staged_path}/terminal-of-terror"]
+          end
+
 release:
   name_template: "Terminal of Terror {{ .Version }}"
   footer: |
     ---
-    📺 Install with `go install github.com/hungovercoders/terminal-of-terror@v{{ .Version }}`, or download the archive for your system below.
+    📺 On macOS or Linux, install with `brew install hungovercoders/tap/terminal-of-terror`. Otherwise download the archive for your system below, or run `go install github.com/hungovercoders/terminal-of-terror@v{{ .Version }}`.
