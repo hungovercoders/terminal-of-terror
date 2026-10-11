@@ -97,8 +97,10 @@ jobs:
           $bin crypt > /dev/null
           $bin crypt --json > /dev/null
           # Under --json an error is one object on stderr with a stable code.
-          if $bin monster zombie-accountant --json 2>&1 | grep -q '"code":"unknown-monster"'; then :; else
-            echo "expected a JSON error with code unknown-monster"
+          # (Captured first: with pipefail, the binary's exit 1 would fail the pipeline before grep could pass.)
+          err=$($bin monster zombie-accountant --json 2>&1 || true)
+          if [[ "$err" != *'"code":"unknown-monster"'* ]]; then
+            echo "expected a JSON error with code unknown-monster, got: $err"
             exit 1
           fi
           $bin packs new ci-pack > /dev/null
