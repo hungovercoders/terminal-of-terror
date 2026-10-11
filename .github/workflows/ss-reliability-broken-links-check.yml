@@ -85,13 +85,17 @@ jobs:
         with:
           mode: local
           url: ${{ github.event.inputs.url }}
-          deployment-url: ${{ github.event.deployment_status.target_url }}
+          deployment-url: ${{ github.event.deployment_status.environment_url || github.event.deployment_status.target_url }}
           check: Broken Links Check
 
       - name: Start local server
         if: steps.url.outputs.use_local == 'true'
+        # CUSTOMISE FOR YOUR APP: `npm run build` runs only when package.json
+        # has a build script; the installer's seed has none.
         run: |
-          npm run build
+          if [ -f package.json ] && node -e "process.exit(require('./package.json').scripts?.build ? 0 : 1)"; then
+            npm run build
+          fi
           slopstopper serve &
           echo "SERVER_PID=$!" >> "$GITHUB_ENV"
           for i in $(seq 1 10); do
@@ -150,13 +154,13 @@ jobs:
         run: slopstopper emit reliability:broken-links --target pr-comment --status ${{ steps.links.outcome == 'success' && 'pass' || 'fail' }} --on-pass=delete
 
       - name: Emit issue on broken-links failure (main)
-        if: failure() && github.event_name == 'push' && github.ref == 'refs/heads/main'
+        if: failure() && github.event_name != 'pull_request' && github.ref == 'refs/heads/main'
         env:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
         run: slopstopper emit reliability:broken-links --target issue
 
       - name: Close broken-links issue on recovery (main)
-        if: success() && github.event_name == 'push' && github.ref == 'refs/heads/main'
+        if: success() && github.event_name != 'pull_request' && github.ref == 'refs/heads/main'
         env:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
         run: slopstopper emit reliability:broken-links --target issue --on-pass=close

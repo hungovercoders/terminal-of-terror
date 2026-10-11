@@ -21,3 +21,4 @@ ss-reliability-seo-check.yml
 ss-reliability-llms-txt-check.yml
 ss-reliability-robots-txt-check.yml
 ss-reliability-sitemap-check.yml
+ss-cloudflare-deployed.yml

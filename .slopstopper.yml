@@ -29,7 +29,7 @@ urls:
 
 # Paths each browser check audits, comma-separated. `/` is the default.
 # Relative (no leading /) so they also work if the site is ever served
-# under a sub-path (slopstopper#401).
+# under a sub-path.
 # For a larger site, `reliability.coverage.*` in the schema reference
 # derives these from your sitemap or the PR's diff instead.
 pages:
@@ -72,7 +72,8 @@ workflows:
     - ss-reliability-api-health-check.yml
     - ss-reliability-api-latency-check.yml
     - ss-security-api-headers-check.yml
-    # The doc updater's prompt describes slopstopper itself (slopstopper#411).
+    # The doc updater needs a COPILOT_GITHUB_TOKEN secret, which this repo
+    # doesn't have.
     - ss-hygiene-doc-updater.md
     - ss-hygiene-doc-updater.lock.yml
   enabled: []
