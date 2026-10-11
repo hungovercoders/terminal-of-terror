@@ -134,6 +134,15 @@ Unit tests exercise packages. Nothing so far runs the *binary*, and a binary can
             echo "expected an error for an unknown monster"
             exit 1
           fi
+          # The screens refuse a pipe instead of hanging or spraying escape codes.
+          if $bin monster < /dev/null > /dev/null 2>&1; then
+            echo "expected the explorer to refuse to run without a terminal"
+            exit 1
+          fi
+          if $bin crypt reset < /dev/null > /dev/null 2>&1; then
+            echo "expected crypt reset to refuse without a terminal or -y"
+            exit 1
+          fi
 ```
 
 Every command, once, in a mode that needs no terminal: `--json` for the interactive ones, `--fast` for the mash, `--date` so the output doesn't depend on the day. `set -euo pipefail` makes the script stop at the first failure. The last block checks that a *bad* input fails, because a command that exits 0 on garbage is a bug too. Notice how many of Week 4's flags exist partly so this list could be written: a program that can be smoke-tested is a program that was designed to be driven.

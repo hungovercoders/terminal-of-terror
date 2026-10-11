@@ -46,6 +46,9 @@ var cryptResetCmd = &cobra.Command{
 	Args:  cobra.NoArgs,
 	RunE: func(cmd *cobra.Command, args []string) error {
 		if !resetYes {
+			if !isTerminal(os.Stdin) {
+				return fmt.Errorf("refusing to reset the crypt without a terminal to confirm on; pass -y to reset without asking")
+			}
 			fmt.Print("This releases every captured monster and forgets all your badges. Type 'yes' to confirm: ")
 			line, _ := bufio.NewReader(os.Stdin).ReadString('\n')
 			if strings.TrimSpace(strings.ToLower(line)) != "yes" {

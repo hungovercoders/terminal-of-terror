@@ -105,3 +105,12 @@ jobs:
             echo "expected an error for an unknown monster"
             exit 1
           fi
+          # The screens refuse a pipe instead of hanging or spraying escape codes.
+          if $bin monster < /dev/null > /dev/null 2>&1; then
+            echo "expected the explorer to refuse to run without a terminal"
+            exit 1
+          fi
+          if $bin crypt reset < /dev/null > /dev/null 2>&1; then
+            echo "expected crypt reset to refuse without a terminal or -y"
+            exit 1
+          fi

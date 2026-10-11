@@ -28,6 +28,9 @@ Correct guesses count towards capturing monsters for your crypt.`,
 		if len(rounds) == 0 {
 			return fmt.Errorf("Guess the Monster needs at least 3 different monsters, including one with a portrait; try a different --pack")
 		}
+		if err := requireTerminal("Guess the Monster", "play it from a shell"); err != nil {
+			return err
+		}
 		res, err := ui.RunGuess(rounds, r)
 		if err != nil {
 			return err
