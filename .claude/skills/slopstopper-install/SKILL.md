@@ -24,7 +24,7 @@ ls .slopstopper.yml .ss/.workflows-installed 2>/dev/null
 
 ## What slopstopper is, in three lines
 
-A Python CLI plus GitHub Actions workflows that run security, hygiene and reliability checks on every PR. One command to install into any repo. The `slopstopper-cli` Python package owns every check's logic. Every workflow boils down to `slopstopper run <category>:<check>` (runs the check, writes `.ss/reports/`) and `slopstopper emit <category>:<check> --target {pr-comment,issue}` (posts the result). The install lands ~28 workflows, pins the CLI via **mise** (`mise.toml`), merges devDeps into `package.json`, seeds `.slopstopper.yml`, and creates a `Taskfile.yml` if the target has none. Don't run it blind.
+A Python CLI plus GitHub Actions workflows that run security, hygiene and reliability checks on every PR. One command to install into any repo. The `slopstopper-cli` Python package owns every check's logic. Every workflow boils down to `slopstopper run <category>:<check>` (runs the check, writes `.ss/reports/`) and `slopstopper emit <category>:<check> --target {pr-comment,issue}` (posts the result). The install lands ~28 workflows, pins the CLI via **mise** (`mise.toml`), merges devDeps into `package.json` (or creates a minimal one), seeds `.slopstopper.yml`, and creates a `Taskfile.yml` if the target has none. Don't run it blind.
 
 ## The playbook
 
@@ -33,7 +33,7 @@ A Python CLI plus GitHub Actions workflows that run security, hygiene and reliab
 | **1. Pre-flight** | Decide the project-shape profile (`ui` / `api` / `library`) first, because the browser checks go red, not inert, on an API. Then twelve questions about the target: existing workflows, `docs/` shape, headers source, Node version, private-repo CI minutes, dirty tree. | `references/preflight.md` |
 | **2. Install** | The one command (`bash install.sh [--profile …]`, on a branch), what it writes and what it leaves alone, `--no-task` / `--no-hooks` / `--no-skills`. | `references/install.md` |
 | **3. What landed** | The file inventory to read back to the user: workflows per profile, `Taskfile.ss.yml`, `mise.toml` pin, the pre-push hook, these skills, the composite actions. | `references/install.md` |
-| **4. Configure** | `.slopstopper.yml`: profile, `urls.production` / `urls.preview`, page lists, the four API checks (they ship inert until `api.*` is set, so this is the highest-value step on an API repo), hygiene thresholds, Node version. | `references/configure.md` |
+| **4. Configure** | `.slopstopper.yml`: profile, `urls.production` / `urls.preview`, page lists, the four API checks (inert until `api.*` is set, so this is the highest-value step on an API repo; under `ui` they install only once the repo shows an API, so re-run the installer after setting `api.*`), hygiene thresholds, Node version. | `references/configure.md` |
 | **5. Docs layout (AGENTS.md first)** | If keeping the docs checks: `AGENTS.md` carries what most tasks need under ~2k tokens with explicit routes, `CLAUDE.md` is `@AGENTS.md`, `docs/README.md` is the map, every doc routed. Decide routes-only / build / fan-out first; paste-ready scaffolds and fixes. | `references/map-pattern.md` |
 | **6. Badges** | `slopstopper badges` → the README block. | `references/configure.md` |
 | **Refresh-only** | Diff installed workflows against upstream, re-apply the customizations the installer wipes, move the CLI pin, spot new knobs and new checks, clean up obsolete artefacts. | `references/refresh.md` |

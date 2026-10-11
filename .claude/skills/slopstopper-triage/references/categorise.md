@@ -25,10 +25,10 @@ The check's heuristic is misfiring on this codebase. Use the check's documented 
 | Secrets (gitleaks) | `.gitleaks.toml` `[allowlist]` block | Path or regex |
 | SAST (Semgrep) | `# nosemgrep: <rule-id>` inline, or `.semgrepignore` for path-scoped | Inline or path |
 | DAST (OWASP ZAP), CSP findings | `docs/security/CSP_EXCEPTIONS.md` `## Exceptions` → `### /path` heading (glob patterns supported: `/*`, `/blog/*`) | Per-path |
-| DAST, other rule false positives | `.zap/rules.tsv` → `<plugin-id>\tIGNORE\t# why` | Per-rule, site-wide |
+| DAST, other rule false positives | `.zap/rules.tsv` → `<alert-ref>\tIGNORE\t# why` (`10055-13`), or a bare plugin id for every alert of that plugin | Per-alert or per-plugin, site-wide |
 | Accessibility (axe-core) | `disabledRules` in the spec, or scope the spec to exclude the offending selector | Per-rule or per-element |
 | Vulnerability (Trivy) | `.trivyignore` with the CVE ID + a `# why` line | Per-CVE |
-| Complexity (lizard) | Refactor the function, or raise `hygiene.complexity.max_ccn` in `.slopstopper.yml` (default 15) with a `# why` note | Per-repo (the ceiling is global) |
+| Complexity (lizard) | Refactor the function, or raise `hygiene.complexity.max_ccn` in `.slopstopper.yml` (default 15) with a `# why` note. A flagged file that is generated or vendored → `hygiene.complexity.exclude` | Per-repo (the ceiling is global) |
 
 Each suppression is a documented gate exception, not a way to quiet findings that should be fixed. The PR that adds it is the place reviewers catch it.
 
@@ -44,14 +44,16 @@ Config-driven knobs (no file edit needed beyond `.slopstopper.yml`):
 | `hygiene:entry-files` | `hygiene.entry_files.max_tokens` / `.readme_max_tokens` / `.map_max_tokens` / `.map_path` / `.require_map_pointer` / `.require_explicit_routes` / `.require_claude_include` | 2000 / 600 / 1000 / `docs/README.md` / true / true / true |
 | `hygiene:docs-accuracy` | `hygiene.docs_accuracy.extra_paths` | `[]`, so only `docs/` + the root entry files are scanned |
 | `hygiene:docs-structure` | `hygiene.docs_structure.require_routed_docs` / `.max_route_depth` / `.max_doc_lines` | `true`, so every doc has an explicit route / 3 / 300 |
+| all three docs checks | `hygiene.docs.exclude` (globs) | `[docs/archive/**]`; for non-doc content under `docs/` such as a course, rather than raising the caps |
 | `reliability:smoke` | `pages.smoke`, `smoke.og_image_path` | `/`, `/og-image.png` |
 | `reliability:e2e` | `pages.e2e`, `e2e.max_links` | `/`, `25` |
 | `reliability:{accessibility,seo,broken_links}` | `pages.<check>`, `reliability.coverage.<event>` | `/`, hand-list mode |
 | `hygiene:csp-exceptions` | `headers.source`, `headers.format` | unset (graceful skip) |
+| `hygiene:complexity` | `hygiene.complexity.max_ccn` / `.exclude` | 15 / `[]` (tests and gitignored paths are skipped without it) |
+| `reliability:cwv` | `reliability.cwv.public_report` (report hosting, not a threshold; budgets live in `.ss/lighthouserc.json`) | `false`, so reports stay local |
 
 Tunings that are NOT yet config-driven (require code/file edits):
 
-- `docs/hygiene/README.md` complexity config, the lizard cyclomatic complexity caps.
 - `.ss/lighthouserc.json` (or the bundled `cli/slopstopper/data/lighthouserc.json`) holds the Core Web Vitals thresholds. Edit the `.ss/` copy if you want adopter-side persistence; the CLI prefers it over the package-data fallback.
 
 Tuning is a real decision. When you raise a threshold, leave a `# why` comment in `.slopstopper.yml` so the next maintainer doesn't roll it back. Don't tune to silence noise; tune to match a deliberate design decision.

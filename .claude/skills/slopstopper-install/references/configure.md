@@ -4,7 +4,7 @@
 
 ## Step 4: Post-install configuration
 
-The installer seeds a `.slopstopper.yml` config file at the repo root (if one doesn't exist yet) plus sensible defaults for `.github/labeler.yml`, `public/_headers` (commented baseline), `.zap/rules.tsv` (common false positives commented), and appends a `.gitignore` block for `.ss/reports/` and friends. None of those overwrite existing files. The rest of post-install is editing `.slopstopper.yml` to point the dynamic checks at the right URLs and tuning a few knobs.
+The installer seeds a `.slopstopper.yml` config file at the repo root (if one doesn't exist yet) plus sensible defaults for `.github/labeler.yml`, `public/_headers` (commented baseline), `.zap/rules.tsv` (common false positives commented), and appends a `.gitignore` block for `.ss/reports/`, `node_modules/` and friends. None of those overwrite existing files, except that the `.gitignore` block between its markers is refreshed on every run. The rest of post-install is editing `.slopstopper.yml` to point the dynamic checks at the right URLs and tuning a few knobs.
 
 ### Confirm the profile
 
@@ -17,7 +17,7 @@ If these disagree, decide which is right and edit `profile:` in `.slopstopper.ym
 
 ### Configure the API checks (if the target serves an API)
 
-All four API checks ship inert and **stay inert until configured**. They exit 0 with a note, so they'll never fail a PR on their own, and they'll also never catch anything. If the target has an API, wire them up here; it's the single highest-value post-install step on an `api`-profile repo:
+All four API checks ship inert and **stay inert until configured**. They exit 0 with a note, so they'll never fail a PR on their own, and they'll also never catch anything. If the target has an API, wire them up here; it's the single highest-value post-install step on an `api`-profile repo. Under `ui` the installer leaves them out when it finds no spec, server framework or `api.*` key, so after setting `api.*` here, re-run `install.sh` to add the workflows:
 
 ```yaml
 # .slopstopper.yml
@@ -60,7 +60,7 @@ A first install seeds a short starter with each key commented. Fill these in. A 
 ```yaml
 headers:
   source: public/_headers       # or worker/headers.json, or null to skip the check
-  format: cloudflare-text       # or json, or auto
+  format: cloudflare-text       # or json, meta (source = built HTML root, for a <meta> CSP), or auto
 
 urls:
   production: https://your-site.example.com
@@ -86,10 +86,14 @@ workflows:
 
 Every hygiene check reads its own thresholds from `.slopstopper.yml`, falling back to a sensible default when unset. None are in the starter, so add the ones you need. You don't need to touch these to get started, but if a check fires for a reason that's actually fine (e.g. your repo intentionally has 30 docs pages, or a topic doc is a reference table that cannot split), tune the cap rather than dropping content. The entry-file budgets are the exception: an `AGENTS.md` past ~2,000 tokens is where agents start dropping rules, so route the overflow rather than raising it. Don't tune to silence noise; tune to match a deliberate design decision.
 
+If `docs/` also holds content that isn't agent or contributor documentation (a course, tutorials rendered onto a site), exclude it rather than raising the caps: `hygiene.docs.exclude` takes it out of all three docs checks.
+
 ```yaml
 hygiene:
+  docs:
+    exclude: [docs/archive/**]   # (default) skipped by docs-size, docs-structure, docs-accuracy; setting it replaces the default
   docs_size:
-    max_total_size_kb: 150   # (default) total .md under docs/ (excl. archive/)
+    max_total_size_kb: 150   # (default) total .md under docs/ (excl. hygiene.docs.exclude)
     max_file_size_kb: 20     # (default) largest single doc
     max_files: 25            # (default) total doc count
   entry_files:
@@ -100,6 +104,7 @@ hygiene:
     require_claude_include: true    # (default) CLAUDE.md is exactly `@AGENTS.md`
   complexity:
     max_ccn: 15              # (default) CCN ceiling; a function above this fails
+    exclude: []              # extra globs to skip; test files and gitignored paths already are
   docs_accuracy:
     extra_paths: []          # (default) globs outside docs/ to scan too, e.g. [app/*.html, .claude/skills/**/*.md]
   docs_structure:

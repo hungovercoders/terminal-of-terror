@@ -1,10 +1,14 @@
 name: SlopStopper · DAST Analysis
 
 # Runs OWASP ZAP baseline scan against a running app and gates on
-# alerts not declared in docs/security/CSP_EXCEPTIONS.md. Triggers:
-# PR, push to main. Emits a rolling PR comment (with the
-# swallowed-CSP preamble inline) and a main-branch tracking issue on
-# real findings.
+# alerts neither .zap/rules.tsv ignores nor docs/security/CSP_EXCEPTIONS.md
+# documents. PRs and pushes
+# to main scan a local build (fast, no secrets). The deployed site is
+# scanned after a successful deployment, daily against urls.production,
+# and on a manual run given a `url`, because headers set at the edge
+# (CSP, HSTS, framing from a CDN or _headers) only exist there. Emits a
+# rolling PR comment (with the swallowed-CSP preamble inline) and, on
+# every non-PR run on main, opens or closes the tracking issue.
 # Docs: docs/security/README.md.
 
 on:
@@ -12,7 +16,16 @@ on:
     branches: [ main ]
   push:
     branches: [ main ]
+  deployment_status:
+  schedule:
+    - cron: '30 7 * * *'
   workflow_dispatch:
+    inputs:
+      url:
+        description: 'URL to scan (leave blank to scan a local build)'
+        required: false
+        default: ''
+        type: string
 
 permissions:
   contents: read
@@ -22,6 +35,9 @@ permissions:
 jobs:
   dast:
     name: Dynamic Application Security Testing with OWASP ZAP
+    if: |
+      github.event_name != 'deployment_status' ||
+      github.event.deployment_status.state == 'success'
     runs-on: ubuntu-latest
 
     steps:
@@ -34,8 +50,27 @@ jobs:
         # composite action; install.sh copies it in next to the workflows.
         uses: ./.github/actions/ss-setup
 
+      # PRs, pushes and a blank dispatch scan a local build instead. A
+      # schedule with urls.production unset skips with a notice.
+      - name: Resolve the deployed URL (deployment, schedule, dispatch with a url)
+        id: remote
+        uses: ./.github/actions/ss-resolve-url
+        if: >-
+          github.event_name == 'deployment_status' ||
+          github.event_name == 'schedule' ||
+          (github.event_name == 'workflow_dispatch' && inputs.url != '')
+        with:
+          mode: skip
+          url: ${{ inputs.url }}
+          deployment-url: ${{ github.event.deployment_status.environment_url || github.event.deployment_status.target_url }}
+          check: DAST
+
       - name: Decide scan mode
         id: mode
+        env:
+          REMOTE: ${{ steps.remote.outcome }}
+          REMOTE_URL: ${{ steps.remote.outputs.url }}
+          REMOTE_SKIP: ${{ steps.remote.outputs.skip }}
         # The scan takes one of two paths. With `api.openapi.spec` set the
         # target is a deployed API and ZAP reads the spec. There is nothing to
         # build or serve, and guessing an API's start command would be worse
@@ -43,6 +78,16 @@ jobs:
         # which builds the site, serves it on :8080 and spiders it.
         run: |
           SPEC="$(slopstopper config get api.openapi.spec)"
+          if [ "$REMOTE" = "success" ]; then
+            if [ "$REMOTE_SKIP" = "true" ]; then
+              echo "mode=skip" >> "$GITHUB_OUTPUT"
+            else
+              # A deployed site, or a deployed API when a spec is set.
+              echo "mode=$([ -n "$SPEC" ] && echo api || echo deployed)" >> "$GITHUB_OUTPUT"
+              echo "url=$REMOTE_URL" >> "$GITHUB_OUTPUT"
+            fi
+            exit 0
+          fi
           if [ -z "$SPEC" ]; then
             echo "mode=site" >> "$GITHUB_OUTPUT"
             echo "url=http://localhost:8080" >> "$GITHUB_OUTPUT"
@@ -75,8 +120,12 @@ jobs:
 
       - name: Start local server
         if: steps.mode.outputs.mode == 'site'
+        # `npm run build` runs only when package.json has a build script;
+        # the installer's seed has none.
         run: |
-          npm run build
+          if [ -f package.json ] && node -e "process.exit(require('./package.json').scripts?.build ? 0 : 1)"; then
+            npm run build
+          fi
           slopstopper serve &
           echo "SERVER_PID=$!" >> $GITHUB_ENV
           for i in $(seq 1 10); do
@@ -117,14 +166,14 @@ jobs:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
         run: slopstopper emit security:dast --target pr-comment --status ${{ steps.dast.outcome == 'success' && 'pass' || 'fail' }} --on-pass=delete
 
-      - name: Emit issue on main (if blocking alerts)
-        if: github.event_name == 'push' && github.ref == 'refs/heads/main' && steps.dast.outcome == 'failure'
+      - name: Emit issue on main (non-PR runs with blocking alerts)
+        if: github.event_name != 'pull_request' && github.ref == 'refs/heads/main' && steps.mode.outputs.mode != 'skip' && steps.dast.outcome == 'failure'
         env:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
         run: slopstopper emit security:dast --target issue
 
-      - name: Close issue on main when clean
-        if: github.event_name == 'push' && github.ref == 'refs/heads/main' && steps.dast.outcome == 'success'
+      - name: Close issue on main when clean (non-PR runs)
+        if: github.event_name != 'pull_request' && github.ref == 'refs/heads/main' && steps.mode.outputs.mode != 'skip' && steps.dast.outcome == 'success'
         env:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
         run: slopstopper emit security:dast --target issue --on-pass=close
