@@ -16,6 +16,8 @@
 [VHS](https://github.com/charmbracelet/vhs), from the same people as Bubble Tea, records a terminal from a *tape*: a text file of settings and keystrokes. [`docs/demos/quiz.tape`](../docs/demos/quiz.tape):
 
 ```
+# Recorded by docs/demos/render.sh, which fills in the theme from theme.json.
+# Don't run vhs on this file directly.
 Output docs/demos/.frames/quiz/
 Set Shell bash
 Set FontSize 15
@@ -80,7 +82,7 @@ Two workarounds live in the script, with comments saying why:
 #    also lets us keep GIFs small (15fps, diffed palette).
 ```
 
-VHS records through ttyd, a terminal in a browser, and that browser terminal measured emoji as one column, so every card border was one column off (Night 9's terrifying fact, arriving on cue). The fix is a shell script named `ttyd` earlier on the `PATH` that adds `-t unicodeVersion=11` and hands over to the real one. The script doesn't patch VHS or ttyd; it wraps them, and the wrapper is nine lines.
+VHS records through ttyd, a terminal in a browser, and that browser terminal measured emoji as one column, so every card border was one column off (Night 9's terrifying fact, arriving on cue). The fix is a shell script named `ttyd` earlier on the `PATH` that adds `-t unicodeVersion=11` and hands over to the real one. The script doesn't patch VHS or ttyd; it wraps them, and the wrapper is two lines, a shebang and an `exec`.
 
 The encoding: VHS is asked for raw frames (`Output` is a directory), and ffmpeg makes the GIF: overlay the cursor frames, pad with the background colour, drop to 15 frames a second, and build a palette from the *differences* between frames. The hero GIF came out under 2 MB, where VHS's default was several times that. A README with a 10 MB GIF at the top is a README nobody scrolls.
 
@@ -104,7 +106,7 @@ Some habits from that rewrite that apply to any README:
 
 - **Show before tell.** The GIF is above the fold; the feature list is below it.
 - **The first commands are copy-pasteable** and each has a comment saying what it does.
-- **Alt text describes the picture** for screen readers and for the day the image doesn't load: "Guess the Monster: a portrait slowly clears from the fog as clues appear".
+- **Alt text describes the picture** for screen readers and for the day the image doesn't load: "Guess the Monster: the Yeti's portrait slowly clears from the fog as clues appear".
 - **Callouts** (`> [!TIP]`, `> [!WARNING]`) for the one thing per section a reader must not miss.
 - **Keep the voice.** The README is hosted by Count Cathode too. A project's tone is part of its interface.
 
@@ -116,11 +118,11 @@ If you have `vhs`, `ffmpeg` and ttyd 1.7.7 or newer:
 docs/demos/render.sh quiz
 ```
 
-and look at `docs/assets/quiz.gif`. Without them, read `render.sh` top to bottom; it's 130 lines and every decision has a comment.
+and look at `docs/assets/quiz.gif`. Without them, read `render.sh` top to bottom; it's under 140 lines and every decision has a comment.
 
 ## Try it
 
-- Write a tape for `mash dracula mummy --fast`. Add it to `render.sh`'s list (it's a GIF, not a still). Where does its `Sleep` need to be long?
+- Write a tape for `countdown --date 2026-10-30`, the night the caption goes singular. `render.sh` records every `*.tape` in the folder, so the only decision is whether the name goes in its `stills` list: a countdown is one screen, so a still; a game, like `mash.tape`, is a GIF. Read `mash.tape` for where a game's `Sleep` needs to be long.
 - Change `DEMO_SEED` and re-record the quiz. Watch the tape answer the wrong question.
 - Reduce `fps=15` to 8 and compare the file size and the feel.
 

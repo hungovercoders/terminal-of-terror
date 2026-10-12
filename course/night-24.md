@@ -27,6 +27,8 @@ const synodicMonth = 29.530588853
 // knownNewMoon is a reference new moon: 6 January 2000, 18:14 UTC.
 var knownNewMoon = time.Date(2000, 1, 6, 18, 14, 0, 0, time.UTC)
 
+...
+
 // Moon returns the moon's phase at t, using the mean lunar month. It is
 // accurate to within about a day, which is plenty for werewolves.
 func Moon(t time.Time) MoonPhase {
@@ -74,6 +76,8 @@ func NightsUntilHalloween(t time.Time) int {
 	}
 	return int(h.Sub(today).Hours()/24 + 0.5)
 }
+
+...
 
 // dateOnly strips the time of day, keeping the local calendar date.
 func dateOnly(t time.Time) time.Time {
@@ -158,13 +162,13 @@ func Date(s string) (time.Time, error) {
 	}
 	d, err := time.ParseInLocation("2006-01-02", s, time.Local)
 	if err != nil {
-		return time.Time{}, fmt.Errorf("dates look like 2026-10-31: %w", err)
+		return time.Time{}, fmt.Errorf("dates look like 2026-10-31, not %q", s)
 	}
 	return d.Add(21 * time.Hour), nil
 }
 ```
 
-The one place the package calls `time.Now()`, and it's the *edge*: the function that turns a `--date` flag into a `time.Time`, used by every command with the flag. "9pm local" is a choice: `--date 2026-10-31` should mean Halloween *night*, when the moon's up and the Night Owl badge is out of reach. The error message shows the format instead of Go's own `parsing time "31/10/2026": ...`, which is accurate and unhelpful.
+The one place the package calls `time.Now()`, and it's the *edge*: the function that turns a `--date` flag into a `time.Time`, used by every command with the flag. "9pm local" is a choice: `--date 2026-10-31` should mean Halloween *night*, when the moon's up and the Night Owl badge is out of reach. The error message shows the format and what was typed instead of Go's own `parsing time "31/10/2026": ...`, which is accurate and unhelpful, and `TestDateErrorIsReadable` pins the wording so nobody quietly puts Go's back. The commands don't call `Date` directly: `parseDate` in `cmd/seed.go` wraps the error with `fail(codeBadDate, ...)`, so a script running under `--json` gets the `bad-date` code Night 26 describes.
 
 ## Run it
 

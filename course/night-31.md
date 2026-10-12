@@ -6,8 +6,8 @@
 - Semantic versioning, and the module-path rule for v2
 - Where a version number comes from: ldflags, build info, or "dev"
 - A changelog people can read
-- GoReleaser: one config, six binaries
-- A release workflow that refuses to publish without notes
+- GoReleaser: one config, six binaries and a Homebrew cask
+- A release workflow that refuses to publish without notes, or without the tap's token
 - Tagging, and why a tag is not a commit
 
 **Where we are:** everything works, everything is tested, everything is pictured. Ship it.
@@ -51,7 +51,7 @@ Three sources, one function, and the comment explains which build gets which. Ve
 
 ## The changelog
 
-[`CHANGELOG.md`](../CHANGELOG.md) follows [Keep a Changelog](https://keepachangelog.com): a section per version, newest first, headed `## [1.0.0] - 2026-09-24`, with what changed grouped for the *reader*, not the committer. The 1.0.0 section is grouped as The Creature Feature, Games and Nightly rituals, with a quote from the host, because that's how a player thinks of the program. `git cliff` can draft a section from the conventional commit messages you've been writing since Night 1 (`feat:`, `fix:`, `docs:`); then you edit it until it reads well. A generated changelog is a starting point, not a changelog.
+[`CHANGELOG.md`](../CHANGELOG.md) follows [Keep a Changelog](https://keepachangelog.com): a section per version, newest first, headed `## [1.0.0] - 2026-10-11`, with what changed grouped for the *reader*, not the committer. The 1.0.0 section opens with a quote from the host and is grouped under seven headings: The Creature Feature, Games, Nightly rituals, Monsters, Community packs, For scripting and contributors, and Beyond the terminal, because that's how a player thinks of the program. `git cliff` can draft a section from the conventional commit messages you've been writing since Night 1 (`feat:`, `fix:`, `docs:`); then you edit it until it reads well. A generated changelog is a starting point, not a changelog.
 
 The changelog is also *enforced*: the release workflow reads the section for the tag and refuses to publish without one.
 
@@ -90,11 +90,36 @@ archives:
       - man/*
       - completions/*
 
+...
+
 changelog:
   disable: true
 ```
 
-Tarballs, except a zip for Windows, named so a user can find theirs, with the README, licence and changelog inside, plus a man page per command and shell completions for bash, zsh, fish and PowerShell. Those are generated, not committed: a `before.hooks` entry runs [`scripts/shelldocs`](../scripts/shelldocs/main.go), which writes them from the command tree, so a new command cannot ship without its page (the Homebrew cask lists the pages one by one, and a test checks the list). GoReleaser's own changelog is disabled because the notes come from CHANGELOG.md. Night 29's fourth CI check is `goreleaser check`, which validates this file on every pull request, so a typo here is found before release day.
+Tarballs, except a zip for Windows, named so a user can find theirs, with the README, licence and changelog inside, plus a man page per command and shell completions for bash, zsh, fish and PowerShell. Those are generated, not committed: a `before.hooks` entry runs [`scripts/shelldocs`](../scripts/shelldocs/main.go), which writes them from the command tree, so a new command cannot ship without its page. GoReleaser's own changelog is disabled because the notes come from CHANGELOG.md. Night 29's fourth CI check is `goreleaser check`, which validates this file on every pull request, so a typo here is found before release day.
+
+The same file publishes a **Homebrew cask**, so a Mac or Linux user can `brew install hungovercoders/tap/terminal-of-terror`:
+
+```yaml
+homebrew_casks:
+  - name: terminal-of-terror
+    repository:
+      owner: hungovercoders
+      name: homebrew-tap
+      branch: main
+      token: "{{ .Env.HOMEBREW_TAP_GITHUB_TOKEN }}"
+    directory: Casks
+    ...
+    # Prereleases (v1.1.0-rc1) go to GitHub but not to the tap.
+    skip_upload: auto
+    binaries: [terminal-of-terror]
+    manpages:
+      - man/terminal-of-terror-countdown.1
+      - man/terminal-of-terror-crypt-reset.1
+      ...
+```
+
+After the archives are uploaded, GoReleaser writes `Casks/terminal-of-terror.rb` into the tap repository, pointing at them. The cask lists the man pages one by one, where the archive used `man/*`, so `TestCaskListsEveryManPage` in [`scripts/shelldocs/main_test.go`](../scripts/shelldocs/main_test.go) walks the command tree and fails when a command is added without its line. Pushing to another repository needs more than the workflow's own token, which is the next section's first step.
 
 ## The release workflow
 
@@ -109,7 +134,7 @@ permissions:
   contents: write
 ```
 
-`contents: write`, because this one *does* publish. Then the tests, then the notes:
+`contents: write`, because this one *does* publish. Its first step checks that the `HOMEBREW_TAP_GITHUB_TOKEN` secret is set, a fine-grained personal access token that can write to the tap and nothing else, and fails before anything is built or uploaded: a missing token found at the end would leave a GitHub release published and the cask unpublished. Then a checkout with `fetch-depth: 0`, because GoReleaser reads the tags; then the tests, then the notes:
 
 ```yaml
       - name: Release notes from CHANGELOG.md
@@ -126,7 +151,7 @@ permissions:
           fi
 ```
 
-An `awk` program that prints the lines between this version's heading and the next one. If that's empty, the release stops with an error that says what to do, and nothing is published: no release with no notes. Then `goreleaser release --clean --release-notes notes.md` does the rest with the repository's own token.
+An `awk` program that prints the lines between this version's heading and the next one. If that's empty, the release stops with an error that says what to do, and nothing is published: no release with no notes. Then `goreleaser release --clean --release-notes notes.md` does the rest with two tokens in its environment: the repository's own `GITHUB_TOKEN` for the release, and `HOMEBREW_TAP_GITHUB_TOKEN` for the cask.
 
 ## Tagging
 
@@ -139,7 +164,7 @@ The CONTRIBUTING.md release checklist, in full:
 3. Commit (`chore(release): prepare for v1.1.0`) and merge to `main`.
 4. `git tag v1.1.0 && git push origin v1.1.0` from an up-to-date `main`.
 
-Try it without publishing: `goreleaser release --snapshot --clean` builds everything into `dist/` and touches nothing on GitHub.
+Try it without publishing: `goreleaser release --snapshot --clean` builds everything into `.goreleaser/dist/`, not GoReleaser's usual `dist/`, because that is where the website builds; and it touches nothing on GitHub, rendering the cask into `.goreleaser/dist/homebrew/Casks/` instead of pushing it.
 
 ## Run it
 
@@ -158,7 +183,7 @@ Watch the static. Read the greeting. It's yours.
 
 ## Try it
 
-- Run `goreleaser release --snapshot --clean` and look in `dist/`. Unpack the Windows zip on a Mac. It's just files.
+- Run `goreleaser release --snapshot --clean` and look in `.goreleaser/dist/`. Unpack the Windows zip on a Mac. It's just files. Then read the cask it rendered.
 - Change `formats: [tar.gz]` to add `zip` for everyone. Some users prefer it.
 - Make the changelog check *also* require a date in the heading.
 

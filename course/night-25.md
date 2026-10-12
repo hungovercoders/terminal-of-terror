@@ -37,7 +37,7 @@ The card grew two optional fields since Night 10:
 
 ```go
 type FactCard struct {
-	Title   string
+	Title   string // e.g. "RANDOM TERROR FACT"
 	Monster monsters.Monster
 	Fact    string
 	Host    string   // host's comment; empty for none
@@ -83,14 +83,14 @@ The README suggests `terminal-of-terror random --daily` in a shell startup file,
 		}
 		timeCol := lipgloss.NewStyle().Width(10).Foreground(colorOrange).Bold(true).Render(at)
 		text := lipgloss.JoinVertical(lipgloss.Left,
-			lipgloss.NewStyle().Bold(true).Foreground(p.primary).Render(m.Emoji+" "+title),
+			lipgloss.NewStyle().Bold(true).Foreground(p.primary).Render(label(m.Emoji, title)),
 			helpStyle.Render(wrap(credit, inner-12)),
 		)
 		return lipgloss.JoinHorizontal(lipgloss.Top, timeCol, text)
 	}
 ```
 
-A film gets its title, year, director and star; a folklore monster gets "A tale from Slavic folklore". Then the body is a list of parts, with a "perforation" of dashes, in a `DoubleBorder` with a fixed `Width`, so the ticket is the same shape whatever's printed on it. `JoinVertical` stacks; `JoinHorizontal` places side by side; nesting them is how every non-trivial terminal layout is built.
+A film gets its title, year, director and star; a folklore monster gets "A tale from Slavic folklore". `label` (in [`internal/ui/plain.go`](../internal/ui/plain.go)) puts the emoji before the title, or drops it when the output is plain, which Night 26 covers. Then the body is a list of parts, with a "perforation" of dashes, in a `DoubleBorder` with a fixed `Width`, so the ticket is the same shape whatever's printed on it. `JoinVertical` stacks; `JoinHorizontal` places side by side; nesting them is how every non-trivial terminal layout is built.
 
 ## The countdown
 
@@ -110,11 +110,17 @@ The comment is the design note: two rows were tried, 3 and 8 were indistinguisha
 `RenderCountdown` puts the pumpkin beside the number:
 
 ```go
+		n := calendar.NightsUntilHalloween(now)
+		caption := "NIGHTS UNTIL HALLOWEEN"
+		if n == 1 {
+			caption = "NIGHT UNTIL HALLOWEEN"
+		}
+		parts = append(parts,
 			lipgloss.JoinHorizontal(lipgloss.Center, orange.Render(pumpkin), "    ",
-				lipgloss.JoinVertical(lipgloss.Left, orange.Render(bigNumber(n)), "", headingStyle.Render(label))),
+				lipgloss.JoinVertical(lipgloss.Left, orange.Render(bigNumber(n)), "", headingStyle.Render(caption))),
 ```
 
-`lipgloss.Center` as the alignment for `JoinHorizontal` centres the shorter block *vertically* against the taller: the number floats in the middle of the pumpkin's height. And the pumpkin itself is a raw string literal:
+The caption goes singular on 30 October, the kind of grammar Night 23 taught the fight. `lipgloss.Center` as the alignment for `JoinHorizontal` centres the shorter block *vertically* against the taller: the number floats in the middle of the pumpkin's height. And the pumpkin itself is a raw string literal:
 
 ```go
 const pumpkin = `         )
