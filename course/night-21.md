@@ -20,6 +20,8 @@ A program should not scatter files around the home directory. Every operating sy
 // EnvHome overrides where progress and community packs are kept.
 const EnvHome = "TERMINAL_OF_TERROR_HOME"
 
+...
+
 // Dir is the app's config directory: $TERMINAL_OF_TERROR_HOME if set,
 // otherwise <user config dir>/terminal-of-terror.
 func Dir() (string, error) {
@@ -138,13 +140,14 @@ Every failure path removes the temp file. It's four lines of cleanup, and it's t
 func record(o crypt.Outcome) {
 	p, err := store.Load()
 	if err != nil {
-		fmt.Fprintf(os.Stderr, "⚠️  Couldn't read your progress, so this session won't be saved: %v\n", err)
+		fmt.Fprintf(os.Stderr, "warning: couldn't read your progress, so this session won't be saved: %v\n", err)
 		return
 	}
 	...
+	// Badges like Master of the Crypt count every monster, not just a --pack selection.
 	u := crypt.Apply(p, monsters.EveryMonster(), o)
 	if err := p.Save(); err != nil {
-		fmt.Fprintf(os.Stderr, "⚠️  Couldn't save your progress: %v\n", err)
+		fmt.Fprintf(os.Stderr, "warning: couldn't save your progress: %v\n", err)
 		return
 	}
 	if s := ui.RenderUnlocks(u); s != "" {
@@ -153,7 +156,7 @@ func record(o crypt.Outcome) {
 }
 ```
 
-A design decision in the comment: a problem with the save file prints a warning to **stderr** and the game carries on. You just played a quiz; the program refusing to show your score because a directory wasn't writable would be the wrong priority. `os.Stderr` rather than `Println` because warnings aren't output: `quiz --json > questions.json` should still produce clean JSON. Tomorrow's `crypt.Apply` is what turns an outcome into captures and badges.
+A design decision in the comment: a problem with the save file prints a warning to **stderr** and the game carries on. You just played a quiz; the program refusing to show your score because a directory wasn't writable would be the wrong priority. `os.Stderr` rather than `Println` because warnings aren't output: `quiz --json > questions.json` should still produce clean JSON. The warnings are plain `warning:` lines, no icon, so they read the same in a log file or a pipe (Night 26). Tomorrow's `crypt.Apply` is what turns an outcome into captures and badges, and it gets `monsters.EveryMonster()` rather than `GetAllMonsters()`: the comment says why. A badge for capturing every monster has to count every monster, even when the player is running with `--pack`.
 
 ## Run it
 

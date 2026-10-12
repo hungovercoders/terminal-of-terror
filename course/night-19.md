@@ -19,9 +19,9 @@ The explorer is one Bubble Tea program. The quiz is *another*, with its own mode
 ```go
 type quizModel struct {
 	res      QuizResult
-	i        int  // current question
+	i        int
 	cursor   int
-	answered bool // chosen, showing feedback
+	answered bool
 	finished bool
 	quip     string
 	rng      *rand.Rand
@@ -73,7 +73,7 @@ No `WithAltScreen` this time: the quiz is short and it's nice to be able to scro
 
 ## Two phases
 
-A question has two states: *choosing*, where arrows and number keys pick an option, and *answered*, where the right answer is marked and any of enter/space/n moves on. `Update` passes every key to `updateKey`, which handles them in order:
+A question has two states: *choosing*, where arrows and number keys pick an option, and *answered*, where the right answer is marked and any of enter/space/n/right moves on. `Update` passes every key to `updateKey`, which handles them in order:
 
 ```go
 func (m quizModel) updateKey(k string) (tea.Model, tea.Cmd) {
@@ -208,10 +208,18 @@ That comment records a real bug from a code review: "The answer is Lon Chaney Jr
 var quizCmd = &cobra.Command{
 	Use:   "quiz [monster]",
 	Short: "Test your monster knowledge in the Midnight Quiz",
-	Args:  cobra.MaximumNArgs(1),
+	Long: `Answer multiple-choice questions about facts, films, quotes and myths.
+
+Every correct answer about a monster counts towards capturing it for your
+crypt. Name a monster to be quizzed only about that one.`,
+	Example: `  terminal-of-terror quiz
+  terminal-of-terror quiz --questions 5
+  terminal-of-terror quiz dracula`,
+	Args:              cobra.MaximumNArgs(1),
+	ValidArgsFunction: completeMonsters,
 	RunE: func(cmd *cobra.Command, args []string) error {
 		if quizQuestions < 1 {
-			return fmt.Errorf("--questions must be at least 1")
+			return fail(codeBadFlag, "", "--questions must be at least 1")
 		}
 		focus := ""
 		if len(args) == 1 {
@@ -226,6 +234,12 @@ var quizCmd = &cobra.Command{
 		if len(qs) == 0 {
 			return fmt.Errorf("couldn't find any questions to ask")
 		}
+		if jsonOut {
+			return printJSON(qs)
+		}
+		if err := requireTerminal("the Midnight Quiz", "use --json for the questions and answers, or play from a shell"); err != nil {
+			return err
+		}
 		res, err := ui.RunQuiz(qs, r)
 		if err != nil {
 			return err
@@ -234,7 +248,13 @@ var quizCmd = &cobra.Command{
 		if answered == 0 {
 			return nil
 		}
-		record(crypt.Outcome{Kind: "quiz", Correct: res.CorrectBy(), Score: res.Percent(), Total: len(qs), Completed: res.Completed})
+		record(crypt.Outcome{
+			Kind:      "quiz",
+			Correct:   res.CorrectBy(),
+			Score:     res.Percent(),
+			Total:     len(qs),
+			Completed: res.Completed,
+		})
 		return nil
 	},
 }
@@ -245,9 +265,11 @@ func init() {
 }
 ```
 
-**`IntVarP`** binds an integer flag to a variable, with a long name, a short name and a default: `--questions 5` or `-n 5`. Cobra parses it before `RunE` runs, so the variable is already set. Cobra checks that it's a number; the command checks that it's a *sensible* number, because `--questions 0` would parse fine and then generate nothing.
+**`IntVarP`** binds an integer flag to a variable, with a long name, a short name and a default: `--questions 5` or `-n 5`. Cobra parses it before `RunE` runs, so the variable is already set. Cobra checks that it's a number; the command checks that it's a *sensible* number, because `--questions 0` would parse fine and then generate nothing. `Long` and `Example` are the text `quiz --help` prints, and `ValidArgsFunction: completeMonsters` is how the shell tab-completes a monster's name after `quiz`.
 
-`newRand()` (Night 26 explains it) gives every random choice one seeded source, so a demo recording can replay the same quiz. The three lines at the end, `record(...)`, are Night 21 and 22: the score is saved, and captures are announced. Tonight they're a stub, and the command doesn't care.
+Three things in there belong to Night 26, which gives every command the same error handling and the same `--json`. `fail(codeBadFlag, ...)` is the error helper: it builds an error that carries a code, so a `--json` caller gets an error object it can read rather than a sentence. `jsonOut` is the global `--json` flag; when it's set the command prints the generated questions with `printJSON` and never starts the screen. And `requireTerminal` refuses to run the quiz when there's no terminal to draw on (a pipe, a CI log) and names the alternative in its message. Tonight, read them as "a nicer error", "print JSON instead" and "check for a terminal".
+
+`newRand()` (Night 26 explains it) gives every random choice one seeded source, so a demo recording can replay the same quiz. The `record(...)` call at the end is Night 21 and 22: the score is saved, and captures are announced. Tonight it's a stub, and the command doesn't care.
 
 ## Run it
 
@@ -296,10 +318,13 @@ func TestQuizPlaythrough(t *testing.T) {
 	if !strings.Contains(m.View(), quiz.Rank(25)) {
 		t.Error("results should show the rank")
 	}
+	if qm.res.CorrectBy()[qs[0].MonsterID] != 1 {
+		t.Error("correct answer not credited to its monster")
+	}
 }
 ```
 
-The test doesn't know which questions it got; it reads the answer out of each question and presses that key, or the next one along for a wrong answer. `string(rune('1'+qs[0].Answer))` turns an index into the key `"1"`, `"2"`... The score at the end is checked exactly. There's no terminal, no timing and no randomness leaking in, because the seed is fixed.
+The test doesn't know which questions it got; it reads the answer out of each question and presses that key, or the next one along for a wrong answer. `string(rune('1'+qs[0].Answer))` turns an index into the key `"1"`, `"2"`... The score at the end is checked exactly, and so is `CorrectBy()`: the one right answer is credited to the monster its question was about, which is what Night 22's captures run on. There's no terminal, no timing and no randomness leaking in, because the seed is fixed.
 
 ## Try it
 
@@ -313,7 +338,7 @@ The test doesn't know which questions it got; it reads the answer out of each qu
 
 ## 🕯️ Before dawn
 
-`quiz --json` prints the generated questions *with* the answers. Add `--no-answers` that strips `Answer` and `Explanation` before printing, so a teacher could hand out the questions. The `Question` struct needs `omitempty` on those fields, or the answer index prints as `0`, which is a real answer.
+`quiz --json` (the `jsonOut` branch in the command above) prints the generated questions *with* the answers. Add `--no-answers` that strips `Answer` and `Explanation` before printing, so a teacher could hand out the questions. The `Question` struct needs `omitempty` on those fields, or the answer index prints as `0`, which is a real answer.
 
 > 📺 *"Ten questions, one rank, no arguing with the judges. Tomorrow night the pictures come back, but you'll barely be able to see them. That's the game."*
 
