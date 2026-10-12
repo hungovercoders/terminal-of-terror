@@ -24,7 +24,7 @@ Use the same module name as this repository, `github.com/hungovercoders/terminal
 | [4](night-04.md) | A Random Terror | `math/rand`, seeds, functions that return two values |
 | [5](night-05.md) | Data in the Coffin | JSON, struct tags, `//go:embed` |
 | [6](night-06.md) | Packs of Monsters | One file per monster, `embed.FS`, maps and sorting |
-| [7](night-07.md) | Check Under the Bed | `go test`, table tests, testing with a fake filesystem |
+| [7](night-07.md) | Check Under the Bed | `go test`, subtests, a data test, and a fake filesystem |
 
 ### Week 2 · The Séance — finding and styling
 

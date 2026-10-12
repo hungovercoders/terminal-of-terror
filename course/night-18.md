@@ -68,7 +68,7 @@ func mask(text string, m monsters.Monster) string {
 }
 ```
 
-This is the project's one **regular expression**, and it earns its place. `(?i)` makes it case-insensitive, `\b` is a word boundary, `regexp.QuoteMeta` escapes anything in the name that means something in a regex (the `.` in "Jr."), and `('s)?` swallows a possessive so "Dracula's cape" becomes "▒▒▒▒ cape" rather than "▒▒▒▒'s cape", which is a hint. Single-word names also eat any letters glued on after them, so "Krampusnacht" doesn't leak "Krampus".
+This is the project's first **regular expression** (the other checks a pack id on Night 27), and it earns its place. `(?i)` makes it case-insensitive, `\b` is a word boundary, `regexp.QuoteMeta` escapes anything in the name that means something in a regex (the `.` in "Jr."), and `('s)?` swallows a possessive so "Dracula's cape" becomes "▒▒▒▒ cape" rather than "▒▒▒▒'s cape", which is a hint. Single-word names also eat any letters glued on after them, so "Krampusnacht" doesn't leak "Krampus".
 
 The terms are sorted longest first so "Count Dracula" is masked as one blank before "Dracula" alone gets a chance to leave "Count ▒▒▒▒". And names shorter than three letters are skipped, or a monster called "Ra" would blank out every "ra" in "Transylvania".
 
@@ -232,7 +232,7 @@ Fifty seeds of questions checked in a blink, then three real questions as data, 
 
 ## 🕯️ Before dawn
 
-Write a table-driven test for `debutKind`: `"novel"` is a book, `"1931 film"` is a film, `"Slavic folklore"` is folklore, `"opera"` is nothing. Then add `"opera"` to the book case, because the Phantom's debut is a 1910 novel but someone will write "opera" one day.
+Write a table-driven test for `debutKind`: `"novel"` is a book, `"1931 film"` is a film, `"Slavic folklore"` is folklore, `"opera"` is nothing. Then add `"opera"` to the book case, because the Phantom's debut is a 1909 serialized novel but someone will write "opera" one day.
 
 > 📺 *"Two hundred questions and I didn't write one of them. Tomorrow night we put them on screen, with a scoreboard and a rank. Pencils down at midnight."*
 

@@ -217,7 +217,7 @@ type Options struct {
 }
 ```
 
-Callers name what they set, `ui.RunUI(ui.Options{StartID: m.ID, NoIntro: noIntro})`, and everything else is its zero value, which is always the sensible default. That's why the fields are phrased as `NoIntro` rather than `Intro`: `false` has to mean "the normal thing". The `monster` command gained `--all` and `--no-intro` flags that map straight onto them ([`cmd/monster.go`](../cmd/monster.go)). And when a monster is named on the command line, the intro is skipped without being asked: you know what you want.
+Callers name only what they set, `ui.RunUI(ui.Options{StartID: id, NoIntro: true})` say, and everything else is its zero value, which is always the sensible default. That's why the fields are phrased as `NoIntro` rather than `Intro`: `false` has to mean "the normal thing". The `monster` command gained `--all` and `--no-intro` flags that map straight onto them ([`cmd/monster.go`](../cmd/monster.go)). And when a monster is named on the command line, the intro is skipped without being asked: you know what you want.
 
 ## Sign-off
 

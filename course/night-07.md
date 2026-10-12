@@ -116,8 +116,12 @@ go test ./...
 ```
 
 ```
+?   	github.com/hungovercoders/terminal-of-terror	[no test files]
+?   	github.com/hungovercoders/terminal-of-terror/cmd	[no test files]
 ok  	github.com/hungovercoders/terminal-of-terror/internal/monsters	0.003s
 ```
+
+The `?` lines are packages with nothing to test yet. `go test` is honest about that rather than silent.
 
 Now break something and watch the test find it. Rename `wolf-man.txt` to `Wolf-Man.txt` (last night's terrifying fact), then:
 

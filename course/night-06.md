@@ -264,7 +264,7 @@ Same three monsters as before, in the order `pack.json` asked for. Nothing visib
 
 ## 🕯️ Before dawn
 
-Make `list` group monsters by pack, with the pack's name as a heading, using `GetPacks()`. Then print each pack's description under its heading. The finished version is in [`internal/ui/cards.go`](../internal/ui/cards.go), `RenderList`, styled with tomorrow-week's colours.
+Make `list` group monsters by pack, with the pack's name as a heading, using `GetPacks()`. Then print each pack's description under its heading. The finished version is in [`internal/ui/cards.go`](../internal/ui/cards.go), `RenderList`, which groups by pack with a heading and a count, styled with tomorrow-week's colours; the description line is yours to add.
 
 > 📺 *"A crypt, properly organised. The undead are filed alphabetically, which would upset them if they knew. Tomorrow night, we make sure nothing is missing. Check under the bed."*
 

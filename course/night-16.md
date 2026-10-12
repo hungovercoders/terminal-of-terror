@@ -13,7 +13,7 @@
 
 ## One flag in the data
 
-Two of the vault's films are silent. Their JSON says so, in the `film` block:
+Eight of the vault's films are silent: two Universal pictures and the whole Silent Screen pack. Their JSON says so, in the `film` block:
 
 ```json
   "film": {

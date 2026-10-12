@@ -22,7 +22,7 @@ Until that first message arrives, the model doesn't know the size, so we assume 
 
 The page has three parts: a **header** (title, name, description) that must always be visible, a **body** (portrait and facts) that might be taller than the screen, and a **footer** (help). The body scrolls; the other two don't. On a wide terminal the portrait sits beside the facts; on a narrow one it goes underneath; on a very narrow one it's dropped.
 
-Replace `internal/ui/ui.go`. The whole file is [in the repository's history](../internal/ui/ui.go) in a bigger form; here it is in pieces.
+Replace `internal/ui/ui.go`. The whole file is [in the repository](../internal/ui/ui.go) in a bigger form; here it is in pieces.
 
 ### The model, with a size and a scroll position
 
@@ -306,7 +306,7 @@ func TestScrolling(t *testing.T) {
 }
 ```
 
-This test is the most valuable one in the project. A resize message is just a struct, so the test can pretend to be any terminal, and "no line wider than the screen" catches an enormous class of layout bugs before a human ever sees them. The finished project runs this over every monster, every section and seven widths.
+This test is the most valuable one in the project. A resize message is just a struct, so the test can pretend to be any terminal, and "no line wider than the screen" catches an enormous class of layout bugs before a human ever sees them. The finished project's `TestEveryPageRenders` runs this over every monster, every section and four sizes, including an unknown one.
 
 `for range 3` loops three times, a Go 1.22 addition.
 
