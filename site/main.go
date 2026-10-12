@@ -459,8 +459,8 @@ func homeData(packs []monsters.Pack, all []monsters.Monster, course *Course) hom
 		Sections: []explorerSection{
 			{"Facts", "Terrifying facts, origin and first appearance"},
 			{"Legend", "The real folklore and history behind the monster"},
-			{"The Film", "The classic film's director, star, makeup artist and release date"},
-			{"Myth vs Movie", "True or false? Make your guesses, then press r for the verdicts"},
+			{"The Film", "For screen monsters: the classic film's director, star, makeup artist and release date"},
+			{"Myth vs Movie", "True or false? Make your guesses, then press r for the verdicts. Monsters that never had a film get Myth or Fact instead"},
 			{"Quotes", "Lines from the original public-domain novels"},
 			{"Stat Card", "Strength, speed, cunning and dread, plus powers and weaknesses"},
 			{"Legacy", "Sequels, remakes and crossovers"},

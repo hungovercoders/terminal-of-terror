@@ -57,7 +57,7 @@ command: add new commands to the smoke test.
 ## Common tasks
 
 - **Adding a monster:** add `internal/monsters/packs/<pack>/<id>.json` (and `<id>.txt` art), add the id to
-  `order` in `internal/monsters/packs/<pack>/pack.json`, include every field with 5+ accurate facts, then run `go test ./...`.
+  `order` in `internal/monsters/packs/<pack>/pack.json`, include every field (`film` only in the screen packs) with 5+ accurate facts about the monster itself, then run `go test ./...`.
 - **Adding a command:** new file in `cmd/`, a `cobra.Command` registered with `rootCmd` in `init()`, logic in
   `RunE`, then document it in README.md and add it to the CI smoke test.
 

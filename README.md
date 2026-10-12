@@ -21,7 +21,7 @@
 
 > 📺 *"Good evening, creatures of the night, and welcome to the Channel 13 Creature Feature. I'm your host, Count Cathode, broadcasting from beyond the static."*
 
-**Terminal of Terror** brings the classic Universal monsters, creatures from world folklore, the cryptids people swear they have seen, the great literary monsters, the beasts of Greek myth and the first monsters ever filmed to your terminal. Meet 55 monsters in six packs, learn the real history behind them (who played them, who did the makeup, and which "facts" Hollywood simply made up), then prove what you know in the Midnight Quiz and fill your crypt.
+**Terminal of Terror** brings the classic Universal monsters, creatures from world folklore, the cryptids people swear they have seen, the great literary monsters, the beasts of Greek myth and the first monsters ever filmed to your terminal. Meet 55 monsters in six packs, learn the real history behind them (where the legends began, who played them on screen, and which "facts" Hollywood simply made up), then prove what you know in the Midnight Quiz and fill your crypt.
 
 > [!WARNING]
 > **Viewer discretion is advised.** Side effects may include knowing far too much about 1930s makeup artists, a sudden distrust of huts with chicken legs, and correcting your friends about silver bullets.
@@ -115,8 +115,8 @@ Count Cathode opens the broadcast through a wall of TV static, then hands you th
 |---------|-------------------|
 | **Facts** | Terrifying facts, origin and first appearance |
 | **Legend** | The real folklore and history behind the monster |
-| **The Film** | The classic film's director, star, makeup artist and release date |
-| **Myth vs Movie** | True or false? Make your guesses, then press `r` for the verdicts |
+| **The Film** | For screen monsters: the classic film's director, star, makeup artist and release date |
+| **Myth vs Movie** | True or false? Make your guesses, then press `r` for the verdicts. Monsters that never had a film get Myth or Fact instead |
 | **Quotes** | Lines from the original public-domain novels |
 | **Stat Card** | Strength, speed, cunning and dread, plus powers and weaknesses |
 | **Legacy** | Sequels, remakes and crossovers |
@@ -347,14 +347,14 @@ terminal-of-terror random                     # or just any old fact
 
 ### Literary Monsters · `--pack literary`
 
-| | Monster | The book | The classic film |
-|-|---------|----------|------------------|
+| | Monster | The book | On screen |
+|-|---------|----------|-----------|
 | 🧪 | **Mr Hyde** | Robert Louis Stevenson's novella (1886) | *Dr. Jekyll and Mr. Hyde* (1931), Fredric March |
 | 🎨 | **Dorian Gray** | Oscar Wilde's novel (1890) | *The Picture of Dorian Gray* (1945), Hurd Hatfield |
-| 🐈 | **Carmilla** | Sheridan Le Fanu's novella (1872) | |
+| 🐈 | **Carmilla** | Sheridan Le Fanu's novella (1872) | Hammer's *The Vampire Lovers* (1970), Ingrid Pitt |
 | 🎃 | **The Headless Horseman** | Washington Irving's story (1820) | *The Headless Horseman* (1922), a silent with Will Rogers as Ichabod |
-| 🦴 | **Grendel** | *Beowulf*, the Old English poem | |
-| 🐲 | **The Jabberwock** | Lewis Carroll's *Jabberwocky* (1871) | |
+| 🦴 | **Grendel** | *Beowulf*, the Old English poem | *Beowulf* (2007), Crispin Glover in motion capture |
+| 🐲 | **The Jabberwock** | Lewis Carroll's *Jabberwocky* (1871) | Terry Gilliam's *Jabberwocky* (1977) |
 
 ### Classical Mythology · `--pack mythology`
 

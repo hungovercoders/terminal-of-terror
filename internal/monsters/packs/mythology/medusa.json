@@ -20,10 +20,10 @@
   "powers": ["A gaze that turns the living to stone", "A head of venomous snakes", "A face that frightens off evil even when painted on a shield", "Blood that can kill or, in the right hands, raise the dead"],
   "weaknesses": ["A polished shield", "The cap of Hades, which makes its wearer invisible", "A curved blade borrowed from Hermes", "Being the only mortal sister"],
   "stats": {"strength": 6, "speed": 5, "cunning": 7, "dread": 9},
-  "film": {"title": "Clash of the Titans", "year": 1981, "studio": "MGM", "director": "Desmond Davis", "star": "A stop-motion model animated by Ray Harryhausen", "note": "Harryhausen's Medusa, with a rattlesnake's tail and a bow, is the image most people now picture."},
   "legacy": [
     "Cellini's bronze Perseus with the Head of Medusa (1554), still standing in Florence",
     "Caravaggio's Medusa (1597), painted on a ceremonial shield",
+    "Ray Harryhausen's stop-motion Medusa in Clash of the Titans (1981), with a rattlesnake's tail and a bow, the image most people now picture",
     "Clash of the Titans (2010), with Natalia Vodianova as a serpent-tailed Medusa",
     "Percy Jackson & the Olympians: The Lightning Thief (2010), with Uma Thurman running a garden-gnome emporium",
     "The Medusa head on the flag of Sicily and the logo of the Versace fashion house"
@@ -35,7 +35,7 @@
     "The winged horse Pegasus and the giant Chrysaor sprang from her severed neck",
     "Her head kept its power after death, and Perseus used it to turn his enemies to stone",
     "Athena fixed the head to her shield, and Greek warriors painted it on theirs as a charm against evil",
-    "The Gorgon's head appears on the flag of Sicily and in the logo of the Versace fashion house"
+    "Pindar says Athena invented the flute to imitate the wailing of the Gorgons after Medusa's death"
   ],
   "hostIntro": "Tonight's guest has a fabulous head of hair and a habit of silencing her critics permanently. Please do not make eye contact, and keep the mirrors covered.",
   "theme": {"primary": "#74C69D", "accent": "#E3F6EC"}

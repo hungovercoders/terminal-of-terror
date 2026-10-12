@@ -115,10 +115,11 @@ Guidelines:
 
 - **Accuracy matters.** This is a teaching tool, so double-check facts, dates and credits. Prefer "reportedly" over a confident guess.
 - **Quotes must come from public-domain sources** such as 19th-century novels. Don't quote dialogue from copyrighted films; describe famous scenes in your own words instead.
-- `film` is optional (folklore monsters may not have one). `debut` needs either a `year` or an `era`.
+- `film` is only for monsters whose classic outing is a film (the Universal and Silent Screen packs). Leave it out for folklore, myth, cryptid and literary monsters and list their screen adaptations in `legacy` instead: the explorer and the website then drop the Film tab and call the myth page "Myth or Fact". The data tests enforce this for the built-in packs. `debut` needs either a `year` or an `era`.
 - Stats are 1–10 and just for fun (they power the Monster Mash).
 - ASCII art must use single-width, left-to-right characters (no emoji, CJK or Hebrew/Arabic letters), or it will misalign and break the fog in Guess the Monster.
 - Every fact, myth check, quote and film credit automatically becomes quiz material, so write facts that make good questions.
+- Keep every fact about the monster or its story: how it looks, what it does, where the tale comes from and what people made of it. A cast member's later career, a book's sales figures or the engineering of a bridge belong somewhere else, if anywhere.
 - Treat folklore from living cultures with respect: explain where a legend comes from and what it means to the people who tell it.
 - Run `go test ./...`: the data tests check every built-in monster has the required fields.
 
