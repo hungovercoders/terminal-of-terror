@@ -116,7 +116,7 @@ Count Cathode opens the broadcast through a wall of TV static, then hands you th
 | **Facts** | Terrifying facts, origin and first appearance |
 | **Legend** | The real folklore and history behind the monster |
 | **The Film** | For screen monsters: the classic film's director, star, makeup artist and release date |
-| **Myth vs Movie** | True or false? Make your guesses, then press `r` for the verdicts. Monsters that never had a film get Myth or Fact instead |
+| **Myth vs Movie** | True or false? Make your guesses, then press `r` for the verdicts. Monsters outside the screen packs get Myth or Fact instead |
 | **Quotes** | Lines from the original public-domain novels |
 | **Stat Card** | Strength, speed, cunning and dread, plus powers and weaknesses |
 | **Legacy** | Sequels, remakes and crossovers |
@@ -267,7 +267,7 @@ terminal-of-terror tonight --shuffle          # a different bill
 terminal-of-terror tonight --date 2026-10-31  # what's on for Halloween?
 ```
 
-<img src="docs/assets/tonight.png" alt="A double-feature ticket for Halloween night: The Picture of Dorian Gray (1945) and El Chupacabra" width="620">
+<img src="docs/assets/tonight.png" alt="A double-feature ticket for Halloween night: Dorian Gray and El Chupacabra" width="620">
 
 ### 🎃 The Halloween Countdown
 

@@ -128,6 +128,9 @@ func TestMonsterPageContent(t *testing.T) {
 		if strings.Contains(page, "Myth vs Movie") != hasFilm || strings.Contains(page, "Myth or Fact") == hasFilm {
 			t.Errorf("%s: the myth page should be Myth vs Movie only when the monster has a film", m.ID)
 		}
+		if len(m.Legacy) > 0 && (strings.Contains(page, "🎞️ Legacy") != hasFilm || strings.Contains(page, "👣 Legacy") == hasFilm) {
+			t.Errorf("%s: the Legacy heading should carry the film icon only when the monster has a film", m.ID)
+		}
 	}
 }
 
