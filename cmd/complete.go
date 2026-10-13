@@ -8,9 +8,10 @@ import (
 )
 
 // completeMonsters offers monster ids and aliases to shell completion, each
-// with the monster's name beside it. Ids and aliases are single words, so
-// they complete without quoting; the names themselves, with their spaces
-// and apostrophes, would not.
+// with the monster's name beside it as a description. Ids are single
+// words; aliases often aren't ("count dracula"), and the completion script
+// quotes those. The names, with their capitals and apostrophes, are the
+// description only.
 func completeMonsters(_ *cobra.Command, _ []string, toComplete string) ([]string, cobra.ShellCompDirective) {
 	ensureCommunityPacks()
 	prefix := strings.ToLower(toComplete)
