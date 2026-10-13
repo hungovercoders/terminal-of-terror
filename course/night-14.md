@@ -14,7 +14,7 @@
 
 ## Where to look
 
-Searching is more than "does the name contain the word". A viewer typing `lugosi` wants Dracula, but Lugosi is in Dracula's *film* field, in a Wolf Man *fact* (he played the werewolf who bites Larry Talbot) and in a Frankenstein *legacy* line. All three monsters should appear, each once, and the reason should be shown: "(film)", "(fact)". And when a monster matches in several places, show the most important one: name beats alias beats description beats a fact buried in the legend.
+Searching is more than "does the name contain the word". A viewer typing `lugosi` wants Dracula, but Lugosi is in Dracula's *film* field, in a Wolf Man *fact* (he played the werewolf who bites Larry Talbot) and in a Frankenstein *myth* explanation (Ygor was his part). All three monsters should appear, each once, and the reason should be shown: "(film)", "(fact)". And when a monster matches in several places, show the most important one: name beats alias beats description beats a fact buried in the legend.
 
 So the design is: for each monster, a list of *fields* in order of importance; take the first that matches; remember which it was and a snippet of text around the match.
 
@@ -90,7 +90,7 @@ func searchFields(m Monster) []field {
 
 ## Bytes and characters, again
 
-The snippet is a window of text around the match. `strings.Index` returned a *byte* offset, but the window should be measured in *characters*, and Night 8's terrifying fact was that those differ: "…" is three bytes, `é` is two. Slicing a string by bytes in the middle of a character produces garbage.
+The snippet is a window of text around the match. `strings.Index` returned a *byte* offset, but the window should be measured in *characters*, and Night 8's terrifying fact was that those differ: `é` is two bytes, 🧛 is four, and "…" is three. Slicing a string by bytes in the middle of a character produces garbage.
 
 ```go
 // snippet trims long text to a window of characters around the match, which
@@ -114,7 +114,7 @@ func snippet(text string, at, n int) string {
 
 The conversion is `len([]rune(text[:at]))`: the number of characters *before* byte `at`. Once `start` and `end` are in characters, the rest is slicing `r`, the rune slice, and adding an ellipsis on whichever sides were cut. `const pad = 30` is a constant local to the function.
 
-The comment in `searchIn` about byte length covers a real edge: `strings.ToLower` can change the *length* of a string (a few letters have multi-byte lowercase forms), and then an offset found in the lowered text would be wrong in the original. When that happens we snippet the lowered text, which is safe if slightly less pretty. Knowing that this edge exists is the difference between search that works and search that panics on Night 27's community pack with an İ in it.
+The comment in `searchIn` about byte length covers a real edge: `strings.ToLower` can change the *byte length* of a string (a Turkish İ lowercases to a one-byte `i`), and then an offset found in the lowered text would be wrong in the original. When that happens we snippet the lowered text, which is safe if slightly less pretty. Knowing that this edge exists is the difference between search that works and search that panics on a community pack (Night 27) with an İ in it.
 
 ## A table of tests
 
@@ -205,7 +205,7 @@ and a way in, next to the `q` case:
 			m.searching, m.query, m.hits, m.hitCursor = true, "", nil, 0
 ```
 
-Every key while searching goes to its own function, and the normal keys never see it. That single early `return` is the whole mode mechanism, and it's how the finished explorer also handles the gallery, the quiz and the help overlay: one `screen` field and a dispatch at the top of `Update`.
+Every key while searching goes to its own function, and the normal keys never see it. That single early `return` is the whole mode mechanism, and it's how the finished explorer also handles the intro and the gallery: one `screen` field and a dispatch at the top of `Update`.
 
 ## Reading typed text
 
@@ -308,7 +308,7 @@ The prompt lives in the footer, where a `vim` or `less` user expects a `/` promp
 go run . monster
 ```
 
-`/`, then `lugosi`: three monsters, each with the field and snippet that matched. `↓` `↓` `enter` and you're on the Wolf Man. `/` `1931`: one hit, although two of our films came out that year, because a film's year is a number and `searchFields` only looks at text. The hint promises more than it delivers; that's yours to fix below. `/` `zzz`: nothing stirs. `esc` puts everything back. Try `silver`, `fog`, `stoker`, `yak`.
+`/`, then `lugosi`: three monsters, each with the field and snippet that matched. `↓` `↓` `enter` and you're on the Wolf Man. `/` `1931`: one hit, although two of our films came out that year, because a film's year is a number and `searchFields` only looks at text. The hint promises more than it delivers; that's yours to fix below. `/` `zzz`: nothing stirs. `esc` puts everything back. Try `silver`, `karloff`, `stoker`, `yak`.
 
 ## The test
 
@@ -372,11 +372,11 @@ gofmt -l . && go vet ./... && go test ./...
 
 ## 💀 Terrifying fact
 
-`strings.ToLower("İ")` (a capital I with a dot, used in Turkish) is `"i̇"`: two characters and three bytes, from one character and two bytes. Most string code that "just lowercases and compares" has a bug it will never see, until a name from the wrong alphabet arrives. The `len(lower) != len(text)` check is a small price. The bigger lesson: any time you compute an offset in one string and use it in another, ask whether they're really the same length.
+`strings.ToLower("İ")` (a capital I with a dot, used in Turkish) is a plain `"i"`: one byte, from a two-byte character. The string got shorter, and every byte offset after it moved. Most string code that "just lowercases and compares" has a bug it will never see, until a name from the wrong alphabet arrives. The `len(lower) != len(text)` check is a small price. The bigger lesson: any time you compute an offset in one string and use it in another, ask whether they're really the same length.
 
 ## 🕯️ Before dawn
 
-Two weeks in. Look at what you have: a CLI with four commands, a data vault loaded from embedded JSON, a styled and colour-themed listing, a fact card, and an interactive explorer with pages, scrolling, resizing and search, and tests for all of it. That's a real program; people ship less.
+Two weeks in. Look at what you have: a CLI with three commands and a `--version` flag, a data vault loaded from embedded JSON, a styled and colour-themed listing, a fact card, and an interactive explorer with pages, scrolling, resizing and search, and tests for all of it. That's a real program; people ship less.
 
 Tag it: `git tag night-14`. Then, no code tonight. Run `go run . monster`, press `/`, and go looking for something you didn't know about a monster. Tomorrow, someone arrives to introduce them.
 

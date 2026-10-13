@@ -67,9 +67,16 @@ jobs:
         run: |
           go mod tidy
           git diff --exit-code go.mod go.sum || (echo "Run 'go mod tidy' and commit the result." && exit 1)
+
+      - name: GoReleaser config
+        uses: goreleaser/goreleaser-action@v6
+        with:
+          distribution: goreleaser
+          version: "~> v2"
+          args: check
 ```
 
-Night 28's table stakes, as a job. Each step is a shell command; a non-zero exit fails the step, the job and the check on the pull request. `gofmt -l` prints nothing when everything's formatted, so the step turns "printed something" into a failure *with the list of files*. The tidy check runs `go mod tidy` and asks git whether anything changed. Every failure message says what to do, because the person reading it is not the person who wrote the workflow.
+Night 28's table stakes, as a job, plus a fourth step: `goreleaser check` validates the release configuration Night 31 writes, and it lives here because it needs no build. Each step is a shell command (or an action, like that one); a non-zero exit fails the step, the job and the check on the pull request. `gofmt -l` prints nothing when everything's formatted, so the step turns "printed something" into a failure *with the list of files*. The tidy check runs `go mod tidy` and asks git whether anything changed. Every failure message says what to do, because the person reading it is not the person who wrote the workflow.
 
 `go-version-file: go.mod` installs whatever Go version the module declares, so CI and the developer agree, and upgrading Go is one edit.
 
@@ -118,8 +125,12 @@ Unit tests exercise packages. Nothing so far runs the *binary*, and a binary can
           $bin --version
           $bin completion bash > /dev/null
           $bin __complete monster drac | grep -q '^dracula'
+          $bin __complete quiz --pack folk | grep -q '^folklore'
+          go run ./scripts/shelldocs -out "$RUNNER_TEMP/shelldocs"
+          test -s "$RUNNER_TEMP/shelldocs/man/terminal-of-terror.1"
           $bin list > /dev/null
           $bin list --json > /dev/null
+          $bin random > /dev/null
           $bin random --daily --date 2026-10-31 > /dev/null
           $bin monster dracula --json > /dev/null
           $bin quiz -n 3 --json > /dev/null
@@ -151,6 +162,11 @@ Unit tests exercise packages. Nothing so far runs the *binary*, and a binary can
             exit 1
           fi
           $bin packs new ci-pack > /dev/null
+          # A community pack can't take a built-in pack's id.
+          if $bin packs new cryptids 2> /dev/null; then
+            echo "expected an error for a built-in pack id"
+            exit 1
+          fi
           $bin list --pack ci-pack > /dev/null
           $bin packs > /dev/null
           # Unknown names should fail cleanly rather than crash.
@@ -169,7 +185,7 @@ Unit tests exercise packages. Nothing so far runs the *binary*, and a binary can
           fi
 ```
 
-Every command, once, in a mode that needs no terminal: `--json` for the interactive ones, `--fast` for the mash, `--date` so the output doesn't depend on the day. `set -euo pipefail` makes the script stop at the first failure. The last block checks that a *bad* input fails, because a command that exits 0 on garbage is a bug too. Notice how many of Week 4's flags exist partly so this list could be written: a program that can be smoke-tested is a program that was designed to be driven.
+Every command, once, in a mode that needs no terminal: `--json` for the interactive ones, `--fast` for the mash, `--date` so the output doesn't depend on the day. The two `__complete` lines ask the binary what a shell would ask behind the Tab key (Night 26), and the `shelldocs` lines generate the man pages Night 31 ships and check that the top one came out non-empty. `set -euo pipefail` makes the script stop at the first failure. Then come the things that must *fail*: colour codes or emoji in a pipe, a built-in pack's id given to `packs new`, an unknown monster with and without `--json`, the explorer run from a pipe, and `crypt reset` without a terminal to confirm on. Each `if` turns a non-zero exit into a pass, because a command that exits 0 on garbage is a bug too. Notice how many of Week 4's flags exist partly so this list could be written: a program that can be smoke-tested is a program that was designed to be driven.
 
 `shell: bash` on all three runners, so one script works on Windows too. The `.exe` dance is the price of a matrix; it's paid once, here.
 

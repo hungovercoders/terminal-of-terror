@@ -86,6 +86,8 @@ func fill(line string, a, b, w, l monsters.Monster) string {
 	return out
 }
 
+...
+
 // MidSentence lowercases a leading "The" so names read naturally mid-sentence.
 func MidSentence(name string) string {
 	if strings.HasPrefix(name, "The ") {
@@ -112,7 +114,7 @@ type Bout struct {
 }
 ```
 
-`Fight` returns the entire bout, rounds, rolls and narration, *before anything is printed*. The command then plays it back with pauses. Simulating first and presenting second means the simulation is testable, the presentation can be fast or slow, and `mash --json` (Night 26) could print the bout as data. The `json:"-"` tag leaves the two full monsters out of that JSON; the ids would do.
+`Fight` returns the entire bout, rounds, rolls and narration, *before anything is printed*. The command then plays it back with pauses. Simulating first and presenting second means the simulation is testable, the presentation can be fast or slow, and `mash --json` (Night 26) prints the bout as data: `mashJSON` and `fighterJSON` at the top of `cmd/mash.go` are the shape it takes. The `json:"-"` tag leaves the two full monsters out of the `Bout`'s own JSON; the command names each fighter by id and name instead, which is all a script needs.
 
 ## Drama, but only for people
 
@@ -120,6 +122,13 @@ type Bout struct {
 
 ```go
 		bout := mash.Fight(r, fighters[0], fighters[1])
+		if jsonOut {
+			win := bout.WinnerMonster()
+			return printJSON(mashJSON{
+				A: fighterJSON{bout.A.ID, bout.A.Name}, B: fighterJSON{bout.B.ID, bout.B.Name},
+				Rounds: bout.Rounds, Winner: win.ID, Finale: bout.Finale,
+			})
+		}
 		w := ui.TerminalWidth()
 		pause := func(d time.Duration) {
 			if !mashFast && term.IsTerminal(os.Stdout.Fd()) {
@@ -136,13 +145,13 @@ type Bout struct {
 		record(crypt.Outcome{Kind: "mash"})
 ```
 
-A second and a half between rounds is good theatre for a person and a waste of time for CI, a pipe, or a script. `term.IsTerminal` asks whether stdout is a real terminal; `--fast` lets a person skip the pauses too. This is a plain `fmt.Println` program, not Bubble Tea: nothing needs redrawing, so the simplest tool wins.
+Under `--json` the bout goes out as data before any drawing, and the JSON names the fighters and the winner by id, so a script can look any of them up with `monster <id> --json`. Otherwise, a second and a half between rounds is good theatre for a person and a waste of time for CI, a pipe, or a script. `term.IsTerminal` asks whether stdout is a real terminal; `--fast` lets a person skip the pauses too. This is a plain `fmt.Println` program, not Bubble Tea: nothing needs redrawing, so the simplest tool wins.
 
 The command also handles the two corners:
 
 ```go
 		if len(fighters) == 2 && fighters[0].ID == fighters[1].ID {
-			return fmt.Errorf("%s can't fight itself... pick two different monsters", fighters[0].Name)
+			return fail(codeUsage, "pick two different monsters", "%s can't fight itself...", fighters[0].Name)
 		}
 		// Fill empty corners from monsters not already fighting. Picking from
 		// this pool (not retrying at random) can't loop forever.
@@ -157,6 +166,8 @@ The command also handles the two corners:
 			fighters = append(fighters, pool[r.Intn(len(pool))])
 		}
 ```
+
+`fail` builds the error with a code and a hint as well as a message: a person reads "Dracula can't fight itself...; pick two different monsters", and a script running under `--json` branches on the code. Night 26 explains the codes.
 
 The comment records a fix: an earlier version picked a random monster and *retried* if it matched the first, which with a one-monster `--pack` would loop forever. Building the pool of valid choices and picking from it can't. When you write "pick again if it's wrong", ask what happens when everything is wrong.
 
@@ -214,7 +225,7 @@ Ranging over a map, as `fill` does with `repl`, visits keys in random order, and
 
 ## 🕯️ Before dawn
 
-Write a `mash --json` that prints the `Bout`. `printJSON` from Night 26 is already in `cmd/output.go`. Then look at the `json:"-"` tags and decide what a script reading the output actually needs about each fighter. Add it.
+A round's `rollA` is the stat and the die added together, so a script reading `mash --json` can't tell luck from strength. Split each side into its stat and its die in `Round` (`statA`, `dieA`, and the same for B), keep `Fight` and the narration working, and extend `TestFightIsBestOfThree` so the sum still matches. Then write a script that runs a hundred seeded bouts of Dracula against the Creature and counts how often the five-point Cunning edge loses its round. That number is the tuning, measured.
 
 > 📺 *"Three rounds, one winner, and somebody limping home muttering about garlic. Tomorrow night we look up. The moon is a calculation, and I'm going to show you the sum."*
 

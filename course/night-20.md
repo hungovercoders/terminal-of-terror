@@ -60,8 +60,12 @@ When a round is made, its reveal order is fixed once:
 **`r.Perm(n)`** returns the numbers `0..n-1` shuffled. Storing the permutation in the round means that clearing fog *adds* cells to what's showing rather than re-rolling: stage 1 is stage 0 plus more. Drawing takes the first `total * fogReveal[stage]` entries of the order and shows those cells; the rest get a fog character:
 
 ```go
+// fogged draws the portrait with only a fraction of its cells revealed.
 func (g GuessRound) fogged(stage int) string {
 	grid := portraitCells(g.Monster.ASCII)
+	if len(grid) == 0 {
+		return ""
+	}
 	w := len(grid[0])
 	total := len(grid) * w
 	show := make([]bool, total)
@@ -87,7 +91,7 @@ func (g GuessRound) fogged(stage int) string {
 }
 ```
 
-`int(float64(total)*fogReveal[stage])` is the one place the code mixes integers and floats, and Go makes you say so at every step: no implicit conversion, ever. The fog pattern `(idx*7+y)%len(fog)` is deterministic noise, textured but not random, so the fog doesn't shimmer between frames; the game has no ticks at all.
+`int(float64(total)*fogReveal[stage])` is the one place the code mixes integers and floats, and Go makes you say so at every step: no implicit conversion, ever. The fog pattern `(idx*7+y)%len(fog)` is deterministic noise, textured but not random, so the fog doesn't shimmer between frames; the game has no ticks at all. The `len(grid) == 0` guard at the top is there because `grid[0]` on an empty grid would panic; a monster with no portrait never becomes a round, but the function shouldn't have to trust that.
 
 `order` is a lower-case field on an exported struct, so a caller outside the package can see a `GuessRound`'s `Monster` and `Options` but not its reveal order. Exporting is per field.
 
@@ -134,7 +138,7 @@ func (g GuessRound) Points() int {
 
 ## Same keys, same lines
 
-The quiz's `pickOption`, `optionKey` and `optionLine` are reused unchanged, so `1`-`4` and arrows work the same in both games, and a marked-up answer looks the same. Two games that behave alike are easier to learn than two that are each clever. Space, which the quiz used for "choose", here means "clear fog", because that's the move a player makes most.
+The quiz's `pickOption`, `optionKey` and `optionLine` are reused unchanged, so `1`-`4` and arrows work the same in both games, and a marked-up answer looks the same. Two games that behave alike are easier to learn than two that are each clever. Space, which the quiz used for "choose", here means "clear fog", and so does `f`, because that's the move a player makes most.
 
 ## Deciding the layout once
 
@@ -156,7 +160,7 @@ It renders the longest status line and every option *in its widest state* just t
 
 ## The command
 
-[`cmd/guess.go`](../cmd/guess.go) is the quiz command's twin: a `--rounds`/`-n` flag, a sanity check, `NewGuessRounds`, `RunGuess`, and `record(...)` with the outcome, including `EagleEye`. It returns early if no round was played, so quitting on the first portrait doesn't count as a game.
+[`cmd/guess.go`](../cmd/guess.go) is the quiz command's twin: a `--rounds`/`-n` flag, a sanity check, `NewGuessRounds`, `RunGuess`, and `record(...)` with the outcome, including `EagleEye`. It has the same `--json` branch, which prints the rounds with their answers instead of playing, and the same `requireTerminal` guard before the screen starts. It returns early if no round was played, so quitting on the first portrait doesn't count as a game.
 
 ## Run it
 
@@ -172,6 +176,9 @@ Fifteen percent of a portrait. Guess, or press space. A right answer through thi
 func TestGuessPlaythrough(t *testing.T) {
 	r := rand.New(rand.NewSource(5))
 	rounds := NewGuessRounds(r, monsters.GetAllMonsters(), 3)
+	if len(rounds) != 3 {
+		t.Fatalf("got %d rounds", len(rounds))
+	}
 	var m tea.Model = newGuessModel(rounds, r)
 	m, _ = m.Update(size(100, 40))
 
@@ -185,13 +192,16 @@ func TestGuessPlaythrough(t *testing.T) {
 	m = step(m, string(rune('1'+rounds[1].Answer)), "enter")
 	m = step(m, string(rune('1'+(rounds[2].Answer+1)%4)), "enter")
 	gm := m.(guessModel)
+	if !gm.finished {
+		t.Fatal("game should be over")
+	}
 	if got, want := gm.res.Score(), fogPoints[2]+fogPoints[0]; got != want {
 		t.Errorf("score = %d, want %d", got, want)
 	}
 	...
 ```
 
-Space twice, guess right at stage 2 (60), guess right at stage 0 (100), guess wrong: 160 points, and the test says so in terms of `fogPoints` rather than a magic 160, so retuning the points doesn't break it. `TestFogHidesThePortrait` checks that stage 0 really does hide most cells: it counts them.
+Space twice, guess right at stage 2 (60), guess right at stage 0 (100), guess wrong: 160 points, and the test says so in terms of `fogPoints` rather than a magic 160, so retuning the points doesn't break it. `TestFogHidesThePortrait` doesn't count cells; it checks the two ends. The last stage must equal the full portrait, row by row, and stage 0 must differ from it. If a change ever made the fog reveal everything, or nothing, one of those fails.
 
 ## Try it
 

@@ -47,8 +47,10 @@ This creates `go.mod`:
 ```
 module github.com/hungovercoders/terminal-of-terror
 
-go 1.25
+go 1.25.0
 ```
+
+(The `go` line is the minimum Go version the module needs. `go mod init` fills it in from the toolchain you ran it with, patch version and all, so yours may say `go 1.25.1` or later.)
 
 The module name looks like a web address because Go modules are usually published on sites like GitHub, and the name is where other people would fetch them from. Nothing is being published tonight. Using this exact name means every `import` in the course matches your code; on Night 31 you'll see how to rename it.
 

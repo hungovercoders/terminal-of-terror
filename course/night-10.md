@@ -163,7 +163,7 @@ The name is in the Wolf Man's brown, the border in his cream. Run it a few times
 
 ## Try it
 
-- Add a `Host string` field to `FactCard` and, when it's set, a final line in `helpStyle` reading `📺 Count Cathode: “...”`. The repo's card has exactly this; Night 15 gives the host something to say.
+- Add a `Host string` field to `FactCard` and, when it's set, a final line in `helpStyle` reading `📺 Count Cathode: “...”`. The repo's card does this (in a dim italic `hostStyle` it gets on Night 15, when the host also gets a name of his own).
 - Try `lipgloss.DoubleBorder()`.
 - Make `paletteFor` return a *third* colour, `body`, from the theme too. What should the JSON key be?
 

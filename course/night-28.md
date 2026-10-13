@@ -21,6 +21,7 @@ go test ./...
 ```
 
 ```
+ok   cmd                 every --json shape, the error codes, completion, the TTY guard
 ok   internal/calendar   known moons, countdowns, Friday the 13th, notes
 ok   internal/crypt      capture rules, every badge
 ok   internal/mash       a hundred bouts
@@ -28,9 +29,11 @@ ok   internal/monsters   every monster's data, the loader, search, packs
 ok   internal/quiz       fifty seeds of questions, the mask
 ok   internal/store      round trip, corrupt file
 ok   internal/ui         every screen at every size, both games played through
+ok   scripts/shelldocs   man pages and completions, the cask list
+ok   site                the website build and links
 ```
 
-Each package tests its own job at its own level. Nothing in `crypt` touches a file; nothing in `quiz` renders a screen; nothing in `ui` reads the disk except through `TERMINAL_OF_TERROR_HOME`. That layering is the reason the suite runs in about a second and the reason a failure points at a package rather than at "the program".
+Each package tests its own job at its own level. Nothing in `crypt` touches a file; nothing in `quiz` renders a screen; nothing in `ui` reads the disk except through `TERMINAL_OF_TERROR_HOME`. That layering is the reason the suite runs in a few seconds, most of them the screen sweep in `internal/ui`, and the reason a failure points at a package rather than at "the program".
 
 Three kinds of test carry most of the weight, and you've written all three:
 
@@ -124,7 +127,7 @@ go test -race ./...
 
 Night 15's terrifying fact: commands run in goroutines. A `tea.Cmd` that touched the model, or two tests sharing a package-level variable, would be a *data race*: two goroutines using the same memory, one of them writing, with nothing ordering them. Races don't fail reliably; they fail on the CI machine at 3am. The race detector instruments every memory access and reports the first race it sees, with both stack traces. It makes tests slower, which is why CI runs it on one platform and not three, but it should run *somewhere* on every change.
 
-The project's models are values, its commands return messages, and its package-level state (`monsters`, `allPacks`) is written once at startup and in `AddPacks`, before any goroutine exists. `-race` passes. Keep it that way: if a future test runs the loader in parallel with `t.Parallel()`, the detector will say so.
+The project's models are values, its commands return messages, and its package-level state (`monsters`, `allPacks` and `packs`) is written once at startup and in `AddPacks`, before any goroutine exists. `-race` passes. Keep it that way: if a future test runs the loader in parallel with `t.Parallel()`, the detector will say so.
 
 ## Table stakes
 

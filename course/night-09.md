@@ -133,7 +133,7 @@ func RenderList(packs []monsters.Pack, width int) string {
 
 `term.GetSize` asks the terminal how wide it is. When output is a pipe or a file, there's no terminal and it returns an error; we turn that into 0, and `RenderList` treats 0 as "don't truncate".
 
-`%-*s` is a new verb: the `*` takes the width from the argument list, so `fmt.Sprintf("%-*s", 24, m.Name)` pads to 24. Here the width is a constant, but the repo's version measures the longest name first.
+`%-24s` pads the name to 24 columns, left-aligned because of the `-`. The repo's version measures the longest name first and uses `%-*s` instead: the `*` takes the width from the argument list, so `fmt.Sprintf("%-*s", nameW, m.Name)` pads to whatever `nameW` is.
 
 ## Wire it up
 

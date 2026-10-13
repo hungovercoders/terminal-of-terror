@@ -1,6 +1,6 @@
 # Night 22 · Captures and Badges
 
-> 📺 *"Week four. The finale. You've got a memory now; tonight you get something to remember. Answer three questions about a monster and it's yours, locked in the crypt. Do something clever, or merely stay up too late, and there's a badge for it. Fourteen badges. I designed the cat one myself."*
+> 📺 *"Week four. The finale. You've got a memory now; tonight you get something to remember. Answer three questions about a monster and it's yours, locked in the crypt. Do something clever, or merely stay up too late, and there's a badge for it. Seventeen badges. I designed the cat one myself."*
 
 **Tonight you'll learn**
 - Separating the *rules* of progress from the storage and the screens
@@ -71,6 +71,7 @@ The crypt screen lists these in order, locked or earned, with no code per badge.
 `Apply` takes the progress, the full monster list and an outcome, changes the progress, and returns what was *newly* earned so the command can announce it. It reads as a table of contents:
 
 ```go
+// Apply records an outcome in p and reports anything newly unlocked.
 func Apply(p *store.Progress, all []monsters.Monster, o Outcome) Unlocks {
 	if o.Now.IsZero() {
 		o.Now = time.Now()
@@ -89,6 +90,7 @@ func Apply(p *store.Progress, all []monsters.Monster, o Outcome) Unlocks {
 The work happens on an `awarder`, a small struct holding the progress, the time and the unlocks collected so far:
 
 ```go
+// awarder applies one outcome to progress, collecting what it unlocks.
 type awarder struct {
 	p   *store.Progress
 	now time.Time
@@ -119,6 +121,7 @@ func (a *awarder) awardIf(cond bool, id string) {
 `award` is idempotent: awarding a badge you already have does nothing, so the rules can be careless about calling it and read as a plain list. The methods have *pointer* receivers, `*awarder`, because they change it: each one appends to the same `a.u`. Then the rules:
 
 ```go
+// recordGame updates the per-game counters and badges.
 func (a *awarder) recordGame(o Outcome) {
 	p := a.p
 	finished := o.Completed && o.Total > 0
@@ -138,6 +141,7 @@ func (a *awarder) recordGame(o Outcome) {
 	}
 }
 
+// calendarBadges rewards playing at a memorable time.
 func (a *awarder) calendarBadges() {
 	a.awardIf(a.now.Hour() < 4, "night-owl")
 	a.awardIf(calendar.IsFullMoon(a.now), "full-moon")
@@ -174,6 +178,8 @@ The collection badges ask questions like "is every silent-film monster captured?
 	inPack := func(pack string) func(monsters.Monster) bool {
 		return func(m monsters.Monster) bool { return m.Pack == pack }
 	}
+	a.awardIf(len(p.Captured) > 0, "grave-robber")
+	a.awardIf(every(all, func(m monsters.Monster) bool { return p.Seen[m.ID] }), "scholar")
 	a.awardIf(allWhere(all, monsters.Monster.IsSilent, captured), "silent-scholar")
 	a.awardIf(allWhere(all, inPack("universal"), captured), "monster-kid")
 	...
@@ -207,7 +213,7 @@ func allWhere(all []monsters.Monster, where, ok func(monsters.Monster) bool) boo
 
 **Functions are values.** `allWhere` takes two functions as arguments. `captured` is a closure; `inPack("universal")` calls a function that *returns* one, a different one per pack; and `monsters.Monster.IsSilent` is a *method expression*: the `IsSilent` method, detached from any particular monster, as a function that takes the monster as its first argument. All three have the type `func(monsters.Monster) bool`, so all three fit.
 
-The `n > 0` at the end is the subtle bit: "every silent monster is captured" must be *false* when there are no silent monsters, or a `--pack folklore` player would earn Silent Era Scholar for free. "All of nothing" is a classic bug in rule engines; the comment names it.
+The `n > 0` at the end is the subtle bit: "every silent monster is captured" must be *false* when there are no silent monsters. `record` passes `monsters.EveryMonster()`, so a `--pack` choice can't empty the list, but a learner's three-monster vault from Week 1, or a community-only set of packs with no silent monster in it, would otherwise earn Silent Era Scholar for free. "All of nothing" is a classic bug in rule engines; the comment names it.
 
 ## Announcing
 
@@ -232,6 +238,9 @@ var cryptResetCmd = &cobra.Command{
 	Args:  cobra.NoArgs,
 	RunE: func(cmd *cobra.Command, args []string) error {
 		if !resetYes {
+			if !isTerminal(os.Stdin) {
+				return fail(codeNoTerminal, "pass -y to reset without asking", "refusing to reset the crypt without a terminal to confirm on")
+			}
 			fmt.Print("This releases every captured monster and forgets all your badges. Type 'yes' to confirm: ")
 			line, _ := bufio.NewReader(os.Stdin).ReadString('\n')
 			if strings.TrimSpace(strings.ToLower(line)) != "yes" {
@@ -240,7 +249,7 @@ var cryptResetCmd = &cobra.Command{
 			}
 		}
 		if err := store.Reset(); err != nil {
-			return err
+			return fail(codeStore, "", "%v", err)
 		}
 		fmt.Println("The crypt doors swing open... every monster has escaped. Your progress has been reset.")
 		return nil
@@ -254,7 +263,7 @@ func init() {
 }
 ```
 
-A destructive command asks first, reading a line from standard input with `bufio`, and requires the whole word "yes". The `--yes` flag skips the question for scripts. That pair, prompt by default and a flag to skip it, is the convention for anything that deletes.
+A destructive command asks first, reading a line from standard input with `bufio`, and requires the whole word "yes". It only asks when standard input *is* a terminal: run from a pipe or a script, `isTerminal` says no and the command refuses with a `codeNoTerminal` error rather than reading its answer from the pipe, and `-y` is the way round it. The `--yes` flag skips the question for scripts. Both errors go through `fail`, Night 26's helper that gives them a code for `--json`. That pair, prompt by default and a flag to skip it, is the convention for anything that deletes.
 
 ## Run it
 
@@ -290,10 +299,13 @@ func TestCaptureAfterEnoughCorrectAnswers(t *testing.T) {
 	if !hasBadge(u, "grave-robber") || hasBadge(u, "first-fright") {
 		t.Fatalf("expected only new badges, got %+v", u.Badges)
 	}
+	if p.QuizzesPlayed != 2 {
+		t.Fatalf("quizzes played = %d", p.QuizzesPlayed)
+	}
 }
 ```
 
-Two sessions, 2 + 1 answers, a capture on the second and no *repeat* of First Fright. `evening` is a fixed `time.Time` at 8pm, so Night Owl can't sneak in depending on when the tests run; `TestCalendarBadges` uses specific dates for the moon and Friday the 13th.
+Two sessions, 2 + 1 answers, a capture on the second, no *repeat* of First Fright, and two quizzes counted. `evening` is a fixed `time.Time` at 8pm, so Night Owl can't sneak in depending on when the tests run; `TestCalendarBadges` uses specific dates for the moon and Friday the 13th.
 
 ## Try it
 

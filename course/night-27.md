@@ -58,7 +58,7 @@ A missing directory is not an error; it's a user without community packs, which 
 		}
 ```
 
-and `loadCommunityPacks` in [`cmd/root.go`](../cmd/root.go) prints each one to stderr with a ⚠️ and carries on. The program starts; the message says exactly which pack, which monster, and what's wrong.
+and `loadCommunityPacks` in [`cmd/root.go`](../cmd/root.go) prints each one to stderr, prefixed `warning: community pack:`, and carries on. The program starts; the message says exactly which pack, which monster, and what's wrong.
 
 ## Validate and default
 
@@ -79,7 +79,7 @@ func Validate(m Monster) []string {
 	}
 	for _, v := range []int{m.Stats.Strength, m.Stats.Speed, m.Stats.Cunning, m.Stats.Dread} {
 		if v < 0 || v > 10 {
-			problems = append(problems, "stats must be between 1 and 10")
+			problems = append(problems, "stats must be between 0 and 10")
 			break
 		}
 	}
@@ -87,7 +87,7 @@ func Validate(m Monster) []string {
 }
 ```
 
-Three required fields. Everything a monster *must* have to appear in the explorer and the quiz, and nothing more. Then:
+Three required fields. Everything a monster *must* have to appear in the explorer and the quiz, and nothing more. A stat of 0 passes because it means "not given", and the next function turns it into 5. Then:
 
 ```go
 // applyDefaults fills in optional fields so community monsters work everywhere.
@@ -186,7 +186,7 @@ go run . monster "my urban-legends monster"
 go run . quiz --pack urban-legends
 ```
 
-Then edit `/tmp/tot-scratch/packs/urban-legends/urban-legends-monster.json`: rename it Bloody Mary, write three facts, save. `monster "bloody mary"` finds it by Night 8's search, `quiz` asks about it by Night 18's generator, `guess` fogs its portrait if you draw one. Now break it: delete the `name` line. The next run warns `pack "urban-legends": skipping "urban-legends-monster": needs a name` and everything else still works.
+Then edit `/tmp/tot-scratch/packs/urban-legends/urban-legends-monster.json`: rename it Bloody Mary, write three facts, save. `monster "bloody mary"` finds it by Night 8's search, `quiz` asks about it by Night 18's generator, `guess` fogs the starter portrait the scaffold wrote to `urban-legends-monster.txt` until you draw a better one. Now break it: delete the `name` line. The next run warns `pack "urban-legends": skipping "urban-legends-monster": needs a name` and everything else still works.
 
 ## Try it
 
@@ -196,7 +196,7 @@ Then edit `/tmp/tot-scratch/packs/urban-legends/urban-legends-monster.json`: ren
 
 ## 💀 Terrifying fact
 
-`pack.json` is optional for a community pack: `loadPack` treats a missing one as a pack named after its folder, so a directory with nothing but `mothman.json` in it works. And a monster file that isn't listed in `order` isn't lost; it's appended after the listed ones, alphabetically by id. Both are deliberate leniency for people editing JSON by hand, and both are the kind of thing that must be *tested*, or the next refactor will quietly make `pack.json` required and nobody will notice until a user's pack vanishes. `TestLoadPacksOrderAndArt` from Night 6 is where that check lives.
+`pack.json` is optional for a community pack: `readPackMeta` treats a missing one as a pack named after its folder, so a directory with nothing but `mothman.json` in it works. And a monster file that isn't listed in `order` isn't lost; it's appended after the listed ones, alphabetically by id. Both are deliberate leniency for people editing JSON by hand, and both are the kind of thing that must be *tested*, or the next refactor will quietly make `pack.json` required and nobody will notice until a user's pack vanishes. `TestLoadPacksOrderAndArt` from Night 7 pins the second rule, the unlisted monster. The first is only checked sideways: `TestLoadUserPacks` gives its `clash` and `cryptids` folders no `pack.json` and expects them to load under their folder names, which is how the `cryptids` clash gets reported at all. A rule checked by accident is one refactor from unchecked. Give it a test of its own.
 
 ## 🕯️ Before dawn
 
