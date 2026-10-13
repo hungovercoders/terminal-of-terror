@@ -19,7 +19,7 @@
   <a href="#facts"><kbd>1</kbd> Facts</a>
   <a href="#legend"><kbd>2</kbd> Legend</a>
   {{if $m.Film}}<a href="#film"><kbd>3</kbd> The Film</a>{{end}}
-  {{if $m.Myths}}<a href="#myths"><kbd>4</kbd> Myth vs Movie</a>{{end}}
+  {{if $m.Myths}}<a href="#myths"><kbd>4</kbd> {{if $m.Film}}Myth vs Movie{{else}}Myth or Fact{{end}}</a>{{end}}
   {{if $m.Quotes}}<a href="#quotes"><kbd>5</kbd> Quotes</a>{{end}}
   <a href="#stats"><kbd>6</kbd> Stat Card</a>
   {{if $m.Legacy}}<a href="#legacy"><kbd>7</kbd> Legacy</a>{{end}}
@@ -67,7 +67,7 @@
 
     {{if $m.Myths}}
     <section id="myths" class="myths">
-      <h2>🎭 Myth vs Movie</h2>
+      <h2>🎭 {{if $m.Film}}Myth vs Movie{{else}}Myth or Fact?{{end}}</h2>
       <p class="small">True or false? Make your guess, then click a card (or press <kbd>r</kbd>) for the verdict.</p>
       <ul class="myth-list">
         {{range $m.Myths}}<li><details class="myth" data-true="{{.True}}">
@@ -102,7 +102,7 @@
 
     {{if $m.Legacy}}
     <section id="legacy">
-      <h2>🎞️ Legacy</h2>
+      <h2>{{if $m.Film}}🎞️{{else}}👣{{end}} Legacy</h2>
       <ul>{{range $m.Legacy}}<li>{{.}}</li>{{end}}</ul>
     </section>
     {{end}}

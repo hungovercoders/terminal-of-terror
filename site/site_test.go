@@ -121,6 +121,16 @@ func TestMonsterPageContent(t *testing.T) {
 		if m.IsSilent() != strings.Contains(page, `class="monster silent"`) {
 			t.Errorf("%s: silent styling is wrong", m.ID)
 		}
+		hasFilm := m.Film != nil
+		if strings.Contains(page, `id="film"`) != hasFilm {
+			t.Errorf("%s: the Film section should appear only when the monster has a film", m.ID)
+		}
+		if strings.Contains(page, "Myth vs Movie") != hasFilm || strings.Contains(page, "Myth or Fact") == hasFilm {
+			t.Errorf("%s: the myth page should be Myth vs Movie only when the monster has a film", m.ID)
+		}
+		if len(m.Legacy) > 0 && (strings.Contains(page, "\U0001F39E\uFE0F Legacy") != hasFilm || strings.Contains(page, "\U0001F463 Legacy") == hasFilm) {
+			t.Errorf("%s: the Legacy heading should carry the film icon only when the monster has a film", m.ID)
+		}
 	}
 }
 

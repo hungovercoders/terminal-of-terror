@@ -27,7 +27,7 @@ func TestMonsterData(t *testing.T) {
 			checkASCII(t, m.ASCII)
 			checkStories(t, m)
 			checkStatsAndTheme(t, m)
-			checkFilm(t, m.Film)
+			checkFilm(t, m)
 		})
 	}
 }
@@ -98,10 +98,19 @@ func checkStatsAndTheme(t *testing.T, m Monster) {
 	}
 }
 
-func checkFilm(t *testing.T, f *Film) {
+// screenPacks hold monsters who are film characters first, so only their
+// entries carry a film block. Everyone else lists screen adaptations in legacy,
+// which keeps the Film tab and "Myth vs Movie" off monsters born on the page.
+var screenPacks = map[string]bool{"universal": true, "silent": true}
+
+func checkFilm(t *testing.T, m Monster) {
 	t.Helper()
+	f := m.Film
 	if f == nil {
 		return
+	}
+	if !screenPacks[m.Pack] {
+		t.Errorf("pack %q is not a screen pack: describe %s in legacy instead of film", m.Pack, f.Title)
 	}
 	if f.Title == "" || f.Year == 0 || f.Director == "" || f.Star == "" {
 		t.Errorf("incomplete film: %+v", f)

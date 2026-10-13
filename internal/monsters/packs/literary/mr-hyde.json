@@ -6,16 +6,6 @@
   "description": "The brutal second self a London doctor lets loose with a potion",
   "origin": "Victorian Gothic fiction",
   "debut": {"medium": "novella", "title": "Strange Case of Dr Jekyll and Mr Hyde", "creator": "Robert Louis Stevenson", "year": 1886},
-  "film": {
-    "title": "Dr. Jekyll and Mr. Hyde",
-    "year": 1931,
-    "releaseDate": "1931-12-31",
-    "studio": "Paramount",
-    "director": "Rouben Mamoulian",
-    "star": "Fredric March",
-    "makeup": "Wally Westmore",
-    "note": "The transformations were filmed in single takes using coloured make-up and matching filters, a trick the studio kept secret for decades."
-  },
   "legend": "Stevenson wrote the story at Bournemouth in the autumn of 1885, reportedly after a nightmare, and had a draft in about three days. His wife Fanny thought he had written a mere shocker and missed its allegory, so he reportedly burned the manuscript and rewrote it in another three days. Longmans published it in January 1886 as a shilling paperback; it sold some 40,000 copies in Britain within six months, was quoted from pulpits, and Queen Victoria is said to have read it. Richard Mansfield's stage version was playing in London in the summer of 1888 when the Whitechapel murders began, and his transformation was so convincing that some letter-writers suggested the actor as a suspect. 'Jekyll and Hyde' became shorthand for a divided nature almost at once.",
   "myths": [
     {"claim": "In the book, Hyde is a hulking brute who towers over Jekyll.", "true": false, "explanation": "Stevenson's Hyde is small, 'pale and dwarfish', and younger-looking than Jekyll, because the evil side of the doctor had been so little exercised. The giant Hyde is a screen tradition."},
@@ -35,6 +25,7 @@
   "legacy": [
     "Richard Mansfield's stage version (1887), which was playing in London during the Jack the Ripper murders",
     "Dr. Jekyll and Mr. Hyde (1920), with John Barrymore contorting his face for the change",
+    "Dr. Jekyll and Mr. Hyde (1931), Rouben Mamoulian's Paramount film, whose Hyde won Fredric March the Best Actor Oscar; the changes were filmed in single takes with coloured make-up and matching filters",
     "Dr. Jekyll and Mr. Hyde (1941), MGM's remake with Spencer Tracy and Ingrid Bergman",
     "Hammer's The Two Faces of Dr. Jekyll (1960) and Dr. Jekyll and Sister Hyde (1971)",
     "The Nutty Professor (1963), Jerry Lewis's comic version"
@@ -45,8 +36,8 @@
     "Jekyll explains that the potion worked only because his first batch of salt was impure",
     "Hyde murders Sir Danvers Carew, an MP, with a walking stick",
     "Stevenson said the doctor's name should be pronounced 'Jee-kill'",
-    "The book sold about 40,000 copies in Britain in its first six months",
-    "Fredric March won the Best Actor Oscar for the 1931 film, in a tie with Wallace Beery"
+    "Dr Lanyon dies of shock within weeks of watching Hyde drink the potion and turn back into Jekyll",
+    "Hyde keeps a house in Soho, and Jekyll's will leaves him everything should the doctor die or disappear"
   ],
   "hostIntro": "Tonight's guest is a respectable doctor. Or he was, until he mixed a little something in the laboratory and let the other fellow out. Keep an eye on the back door.",
   "theme": {"primary": "#6A994E", "accent": "#E9F5DB"}
