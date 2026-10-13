@@ -265,7 +265,7 @@ func init() {
 }
 ```
 
-**`IntVarP`** binds an integer flag to a variable, with a long name, a short name and a default: `--questions 5` or `-n 5`. Cobra parses it before `RunE` runs, so the variable is already set. Cobra checks that it's a number; the command checks that it's a *sensible* number, because `--questions 0` would parse fine and then generate nothing. `Long` and `Example` are the text `quiz --help` prints, and `ValidArgsFunction: completeMonsters` is how the shell tab-completes a monster's name after `quiz`.
+**`IntVarP`** binds an integer flag to a variable, with a long name, a short name and a default: `--questions 5` or `-n 5`. Cobra parses it before `RunE` runs, so the variable is already set. Cobra checks that it's a number; the command checks that it's a *sensible* number, because `--questions 0` would parse fine and then generate nothing. `Long` and `Example` are the text `quiz --help` prints, and `ValidArgsFunction: completeMonsters` is how the shell tab-completes a monster's id or alias after `quiz`, with the name shown beside each choice.
 
 Three things in there belong to Night 26, which gives every command the same error handling and the same `--json`. `fail(codeBadFlag, ...)` is the error helper: it builds an error that carries a code, so a `--json` caller gets an error object it can read rather than a sentence. `jsonOut` is the global `--json` flag; when it's set the command prints the generated questions with `printJSON` and never starts the screen. And `requireTerminal` refuses to run the quiz when there's no terminal to draw on (a pipe, a CI log) and names the alternative in its message. Tonight, read them as "a nicer error", "print JSON instead" and "check for a terminal".
 

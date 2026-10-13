@@ -212,7 +212,7 @@ func completePacks(_ *cobra.Command, _ []string, toComplete string) ([]string, c
 }
 ```
 
-`completeMonsters` does the same for monster ids and aliases, with the monster's name after the tab as a description, and every command that takes a monster sets it as its `ValidArgsFunction`. Ids and aliases are single words, so they complete without quoting; the names themselves, with their spaces and apostrophes, would not. Both call `ensureCommunityPacks` first, which is why the loader is wrapped in a `sync.Once`: a completion request skips `PersistentPreRunE`, and a community monster should complete like a built-in one. Night 31 ships the generated scripts in the release archives.
+`completeMonsters` does the same for monster ids and aliases, lower-cased, with the monster's name after the tab as a description rather than a candidate, and every command that takes a monster sets it as its `ValidArgsFunction`. Ids are single words. Aliases often aren't (`count dracula`, `larry talbot`), and the completion script the shell loaded quotes those for you; the names themselves, with their capitals and apostrophes, stay in the description column. Both call `ensureCommunityPacks` first, which is why the loader is wrapped in a `sync.Once`: a completion request skips `PersistentPreRunE`, and a community monster should complete like a built-in one. Night 31 ships the generated scripts in the release archives.
 
 ## The Unix way
 
