@@ -59,7 +59,17 @@ jobs:
         uses: ./.github/actions/ss-setup
 
       - name: Install dependencies
-        run: npm ci
+        timeout-minutes: 12
+        run: |
+          for attempt in 1 2; do
+            if timeout --kill-after=30s 5m npm ci; then
+              exit 0
+            fi
+            echo "::warning::npm ci attempt ${attempt} failed or timed out"
+          done
+          echo "::error::npm ci failed twice"
+          echo "If this persists, check the runner's network."
+          exit 1
 
       - name: Install Playwright browsers
         # A stalled browser download otherwise holds the job until GitHub's
