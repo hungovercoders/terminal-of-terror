@@ -1,19 +1,22 @@
-    ___===___
-   /  °   °  \
-  |     ^     |
-  |  \-----/  |
-   \  ~~~~~  /
-    \-------/
-     ||||||||
-    /|||||||||\
-   /|||||||||||\  
-  |~~~~~~~~~~~~~|
-  |  ~~~   ~~~  |
-  |    ~~~~~    |
-   \  ~~~~~~~  /
-    |~~~~~~~~~|
-    |~~~|||~~~|
-    |   |||   |
-     \ ||||| /
-      \|||||/
-       |||||
+                   xxxxxx                   
+                 xxxxxxxxxx                 
+               xxxx  xxxxxxxxx              
+             xxxx xx xxx xxx xxxx           
+           xxxxxxxxxxxxxxxxxxxxxxxx         
+          xxxxxxxxxxxxxxxxxxxxxxxxxx        
+         xxx     xxxxxxxxxxx     xxx        
+        xxx  xxxxx  xxxxx  xxxxx  xxx       
+        xx  xx   xx  xxx  xx   xx  xx       
+        xx  xx xx xx xxx xx xx xx  xx       
+        xx   xxxxx   x x   xxxxx   xx       
+        xxx        xx   xx        xxx       
+   xx    xxx     xxxx   xxxx     xxx    xx  
+  xxxx    xxx                   xxx    xxxx 
+  xxxxx   xxxxxxxxxxxxxxxxxxxxxxxxx   xxxxx 
+  x x xx   xx xxxxxxxxxxxxxxxxx xx   xx x x 
+  x x xx    xxxxxxxxxxxxxxxxxxxxx    xx x x 
+  x x xx      xxxxxxxxxxxxxxxxx      xx x x 
+  xxxxxx       xxx         xxx       xxxxxx 
+   xxxx        x x xxxxxxx x x        xxxx  
+               x x xxxxxxx x x              
+               xxx         xxx              
