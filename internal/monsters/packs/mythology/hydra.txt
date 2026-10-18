@@ -1,14 +1,22 @@
- <o>   <o>   <o>   <o>
-  \     |     |     /
-   \    |     |    /
-    \   \     /   /
- <o> \   \   /   / <o>
-  \   \   \ /   /   /
-   \   \   |   /   /
-    '-._\  |  /_.-'
-        '-.|.-'
-         (   )
-        /     \
-       (       )
-        \_____/
-     ~~~~~~~~~~~~~
+ xxx       xxx       xxx       xxx       xxx
+ x xx     xx x       x x       x xx     xx x
+ xxxx      xxxx     xxxxx     xxxx      xxxx
+  xx        xx       xxx       xx        xx 
+  xx   xxx  xx  xxx  xxx  xxx  xx  xxx   xx 
+  xx   x x  xx  x x  xxx  x x  xx  x x   xx 
+   xx  xxx  xx  xxx  xxx  xxx  xx  xxx  xx  
+   xx   xx  xx   xx  xxx  xx   xx  xx   xx  
+    xx  xx  xx   xx  xxx  xx   xx  xx  xx   
+    xx   xx xx   xx  xxx  xx   xx xx   xx   
+     xx  xx  xx   xx xxx xx   xx  xx  xx    
+     xx  xx  xx   xx xxx xx   xx  xx  xx    
+      xx  xx  xx  xx xxx xx  xx  xx  xx     
+       xx  xx  xx xx xxx xx xx  xx  xx      
+        xx  xx  xxxx xxx xxxx  xx  xx       
+         xx  xxxxxxxxxxxxxxxxxxxxx  xx      
+          xxxxxxxxxxxxxxxxxxxxxxxxxxx       
+           xxxxxxxxxxxxxxxxxxxxxxxxx        
+           xxxxxxxxxxxxxxxxxxxxxxxxx        
+            xxxxxxxxxxxxxxxxxxxxxxx         
+ xxxx   xxxxx   xxxxx   xxxxx   xxxxx   xxxx
+   xxxx   xxxxx   xxxxx   xxxxx   xxxxx     

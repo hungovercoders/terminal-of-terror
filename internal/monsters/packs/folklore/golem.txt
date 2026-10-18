@@ -1,16 +1,22 @@
-       _________
-      /         \
-     |  _     _  |
-     | |_|   |_| |
-     |    ___    |
-     |   |___|   |
-      \_________/
-   ____| EMET  |____
-  /    |       |    \
- /  /| |       | |\  \
-|  / | |       | | \  |
-|_/  | |_______| |  \_|
-     |  |     |  |
-     |  |     |  |
-    _|__|     |__|_
-   |_____|   |_____|
+       xxxxxxxxxxxxxxxxxxxxxxxxxxxxxx       
+      xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx      
+      xx                              xx    
+      xx       xxx x x xxx xxx        xx    
+      xx       x   xxx x    x         xx    
+      xx       xxx x x xxx  x         xx    
+      xx       x   x x x    x         xx    
+      xx       xxx x x xxx  x         xx    
+      xx                              xx    
+      xx   xxxxxxxx        xxxxxxxx   xx    
+      xx   xxxxxxxx        xxxxxxxx   xx    
+      xx   xxxxxxxx        xxxxxxxx   xx    
+      xx                              xx    
+      xx            xxxx              xx    
+      xx            xxxx              xx    
+      xx                              xx    
+      xx     xxxxxxxxxxxxxxxxxxxx     xx    
+      xx     xxxxxxxxxxxxxxxxxxxx     xx    
+      xx                              xx    
+      xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx    
+   xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx 
+  xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx 

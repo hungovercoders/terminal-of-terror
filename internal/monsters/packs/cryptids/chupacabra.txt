@@ -1,14 +1,22 @@
-       ^  ^  ^  ^  ^
-      /\/\/\/\/\/\/\
-     /  (@)    (@)  \
-    |      ____      |
-    |     (vvvv)     |
-     \     ----     /
-      '-.________.-'
-   __/   \ ^ ^ ^ /   \__
-  /  |    \  ^  /    |  \
- /_  |     \___/     |  _\
-     |      | |      |
-     |      | |      |
-    _|      | |      |_
-   (__)    (_|_)    (__)
+     xx     xx     xx     xx     xx     xx  
+     xxx   xxxx   xxxx   xxxx   xxxx   xxx  
+      xxx xxxxxx xxxxxx xxxxxx xxxxxx xxx   
+       xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx   
+      xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx  
+     xxx                                xxx 
+    xxx    xxxxxxxxx        xxxxxxxxx    xxx
+    xx   xxxxxxxxxxxxx    xxxxxxxxxxxxx   xx
+    xx  xxxxxx  xxxxxxx  xxxxxxx  xxxxxx  xx
+    xx   xxxxxxxxxxxxx    xxxxxxxxxxxxx   xx
+    xxx    xxxxxxxxx        xxxxxxxxx    xxx
+     xxx                                xxx 
+      xxx            xxxxxx            xxx  
+       xxx          xx    xx          xxx   
+        xxx          xxxxxx          xxx    
+         xxx                        xxx     
+          xxx   xxxxxxxxxxxxxxxxxx xxx      
+           xxx  xx  x  x    x  x xxxx       
+            xxx x   x  x    x  x xx         
+             xxx    xx        xx            
+              xxxxxxxxxxxxxxxxxx            
+                 xxxxxxxxxxxx               

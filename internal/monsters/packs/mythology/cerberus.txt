@@ -1,12 +1,22 @@
-  /\_/\   /\_/\   /\_/\
- ( o o ) ( o o ) ( o o )
-  \ v /   \ v /   \ v /
-   \_/_____\_/_____\_/
-     |             |
-     |             |~
-     |             | ~
-     |   _______   |  ~
-     |__/       \__|~
-     |  |       |  |
-    /__/|       |\__\
-    (___)       (___)
+  xx   xx      xx      xx      xx   xx      
+  xxx xxx      xxx    xxx      xxx xxx      
+  xxxxxxx     xxxxxxxxxxxx     xxxxxxx      
+ xxxxxxxxx   xxxxxxxxxxxxxx   xxxxxxxxx     
+ xx     xx  xxx          xxx  xx     xx     
+ x xx xx x  xx  xxx  xxx  xx  x xx xx x     
+ x       x  xx  x x  x x  xx  x       x     
+ xx  x  xx  xx  xxx  xxx  xx  xx  x  xx     
+ xx     xx  xx            xx  xx     xx     
+  xx x xx   xx     xx     xx   xx x xx      
+  xxx xxx   xxx   x  x   xxx   xxx xxx      
+  x xxx x   xxx          xxx   x xxx x      
+  xxxxxxx    xx  xxxxxx  xx    xxxxxxx      
+   xx xx     xx x x  x x xx     xx xx       
+    xxx      xxx xxxxxx xxx      xxx        
+     x        xx  xxxx  xx        x         
+     x         xxx    xxx         x         
+     xx         xxxxxxxx         xx         
+      xxx        xxxxxx        xxx          
+       xxxx      xxxxxx      xxxx           
+        xxxxxxxxxxxxxxxxxxxxxxxx            
+          xxxxxxxxxxxxxxxxxxxx              
