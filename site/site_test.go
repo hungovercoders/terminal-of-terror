@@ -24,7 +24,7 @@ func TestBuild(t *testing.T) {
 	if n != want {
 		t.Errorf("wrote %d pages, want %d", n, want)
 	}
-	for _, f := range []string{"index.html", "monsters/index.html", "monsters/dracula.html", "night-school/index.html", "night-school/night-31.html", "404.html", "static/style.css", "static/site.js", "assets/hero.gif", "assets/social-card.jpg", "sitemap.xml", "robots.txt"} {
+	for _, f := range []string{"index.html", "monsters/index.html", "monsters/dracula.html", "night-school/index.html", "night-school/night-31.html", "404.html", "static/style.css", "static/site.js", "assets/hero.gif", "assets/social-card.png", "sitemap.xml", "robots.txt"} {
 		if _, err := os.Stat(filepath.Join(out, f)); err != nil {
 			t.Errorf("missing %s", f)
 		}
