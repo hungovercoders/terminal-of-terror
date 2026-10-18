@@ -119,6 +119,11 @@ jobs:
           # and deployment_status runs verify reachability against the
           # real deployed URL.
           SEO_VERIFY_OG_IMAGE: ${{ steps.url.outputs.use_local == 'true' && '0' || '1' }}
+          # A preview deploy carries the PR's own assets, but its og:image
+          # still names the production domain, which has not got a new or
+          # renamed card until the PR merges. HEAD-check the card on the
+          # preview instead; production runs check the real URL.
+          SEO_OG_IMAGE_BASE: ${{ steps.url.outputs.use_local != 'true' && steps.url.outputs.prod != 'true' && steps.url.outputs.url || '' }}
         run: task ss:reliability:seo -- ${{ steps.url.outputs.url }}
 
       - name: Stop local server
