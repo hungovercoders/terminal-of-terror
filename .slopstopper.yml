@@ -42,7 +42,7 @@ pages:
 # The site-wide share image the smoke test asserts. '' skips the assertion.
 # The site's share card; public/_headers gives /assets/* the CORP header.
 smoke:
-  og_image_path: /assets/tonight.png
+  og_image_path: /assets/social-card.png
 
 # Your security-headers file, for the CSP-drift check. Common values:
 # public/_headers (Cloudflare Pages / Netlify) or worker/headers.json.

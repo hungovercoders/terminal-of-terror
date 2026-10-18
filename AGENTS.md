@@ -22,7 +22,7 @@ internal/calendar/       Moon phases, Halloween, anniversaries (offline)
 site/                    Website generator (go run ./site), writes site/dist
 wrangler.jsonc public/    Cloudflare hosting (Workers Builds deploys main) and the site's response headers
 course/                  Count Cathode's Night School, the 31-night course (also rendered on the website)
-docs/assets/ docs/demos/ README GIFs and screenshots, and the VHS tapes that record them
+docs/assets/ docs/demos/ README GIFs, screenshots and the social card, and the tapes and page that render them
 scripts/shelldocs/       Man pages and shell completions from the command tree, for the release archives and the cask
 .github/workflows/       ci.yml on every PR, release.yml on v* tags, ss-*.yml slopstopper
 ```

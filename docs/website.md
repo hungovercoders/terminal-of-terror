@@ -21,6 +21,11 @@ Rules the tests enforce:
 - `sitemap.xml`, `robots.txt` and `llms.txt` are generated from the packs and course in `writeExtras`.
 - The hero shows `docs/assets/hero-poster.png` first and swaps in `hero.gif` after load; `docs/demos/render.sh`
   regenerates both.
+- The social card (`og:image` and `twitter:image` in `base.html`) is `docs/assets/social-card.png`, a 1200×630
+  PNG rendered from `docs/demos/social-card.html` by `node docs/demos/social-card.mjs` (needs `npm install` for
+  Playwright, and `pngquant` to shrink the file). It uses the site's own fonts and colours; keep the title
+  readable at a quarter size, and the file under 300 KB so every link-preview crawler shows it. The smoke check
+  expects a PNG at `smoke.og_image_path` in `.slopstopper.yml`.
 
 ## Hosting
 
