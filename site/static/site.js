@@ -35,6 +35,23 @@
     });
   }
 
+  /* ---- the sticky top bar: tell the stylesheet how tall it really is ----
+     The bar wraps to two or three rows on narrow screens, so a fixed
+     scroll-margin would leave section titles hidden behind it after a
+     programme-guide jump. style.css reads --topbar-h and keeps the title
+     in view. */
+  function topbarOffset() {
+    var bar = $(".topbar");
+    if (!bar) return;
+    var apply = function () {
+      document.documentElement.style.setProperty("--topbar-h", bar.offsetHeight + "px");
+    };
+    apply();
+    if (window.ResizeObserver) new ResizeObserver(apply).observe(bar);
+    else window.addEventListener("resize", apply);
+    if (document.fonts && document.fonts.ready) document.fonts.ready.then(apply);
+  }
+
   /* ---- the VCR clock ---- */
   function vcrClock() {
     var clock = $("#clock");
@@ -313,6 +330,7 @@
 
   tuneIn();
   heroAnimation();
+  topbarOffset();
   vcrClock();
   typewriter();
   highlight();
