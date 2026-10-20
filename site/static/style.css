@@ -131,7 +131,9 @@ blockquote p { margin-bottom: 0.4em; }
 .clock { font-family: var(--font-mono); color: var(--mint); font-size: 0.95rem; letter-spacing: 0.1em; text-shadow: 0 0 6px var(--mint); }
 
 main { max-width: var(--max); margin: 0 auto; padding: 1.5rem var(--gutter) 3rem; }
-main > section, main > header { margin: 3.5rem 0; scroll-margin-top: 4.5rem; }
+/* Anchor jumps land each section's title just under the sticky top bar. site.js sets --topbar-h to the
+   bar's measured height (it wraps on narrow screens); the fallbacks below cover scripts-off readers. */
+main > section, main > header { margin: 3.5rem 0; scroll-margin-top: calc(var(--topbar-h, 3.5rem) + 1.25rem); }
 main > section:first-child, main > header:first-child { margin-top: 1rem; }
 
 /* ---- shared bits ---- */
@@ -395,6 +397,7 @@ table.plain thead th { color: var(--ink-faint); font-family: var(--font-mono); f
   /* The top bar can wrap to two rows here, so nothing else sticks under it. */
   .portrait-col, .course-side, .section-tabs { position: static; max-height: none; }
   .topbar .clock { display: none; }
+  main > section, main > header { scroll-margin-top: calc(var(--topbar-h, 7rem) + 1.25rem); }
 }
 @media (max-width: 560px) {
   body { font-size: 16px; }
@@ -406,6 +409,7 @@ table.plain thead th { color: var(--ink-faint); font-family: var(--font-mono); f
   .lesson-nav .next { text-align: left; }
   .topnav { margin-left: 0; width: 100%; }
   .brand-name { font-size: 1.1rem; }
+  main > section, main > header { scroll-margin-top: calc(var(--topbar-h, 8.5rem) + 1.25rem); }
 }
 @media (prefers-reduced-motion: reduce) {
   html { scroll-behavior: auto; }
