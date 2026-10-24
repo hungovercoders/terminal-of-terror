@@ -170,7 +170,7 @@ terminal-of-terror quiz dracula
 </td>
 <td width="50%" valign="top">
 
-<img src="docs/assets/quiz.gif" alt="The Midnight Quiz: a true-or-false question, a wrong answer with its explanation, and a final rank" width="100%">
+<img src="docs/assets/quiz.gif" alt="The Midnight Quiz: a whose-story-is-this question, a wrong answer with its explanation, and a final rank" width="100%">
 
 </td>
 </tr>
@@ -267,7 +267,7 @@ terminal-of-terror tonight --shuffle          # a different bill
 terminal-of-terror tonight --date 2026-10-31  # what's on for Halloween?
 ```
 
-<img src="docs/assets/tonight.png" alt="A double-feature ticket for Halloween night: Dorian Gray and El Chupacabra" width="620">
+<img src="docs/assets/tonight.png" alt="A double-feature ticket for Halloween night: Krampus and Dorian Gray" width="620">
 
 ### 🎃 The Halloween Countdown
 
