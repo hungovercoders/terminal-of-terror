@@ -97,3 +97,23 @@ func TestDateErrorIsReadable(t *testing.T) {
 		t.Errorf("Date(31/10) = %v", err)
 	}
 }
+
+func TestTonightsFright(t *testing.T) {
+	all := monsters.GetAllMonsters()
+	f, ok := TonightsFright(utc(2026, time.October, 13, 21), all)
+	if !ok || f.Night != 13 || f.Monster.ID != all[12].ID || f.Fact != all[12].Facts[0] {
+		t.Errorf("13 October should feature the 13th monster and its first fact, got %+v", f)
+	}
+	if _, ok := TonightsFright(utc(2026, time.March, 3, 21), all); ok {
+		t.Error("March has no Night of Fright")
+	}
+	if _, ok := TonightsFright(utc(2026, time.October, 3, 21), nil); ok {
+		t.Error("no monsters, no Night of Fright")
+	}
+	// A two-monster pack laps the vault: night 5 is the first monster's third fact.
+	two := all[:2]
+	f, ok = TonightsFright(utc(2026, time.October, 5, 21), two)
+	if !ok || f.Monster.ID != two[0].ID || f.Fact != two[0].Facts[2%len(two[0].Facts)] {
+		t.Errorf("night 5 of a two-monster pack: got %+v", f)
+	}
+}

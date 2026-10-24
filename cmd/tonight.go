@@ -35,7 +35,8 @@ var tonightCmd = &cobra.Command{
 	Use:   "tonight",
 	Short: "See tonight's Creature Feature double bill",
 	Long: `Print a ticket for tonight's Channel 13 double feature. The line-up changes
-every night, so check back tomorrow, or use --shuffle for a different bill.`,
+every night, so check back tomorrow, or use --shuffle for a different bill.
+During October the 31 Nights of Fright monster headlines the bill.`,
 	Args: cobra.NoArgs,
 	RunE: func(cmd *cobra.Command, args []string) error {
 		now, err := parseDate(tonightDate)
@@ -53,6 +54,14 @@ every night, so check back tomorrow, or use --shuffle for a different bill.`,
 		r := rand.New(rand.NewSource(s))
 		pick := r.Perm(len(all))
 		first, second := all[pick[0]], all[pick[1]]
+		if f, ok := calendar.TonightsFright(now, all); ok && !tonightShuffle {
+			// The 31 Nights of Fright: tonight's monster tops the bill, and
+			// the support act is still the night's draw.
+			first, second = f.Monster, all[pick[0]]
+			if second.ID == first.ID {
+				second = all[pick[1]]
+			}
+		}
 		if jsonOut {
 			feature := func(at string, m monsters.Monster) featureJSON {
 				f := featureJSON{Time: at, Monster: m.ID, Name: m.Name}

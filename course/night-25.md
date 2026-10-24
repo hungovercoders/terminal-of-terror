@@ -65,7 +65,7 @@ The README suggests `terminal-of-terror random --daily` in a shell startup file,
 		first, second := all[pick[0]], all[pick[1]]
 ```
 
-`DailySeed * 13` so the bill isn't just the Fact of the Night's monster again: the same date, a different seed, a different draw. `r.Perm` guarantees two *different* monsters, where two `Intn` calls would sometimes pick the same one.
+`DailySeed * 13` so the bill isn't just the Fact of the Night's monster again: the same date, a different seed, a different draw. (During October the two *do* agree, on purpose: `calendar.TonightsFright` puts the Night of Fright's monster at the top of the bill and in the daily card, and the seeded draw only picks the support act.) `r.Perm` guarantees two *different* monsters, where two `Intn` calls would sometimes pick the same one.
 
 `RenderTicket` in [`internal/ui/rituals.go`](../internal/ui/rituals.go) is worth reading as a composition exercise. Each feature line is a closure that puts a fixed-width time column beside a title and credit:
 
@@ -132,7 +132,7 @@ const pumpkin = `         )
 
 Backticks make a **raw string**: no escapes, so backslashes and quotes are literal and the art can be pasted as-is. Any multi-line text in Go code wants backticks.
 
-In October the screen adds the 31 Nights of Fright: night N features monster `(N-1) % len(all)`, with fact `(N-1) / len(all) % len(facts)`: a vault bigger than 31 gives every night its own monster, and a smaller one laps round and shows each monster's second fact. Arithmetic on a date turns a vault of any size into thirty-one different nights.
+In October the screen adds the 31 Nights of Fright. `calendar.TonightsFright` picks night N's monster, `(N-1) % len(all)`, and its fact, `(N-1) / len(all) % len(facts)`: a vault bigger than 31 gives every night its own monster, and a smaller one laps round and shows each monster's second fact. Arithmetic on a date turns a vault of any size into thirty-one different nights, and because the countdown, `random --daily` and `tonight` all ask the same function, they never disagree about who tonight belongs to.
 
 ## Run it
 

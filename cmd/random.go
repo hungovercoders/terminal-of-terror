@@ -31,7 +31,8 @@ var randomCmd = &cobra.Command{
 Count Cathode.
 
 With --daily you get the Fact of the Night: the same for everyone all day,
-and a new one tomorrow. It's perfect for your shell's startup file.`,
+and a new one tomorrow. It's perfect for your shell's startup file. During
+October it's about that night's monster in the 31 Nights of Fright.`,
 	Example: `  terminal-of-terror random
   terminal-of-terror random --daily
   echo 'terminal-of-terror random --daily' >> ~/.bashrc`,
@@ -48,8 +49,13 @@ and a new one tomorrow. It's perfect for your shell's startup file.`,
 			title = "FACT OF THE NIGHT · " + now.Format("Monday 2 January")
 		}
 		r := rand.New(rand.NewSource(s))
+		all := monsters.GetAllMonsters()
 		m, fact := monsters.RandomFact(r)
-		notes := calendar.Notes(now, monsters.GetAllMonsters())
+		if f, ok := calendar.TonightsFright(now, all); ok && (randomDaily || randomDate != "") {
+			// The 31 Nights of Fright: tonight's monster, tonight's fact.
+			m, fact = f.Monster, f.Fact
+		}
+		notes := calendar.Notes(now, all)
 		if jsonOut {
 			return printJSON(factJSON{ID: m.ID, Monster: m.Name, Fact: fact, Notes: notes})
 		}
