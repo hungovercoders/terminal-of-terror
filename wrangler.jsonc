@@ -21,5 +21,8 @@
   // workers.dev URLs, which the deployed-site checks read off the PR.
   "workers_dev": false,
   "preview_urls": true,
-  "observability": { "enabled": true }
+  // Workers Logs stay off: the Worker only serves the built site, and off
+  // means Cloudflare keeps no per-request records (IP included) that we can
+  // read. templates/privacy.html and the footer in base.html say so.
+  "observability": { "enabled": false }
 }
