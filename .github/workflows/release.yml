@@ -1,11 +1,35 @@
 name: Release
 
+# Publishes a release. Two ways in:
+#
+#   1. The button: Actions → Release → Run workflow, with the version (1.1.0).
+#      The job checks main is what's being released, that CHANGELOG.md has
+#      the version's section and that the tag is new, then tags, builds and
+#      publishes in this one run. A tag pushed with GITHUB_TOKEN never
+#      triggers another workflow, so the publishing can't be left to the
+#      tag-push trigger below; it has to happen here.
+#   2. A hand-pushed v* tag, as before: git tag v1.1.0 && git push origin v1.1.0.
+#
+# Either way the release notes are the version's section of CHANGELOG.md,
+# so prepare that first (see "Releasing" in CONTRIBUTING.md).
+
 on:
   push:
     tags: ["v*"]
+  workflow_dispatch:
+    inputs:
+      version:
+        description: "Version to release, e.g. 1.1.0 (tagged as v1.1.0). Its CHANGELOG.md section must already be on main."
+        required: true
+        type: string
 
 permissions:
   contents: write
+
+# One release at a time: two runs tagging and uploading at once would race.
+concurrency:
+  group: release
+  cancel-in-progress: false
 
 jobs:
   release:
@@ -27,6 +51,50 @@ jobs:
       - uses: actions/checkout@v4
         with:
           fetch-depth: 0
+
+      - name: Decide the version
+        id: version
+        env:
+          INPUT_VERSION: ${{ inputs.version }}
+        run: |
+          if [ "$GITHUB_EVENT_NAME" = "workflow_dispatch" ]; then
+            version="${INPUT_VERSION#v}"
+            if [ "$GITHUB_REF_NAME" != "main" ]; then
+              echo "::error::Releases are cut from main, not $GITHUB_REF_NAME. Run the workflow on main."
+              exit 1
+            fi
+            if ! [[ "$version" =~ ^[0-9]+\.[0-9]+\.[0-9]+(-[0-9A-Za-z.]+)?$ ]]; then
+              echo "::error::'$INPUT_VERSION' isn't a version. Use MAJOR.MINOR.PATCH, e.g. 1.1.0 or 1.2.0-rc1."
+              exit 1
+            fi
+            if [ "${version%%.*}" -ge 2 ] && ! grep -q '^module .*/v[0-9]' go.mod; then
+              echo "::error::v$version needs the module path to end in /v${version%%.*} first, or 'go install ...@latest' would ignore it. See CONTRIBUTING.md."
+              exit 1
+            fi
+            if git ls-remote --exit-code --tags origin "refs/tags/v$version" > /dev/null; then
+              echo "::error::v$version already exists. Pick the next version, or delete the tag first if it was a mistake that never published."
+              exit 1
+            fi
+          else
+            version="${GITHUB_REF_NAME#v}"
+          fi
+          echo "version=$version" >> "$GITHUB_OUTPUT"
+          echo "Releasing $version from ${GITHUB_SHA:0:7}"
+
+      - name: Release notes from CHANGELOG.md
+        env:
+          VERSION: ${{ steps.version.outputs.version }}
+        run: |
+          awk -v heading="## [$VERSION]" '
+            index($0, heading) == 1 { found = 1; next }
+            found && /^## \[/ { exit }
+            found { print }
+          ' CHANGELOG.md > "$RUNNER_TEMP/notes.md"
+          if [ ! -s "$RUNNER_TEMP/notes.md" ]; then
+            echo "::error::CHANGELOG.md has no '## [$VERSION]' section. Merge the changelog for $VERSION into main before releasing."
+            exit 1
+          fi
+
       - uses: actions/setup-go@v5
         with:
           go-version-file: go.mod
@@ -34,18 +102,17 @@ jobs:
       - name: Test
         run: go test ./...
 
-      - name: Release notes from CHANGELOG.md
+      - name: Tag
+        # The button's run: the tag goes on the commit that was just tested.
+        # A hand-pushed tag is already here.
+        if: github.event_name == 'workflow_dispatch'
+        env:
+          VERSION: ${{ steps.version.outputs.version }}
         run: |
-          version="${GITHUB_REF_NAME#v}"
-          awk -v heading="## [$version]" '
-            index($0, heading) == 1 { found = 1; next }
-            found && /^## \[/ { exit }
-            found { print }
-          ' CHANGELOG.md > "$RUNNER_TEMP/notes.md"
-          if [ ! -s "$RUNNER_TEMP/notes.md" ]; then
-            echo "::error::CHANGELOG.md has no '## [$version]' section. Update it before tagging."
-            exit 1
-          fi
+          git config user.name "github-actions[bot]"
+          git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
+          git tag -a "v$VERSION" -m "Terminal of Terror $VERSION"
+          git push origin "v$VERSION"
 
       - uses: goreleaser/goreleaser-action@v6
         with:
