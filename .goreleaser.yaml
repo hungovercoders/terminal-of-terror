@@ -44,9 +44,11 @@ archives:
 checksum:
   name_template: checksums.txt
 
-# Release notes come from the tag's section of CHANGELOG.md instead.
-changelog:
-  disable: true
+# Release notes come from the tag's section of CHANGELOG.md, passed in by
+# release.yml as --release-notes. Don't set changelog.disable to go with
+# that: it skips the whole changelog step, --release-notes included, and the
+# GitHub release is published with an empty body (1.0.0 and 1.1.0 shipped
+# that way). With the flag given, GoReleaser generates nothing of its own.
 
 # Writes Casks/terminal-of-terror.rb to hungovercoders/homebrew-tap. Pushing
 # there needs the HOMEBREW_TAP_GITHUB_TOKEN secret, a fine-grained PAT with
