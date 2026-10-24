@@ -52,14 +52,14 @@ brew install hungovercoders/tap/terminal-of-terror
 **On Windows, or without Homebrew, download it** from the [latest release](https://github.com/hungovercoders/terminal-of-terror/releases/latest): there are builds for Linux, macOS and Windows, on Intel and ARM. Unpack it and put `terminal-of-terror` somewhere on your `PATH`.
 
 ```bash
-# e.g. Linux on Intel/AMD, version 1.0.0
-tar xzf terminal-of-terror_1.0.0_linux_amd64.tar.gz
+# e.g. Linux on Intel/AMD, version 1.1.0
+tar xzf terminal-of-terror_1.1.0_linux_amd64.tar.gz
 sudo mv terminal-of-terror /usr/local/bin/
 ```
 
 ```powershell
 # e.g. Windows on Intel/AMD: unpack, then add the folder to your PATH
-Expand-Archive terminal-of-terror_1.0.0_windows_amd64.zip "$env:LOCALAPPDATA\terminal-of-terror"
+Expand-Archive terminal-of-terror_1.1.0_windows_amd64.zip "$env:LOCALAPPDATA\terminal-of-terror"
 ```
 
 > [!NOTE]
