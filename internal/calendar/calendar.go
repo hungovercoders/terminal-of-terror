@@ -97,6 +97,32 @@ func NightOfFright(t time.Time) (int, bool) {
 	return t.Day(), true
 }
 
+// FrightNight is one of the 31 Nights of Fright: an October night, the
+// monster it features and the fact told about it.
+type FrightNight struct {
+	Night   int
+	Monster monsters.Monster
+	Fact    string
+}
+
+// TonightsFright returns t's Night of Fright. Night N features the Nth
+// monster of the vault, wrapping round for small packs, and a fact that
+// moves on each lap. ok is false outside October or with no monsters.
+// The countdown, the Fact of the Night and the double feature all use it,
+// so every ritual agrees on tonight's monster.
+func TonightsFright(t time.Time, all []monsters.Monster) (FrightNight, bool) {
+	n, ok := NightOfFright(t)
+	if !ok || len(all) == 0 {
+		return FrightNight{}, false
+	}
+	m := all[(n-1)%len(all)]
+	f := FrightNight{Night: n, Monster: m}
+	if len(m.Facts) > 0 {
+		f.Fact = m.Facts[(n-1)/len(all)%len(m.Facts)]
+	}
+	return f, true
+}
+
 // DailySeed turns a date into a stable random seed, so everyone gets the
 // same fact of the night on the same day.
 func DailySeed(t time.Time) int64 {

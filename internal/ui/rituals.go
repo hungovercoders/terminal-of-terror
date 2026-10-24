@@ -75,14 +75,13 @@ func RenderCountdown(now time.Time, all []monsters.Monster, width int) string {
 				lipgloss.JoinVertical(lipgloss.Left, orange.Render(bigNumber(n)), "", headingStyle.Render(caption))),
 			"",
 		)
-		if night, ok := calendar.NightOfFright(now); ok {
-			m := all[(night-1)%len(all)]
-			fact := m.Facts[(night-1)/len(all)%len(m.Facts)]
+		if f, ok := calendar.TonightsFright(now, all); ok {
+			m := f.Monster
 			parts = append(parts,
-				titleStyle.Render(fmt.Sprintf("31 NIGHTS OF FRIGHT · NIGHT %d", night)),
+				titleStyle.Render(fmt.Sprintf("31 NIGHTS OF FRIGHT · NIGHT %d", f.Night)),
 				"",
 				lipgloss.NewStyle().Bold(true).Foreground(paletteFor(m).primary).Render("Tonight's monster: "+label(m.Emoji, m.Name)),
-				factStyle.Render(wrap(fact, w)),
+				factStyle.Render(wrap(f.Fact, w)),
 			)
 		} else {
 			parts = append(parts, hostStyle.Render(wrap(fmt.Sprintf("%s%s: “The 31 Nights of Fright begin on 1 October. A different monster every night until Halloween. Don't miss it!”", glyph("📺"), host.Name), w)))

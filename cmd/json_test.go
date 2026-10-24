@@ -97,3 +97,41 @@ func TestErrorsHaveCodes(t *testing.T) {
 		t.Error("wantsJSON should read --json from the raw arguments")
 	}
 }
+
+// In October every ritual stars the same monster: the Night of Fright's.
+func TestOctoberRitualsShareTonightsMonster(t *testing.T) {
+	t.Setenv("TERMINAL_OF_TERROR_HOME", t.TempDir())
+	tonightDate, countdownDate, randomDate = "2026-10-24", "2026-10-24", "2026-10-24"
+	defer func() { tonightDate, countdownDate, randomDate = "", "", ""; tonightShuffle = false }()
+
+	var night struct {
+		NightOfFright nightJSON `json:"nightOfFright"`
+	}
+	if err := json.Unmarshal(captureJSON(t, countdownCmd, nil), &night); err != nil {
+		t.Fatal(err)
+	}
+	if night.NightOfFright.Night != 24 || night.NightOfFright.Monster == "" || night.NightOfFright.Fact == "" {
+		t.Fatalf("countdown: %+v", night.NightOfFright)
+	}
+	var fact factJSON
+	if err := json.Unmarshal(captureJSON(t, randomCmd, nil), &fact); err != nil {
+		t.Fatal(err)
+	}
+	if fact.ID != night.NightOfFright.Monster || fact.Fact != night.NightOfFright.Fact {
+		t.Errorf("the Fact of the Night should be tonight's monster's: %+v vs %+v", fact, night.NightOfFright)
+	}
+	var bill tonightJSON
+	if err := json.Unmarshal(captureJSON(t, tonightCmd, nil), &bill); err != nil {
+		t.Fatal(err)
+	}
+	if len(bill.Features) != 2 || bill.Features[0].Monster != night.NightOfFright.Monster || bill.Features[1].Monster == bill.Features[0].Monster {
+		t.Errorf("tonight's bill should open with tonight's monster and a different support: %+v", bill.Features)
+	}
+	tonightShuffle = true
+	if err := json.Unmarshal(captureJSON(t, tonightCmd, nil), &bill); err != nil {
+		t.Fatal(err)
+	}
+	if len(bill.Features) != 2 || bill.Features[0].Monster == bill.Features[1].Monster {
+		t.Errorf("--shuffle should still give two different monsters: %+v", bill.Features)
+	}
+}

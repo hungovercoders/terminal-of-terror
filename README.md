@@ -271,7 +271,7 @@ terminal-of-terror tonight --date 2026-10-31  # what's on for Halloween?
 
 ### 🎃 The Halloween Countdown
 
-The nights until Halloween, tonight's moon and the next film anniversary. During October it's the **31 Nights of Fright**, with a different monster featured every night.
+The nights until Halloween, tonight's moon and the next film anniversary. During October it's the **31 Nights of Fright**, with a different monster featured every night, and that monster headlines the double feature and tells the Fact of the Night too, so every ritual agrees on who's haunting you tonight.
 
 ```bash
 terminal-of-terror countdown

@@ -192,7 +192,7 @@ Tonight's moon and the next anniversary; the pumpkin on Halloween; Night 13 of t
 
 ## 🕯️ Before dawn
 
-`NightOfFright` returns the day of the month in October. Make it return a *monster* too: night N features `all[(N-1) % len(all)]`, which is what tomorrow's countdown screen does. Then work out which night features the Golem, and check with `--date`.
+`NightOfFright` returns the day of the month in October. Make it return a *monster* too: night N features `all[(N-1) % len(all)]`. Then compare yours with `TonightsFright` in the same file, which the countdown, the Fact of the Night and the double feature all share, so that every ritual names the same monster on the same night. Work out which night features the Golem, and check with `--date`.
 
 > 📺 *"A constant, a cosine, and the moon is yours. Tomorrow night, tickets. Actual tickets, with a perforated edge. Admit one."*
 

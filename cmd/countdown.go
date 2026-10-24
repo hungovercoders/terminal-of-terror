@@ -26,6 +26,7 @@ type nightJSON struct {
 	Night   int    `json:"night"`
 	Monster string `json:"monster"`
 	Name    string `json:"name"`
+	Fact    string `json:"fact,omitempty"`
 }
 
 type moonJSON struct {
@@ -46,7 +47,8 @@ var countdownCmd = &cobra.Command{
 	Short: "Count down the nights until Halloween",
 	Long: `Show how many nights are left until Halloween, tonight's moon and the next
 classic film anniversary. During October, each night of the 31 Nights of
-Fright features a different monster.`,
+Fright features a different monster, who also stars in that night's Fact of
+the Night and double feature.`,
 	Args: cobra.NoArgs,
 	RunE: func(cmd *cobra.Command, args []string) error {
 		now, err := parseDate(countdownDate)
@@ -63,9 +65,8 @@ Fright features a different monster.`,
 				Moon:                 moonJSON{Name: moon.Name, Emoji: moon.Emoji, Illumination: moon.Illumination},
 				Notes:                calendar.Notes(now, all),
 			}
-			if night, ok := calendar.NightOfFright(now); ok && len(all) > 0 {
-				m := all[(night-1)%len(all)]
-				out.NightOfFright = &nightJSON{Night: night, Monster: m.ID, Name: m.Name}
+			if f, ok := calendar.TonightsFright(now, all); ok {
+				out.NightOfFright = &nightJSON{Night: f.Night, Monster: f.Monster.ID, Name: f.Monster.Name, Fact: f.Fact}
 			}
 			if a, when, ok := calendar.NextAnniversary(now, all); ok {
 				out.NextAnniversary = &anniversaryJSON{Monster: a.Monster.ID, Film: a.Monster.Film.Title, Years: a.Years, Date: when.Format("2006-01-02")}
