@@ -4,8 +4,10 @@
 #   docs/demos/render.sh            # everything
 #   docs/demos/render.sh hero quiz  # just these
 #
-# Needs: go, vhs (https://github.com/charmbracelet/vhs), ffmpeg, and ttyd 1.7.7
-# or newer. Set TTYD=/path/to/ttyd to pick a specific ttyd binary.
+# Needs: go, vhs (https://github.com/charmbracelet/vhs), ffmpeg, ttyd 1.7.7
+# or newer, and Linux with Noto Color Emoji (fonts-noto-color-emoji) as
+# fontconfig's emoji font.
+# Set TTYD=/path/to/ttyd to pick a specific ttyd binary.
 #
 # Recordings use a fixed TERMINAL_OF_TERROR_SEED (DEMO_SEED, default 13), so
 # re-recording gives the same questions, portraits and fights every time.
@@ -29,11 +31,21 @@ trap 'rm -rf "$work"' EXIT
 stills=" tonight countdown random list crypt "
 bg="#0d0a12"
 
-for tool in go vhs ffmpeg; do
+for tool in go vhs ffmpeg fc-match; do
   command -v "$tool" > /dev/null || { echo "missing $tool" >&2; exit 1; }
 done
 real_ttyd=${TTYD:-$(command -v ttyd || true)}
 [ -n "$real_ttyd" ] || { echo "missing ttyd (1.7.7+)" >&2; exit 1; }
+# The recordings draw emoji with the system's font. Noto's licence (OFL 1.1)
+# lets its glyphs ship in the GIFs; Apple's and Microsoft's emoji don't. On
+# Linux the browser picks emoji through fontconfig, so ask it which font it
+# would use; macOS's browser uses Apple's whatever fontconfig says.
+[ "$(uname -s)" = Linux ] || { echo "record on Linux: other systems draw emoji that can't be redistributed" >&2; exit 1; }
+emoji_font=$(fc-match -f '%{family}' 'emoji:charset=1f383')
+[ "$emoji_font" = "Noto Color Emoji" ] || {
+  echo "emoji would be drawn with '$emoji_font': install fonts-noto-color-emoji and make it the preferred emoji font" >&2
+  exit 1
+}
 
 # The recorded shell gets a fake home, so saved paths read ~/.config/...
 config="$work/home/.config/terminal-of-terror"

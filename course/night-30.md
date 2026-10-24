@@ -112,13 +112,13 @@ Some habits from that rewrite that apply to any README:
 
 ## Run it
 
-If you have `vhs`, `ffmpeg` and ttyd 1.7.7 or newer:
+If you're on Linux with `vhs`, `ffmpeg`, ttyd 1.7.7 or newer and the Noto Color Emoji font (the script refuses other systems, whose emoji can't be redistributed in a GIF):
 
 ```bash
 docs/demos/render.sh quiz
 ```
 
-and look at `docs/assets/quiz.gif`. Without them, read `render.sh` top to bottom; it's under 140 lines and every decision has a comment.
+and look at `docs/assets/quiz.gif`. Without them, read `render.sh` top to bottom; it's under 150 lines and every decision has a comment.
 
 ## Try it
 
