@@ -92,7 +92,7 @@ homebrew_casks:
     # downloaded and refuses to run it. The guard makes this a no-op on Linux.
     hooks:
       post:
-        install: |
+        install_steps: |
           if system_command("/usr/bin/xattr", args: ["-h"]).exit_status == 0
             system_command "/usr/bin/xattr", args: ["-dr", "com.apple.quarantine", "#{staged_path}/terminal-of-terror"]
           end
