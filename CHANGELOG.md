@@ -5,6 +5,31 @@ All notable changes to Terminal of Terror will be documented in this file.
 The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.0.0/),
 and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0.html).
 
+## [1.1.0] - 2026-10-24
+
+The Halloween release. 📺 *"Seven nights to go, fiends. Every ritual now knows whose night it is."*
+
+### The 31 Nights of Fright
+
+- During October the night's monster stars in every ritual: `countdown` features it, `random --daily` tells its fact, and `tonight` puts it at the top of the bill, so the three never disagree. `countdown --json` carries the fact too
+- Every portrait redrawn in a pixel style, and the README demos re-recorded to show them
+
+### Friendlier at the keyboard
+
+- Shell completion for monster and pack names (`terminal-of-terror completion bash|zsh|fish|powershell`), and man pages in every release
+- A typo in a monster or pack name suggests the one you probably meant, and the help text has been tidied
+- The screens and `crypt reset` refuse a pipe with a clear message instead of hanging
+
+### For scripts and logs
+
+- One `--json` flag for every command, including `guess`, `mash`, `tonight` and `countdown`; under `--json` an error is one JSON object on stderr with a stable `code` to branch on
+- Plain output for pipes and logs: no colour codes, ASCII borders and no emoji when stdout isn't a terminal, or with `--no-color` or `NO_COLOR`
+
+### Website and docs
+
+- A social card for link previews of terminalofterror.com, and section titles that stay in view after programme-guide jumps
+- Count Cathode's Night School brought up to date with the code, and its Night 24 and 25 lessons cover the shared Night of Fright
+
 ## [1.0.0] - 2026-10-11
 
 The first release. 📺 *"Good evening, creatures of the night, and welcome to the Channel 13 Creature Feature."*
