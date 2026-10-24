@@ -123,46 +123,69 @@ After the archives are uploaded, GoReleaser writes `Casks/terminal-of-terror.rb`
 
 ## The release workflow
 
-[`release.yml`](../.github/workflows/release.yml) runs on a tag push:
+[`release.yml`](../.github/workflows/release.yml) has two ways in: a tag push, or a button in the Actions tab that asks for a version:
 
 ```yaml
 on:
   push:
     tags: ["v*"]
+  workflow_dispatch:
+    inputs:
+      version:
+        description: "Version to release, e.g. 1.1.0 (tagged as v1.1.0). Its CHANGELOG.md section must already be on main."
+        required: true
+        type: string
 
 permissions:
   contents: write
 ```
 
-`contents: write`, because this one *does* publish. Its first step checks that the `HOMEBREW_TAP_GITHUB_TOKEN` secret is set, a fine-grained personal access token that can write to the tap and nothing else, and fails before anything is built or uploaded: a missing token found at the end would leave a GitHub release published and the cask unpublished. Then a checkout with `fetch-depth: 0`, because GoReleaser reads the tags; then the tests, then the notes:
+`contents: write`, because this one *does* publish. **`workflow_dispatch`** is how a workflow gets a Run button, and `inputs` are the form it shows; a job reads them as `inputs.version`. Its first step checks that the `HOMEBREW_TAP_GITHUB_TOKEN` secret is set, a fine-grained personal access token that can write to the tap and nothing else, and fails before anything is built or uploaded: a missing token found at the end would leave a GitHub release published and the cask unpublished. Then a checkout with `fetch-depth: 0`, because GoReleaser reads the tags; then the tests, then the notes:
 
 ```yaml
       - name: Release notes from CHANGELOG.md
+        env:
+          VERSION: ${{ steps.version.outputs.version }}
         run: |
-          version="${GITHUB_REF_NAME#v}"
-          awk -v heading="## [$version]" '
+          awk -v heading="## [$VERSION]" '
             index($0, heading) == 1 { found = 1; next }
             found && /^## \[/ { exit }
             found { print }
           ' CHANGELOG.md > "$RUNNER_TEMP/notes.md"
           if [ ! -s "$RUNNER_TEMP/notes.md" ]; then
-            echo "::error::CHANGELOG.md has no '## [$version]' section. Update it before tagging."
+            echo "::error::CHANGELOG.md has no '## [$VERSION]' section. Merge the changelog for $VERSION into main before releasing."
             exit 1
           fi
 ```
 
-An `awk` program that prints the lines between this version's heading and the next one. If that's empty, the release stops with an error that says what to do, and nothing is published: no release with no notes. Then `goreleaser release --clean --release-notes notes.md` does the rest with two tokens in its environment: the repository's own `GITHUB_TOKEN` for the release, and `HOMEBREW_TAP_GITHUB_TOKEN` for the cask.
+The version comes from a step before it, "Decide the version", which takes it from the tag name on a tag push and from the button's input otherwise, and in the button's case refuses to go on unless the run is on `main`, the version is well-formed and below 2.0.0, and the tag doesn't already exist. Then an `awk` program prints the lines between this version's heading and the next one. If that's empty, the release stops with an error that says what to do, and nothing is published: no release with no notes. Then `goreleaser release --clean --release-notes notes.md` does the rest with two tokens in its environment: the repository's own `GITHUB_TOKEN` for the release, and `HOMEBREW_TAP_GITHUB_TOKEN` for the cask.
 
 ## Tagging
 
-A **tag** is a name for a commit. `git tag v1.0.0` on the merge commit of the release preparation, then `git push origin v1.0.0`, and the workflow runs. Tags aren't pushed by `git push` on their own, which is why the step is explicit, and why the project's rule is that a tag is never pushed without the maintainer's go-ahead: pushing a tag *is* publishing.
+A **tag** is a name for a commit. `git tag v1.0.0` on the merge commit of the release preparation, then `git push origin v1.0.0`, and the workflow runs. Tags aren't pushed by `git push` on their own, which is why the step is explicit, and why the project's rule is that a tag is never pushed, and the Release button never pressed, without the maintainer's go-ahead: either *is* publishing.
+
+The button does the tagging itself, after the tests:
+
+```yaml
+      - name: Tag
+        if: github.event_name == 'workflow_dispatch'
+        env:
+          VERSION: ${{ steps.version.outputs.version }}
+        run: |
+          git config user.name "github-actions[bot]"
+          git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
+          git tag -a "v$VERSION" -m "Terminal of Terror $VERSION"
+          git push origin "v$VERSION"
+```
+
+And here is the trap that shapes the whole file. A tag pushed with the workflow's own `GITHUB_TOKEN` does **not** trigger other workflows; GitHub does that on purpose, so a workflow can't start an endless chain of workflows. A "tag it" button that relied on the `push: tags` trigger to do the publishing would tag and then sit there. So the button's run tags *and* builds *and* publishes, in one job, and the tag-push trigger stays for anyone who tags by hand. Whenever one workflow is meant to set off another, this rule is the first thing to check.
 
 The CONTRIBUTING.md release checklist, in full:
 
 1. Pick the version.
 2. `git cliff --unreleased --tag v1.1.0 --prepend CHANGELOG.md`, then edit.
 3. Commit (`chore(release): prepare for v1.1.0`) and merge to `main`.
-4. `git tag v1.1.0 && git push origin v1.1.0` from an up-to-date `main`.
+4. Actions → Release → Run workflow, on `main`, with `1.1.0`. (Or `git tag v1.1.0 && git push origin v1.1.0` from an up-to-date `main`.)
 
 Try it without publishing: `goreleaser release --snapshot --clean` builds everything into `.goreleaser/dist/`, not GoReleaser's usual `dist/`, because that is where the website builds; and it touches nothing on GitHub, rendering the cask into `.goreleaser/dist/homebrew/Casks/` instead of pushing it.
 

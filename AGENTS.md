@@ -33,7 +33,7 @@ scripts/shelldocs/       Man pages and shell completions from the command tree, 
   copyrighted films; describe famous scenes in your own words instead.
 - Avoid emoji that need a variation selector (⚰️, 🎞️): terminals disagree on their width and they break box
   alignment. Prefer emoji that are wide by default (🦴, 🎬, 💀).
-- Never push a `v*` tag without the maintainer's go-ahead: it publishes a release. Keep versions below v2.0.0
+- Never push a `v*` tag or run the Release workflow without the maintainer's go-ahead: either publishes a release. Keep versions below v2.0.0
   unless the module path gains a `/v2` suffix.
 - Prefer the standard library; add a dependency only for core functionality.
 - Return errors from `RunE` in cobra commands, with messages a player can act on.

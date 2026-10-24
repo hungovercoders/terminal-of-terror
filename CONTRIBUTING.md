@@ -174,7 +174,7 @@ go run ./site -out dist && npx wrangler dev   # then open http://localhost:8787
 
 ## Releasing
 
-Releases are built by [GoReleaser](https://goreleaser.com) from `.goreleaser.yaml` whenever a `v*` tag is pushed. `.github/workflows/release.yml` runs the tests, builds archives for Linux, macOS and Windows (amd64 and arm64), publishes a GitHub release, and writes the Homebrew cask to [hungovercoders/homebrew-tap](https://github.com/hungovercoders/homebrew-tap) (prereleases such as `v1.1.0-rc1` skip the tap). The release notes are the tag's section of CHANGELOG.md.
+Releases are built by [GoReleaser](https://goreleaser.com) from `.goreleaser.yaml`, either from the **Release** button in GitHub Actions or whenever a `v*` tag is pushed. `.github/workflows/release.yml` runs the tests, builds archives for Linux, macOS and Windows (amd64 and arm64), publishes a GitHub release, and writes the Homebrew cask to [hungovercoders/homebrew-tap](https://github.com/hungovercoders/homebrew-tap) (prereleases such as `v1.1.0-rc1` skip the tap). The release notes are the tag's section of CHANGELOG.md.
 
 Pushing the cask needs the `HOMEBREW_TAP_GITHUB_TOKEN` secret, shared from the hungovercoders organisation: a fine-grained personal access token with contents read and write on `hungovercoders/homebrew-tap` and nothing else. The workflow fails before building anything if it's missing.
 
@@ -185,12 +185,13 @@ Pushing the cask needs the `HOMEBREW_TAP_GITHUB_TOKEN` secret, shared from the h
    ```
    Then edit it so it reads well for players, not just developers.
 3. **Commit** the changelog (`chore(release): prepare for v1.1.0`) and merge it into `main`.
-4. **Tag and push** from an up-to-date `main`:
+4. **Press the button.** In GitHub, open Actions → Release → Run workflow, leave the branch on `main`, enter `1.1.0` and run it. The workflow checks that it's on `main`, that the version is well-formed and below 2.0.0, that `v1.1.0` doesn't exist yet and that CHANGELOG.md has a `## [1.1.0]` section; then it runs the tests, tags the commit, builds and publishes, all in that one run. (A tag pushed by a workflow never starts another workflow, which is why the button does the whole job itself.)
+
+   Tagging by hand still works from an up-to-date `main`, and publishes the same way:
    ```bash
    git tag v1.1.0
    git push origin v1.1.0
    ```
-   The workflow refuses to publish if CHANGELOG.md has no `## [1.1.0]` section.
 
 To try a release locally without publishing anything, run `goreleaser release --snapshot --clean` and look in `.goreleaser/dist/`, where the rendered cask is `homebrew/Casks/terminal-of-terror.rb`. CI runs `goreleaser check` on every pull request to catch config mistakes.
 
