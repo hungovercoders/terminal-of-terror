@@ -6,6 +6,11 @@
   docs/demos/social-card.mjs renders this file to docs/assets/social-card.png.
   It uses the website's own fonts and colours (site/static), so the card matches the
   site. Keep the big title legible at a quarter of this size: feeds show cards small.
+
+  Emoji come only from Noto Color Emoji (OFL 1.1), installed on the rendering machine
+  (apt install fonts-noto-color-emoji). Apple's and Microsoft's emoji fonts don't allow
+  their glyphs to be redistributed, so social-card.mjs refuses to render without Noto
+  rather than let the browser fall back to them.
 -->
 <html lang="en">
 <head>
@@ -16,6 +21,7 @@
 @font-face { font-family: "Special Elite"; src: url("../../site/static/fonts/special-elite-regular-latin.woff2") format("woff2"); }
 @font-face { font-family: "IBM Plex Mono"; src: url("../../site/static/fonts/ibm-plex-mono-regular-latin.woff2") format("woff2"); }
 @font-face { font-family: "IBM Plex Mono"; font-weight: 600; src: url("../../site/static/fonts/ibm-plex-mono-semibold-latin.woff2") format("woff2"); }
+@font-face { font-family: "Card Emoji"; src: local("Noto Color Emoji"), local("NotoColorEmoji"); }
 
 :root {
   --bg: #0d0a12;
@@ -31,7 +37,7 @@
   --gold: #ffd700;
   --sky: #8be9fd;
   --mono: "IBM Plex Mono", "DejaVu Sans Mono", monospace;
-  --emoji: "Noto Color Emoji", "Apple Color Emoji", "Segoe UI Emoji", sans-serif;
+  --emoji: "Card Emoji";
 }
 
 * { box-sizing: border-box; }

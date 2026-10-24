@@ -4,8 +4,9 @@
 #   docs/demos/render.sh            # everything
 #   docs/demos/render.sh hero quiz  # just these
 #
-# Needs: go, vhs (https://github.com/charmbracelet/vhs), ffmpeg, and ttyd 1.7.7
-# or newer. Set TTYD=/path/to/ttyd to pick a specific ttyd binary.
+# Needs: go, vhs (https://github.com/charmbracelet/vhs), ffmpeg, ttyd 1.7.7
+# or newer, and Noto Color Emoji (fonts-noto-color-emoji) found by fontconfig.
+# Set TTYD=/path/to/ttyd to pick a specific ttyd binary.
 #
 # Recordings use a fixed TERMINAL_OF_TERROR_SEED (DEMO_SEED, default 13), so
 # re-recording gives the same questions, portraits and fights every time.
@@ -34,6 +35,13 @@ for tool in go vhs ffmpeg; do
 done
 real_ttyd=${TTYD:-$(command -v ttyd || true)}
 [ -n "$real_ttyd" ] || { echo "missing ttyd (1.7.7+)" >&2; exit 1; }
+# The recordings draw emoji with the system's font. Noto's licence (OFL 1.1)
+# lets its glyphs ship in the GIFs; Apple's and Microsoft's emoji don't, so
+# record on Linux with Noto installed.
+fc-list 2> /dev/null | grep -q "Noto Color Emoji" || {
+  echo "missing Noto Color Emoji: record on Linux with fonts-noto-color-emoji installed" >&2
+  exit 1
+}
 
 # The recorded shell gets a fake home, so saved paths read ~/.config/...
 config="$work/home/.config/terminal-of-terror"
