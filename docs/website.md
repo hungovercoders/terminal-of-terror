@@ -12,7 +12,8 @@
 6. `templates/privacy.html` and the footer line in `base.html` state what the site collects (nothing of its own),
    what Cloudflare keeps as the host (aggregate analytics and the request logs `observability` in `wrangler.jsonc`
    turns on) and which other services the pages reach (GitHub's API, cdnjs). Keep them true: a new third-party
-   script, a form or an analytics snippet means updating the page, and the CSP blocks a snippet anyway.
+   script, a form or an analytics snippet means updating the page. The CSP only limits where scripts may come from
+   (the site itself and cdnjs, nothing inline); it is no guarantee about what an allowed script does.
 
 Rules the tests enforce:
 
