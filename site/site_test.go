@@ -20,11 +20,11 @@ func TestBuild(t *testing.T) {
 		t.Fatal(err)
 	}
 	all := monsters.EveryMonster()
-	want := 1 + 1 + len(all) + 1 + 31 + 1 // home, roster, monsters, course index, lessons, 404
+	want := 1 + 1 + len(all) + 1 + 31 + 1 + 1 // home, roster, monsters, course index, lessons, privacy, 404
 	if n != want {
 		t.Errorf("wrote %d pages, want %d", n, want)
 	}
-	for _, f := range []string{"index.html", "monsters/index.html", "monsters/dracula.html", "night-school/index.html", "night-school/night-31.html", "404.html", "static/style.css", "static/site.js", "assets/hero.gif", "assets/social-card.png", "sitemap.xml", "robots.txt"} {
+	for _, f := range []string{"index.html", "monsters/index.html", "monsters/dracula.html", "night-school/index.html", "night-school/night-31.html", "privacy.html", "404.html", "static/style.css", "static/site.js", "assets/hero.gif", "assets/social-card.png", "sitemap.xml", "robots.txt"} {
 		if _, err := os.Stat(filepath.Join(out, f)); err != nil {
 			t.Errorf("missing %s", f)
 		}
