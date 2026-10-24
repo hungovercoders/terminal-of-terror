@@ -185,6 +185,11 @@ func Build(cfg Config) (int, error) {
 			Data:        lessonData{Course: course, Lesson: l, Index: i},
 		})
 	}
+	b.render("privacy.html", Page{
+		Title:       "Privacy",
+		Description: "What this site collects (nothing of its own), what its host Cloudflare keeps, and the other services the pages talk to.",
+		Section:     "home",
+	})
 	b.render("404.html", Page{Title: "Technical difficulties", Section: "home"})
 
 	if b.err != nil {
@@ -224,7 +229,7 @@ func (b *builder) template(name string) (*template.Template, error) {
 // render executes templates/<kind>.html inside the base layout and writes
 // the result to <out>/<rel>. The template is chosen from the page's path:
 // monsters/<id>.html uses monster.html, night-school/night-NN.html uses
-// lesson.html, and each index uses its own file.
+// lesson.html, and each index, 404.html and privacy.html use their own file.
 func (b *builder) render(rel string, p Page) {
 	if b.err != nil {
 		return
@@ -265,6 +270,8 @@ func templateFor(rel string) string {
 		return "home.html"
 	case rel == "404.html":
 		return "404.html"
+	case rel == "privacy.html":
+		return "privacy.html"
 	case rel == "monsters/index.html":
 		return "roster.html"
 	case strings.HasPrefix(rel, "monsters/"):

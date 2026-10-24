@@ -1,0 +1,28 @@
+{{define "content"}}
+<article class="prose">
+  <p class="kicker">Channel 13 · The small print</p>
+  <h1>Privacy</h1>
+  <p class="host-line">📺 <em>"I watch a great many things from beyond the static. You are not one of them."</em></p>
+
+  <h2>What this site collects</h2>
+  <p>Nothing of its own. There are no accounts, no forms, no cookies and no analytics or tracking scripts. The site is a set of static pages, and its <a href="{{.Site.Repo}}/blob/main/public/_headers">Content-Security-Policy</a> stops any script that isn't part of the site from running, so that stays true.</p>
+
+  <h2>Hosting</h2>
+  <p>The pages are served by <a href="https://www.cloudflare.com/">Cloudflare</a>. Like any host, Cloudflare processes your IP address and browser details to deliver each page, and it keeps aggregate traffic statistics (how many requests, from which countries, with which status codes) and short-lived request logs that the maintainers use to keep the site working. Cloudflare's handling of that data is described in its <a href="https://www.cloudflare.com/privacypolicy/">privacy policy</a>. Nothing from it is combined with anything else or used to identify you.</p>
+
+  <h2>Other services the pages talk to</h2>
+  <ul>
+    <li><strong>GitHub.</strong> The home page asks GitHub's public API which release is newest so the install instructions can name it, and links throughout go to the repository. GitHub has its <a href="https://docs.github.com/en/site-policy/privacy-policies/github-general-privacy-statement">own privacy statement</a>.</li>
+    <li><strong>cdnjs.</strong> The Night School lessons load their code highlighter from cdnjs, a Cloudflare service; the files are pinned by hash.</li>
+    <li>Fonts are served from this site, not from a font service.</li>
+  </ul>
+
+  <h2>The program itself</h2>
+  <p><code>terminal-of-terror</code> makes no network requests. Your quiz scores, captured monsters and badges live in one JSON file in your own config directory (<code>terminal-of-terror crypt</code> prints where), and <code>crypt reset</code> deletes it.</p>
+
+  <h2>Questions</h2>
+  <p>Open an issue on <a href="{{.Site.Repo}}/issues">GitHub</a>. This page was last checked against the site's configuration on 24 October 2026.</p>
+
+  <p class="cta-row"><a class="btn ghost" href="{{.Root}}index.html">Back to Channel 13</a></p>
+</article>
+{{end}}
