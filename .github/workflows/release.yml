@@ -48,7 +48,7 @@ jobs:
             echo "::error::HOMEBREW_TAP_GITHUB_TOKEN is not set: add a fine-grained PAT with contents write on hungovercoders/homebrew-tap as an organisation or repository secret"
             exit 1
           fi
-      - uses: actions/checkout@v4
+      - uses: actions/checkout@v7
         with:
           fetch-depth: 0
 
