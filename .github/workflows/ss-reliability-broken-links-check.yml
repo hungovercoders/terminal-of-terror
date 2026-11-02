@@ -59,32 +59,13 @@ jobs:
         uses: ./.github/actions/ss-setup
 
       - name: Install dependencies
-        timeout-minutes: 12
-        run: |
-          for attempt in 1 2; do
-            if timeout --kill-after=30s 5m npm ci; then
-              exit 0
-            fi
-            echo "::warning::npm ci attempt ${attempt} failed or timed out"
-          done
-          echo "::error::npm ci failed twice"
-          echo "If this persists, check the runner's network."
-          exit 1
+        run: npm ci
 
       - name: Install Playwright browsers
-        # A stalled browser download otherwise holds the job until GitHub's
-        # six-hour limit. Each attempt gets five minutes and a stall is
-        # retried once; the step timeout bounds both attempts.
+        # Chromium, cached per Playwright version. Composite steps carry no
+        # timeout, so the bound over both download attempts sits here.
+        uses: ./.github/actions/ss-playwright
         timeout-minutes: 12
-        run: |
-          for attempt in 1 2; do
-            if timeout --kill-after=30s 5m npx playwright install --with-deps chromium; then
-              exit 0
-            fi
-            echo "::warning::Playwright browser install attempt ${attempt} failed or stalled after 5 minutes"
-          done
-          echo "::error::Playwright browser install failed twice. Re-run the job; if it keeps failing, check the runner's network."
-          exit 1
 
       - name: Determine check URL
         id: url
@@ -139,8 +120,9 @@ jobs:
       - name: Run broken-link checks
         env:
           BROKEN_LINKS_PAGES: ${{ env.BROKEN_LINKS_PAGES }}
+          TARGET_URL: ${{ steps.url.outputs.url }}
         id: links
-        run: task ss:reliability:broken-links -- ${{ steps.url.outputs.url }} --ci
+        run: task ss:reliability:broken-links -- "$TARGET_URL" --ci
 
       - name: Stop local server
         if: always() && steps.url.outputs.use_local == 'true'
@@ -148,7 +130,7 @@ jobs:
 
       - name: Upload report
         if: always()
-        uses: actions/upload-artifact@043fb46d1a93c77aae656e7c1c64a875d1fc6a0a # v7.0.1
+        uses: actions/upload-artifact@cf430e030ddbb5b0abf93d22962f4752f3646cd9 # v7.0.2
         with:
           name: broken-link-report-${{ github.run_id }}
           path: |

@@ -4,7 +4,7 @@
 
 ## Step 4: Post-install configuration
 
-The installer seeds a `.slopstopper.yml` config file at the repo root (if one doesn't exist yet) plus sensible defaults for `.github/labeler.yml`, `public/_headers` (commented baseline), `.zap/rules.tsv` (common false positives commented), and appends a `.gitignore` block for `.ss/reports/`, `node_modules/` and friends. None of those overwrite existing files, except that the `.gitignore` block between its markers is refreshed on every run. The rest of post-install is editing `.slopstopper.yml` to point the dynamic checks at the right URLs and tuning a few knobs.
+The installer seeds a `.slopstopper.yml` config file at the repo root (if one doesn't exist yet) plus sensible defaults for `.github/labeler.yml`, `.github/dependency-review-config.yml` (the licence allowlist the dependency review enforces), `public/_headers` (commented baseline), `.zap/rules.tsv` (common false positives commented), and appends a `.gitignore` block for `.ss/reports/`, `node_modules/` and friends. None of those overwrite existing files, except that the `.gitignore` block between its markers is refreshed on every run. The rest of post-install is editing `.slopstopper.yml` to point the dynamic checks at the right URLs and tuning a few knobs.
 
 ### Confirm the profile
 
@@ -107,6 +107,7 @@ hygiene:
     exclude: []              # extra globs to skip; test files and gitignored paths already are
   docs_accuracy:
     extra_paths: []          # (default) globs outside docs/ to scan too, e.g. [app/*.html, .claude/skills/**/*.md]
+    ignore_refs: []          # (default) backtick paths never on disk: run-time or generated files, e.g. [.apic/*]
   docs_structure:
     require_routed_docs: true   # (default) every doc has an explicit route from AGENTS.md, the map or a README above it
     max_route_depth: 3          # (default) AGENTS.md → map → directory README → doc
