@@ -20,8 +20,8 @@ name: SlopStopper · Cloudflare Deployed Checks
 # path with a bare "Not found" carrying none of the site's headers, which
 # ZAP's 404 probes always flag.
 #
-# install.sh ships this only when the repo has wrangler config or a
-# worker/ directory. Docs: docs/deployment/README.md.
+# install.sh ships this only when the repo has wrangler config (at the
+# root or one directory down) or a worker/ directory. Docs: docs/deployment/README.md.
 
 on:
   check_run:
@@ -79,7 +79,7 @@ jobs:
               echo "::notice::#$pr comes from a fork ($pr_owner), whose branch gh workflow run can't target, so its preview isn't checked."
               exit 0
             fi
-            # The bot's comment is a table with one row per deployed commit.
+            # The bot's comment is a table (HTML or Markdown) with one row per deployed commit.
             # It can land a little after the check run completes, so retry.
             url=""
             for attempt in 1 2 3 4 5 6; do
@@ -96,7 +96,11 @@ jobs:
               exit 0
             fi
           fi
-          [[ "$url" =~ ^https?://[^[:space:][:cntrl:]]+$ ]] || { echo "::error::Invalid URL format: $url"; exit 1; }
+          if ! python -c 'import sys; from urllib.parse import urlsplit; value=sys.argv[1]; parsed=urlsplit(value); parsed.port; sys.exit(not (parsed.scheme in ("http", "https") and parsed.hostname and not any(char.isspace() for char in value)))' "$url" 2>/dev/null
+          then
+            echo "::error::Invalid URL format"
+            exit 1
+          fi
           echo "Deployed ${SHA:0:7} on $BRANCH to $url"
           {
             echo "url=$url"
@@ -139,11 +143,14 @@ jobs:
             ss-hygiene-openapi-check.yml
           )
           [ "$PRODUCTION" = "true" ] && checks+=(ss-security-dast-check.yml)
-          disabled="$(slopstopper profile disabled)"
+          # Matched in the shell: a pipe into `grep -q` under the runner's
+          # pipefail can report a listed workflow as absent.
+          nl=$'\n'
+          disabled="$nl$(slopstopper profile disabled)$nl"
           failed=0
           for wf in "${checks[@]}"; do
             [ -f ".github/workflows/$wf" ] || continue
-            if printf '%s\n' "$disabled" | grep -Fxq "$wf"; then
+            if [[ "$disabled" == *"$nl$wf$nl"* ]]; then
               echo "· $wf is disabled for this repo, so not dispatched"
               continue
             fi

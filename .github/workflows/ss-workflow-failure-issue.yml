@@ -14,6 +14,7 @@ on:
       - "SlopStopper · Documentation Size Monitor"
       - "SlopStopper · Hygiene - Documentation Structure Check"
       - "SlopStopper · Hygiene - Entry-File Budget Check"
+      - "SlopStopper · Hygiene - Privacy Statement Check"
       - "SlopStopper · OpenAPI Drift Check"
       - "SlopStopper · Hygiene - Auto Label PRs"
       - "SlopStopper · Accessibility Check"
@@ -32,6 +33,7 @@ on:
       - "SlopStopper · SAST Analysis"
       - "SlopStopper · Secrets Detection"
       - "SlopStopper · Dependency Vulnerability Scan"
+      - "SlopStopper · Licence Inventory"
       - "SlopStopper · Dependency review"
       - "SlopStopper · Hygiene - Documentation Updater"
       - "SlopStopper · Cloudflare Deployed Checks"
@@ -114,6 +116,14 @@ jobs:
             );
 
             if (existingIssue) {
+              // Issues opened before the label existed get it here, so the
+              // long-lived ones are the ones `--label slopstopper` finds too.
+              await github.rest.issues.addLabels({
+                owner: context.repo.owner,
+                repo: context.repo.repo,
+                issue_number: existingIssue.number,
+                labels: ['slopstopper']
+              });
               await github.rest.issues.createComment({
                 owner: context.repo.owner,
                 repo: context.repo.repo,
@@ -127,12 +137,15 @@ jobs:
                 ].join('\n')
               });
             } else {
+              // `workflow-failure` is what this workflow finds its own issues
+              // by; `slopstopper` is what everything the suite raises carries,
+              // so `gh issue list --label slopstopper` finds these too.
               await github.rest.issues.create({
                 owner: context.repo.owner,
                 repo: context.repo.repo,
                 title: title,
                 body: body,
-                labels: [label]
+                labels: [label, 'slopstopper']
               });
             }
 
