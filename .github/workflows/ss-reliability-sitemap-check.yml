@@ -89,10 +89,12 @@ jobs:
 
       - name: Run sitemap audit
         id: audit
+        env:
+          TARGET_URL: ${{ steps.url.outputs.url }}
         # The check rebases every sitemap/llms `<loc>` onto the audited origin,
         # so it works the same against a localhost build or a deployed URL and
         # never HEADs the production domain from a local run.
-        run: task ss:reliability:sitemap -- ${{ steps.url.outputs.url }}
+        run: task ss:reliability:sitemap -- "$TARGET_URL"
 
       - name: Stop local server
         if: steps.url.outputs.use_local == 'true' && always()
@@ -100,7 +102,7 @@ jobs:
 
       - name: Upload sitemap report
         if: always()
-        uses: actions/upload-artifact@043fb46d1a93c77aae656e7c1c64a875d1fc6a0a # v7.0.1
+        uses: actions/upload-artifact@cf430e030ddbb5b0abf93d22962f4752f3646cd9 # v7.0.2
         with:
           name: sitemap-report-${{ github.run_id }}
           path: .ss/reports/sitemap/

@@ -20,7 +20,7 @@ Run the two static aggregates first. They cover every static workflow that ships
 
 ```bash
 npm install                  # pulls merged devDeps once
-task ss:hygiene:test         # docs-size + docs-structure + docs-accuracy + entry-files + csp-exceptions + complexity
+task ss:hygiene:test         # docs-size + docs-structure + docs-accuracy + entry-files + csp-exceptions + privacy + complexity
 task ss:security:scan        # SAST + secrets + dependency CVEs + DAST (DAST needs a URL; skip or run it after Pass B)
 ```
 
@@ -30,12 +30,14 @@ Or invoke each shim individually:
 task ss:security:secrets           # Gitleaks (fast, usually surfaces something)
 task ss:security:sast              # Semgrep
 task ss:security:vulnerability:all # Trivy (CVE scan of dependencies)
+task ss:security:licences          # every resolved dependency's licence against .github/dependency-review-config.yml (no tool)
 task ss:hygiene:complexity         # lizard
 task ss:hygiene:docs-accuracy      # repo-relative link resolver
 task ss:hygiene:docs-structure     # every doc under docs/ has an explicit route
 task ss:hygiene:docs-size          # docs/ size budget
 task ss:hygiene:entry-files        # token budgets + explicit routes on AGENTS.md / README.md / CLAUDE.md / the map
 task ss:hygiene:csp-exceptions     # if headers.source is configured
+task ss:hygiene:privacy            # ui repos with hosting config: the privacy page names the host and every CSP origin
 ```
 
 For each failure: fix the root cause locally, re-run **just that one check** to confirm, and only move on once green. Anticipated issues during Pass A are covered in `slopstopper-triage`.
@@ -92,6 +94,14 @@ Don't try to fix everything yourself inside this skill. Hand off, fix the one ch
 ## Step 8: Push and watch the confirmation pass
 
 After Step 7's local loop is fully green, push to a PR branch. CI should mirror what you saw locally.
+
+Before the push, confirm the repo is discoverable as an adopter. The installer adds the `slopstopper` topic when `gh` can reach the repo; on a fresh repo with no remote yet it can't, so check and add it now:
+
+```bash
+gh repo view --json repositoryTopics --jq '.repositoryTopics[].name' | grep -qx slopstopper || gh repo edit --add-topic slopstopper
+```
+
+The `slopstopper` label on issues and PRs needs no setup: every workflow that raises one creates it on first use.
 
 A few checks are CI-only by design (Dependency Review needs GHAS or Dependency Graph; auto-label-pr needs `.github/labeler.yml`). If they fail on the first CI run, hand them to the **`slopstopper-triage`** skill, whose check-by-check table covers them alongside the local checks.
 
