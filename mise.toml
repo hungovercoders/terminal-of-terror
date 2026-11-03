@@ -1,5 +1,5 @@
 [tools]
 go = "1.25.0"
 node = "22"
-"pipx:slopstopper-cli" = "0.28.0"
+"pipx:slopstopper-cli" = "0.29.0"
 task = "3"
