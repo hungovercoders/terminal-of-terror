@@ -30,8 +30,12 @@ updates:
   # ci.yml and release.yml pin actions by major tag; this keeps them current.
   # The ss-*.yml workflows are copied in by slopstopper's installer, pins
   # included, so a bump there is merged upstream and arrives on refresh.
+  # exclude-paths keeps Dependabot off them: the next refresh overwrites
+  # any bump it makes there.
   - package-ecosystem: github-actions
     directory: /
+    exclude-paths:
+      - ".github/workflows/ss-*.yml"
     schedule:
       interval: weekly
     commit-message:
