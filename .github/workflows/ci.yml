@@ -17,7 +17,7 @@ jobs:
     name: Format, vet and tidy
     runs-on: ubuntu-latest
     steps:
-      - uses: actions/checkout@v4
+      - uses: actions/checkout@v7
       - uses: actions/setup-go@v5
         with:
           go-version-file: go.mod
@@ -57,7 +57,7 @@ jobs:
       # Keep progress and community packs out of the runner's real config dir.
       TERMINAL_OF_TERROR_HOME: ${{ github.workspace }}/.tot-home
     steps:
-      - uses: actions/checkout@v4
+      - uses: actions/checkout@v7
       - uses: actions/setup-go@v5
         with:
           go-version-file: go.mod
