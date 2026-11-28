@@ -7,11 +7,11 @@
   },
   "license": "MIT",
   "devDependencies": {
-    "@axe-core/playwright": "^4.14.0",
+    "@axe-core/playwright": "^4.14.1",
     "@lhci/cli": "^0.16.1",
     "@playwright/test": "^1.65.1",
-    "wrangler": "^4.164.0",
-    "markdownlint-cli": "^0.50.0"
+    "wrangler": "^4.168.0",
+    "markdownlint-cli": "^0.50.1"
   },
   "overrides": {
     "tmp": "^0.2.7",
